@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<izvestaj_o_imunizaciji od="2021-08-01" do="2021-09-01" datum_izdavanja="2021-09-11">
+    <podneto_dokumenata_o_interesovanju>2758</podneto_dokumenata_o_interesovanju>
+    <primljeno_zahteva_za_sertifikat>453</primljeno_zahteva_za_sertifikat>
+    <izdato_zahteva_za_sertifikat>428</izdato_zahteva_za_sertifikat>
+    <date_doze_vakcina>
+        <doza>
+            <redni_broj>1</redni_broj>
+            <broj_datih_doza>1789</broj_datih_doza>
+        </doza>
+        <doza>
+            <redni_broj>2</redni_broj>
+            <broj_datih_doza>1276</broj_datih_doza>
+        </doza>
+        <doza>
+            <redni_broj>3</redni_broj>
+            <broj_datih_doza>160</broj_datih_doza>
+        </doza>
+    </date_doze_vakcina>
+    <raspodela_po_proizvodjacima>
+        <stavka>
+            <proizvodjac>Pfizer</proizvodjac>
+            <broj_doza>1625</broj_doza>
+        </stavka>
+        <stavka>
+            <proizvodjac>Sinopharm</proizvodjac>
+            <broj_doza>1100</broj_doza>
+        </stavka>
+        <stavka>
+            <proizvodjac>Sputnik V</proizvodjac>
+            <broj_doza>356</broj_doza>
+        </stavka>
+        <stavka>
+            <proizvodjac>AstraZeneca, Oxford</proizvodjac>
+            <broj_doza>144</broj_doza>
+        </stavka>
+    </raspodela_po_proizvodjacima>
+</izvestaj_o_imunizaciji>

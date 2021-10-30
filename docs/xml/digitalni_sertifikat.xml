@@ -1,4 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<digitalni_sertifikat id="123456" datum_vreme_izdavanja="21.20.2021.">
-    
+<digitalni_sertifikat broj_sertifikata="123456" datum_vreme_izdavanja="2021-10-22">
+    <licne_informacije>
+        <ime>Pera</ime>
+        <prezime>Peric</prezime>
+        <pol>Musko</pol>
+        <datum_rodjenja>1980-10-10</datum_rodjenja>
+        <jmbg>12345678</jmbg>
+        <broj_pasosa></broj_pasosa>
+    </licne_informacije>
+    <vakcinacija>
+        <doza>
+            <broj_doze>1</broj_doze>
+            <tip>Pfizer-BioNTech</tip>
+            <proizvodjac>BIONTECH MANUFACTURING GMBH</proizvodjac>
+            <serija>42</serija>
+            <datum>2021-01-01</datum>
+            <zdravstvena_ustanova>KCV</zdravstvena_ustanova>
+        </doza>
+        <doza>
+            <broj_doze>2</broj_doze>
+            <tip>Pfizer-BioNTech</tip>
+            <proizvodjac>BIONTECH MANUFACTURING GMBH</proizvodjac>
+            <serija>42</serija>
+            <datum>2021-01-01</datum>
+            <zdravstvena_ustanova>KCV</zdravstvena_ustanova>
+        </doza>
+    </vakcinacija>
+    <testovi>
+        <test>
+            <naziv>SARS-CoV-2 RT</naziv>
+            <opis>Real-time PCR</opis>
+            <vrsta_uzorka>N/A</vrsta_uzorka>
+            <proizvodjac_testa>N/A</proizvodjac_testa>
+            <datum_i_vreme_uzorkovanja>2021-08-20</datum_i_vreme_uzorkovanja>
+            <datum_i_vreme_rezultata>2021-08-23</datum_i_vreme_rezultata>
+            <rezultat>N/A</rezultat>
+            <laboratorija>N/A</laboratorija>
+        </test>
+        <test>
+            <naziv>SARS-CoV-2 Ag-RDT</naziv>
+            <opis>Antigen Rapid Detection test</opis>
+            <vrsta_uzorka>N/A</vrsta_uzorka>
+            <proizvodjac_testa>N/A</proizvodjac_testa>
+            <datum_i_vreme_uzorkovanja>2021-08-20</datum_i_vreme_uzorkovanja>
+            <datum_i_vreme_rezultata>2021-08-23</datum_i_vreme_rezultata>
+            <rezultat>N/A</rezultat>
+            <laboratorija>N/A</laboratorija>
+        </test>
+        <test>
+            <naziv>SARS-CoV-2 RBD S-Protein</naziv>
+            <opis>Immunoglobulin G (IgG) test</opis>
+            <vrsta_uzorka>N/A</vrsta_uzorka>
+            <proizvodjac_testa>N/A</proizvodjac_testa>
+            <datum_i_vreme_uzorkovanja>2021-08-20</datum_i_vreme_uzorkovanja>
+            <datum_i_vreme_rezultata>2021-08-23</datum_i_vreme_rezultata>
+            <rezultat>N/A</rezultat>
+            <laboratorija>N/A</laboratorija>
+        </test>
+    </testovi>
+    <informacije_o_sertifikatu>
+        <qr_kod>123456789123456789123456789123456789</qr_kod>
+        <izdavac_sertifikata jezik="sr">Institut za javno zdravlje Srbije "Dr Milan Jovanovic Batut"</izdavac_sertifikata>
+        <izdavac_sertifikata jezik="en">Institute of Public Health of Serbia "Dr Milan Jovanovic Batut"</izdavac_sertifikata>
+        <digitalni_potpis>
+            <drzava>Republika Srbija</drzava>
+            <institucija>
+                <naziv>Vlada Republike Srbije</naziv>
+                <kancelarija>Kancelarija za informacione tehnologije i elektronsku upravu</kancelarija>
+                <adresa>
+                    <ulica>Nemanjina</ulica>
+                    <broj_zgrade>11</broj_zgrade>
+                    <grad>Beograd</grad>
+                </adresa>
+            </institucija>
+            <datum>2021-05-12</datum>
+        </digitalni_potpis>
+    </informacije_o_sertifikatu>
 </digitalni_sertifikat>
