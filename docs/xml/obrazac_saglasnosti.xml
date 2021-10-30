@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saglasnost_za_sprovodjenje_preporucene_imunizacija datum="2021-03-11">
+    <pacijent>
+        <licne_informacije>
+            <drzavljanstvo>
+                <srpski_drzavljanin>
+                   <jmbg>xxxxxxxxxxxxx</jmbg>
+                </srpski_drzavljanin>
+                <strani_drzavljanin>
+                   <naziv_drzave>Nemacka</naziv_drzave>
+                   <broj_pasosa>xxxxxxxx</broj_pasosa>
+                </strani_drzavljanin>
+            </drzavljanstvo>
+            <puno_ime>
+                <ime>Ivan</ime>
+                <prezime>Mrsulja</prezime>
+                <ime_roditelja>Radomir</ime_roditelja>
+            </puno_ime>
+            <adresa>
+                <ulica>Ulica</ulica>
+                <broj_zgrade>23</broj_zgrade>
+                <mesto>Novi Sad</mesto>
+                <opstina>Novi Sad</opstina>
+            </adresa>
+            <kontakt>
+                <fiksni_telefon>546342</fiksni_telefon>
+                <mobilni_telefon>063036456</mobilni_telefon>
+                <email>email@email.com</email>
+            </kontakt>
+            <radni_status>zaposlen</radni_status>
+            <zanimanje_zaposlenog>Vojska RS</zanimanje_zaposlenog>
+            <socijalna_zastita>
+                <korisnik>DA</korisnik>
+                <naziv_opstine_sedista>Novi Sad</naziv_opstine_sedista>
+            </socijalna_zastita>       
+        </licne_informacije>
+        <saglasnost>
+            <izjava>SAGLASAN SAM</izjava>
+            <naziv_imunoloskog_leka>SpikeVaxx</naziv_imunoloskog_leka>
+        </saglasnost>
+    </pacijent>
+    <vakcinacija>
+        <zdravstvena_ustanova>
+            <naziv>Dom zdravlja Novi Sad</naziv>
+            <punkt>Punkt 1</punkt>
+        </zdravstvena_ustanova>
+        <lekar>
+            <ime>Pera</ime>
+            <prezime>Peric</prezime>
+            <faximil>xxxxxxxx</faximil>
+            <telefon>060986438</telefon>
+        </lekar>
+        <vakcine>
+            <vakcina>
+                <naziv>SpikeVaxx</naziv>
+                <datum_davanja>2021-03-11</datum_davanja>
+                <nacin_davanja>IM</nacin_davanja>
+                <ekstremitet>DR</ekstremitet>
+                <serija>12343456</serija>
+                <proizvodjac>Moderna</proizvodjac>
+                <nuspojava>Nema</nuspojava>
+            </vakcina>
+            <vakcina>
+                <naziv>SpikeVaxx</naziv>
+                <datum_davanja>2021-04-01</datum_davanja>
+                <nacin_davanja>IM</nacin_davanja>
+                <ekstremitet>DR</ekstremitet>
+                <serija>12343456</serija>
+                <proizvodjac>Moderna</proizvodjac>
+                <nuspojava>Malaksalost</nuspojava>
+            </vakcina>
+        </vakcine>
+        <privremene_kontraindikacije>
+            <kontraindikacija>
+                <datum_utvrdjivanja>2021-04-11</datum_utvrdjivanja>
+                <dijagnoza>Malaksalost</dijagnoza>
+            </kontraindikacija>
+        </privremene_kontraindikacije>
+        <odluka_komisije_za_trajne_kontraindikacije>NE</odluka_komisije_za_trajne_kontraindikacije>   
+    </vakcinacija>
+</saglasnost_za_sprovodjenje_preporucene_imunizacija>
