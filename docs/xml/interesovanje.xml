@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interesovanje datum="2021-06-22">
+    <licne_informacije>
+        <drzavljanstvo>Drzavljanin Republike Srbije</drzavljanstvo>
+        <jmbg>4242424242424</jmbg>
+        <ime>Jakov</ime>
+        <prezime>Matic</prezime>
+        <kontakt>
+            <email>jakovmatic@yahoo.com</email>
+            <broj_mobilnog>06042424242</broj_mobilnog>
+            <broj_fiksnog>021424242</broj_fiksnog>
+        </kontakt>
+        <davalac_krvi></davalac_krvi>
+    </licne_informacije>
+    <odabrana_lokacija_primanja_vakcine>KCV</odabrana_lokacija_primanja_vakcine>
+    <odabir_proizvodjaca>
+        <proizvodjac odabran="false">Pfizer-BioNTech</proizvodjac>
+        <proizvodjac odabran="false">Sputnik V (Gamaleya istrazivacki centar)</proizvodjac>
+        <proizvodjac odabran="false">Sinopharm</proizvodjac>
+        <proizvodjac odabran="false">AstraZeneca</proizvodjac>
+        <proizvodjac odabran="false">Moderna</proizvodjac>
+        <proizvodjac odabran="false">Bilo koja</proizvodjac>
+    </odabir_proizvodjaca>
+</interesovanje>

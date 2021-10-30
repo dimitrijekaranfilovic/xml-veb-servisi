@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zahtev_za_sertifikat mesto="Novi Sad" datum="2021-06-22">
+    <podnosilac_zahteva>
+        <ime>Vidoje</ime>
+        <prezime>Gavrilovic</prezime>
+        <pol>Musko</pol>
+        <jmbg>1231231231231</jmbg>
+        <broj_pasosa>42</broj_pasosa>
+    </podnosilac_zahteva>
+    <razlog_za_podnosenje_zahteva>Gradjanska duznost</razlog_za_podnosenje_zahteva>
+</zahtev_za_sertifikat>
