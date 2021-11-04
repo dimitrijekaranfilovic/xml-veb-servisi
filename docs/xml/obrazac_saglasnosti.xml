@@ -30,7 +30,7 @@
             <radni_status>zaposlen</radni_status>
             <zanimanje_zaposlenog>Vojska RS</zanimanje_zaposlenog>
             <socijalna_zastita>
-                <korisnik>DA</korisnik>
+                <korisnik>true</korisnik>
                 <naziv_opstine_sedista>Novi Sad</naziv_opstine_sedista>
             </socijalna_zastita>       
         </licne_informacije>
@@ -52,6 +52,7 @@
         </lekar>
         <vakcine>
             <vakcina>
+                <broj_doze>1</broj_doze>
                 <naziv>SpikeVaxx</naziv>
                 <datum_davanja>2021-03-11</datum_davanja>
                 <nacin_davanja>IM</nacin_davanja>
@@ -61,6 +62,7 @@
                 <nuspojava>Nema</nuspojava>
             </vakcina>
             <vakcina>
+                <broj_doze>2</broj_doze>
                 <naziv>SpikeVaxx</naziv>
                 <datum_davanja>2021-04-01</datum_davanja>
                 <nacin_davanja>IM</nacin_davanja>
@@ -76,6 +78,6 @@
                 <dijagnoza>Malaksalost</dijagnoza>
             </kontraindikacija>
         </privremene_kontraindikacije>
-        <odluka_komisije_za_trajne_kontraindikacije>NE</odluka_komisije_za_trajne_kontraindikacije>   
+        <odluka_komisije_za_trajne_kontraindikacije>false</odluka_komisije_za_trajne_kontraindikacije>   
     </vakcinacija>
 </saglasnost_za_sprovodjenje_preporucene_imunizacija>

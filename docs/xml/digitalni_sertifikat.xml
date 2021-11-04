@@ -59,20 +59,9 @@
         </test>
     </testovi>
     <informacije_o_sertifikatu>
-        <qr_kod>123456789123456789123456789123456789</qr_kod>
-        <izdavac_sertifikata jezik="sr">Institut za javno zdravlje Srbije "Dr Milan Jovanovic Batut"</izdavac_sertifikata>
-        <izdavac_sertifikata jezik="en">Institute of Public Health of Serbia "Dr Milan Jovanovic Batut"</izdavac_sertifikata>
+        <qr_kod>URL pa front da napravi QR kod</qr_kod>
         <digitalni_potpis>
             <drzava>Republika Srbija</drzava>
-            <institucija>
-                <naziv>Vlada Republike Srbije</naziv>
-                <kancelarija>Kancelarija za informacione tehnologije i elektronsku upravu</kancelarija>
-                <adresa>
-                    <ulica>Nemanjina</ulica>
-                    <broj_zgrade>11</broj_zgrade>
-                    <grad>Beograd</grad>
-                </adresa>
-            </institucija>
             <datum>2021-05-12</datum>
         </digitalni_potpis>
     </informacije_o_sertifikatu>

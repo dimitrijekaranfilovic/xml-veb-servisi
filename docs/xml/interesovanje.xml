@@ -12,8 +12,8 @@
         </kontakt>
         <davalac_krvi></davalac_krvi>
     </licne_informacije>
-    <odabrana_lokacija_primanja_vakcine>KCV</odabrana_lokacija_primanja_vakcine>
-    <odabir_proizvodjaca>
+    <odabrana_lokacija_primanja_vakcine>string</odabrana_lokacija_primanja_vakcine>
+    <odabir_proizvodjaca> <!-- moze biti i lista proizvodjaca koji su izabrani -->
         <proizvodjac odabran="false">Pfizer-BioNTech</proizvodjac>
         <proizvodjac odabran="false">Sputnik V (Gamaleya istrazivacki centar)</proizvodjac>
         <proizvodjac odabran="false">Sinopharm</proizvodjac>

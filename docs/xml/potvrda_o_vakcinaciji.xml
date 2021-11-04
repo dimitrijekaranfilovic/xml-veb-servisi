@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<potvrda_o_vakcinaciji sifra_potvrde="1234" izdaje="Batut" datum_izdavanja="2021-10-20">
-    <qr_kod>jvdsahavsdjva</qr_kod>
+<potvrda_o_vakcinaciji sifra_potvrde="1234" datum_izdavanja="2021-10-20">
+    <qr_kod>URL pa front da napravi QR kod</qr_kod>
     <licne_informacije>
         <ime>Pera</ime>
         <prezime>Peric</prezime>
