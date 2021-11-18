@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<potvrda_o_vakcinaciji xmlns="https://www.bilgejc.rs/potvrda_o_vakcinaciji"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.bilgejc.rs/potvrda_o_vakcinaciji ../xsd/potvrda_o_vakcinaciji.xsd" 
+    xmlns:za="https://www.bilgejc.rs/zajednicko"
+    sifra_potvrde="1234" 
+    datum_izdavanja="2021-10-10">
+    <qr_kod></qr_kod>
+    <licne_informacije>
+        <za:ime></za:ime>
+        <za:prezime></za:prezime>
+        <pol>musko</pol>
+        <za:jmbg>1811999123456</za:jmbg>
+    </licne_informacije>
+    <vakcinacija>
+        <ustanova></ustanova>
+        <naziv_vakcine></naziv_vakcine>
+        <doze>
+            <doza>
+                <za:broj_doze>1</za:broj_doze>
+                <za:datum_davanja>2021-06-06</za:datum_davanja>
+                <za:broj_serije>ABCDE</za:broj_serije>
+            </doza>
+        </doze>
+    </vakcinacija>
+</potvrda_o_vakcinaciji>

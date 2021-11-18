@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://www.bilgejc.rs/potvrda_o_vakcinaciji"
+    xmlns="https://www.bilgejc.rs/potvrda_o_vakcinaciji"
+    xmlns:za="https://www.bilgejc.rs/zajednicko">
+    <xs:import namespace="https://www.bilgejc.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    <xs:element name="potvrda_o_vakcinaciji">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="qr_kod" type="za:TOgraniceni_string"/>
+                <xs:element name="licne_informacije" type="TLicne_informacije"/>
+                <xs:element name="vakcinacija">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ustanova" type="za:TOgraniceni_string"/>
+                            <xs:element name="naziv_vakcine" type="za:TOgraniceni_string"/>
+                            <xs:element name="doze">
+                                <xs:complexType>
+                                    <xs:sequence maxOccurs="unbounded">
+                                        <xs:element name="doza" type="za:TDoza"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="sifra_potvrde" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="250"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="datum_izdavanja" type="xs:date" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TLicne_informacije">
+        <xs:complexContent>
+            <xs:extension base="za:TIme_prezime">
+                <xs:sequence>
+                    <xs:element name="pol">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="musko"/>
+                                <xs:enumeration value="zensko"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element ref="za:jmbg"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
