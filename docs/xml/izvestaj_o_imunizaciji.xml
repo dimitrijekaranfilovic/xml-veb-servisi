@@ -4,18 +4,18 @@
     <primljeno_zahteva_za_sertifikat>453</primljeno_zahteva_za_sertifikat>
     <izdato_zahteva_za_sertifikat>428</izdato_zahteva_za_sertifikat>
     <date_doze_vakcina>
-        <doza>
+        <data_doza>
             <redni_broj>1</redni_broj>
             <broj_datih_doza>1789</broj_datih_doza>
-        </doza>
-        <doza>
+        </data_doza>
+        <data_doza>
             <redni_broj>2</redni_broj>
             <broj_datih_doza>1276</broj_datih_doza>
-        </doza>
-        <doza>
+        </data_doza>
+        <data_doza>
             <redni_broj>3</redni_broj>
             <broj_datih_doza>160</broj_datih_doza>
-        </doza>
+        </data_doza>
     </date_doze_vakcina>
     <raspodela_po_proizvodjacima>
         <stavka>
