@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://www.bigejc.rs/saglasnost" xmlns="https://www.bigejc.rs/saglasnost"
+    xmlns:za="https://www.bilgejc.rs/zajednicko">
+
+    <xs:import id="za" namespace="https://www.bilgejc.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    <xs:element name="saglasnost_za_sprovodjene_preporucene_imunizacije">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="pacijent"/>
+                <xs:element ref="vakcinacija"/>
+            </xs:sequence>
+            <xs:attribute name="datum" type="xs:date" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pacijent">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="licne_informacije">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="drzavljanstvo" type="TDrzavljanstvo"/>
+                            <xs:element name="puno_ime" type="TPuno_ime"/>
+                            <xs:element name="adresa" type="TAdresa"/>
+                            <xs:element name="kontakt" type="za:TKontakt"/>
+                            <xs:element name="radni_status">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="ZAPOSLEN"/>
+                                        <xs:enumeration value="NEZAPOSLEN"/>
+                                        <xs:enumeration value="PENZIONER"/>
+                                        <xs:enumeration value="UCENIK"/>
+                                        <xs:enumeration value="STUDENT"/>
+                                        <xs:enumeration value="DETE"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="zanimanje_zaposlenog">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="ZDRAVSTVENA_ZASTITA"/>
+                                        <xs:enumeration value="SOCIJALNA_ZASTITA"/>
+                                        <xs:enumeration value="PROSVETA"/>
+                                        <xs:enumeration value="MUP"/>
+                                        <xs:enumeration value="VOJSKA"/>
+                                        <xs:enumeration value="DRUGO"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="saglasnost" type="TSaglasnost"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="vakcinacija">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="zdravstvena_ustanova" type="TZdravstvena_ustanova"/>
+                <xs:element name="lekar" type="TLekar"/>
+                <xs:element name="vakcine">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="vakcina" type="TVakcina"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="privremene_kontraindikacije">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded" minOccurs="0">
+                            <xs:element name="kontraindikacija" type="TKontraindikacija"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="odluka_komisije_za_trajne_kontraindikacije" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TDrzavljanstvo">
+        <xs:choice>
+            <xs:element name="srpski_drzavljanin" type="TSrpski_drzavljanin"/>
+            <xs:element name="strani_drzavljanin" type="TStrani_drzavljanin"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="TSrpski_drzavljanin">
+        <xs:sequence>
+            <xs:element ref="za:jmbg"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TStrani_drzavljanin">
+        <xs:sequence>
+            <xs:element name="naziv_drzave" type="za:TOgraniceni_string"/>
+            <xs:element name="broj_pasosa" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPuno_ime">
+        <xs:complexContent>
+            <xs:extension base="za:TIme_prezime">
+                <xs:sequence>
+                    <xs:element name="ime_roditelja" type="za:TOgraniceni_string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TAdresa">
+        <xs:sequence>
+            <xs:element name="ulica" type="za:TOgraniceni_string"/>
+            <xs:element name="broj_zgrade" type="za:TOgraniceni_string"/>
+            <xs:element name="mesto" type="za:TOgraniceni_string"/>
+            <xs:element name="opstina" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TSocijalna_zastita">
+        <xs:sequence>
+            <xs:element name="korisnik" type="xs:boolean"/>
+            <xs:element name="naziv_opstine_sedista" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TSaglasnost">
+        <xs:sequence>
+            <xs:element name="izjava" type="xs:boolean"/>
+            <xs:element name="naziv_imunoloskog_leka" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TZdravstvena_ustanova">
+        <xs:sequence>
+            <xs:element name="naziv" type="za:TOgraniceni_string"/>
+            <xs:element name="punkt" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TLekar" mixed="false">
+        <xs:complexContent>
+            <xs:extension base="za:TIme_prezime">
+                <xs:sequence>
+                    <xs:element name="telefon">
+                        <xs:complexType>
+                            <xs:choice>
+                                <xs:element ref="za:broj_fiksnog"/>
+                                <xs:element ref="za:broj_mobilnog"/>
+                            </xs:choice>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TVakcina">
+        <xs:complexContent>
+            <xs:extension base="za:TDoza_detaljnije">
+                <xs:sequence maxOccurs="unbounded" minOccurs="0">
+                    <xs:element name="ekstremitet">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="LR"/>
+                                <xs:enumeration value="DR"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="nuspojava" type="za:TOgraniceni_string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TKontraindikacija">
+        <xs:sequence maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="datum_utvrdjivanja" type="xs:date"/>
+            <xs:element name="dijagnoza" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

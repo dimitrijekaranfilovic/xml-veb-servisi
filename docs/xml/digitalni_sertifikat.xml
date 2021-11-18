@@ -13,16 +13,16 @@
             <broj_doze>1</broj_doze>
             <tip>Pfizer-BioNTech</tip>
             <proizvodjac>BIONTECH MANUFACTURING GMBH</proizvodjac>
-            <serija>42</serija>
-            <datum>2021-01-01</datum>
+            <broj_serije>42</broj_serije>
+            <datum_davanja>2021-01-01</datum_davanja>
             <zdravstvena_ustanova>KCV</zdravstvena_ustanova>
         </doza>
         <doza>
             <broj_doze>2</broj_doze>
             <tip>Pfizer-BioNTech</tip>
             <proizvodjac>BIONTECH MANUFACTURING GMBH</proizvodjac>
-            <serija>42</serija>
-            <datum>2021-01-01</datum>
+            <broj_serije>42</broj_serije>
+            <datum_davanja>2021-01-01</datum_davanja>
             <zdravstvena_ustanova>KCV</zdravstvena_ustanova>
         </doza>
     </vakcinacija>

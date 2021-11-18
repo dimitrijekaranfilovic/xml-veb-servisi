@@ -12,12 +12,12 @@
         <naziv_vakcine>Pfizer-BioNTech</naziv_vakcine>
         <doze>
             <doza>
-                <broj>1</broj>
+                <broj_doze>1</broj_doze>
                 <datum_davanja>2021-09-08</datum_davanja>
                 <broj_serije>ABCDE</broj_serije>
             </doza>
             <doza>
-                <broj>2</broj>
+                <broj_doze>2</broj_doze>
                 <datum_davanja>2021-09-29</datum_davanja>
                 <broj_serije>FGHIJ</broj_serije>
             </doza>

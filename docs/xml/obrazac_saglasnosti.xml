@@ -23,8 +23,8 @@
                 <opstina>Novi Sad</opstina>
             </adresa>
             <kontakt>
-                <fiksni_telefon>546342</fiksni_telefon>
-                <mobilni_telefon>063036456</mobilni_telefon>
+                <broj_fiksnog>546342</broj_fiksnog>
+                <broj_mobilnog>063036456</broj_mobilnog>
                 <email>email@email.com</email>
             </kontakt>
             <radni_status>zaposlen</radni_status>
@@ -35,7 +35,7 @@
             </socijalna_zastita>       
         </licne_informacije>
         <saglasnost>
-            <izjava>SAGLASAN SAM</izjava>
+            <izjava>true</izjava>
             <naziv_imunoloskog_leka>SpikeVaxx</naziv_imunoloskog_leka>
         </saglasnost>
     </pacijent>
@@ -53,21 +53,21 @@
         <vakcine>
             <vakcina>
                 <broj_doze>1</broj_doze>
-                <naziv>SpikeVaxx</naziv>
+                <tip>SpikeVaxx</tip>
                 <datum_davanja>2021-03-11</datum_davanja>
                 <nacin_davanja>IM</nacin_davanja>
                 <ekstremitet>DR</ekstremitet>
-                <serija>12343456</serija>
+                <broj_serije>12343456</broj_serije>
                 <proizvodjac>Moderna</proizvodjac>
                 <nuspojava>Nema</nuspojava>
             </vakcina>
             <vakcina>
                 <broj_doze>2</broj_doze>
-                <naziv>SpikeVaxx</naziv>
+                <tip>SpikeVaxx</tip>
                 <datum_davanja>2021-04-01</datum_davanja>
                 <nacin_davanja>IM</nacin_davanja>
                 <ekstremitet>DR</ekstremitet>
-                <serija>12343456</serija>
+                <broj_serije>12343456</broj_serije>
                 <proizvodjac>Moderna</proizvodjac>
                 <nuspojava>Malaksalost</nuspojava>
             </vakcina>

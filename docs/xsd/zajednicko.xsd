@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://www.bilgejc.rs/zajednicko" xmlns="https://www.bilgejc.rs/zajednicko">
+
+    <xs:simpleType name="TOgraniceni_string">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1000"/>
+            <xs:minLength value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TEmail">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="jmbg">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="[0-9]{13}"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="broj_fiksnog">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="[0-9]{3}-[0-9]{3}-[0-9]{3,4}"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="broj_mobilnog">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="(\+[0-9]{1,3})?[0-9]{8,10}"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:complexType name="TDoza">
+        <xs:sequence>
+            <xs:element name="broj_doze" type="xs:positiveInteger"/>
+            <xs:element name="datum_davanja" type="xs:date"/>
+            <xs:element name="broj_serije" type="TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TDoza_detaljnije" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="TDoza">
+                <xs:sequence>
+                    <xs:element name="tip" type="TOgraniceni_string"/>
+                    <xs:element name="proizvodjac" type="TOgraniceni_string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TKontakt">
+        <xs:sequence>
+            <xs:element ref="broj_fiksnog"> </xs:element>
+            <xs:element ref="broj_mobilnog"> </xs:element>
+            <xs:element name="email" type="TEmail"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType abstract="true" name="TIme_prezime">
+        <xs:sequence>
+            <xs:element name="ime" type="TOgraniceni_string"/>
+            <xs:element name="prezime" type="TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

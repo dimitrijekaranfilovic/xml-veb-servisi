@@ -1,0 +1,8 @@
+https://www.bilgejc.rs/digitalni-sertifikat/{broj_sertifikata}
+https://www.bilgejc.rs/interesovanje/{id}
+https://www.bilgejc.rs/izvestaj-o-imunizaciji/{id}
+https://www.bilgejc.rs/obrazac-saglasnosti/{id}
+https://www.bilgejc.rs/potvrda-o-vakcinaciji/{sifra_potvrde}
+https://www.bilgejc.rs/zahtev-za-sertifikat/{id}
+
+* id predstavlja surogatni kljuc koji jedinstveno identifikuje dokument
