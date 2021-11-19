@@ -2,55 +2,44 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
     vc:minVersion="1.1" targetNamespace="http://xmlprojekat/interesovanje"
-    xmlns="http://xmlprojekat/interesovanje">
+    xmlns="http://xmlprojekat/interesovanje" xmlns:za="https://www.bilgejc.rs/zajednicko">
 
+    <xs:import id="za" namespace="https://www.bilgejc.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
     <xs:element name="interesovanje">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="licne_informacije">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="drzavljanstvo" type="xs:string"/>
-                            <xs:element name="jmbg">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:string">
-                                        <xs:length value="13"/>
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:element>
-                            <xs:element name="ime" type="xs:string"/>
-                            <xs:element name="prezime" type="xs:string"/>
-                            <xs:element name="kontakt">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="email" type="xs:string"/>
-                                        <xs:element default="" name="broj_mobilnog" type="xs:string"/>
-                                        <xs:element name="broj_fiksnog" type="xs:string"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                            <xs:element name="davalac_krvi" type="xs:boolean"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="odabrana_lokacija_primanja_vakcine" type="xs:string"/>
-                <xs:element name="odabir_proizvodjaca">
-                    <xs:complexType>
-                        <xs:sequence maxOccurs="1">
-                            <xs:element maxOccurs="unbounded" name="proizvodjac">
-                                <xs:complexType>
-                                    <xs:simpleContent>
-                                        <xs:extension base="xs:string">
-                                            <xs:attribute name="odabran" type="xs:boolean"/>
-                                        </xs:extension>
-                                    </xs:simpleContent>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element name="licne_informacije" type="TLicneInformacije"> </xs:element>
+                <xs:element name="odabrana_lokacija_primanja_vakcine" type="za:TOgraniceni_string"/>
+                <xs:element name="odabrani_proizvodjaci" type="TOdabraniProizvodjaci"> </xs:element>
             </xs:sequence>
             <xs:attribute name="datum" type="xs:date"/>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="TLicneInformacije">
+        <xs:sequence>
+            <xs:element name="drzavljanstvo">
+                <xs:simpleType>
+                    <xs:restriction base="za:TOgraniceni_string">
+                        <xs:enumeration value="DRZAVLJANIN_REPUBLIKE_SRBIJE"/>
+                        <xs:enumeration value="STRANI_DRZAVLJANIN_SA_BORAVKOM_U_RS"/>
+                        <xs:enumeration value="STRANI_DRZAVLJANIN_BEZ_BORAVKA_U_RS"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element ref="za:jmbg"> </xs:element>
+            <xs:element name="kontakt" type="za:TKontakt"> </xs:element>
+            <xs:element name="puno_ime" type="TPunoIme"/>
+            <xs:element name="davalac_krvi" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TOdabraniProizvodjaci">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="proizvodjac" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPunoIme">
+        <xs:complexContent>
+            <xs:extension base="za:TIme_prezime"/>
+        </xs:complexContent>
+    </xs:complexType>
 </xs:schema>

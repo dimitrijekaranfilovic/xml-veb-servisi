@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interesovanje xmlns="http://xmlprojekat/interesovanje"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:za="https://www.bilgejc.rs/zajednicko"
+    xsi:schemaLocation="http://xmlprojekat/interesovanje interesovanje.xsd">
+    <licne_informacije>
+        <drzavljanstvo>DRZAVLJANIN_REPUBLIKE_SRBIJE</drzavljanstvo>
+        <za:jmbg>1231231231231</za:jmbg>
+        <kontakt>
+            <za:broj_fiksnog>021-123-123</za:broj_fiksnog>
+            <za:broj_mobilnog >060721321</za:broj_mobilnog>
+            <za:email >marko@gmail.com</za:email>
+        </kontakt>
+        <puno_ime>
+            <za:ime>Rastko</za:ime>
+            <za:prezime>Petrovic</za:prezime>
+        </puno_ime>
+        <davalac_krvi>true</davalac_krvi>
+    </licne_informacije>
+    <odabrana_lokacija_primanja_vakcine></odabrana_lokacija_primanja_vakcine>
+    <odabrani_proizvodjaci>
+        <proizvodjac>Bilo koja</proizvodjac>
+    </odabrani_proizvodjaci>
+</interesovanje>
