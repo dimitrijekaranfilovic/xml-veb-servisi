@@ -8,7 +8,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="qr_kod" type="za:TOgraniceni_string"/>
-                <xs:element name="licne_informacije" type="TLicne_informacije"/>
+                <xs:element name="licne_informacije" type="za:TLicni_podaci"/>
                 <xs:element name="vakcinacija">
                     <xs:complexType>
                         <xs:sequence>
@@ -36,21 +36,4 @@
             <xs:attribute name="datum_izdavanja" type="xs:date" use="required"/>
         </xs:complexType>
     </xs:element>
-    <xs:complexType name="TLicne_informacije">
-        <xs:complexContent>
-            <xs:extension base="za:TIme_prezime">
-                <xs:sequence>
-                    <xs:element name="pol">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:string">
-                                <xs:enumeration value="musko"/>
-                                <xs:enumeration value="zensko"/>
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:element>
-                    <xs:element ref="za:jmbg"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
 </xs:schema>

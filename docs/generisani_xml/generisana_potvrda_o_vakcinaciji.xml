@@ -9,8 +9,8 @@
     <licne_informacije>
         <za:ime></za:ime>
         <za:prezime></za:prezime>
-        <pol>musko</pol>
-        <za:jmbg>1811999123456</za:jmbg>
+        <za:jmbg>1911999123456</za:jmbg>
+        <za:pol>MUSKO</za:pol>
     </licne_informacije>
     <vakcinacija>
         <ustanova></ustanova>
@@ -18,8 +18,8 @@
         <doze>
             <doza>
                 <za:broj_doze>1</za:broj_doze>
-                <za:datum_davanja>2021-06-06</za:datum_davanja>
-                <za:broj_serije>ABCDE</za:broj_serije>
+                <za:datum_davanja>2021-09-09</za:datum_davanja>
+                <za:broj_serije></za:broj_serije>
             </doza>
         </doze>
     </vakcinacija>
