@@ -17,22 +17,8 @@
     </xs:element>
     <xs:complexType name="TPodnosilacZahteva">
         <xs:sequence>
-            <xs:element name="puno_ime" type="TPunoIme"/>
-            <xs:element name="pol">
-                <xs:simpleType>
-                    <xs:restriction base="za:TOgraniceni_string">
-                        <xs:enumeration value="MUSKO"/>
-                        <xs:enumeration value="ZENSKO"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element ref="za:jmbg"> </xs:element>
+            <xs:element name="licni_podaci" type="za:TLicni_podaci"/>
             <xs:element name="broj_pasosa" nillable="false" type="za:TOgraniceni_string"/>
         </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="TPunoIme">
-        <xs:complexContent>
-            <xs:extension base="za:TIme_prezime"/>
-        </xs:complexContent>
     </xs:complexType>
 </xs:schema>

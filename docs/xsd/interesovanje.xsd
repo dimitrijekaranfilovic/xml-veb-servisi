@@ -28,7 +28,7 @@
             </xs:element>
             <xs:element ref="za:jmbg"> </xs:element>
             <xs:element name="kontakt" type="za:TKontakt"> </xs:element>
-            <xs:element name="puno_ime" type="TPunoIme"/>
+            <xs:element name="puno_ime" type="za:TIme_prezime"/>
             <xs:element name="davalac_krvi" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
@@ -36,10 +36,5 @@
         <xs:sequence>
             <xs:element maxOccurs="unbounded" name="proizvodjac" type="za:TOgraniceni_string"/>
         </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="TPunoIme">
-        <xs:complexContent>
-            <xs:extension base="za:TIme_prezime"/>
-        </xs:complexContent>
     </xs:complexType>
 </xs:schema>
