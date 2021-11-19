@@ -2,38 +2,37 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
     vc:minVersion="1.1" targetNamespace="http://xmlprojekat/zahtev_za_sertifikat"
-    xmlns="http://xmlprojekat/zahtev_za_sertifikat">
+    xmlns="http://xmlprojekat/zahtev_za_sertifikat" xmlns:za="https://www.bilgejc.rs/zajednicko">
 
+    <xs:import namespace="https://www.bilgejc.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
     <xs:element name="zahtev_za_sertifikat">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="podnosilac_zahteva">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="ime" type="xs:string"/>
-                            <xs:element name="prezime" type="xs:string"/>
-                            <xs:element name="pol">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:string">
-                                        <xs:enumeration value="musko"/>
-                                        <xs:enumeration value="zensko"/>
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:element>
-                            <xs:element name="jmbg">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:string">
-                                        <xs:length value="13"/>
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="razlog_za_podnosenje_zahteva" type="xs:string"/>
+                <xs:element name="podnosilac_zahteva" type="TPodnosilacZahteva"> </xs:element>
+                <xs:element name="razlog_za_podnosenje_zahteva" type="za:TOgraniceni_string"/>
             </xs:sequence>
-            <xs:attribute name="mesto" type="xs:string"/>
+            <xs:attribute name="mesto" type="za:TOgraniceni_string"/>
             <xs:attribute name="datum" type="xs:date"/>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="TPodnosilacZahteva">
+        <xs:sequence>
+            <xs:element name="puno_ime" type="TPunoIme"/>
+            <xs:element name="pol">
+                <xs:simpleType>
+                    <xs:restriction base="za:TOgraniceni_string">
+                        <xs:enumeration value="MUSKO"/>
+                        <xs:enumeration value="ZENSKO"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element ref="za:jmbg"> </xs:element>
+            <xs:element name="broj_pasosa" nillable="false" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TPunoIme">
+        <xs:complexContent>
+            <xs:extension base="za:TIme_prezime"/>
+        </xs:complexContent>
+    </xs:complexType>
 </xs:schema>
