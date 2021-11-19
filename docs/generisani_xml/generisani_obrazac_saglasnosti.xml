@@ -23,8 +23,8 @@
                 <opstina>Beograd</opstina>
             </adresa>
             <kontakt>
-                <za:broj_fiksnog>021-123-4567</za:broj_fiksnog>
-                <za:broj_mobilnog>+381631415383</za:broj_mobilnog>
+                <za:broj_fiksnog>0211234567</za:broj_fiksnog>
+                <za:broj_mobilnog>0631415383</za:broj_mobilnog>
                 <za:email>ivan.mrsulja@uns.ac.rs</za:email>
             </kontakt>
             <radni_status>ZAPOSLEN</radni_status>
@@ -44,7 +44,7 @@
             <za:ime>Borivoje</za:ime>
             <za:prezime>Joksimovic</za:prezime>
             <telefon>
-                <za:broj_mobilnog>+381637415083</za:broj_mobilnog>
+                <za:broj_mobilnog>0637415083</za:broj_mobilnog>
             </telefon>
         </lekar>
         <vakcine>
