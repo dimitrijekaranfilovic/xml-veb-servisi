@@ -4,12 +4,12 @@
     xmlns:za="https://www.bilgejc.rs/zajednicko"
     xsi:schemaLocation="http://xmlprojekat/zahtev_za_sertifikat ../xsd/zahtev_za_sertifikat.xsd">
     <podnosilac_zahteva>
-        <puno_ime>
+        <licni_podaci>
             <za:ime>Rastko</za:ime>
             <za:prezime>Petrovic</za:prezime>
-        </puno_ime>
-        <pol>MUSKO</pol>
-        <za:jmbg>1231231231231</za:jmbg>
+            <za:jmbg>1231231231231</za:jmbg>
+            <za:pol>MUSKO</za:pol>
+        </licni_podaci> 
         <broj_pasosa></broj_pasosa>
     </podnosilac_zahteva>
     <razlog_za_podnosenje_zahteva>Zbog 30 evra</razlog_za_podnosenje_zahteva>

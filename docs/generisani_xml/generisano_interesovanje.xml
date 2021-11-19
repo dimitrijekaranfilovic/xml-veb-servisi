@@ -2,12 +2,12 @@
 <interesovanje xmlns="http://xmlprojekat/interesovanje"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:za="https://www.bilgejc.rs/zajednicko"
-    xsi:schemaLocation="http://xmlprojekat/interesovanje interesovanje.xsd">
+    xsi:schemaLocation="http://xmlprojekat/interesovanje ../xsd/interesovanje.xsd">
     <licne_informacije>
         <drzavljanstvo>DRZAVLJANIN_REPUBLIKE_SRBIJE</drzavljanstvo>
         <za:jmbg>1231231231231</za:jmbg>
         <kontakt>
-            <za:broj_fiksnog>021-123-123</za:broj_fiksnog>
+            <za:broj_fiksnog>021123123</za:broj_fiksnog>
             <za:broj_mobilnog >060721321</za:broj_mobilnog>
             <za:email >marko@gmail.com</za:email>
         </kontakt>
