@@ -7,10 +7,10 @@
     <licne_informacije>
         <za:ime>Pera</za:ime>
         <za:prezime>Peric</za:prezime>
-        <pol>musko</pol>
-        <datum_rodjenja>1980-10-10</datum_rodjenja>
         <za:jmbg>1122334455668</za:jmbg>
-        <broj_pasosa></broj_pasosa>
+        <za:pol>MUSKO</za:pol>
+        <datum_rodjenja>1980-10-10</datum_rodjenja>
+        <za:broj_pasosa></za:broj_pasosa>
     </licne_informacije>
     <vakcinacija>
         <doza>

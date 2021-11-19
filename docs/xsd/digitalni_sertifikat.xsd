@@ -25,19 +25,10 @@
     </xs:element>
     <xs:complexType name="TLicne_informacije">
         <xs:complexContent>
-            <xs:extension base="za:TIme_prezime">
+            <xs:extension base="za:TLicni_podaci">
                 <xs:sequence>
-                    <xs:element name="pol">
-                        <xs:simpleType>
-                            <xs:restriction base="xs:string">
-                                <xs:enumeration value="musko"/>
-                                <xs:enumeration value="zensko"/>
-                            </xs:restriction>
-                        </xs:simpleType>
-                    </xs:element>
                     <xs:element name="datum_rodjenja" type="xs:date"/>
-                    <xs:element ref="za:jmbg"/>
-                    <xs:element minOccurs="1" name="broj_pasosa" type="za:TOgraniceni_string"/>
+                    <xs:element ref="za:broj_pasosa"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
