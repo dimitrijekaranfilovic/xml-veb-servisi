@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <saglasnost_za_sprovodjenje_preporucene_imunizacija datum="2021-03-11">
+    <metadata>
+        <id></id>
+        <datum_izdavanja></datum_izdavanja>
+        <odgovorno_lice></odgovorno_lice>
+    </metadata>
     <pacijent>
         <licne_informacije>
             <drzavljanstvo>
