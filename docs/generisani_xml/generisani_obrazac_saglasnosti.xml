@@ -8,7 +8,7 @@
         <licne_informacije>
             <drzavljanstvo>
                 <srpski_drzavljanin>
-                    <za:jmbg>3021990230643</za:jmbg>
+                    <jmbg>3021990230643</jmbg>
                 </srpski_drzavljanin>
             </drzavljanstvo>
             <puno_ime>
@@ -44,7 +44,7 @@
             <za:ime>Borivoje</za:ime>
             <za:prezime>Joksimovic</za:prezime>
             <telefon>
-                <za:broj_mobilnog>0637415083</za:broj_mobilnog>
+                <broj_mobilnog>0637415083</broj_mobilnog>
             </telefon>
         </lekar>
         <vakcine>

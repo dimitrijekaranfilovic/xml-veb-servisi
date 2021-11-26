@@ -59,9 +59,9 @@
     </xs:complexType>
     <xs:complexType name="TKontakt">
         <xs:sequence>
-            <xs:element ref="broj_fiksnog"> </xs:element>
-            <xs:element ref="broj_mobilnog"> </xs:element>
-            <xs:element ref="email"/>
+            <xs:element name="broj_fiksnog" type="TBroj_fiksnog"> </xs:element>
+            <xs:element name="broj_mobilnog" type="TBroj_mobilnog"> </xs:element>
+            <xs:element name="email" type="TEmail"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TIme_prezime">
@@ -74,8 +74,8 @@
         <xs:complexContent>
             <xs:extension base="TIme_prezime">
                 <xs:sequence>
-                    <xs:element ref="jmbg"/>
-                    <xs:element ref="pol"/>
+                    <xs:element name="jmbg" type="TJmbg"/>
+                    <xs:element name="pol" type="TPol"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
