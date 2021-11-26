@@ -8,43 +8,38 @@
             <xs:minLength value="0"/>
         </xs:restriction>
     </xs:simpleType>
-    <xs:element name="email">
-        <xs:simpleType>
-            <xs:restriction base="TOgraniceni_string">
-                <xs:pattern value="[^@]+@[^\.]+\..+"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
-    <xs:element name="jmbg">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:pattern value="[0-9]{13}"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
-    <xs:element name="broj_fiksnog">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:pattern value="\d{9,10}"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
-    <xs:element name="broj_mobilnog">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:pattern value="06\d{7,8}"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
-    <xs:element name="pol">
-        <xs:simpleType>
-            <xs:restriction base="TOgraniceni_string">
-                <xs:enumeration value="MUSKO"/>
-                <xs:enumeration value="ZENSKO"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
-    <xs:element name="broj_pasosa" nillable="false" type="TOgraniceni_string"/>
+    <xs:simpleType name="TEmail">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TJmbg">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:pattern value="[0-9]{13}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TBroj_fiksnog">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:pattern value="\d{9,10}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TBroj_mobilnog">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:pattern value="06\d{7,8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType final="" name="TPol">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:enumeration value="MUSKO"/>
+            <xs:enumeration value="ZENSKO"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType final="" name="TBroj_pasosa">
+        <xs:restriction base="TOgraniceni_string"/>
+    </xs:simpleType>
+    <xs:simpleType name="TQr_kod">
+        <xs:restriction base="TOgraniceni_string"/>
+    </xs:simpleType>
     <xs:complexType name="TDoza">
         <xs:sequence>
             <xs:element name="broj_doze" type="xs:positiveInteger"/>
