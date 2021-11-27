@@ -7,19 +7,19 @@
     datum_izdavanja="2021-10-10">
     <qr_kod></qr_kod>
     <licne_informacije>
-        <za:ime></za:ime>
-        <za:prezime></za:prezime>
-        <za:jmbg>1911999123456</za:jmbg>
+        <za:ime>Ime</za:ime>
+        <za:prezime>Prezime</za:prezime>
+        <za:jmbg>2711999123456</za:jmbg>
         <za:pol>MUSKO</za:pol>
     </licne_informacije>
     <vakcinacija>
-        <ustanova></ustanova>
-        <naziv_vakcine></naziv_vakcine>
+        <ustanova>JU Dom zdravlja Novi Sad</ustanova>
+        <naziv_vakcine>Pfizer</naziv_vakcine>
         <doze>
             <doza>
                 <za:broj_doze>1</za:broj_doze>
                 <za:datum_davanja>2021-09-09</za:datum_davanja>
-                <za:broj_serije></za:broj_serije>
+                <za:broj_serije>ABCDEFGH</za:broj_serije>
             </doza>
         </doze>
     </vakcinacija>

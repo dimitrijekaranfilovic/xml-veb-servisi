@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="https://www.bilgejc.rs/izvestaj_o_imunizaciji"
-    xmlns="https://www.bilgejc.rs/izvestaj_o_imunizaciji">
+    xmlns="https://www.bilgejc.rs/izvestaj_o_imunizaciji"
+    xmlns:za="https://www.bilgejc.rs/zajednicko">
+    <xs:import id="za" namespace="https://www.bilgejc.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
     <xs:element name="izvestaj_o_imunizaciji">
         <xs:complexType>
             <xs:sequence>
@@ -11,42 +13,8 @@
                     type="xs:nonNegativeInteger"/>
                 <xs:element default="0" name="izdato_zahteva_za_sertifikat"
                     type="xs:nonNegativeInteger"/>
-                <xs:element name="date_doze_vakcina">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element maxOccurs="unbounded" name="data_doza">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="redni_broj" type="xs:positiveInteger"/>
-                                        <xs:element default="0" name="broj_datih_doza"
-                                            type="xs:nonNegativeInteger"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="raspodela_po_proizvodjacima">
-                    <xs:complexType>
-                        <xs:sequence maxOccurs="unbounded">
-                            <xs:element name="stavka">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="proizvodjac">
-                                            <xs:simpleType>
-                                                <xs:restriction base="xs:string">
-                                                  <xs:minLength value="0"/>
-                                                  <xs:maxLength value="100"/>
-                                                </xs:restriction>
-                                            </xs:simpleType>
-                                        </xs:element>
-                                        <xs:element default="0" name="broj_doza"
-                                            type="xs:nonNegativeInteger"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
+                <xs:element name="date_doze_vakcina" type="TDate_doze_vakcina"> </xs:element>
+                <xs:element name="raspodela_po_proizvodjacima" type="TRaspodela_po_proizvodjacima">
                 </xs:element>
             </xs:sequence>
             <xs:attribute name="od" type="xs:date" use="required"/>
@@ -54,4 +22,26 @@
             <xs:attribute name="datum_izdavanja" type="xs:date" use="required"/>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="TDate_doze_vakcina">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="data_doza" type="TData_doza"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TData_doza">
+        <xs:sequence>
+            <xs:element name="redni_broj" type="xs:positiveInteger"/>
+            <xs:element default="0" name="broj_datih_doza" type="xs:nonNegativeInteger"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TRaspodela_po_proizvodjacima">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="stavka" type="TStavka"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TStavka">
+        <xs:sequence>
+            <xs:element name="proizvodjac" type="za:TOgraniceni_string"/>
+            <xs:element default="0" name="broj_doza" type="xs:nonNegativeInteger"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

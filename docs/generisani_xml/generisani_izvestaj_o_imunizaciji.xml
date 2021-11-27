@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<izvestaj_o_imunizaciji xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../xsd/izvestaj_o_imunizaciji.xsd" 
-    od="2021-08-01" 
-    do="2021-09-01" 
-    datum_izdavanja="2021-09-11">
+<izvestaj_o_imunizaciji xmlns="https://www.bilgejc.rs/izvestaj_o_imunizaciji"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.bilgejc.rs/izvestaj_o_imunizaciji ../xsd/izvestaj_o_imunizaciji.xsd" 
+    od="2021-06-06" 
+    do="2021-06-20" 
+    datum_izdavanja="2021-06-20">
     <podneto_dokumenata_o_interesovanju></podneto_dokumenata_o_interesovanju>
     <primljeno_zahteva_za_sertifikat></primljeno_zahteva_za_sertifikat>
     <izdato_zahteva_za_sertifikat></izdato_zahteva_za_sertifikat>
     <date_doze_vakcina>
         <data_doza>
             <redni_broj>1</redni_broj>
-            <broj_datih_doza>1023</broj_datih_doza>
+            <broj_datih_doza>1000</broj_datih_doza>
         </data_doza>
     </date_doze_vakcina>
     <raspodela_po_proizvodjacima>
         <stavka>
             <proizvodjac>Pfizer</proizvodjac>
-            <broj_doza>1023</broj_doza>
+            <broj_doza>1000</broj_doza>
         </stavka>
     </raspodela_po_proizvodjacima>
 </izvestaj_o_imunizaciji>

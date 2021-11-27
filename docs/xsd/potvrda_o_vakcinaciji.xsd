@@ -7,23 +7,9 @@
     <xs:element name="potvrda_o_vakcinaciji">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="qr_kod" type="za:TOgraniceni_string"/>
+                <xs:element name="qr_kod" type="za:TQr_kod"/>
                 <xs:element name="licne_informacije" type="za:TLicni_podaci"/>
-                <xs:element name="vakcinacija">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="ustanova" type="za:TOgraniceni_string"/>
-                            <xs:element name="naziv_vakcine" type="za:TOgraniceni_string"/>
-                            <xs:element name="doze">
-                                <xs:complexType>
-                                    <xs:sequence maxOccurs="unbounded">
-                                        <xs:element name="doza" type="za:TDoza"/>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element name="vakcinacija" type="TVakcinacija"> </xs:element>
             </xs:sequence>
             <xs:attribute name="sifra_potvrde" use="required">
                 <xs:simpleType>
@@ -36,4 +22,16 @@
             <xs:attribute name="datum_izdavanja" type="xs:date" use="required"/>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="TDoze">
+        <xs:sequence maxOccurs="1">
+            <xs:element maxOccurs="unbounded" name="doza" type="za:TDoza"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TVakcinacija">
+        <xs:sequence>
+            <xs:element name="ustanova" type="za:TOgraniceni_string"/>
+            <xs:element name="naziv_vakcine" type="za:TOgraniceni_string"/>
+            <xs:element name="doze" type="TDoze"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
