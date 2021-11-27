@@ -28,7 +28,7 @@
             <xs:extension base="za:TLicni_podaci">
                 <xs:sequence>
                     <xs:element name="datum_rodjenja" type="xs:date"/>
-                    <xs:element ref="za:broj_pasosa"/>
+                    <xs:element name="broj_pasosa" type="za:TBroj_pasosa"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -74,7 +74,7 @@
     </xs:complexType>
     <xs:complexType name="TInformacije_o_sertifikatu">
         <xs:sequence>
-            <xs:element name="qr_kod" type="za:TOgraniceni_string"/>
+            <xs:element name="qr_kod" type="za:TQr_kod"/>
             <xs:element name="digitalni_potpis" type="TDigitalni_potpis"/>
         </xs:sequence>
     </xs:complexType>
