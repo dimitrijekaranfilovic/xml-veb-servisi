@@ -26,7 +26,7 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element ref="za:jmbg"> </xs:element>
+            <xs:element name="jmbg" type="za:TJmbg"> </xs:element>
             <xs:element name="kontakt" type="za:TKontakt"> </xs:element>
             <xs:element name="puno_ime" type="za:TIme_prezime"/>
             <xs:element name="davalac_krvi" type="xs:boolean"/>

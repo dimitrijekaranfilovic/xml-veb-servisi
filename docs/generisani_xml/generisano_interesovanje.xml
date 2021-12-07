@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://xmlprojekat/interesovanje ../xsd/interesovanje.xsd">
     <licne_informacije>
         <drzavljanstvo>DRZAVLJANIN_REPUBLIKE_SRBIJE</drzavljanstvo>
-        <za:jmbg>1231231231231</za:jmbg>
+        <jmbg>3101000230504</jmbg>
         <kontakt>
             <za:broj_fiksnog>021123123</za:broj_fiksnog>
             <za:broj_mobilnog >060721321</za:broj_mobilnog>
