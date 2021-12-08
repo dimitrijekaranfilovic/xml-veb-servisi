@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<izvestaj_o_imunizaciji xmlns="https://www.bilgejc.rs/izvestaj_o_imunizaciji"
+<izvestaj_o_imunizaciji xmlns="https://www.vakcinacija.rs/izvestaj_o_imunizaciji"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://www.bilgejc.rs/izvestaj_o_imunizaciji ../xsd/izvestaj_o_imunizaciji.xsd" 
+    xsi:schemaLocation="https://www.vakcinacija.rs/izvestaj_o_imunizaciji ../xsd/izvestaj_o_imunizaciji.xsd" 
     od="2021-06-06" 
     do="2021-06-20" 
     datum_izdavanja="2021-06-20">

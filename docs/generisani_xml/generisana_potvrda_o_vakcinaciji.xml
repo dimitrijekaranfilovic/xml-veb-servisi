@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<potvrda_o_vakcinaciji xmlns="https://www.bilgejc.rs/potvrda_o_vakcinaciji"
+<potvrda_o_vakcinaciji xmlns="https://www.vakcinacija.rs/potvrda_o_vakcinaciji"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://www.bilgejc.rs/potvrda_o_vakcinaciji ../xsd/potvrda_o_vakcinaciji.xsd" 
-    xmlns:za="https://www.bilgejc.rs/zajednicko"
+    xsi:schemaLocation="https://www.vakcinacija.rs/potvrda_o_vakcinaciji ../xsd/potvrda_o_vakcinaciji.xsd" 
+    xmlns:za="https://www.vakcinacija.rs/zajednicko"
     sifra_potvrde="1234" 
     datum_izdavanja="2021-10-10">
     <qr_kod></qr_kod>

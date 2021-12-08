@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<saglasnost_za_sprovodjene_preporucene_imunizacije xmlns="https://www.bigejc.rs/saglasnost"
+<saglasnost_za_sprovodjene_preporucene_imunizacije xmlns="https://www.vakcinacija.rs/saglasnost"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:za="https://www.bilgejc.rs/zajednicko"
-    xsi:schemaLocation="https://www.bigejc.rs/saglasnost ../xsd/obrazac_saglasnosti.xsd"
+    xmlns:za="https://www.vakcinacija.rs/zajednicko"
+    xsi:schemaLocation="https://www.vakcinacija.rs/saglasnost ../xsd/obrazac_saglasnosti.xsd"
     datum="2020-11-03">
     <pacijent>
         <licne_informacije>

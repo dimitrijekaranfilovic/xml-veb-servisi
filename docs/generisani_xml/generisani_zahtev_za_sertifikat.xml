@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<zahtev_za_sertifikat xmlns="http://xmlprojekat/zahtev_za_sertifikat"
+<zahtev_za_sertifikat xmlns="https://www.vakcinacija.rs/zahtev_za_sertifikat"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:za="https://www.bilgejc.rs/zajednicko"
-    xsi:schemaLocation="http://xmlprojekat/zahtev_za_sertifikat ../xsd/zahtev_za_sertifikat.xsd">
+    xmlns:za="https://www.vakcinacija.rs/zajednicko"
+    xsi:schemaLocation="http://www.vakcinacija.rs/zahtev_za_sertifikat ../xsd/zahtev_za_sertifikat.xsd">
     <podnosilac_zahteva>
         <licni_podaci>
             <za:ime>Rastko</za:ime>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<interesovanje xmlns="http://xmlprojekat/interesovanje"
+<interesovanje xmlns="https://www.vakcinacija.rs/interesovanje"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:za="https://www.bilgejc.rs/zajednicko"
-    xsi:schemaLocation="http://xmlprojekat/interesovanje ../xsd/interesovanje.xsd">
+    xmlns:za="https://www.vakcinacija.rs/zajednicko"
+    xsi:schemaLocation="http://www.vakcinacija.rs/interesovanje ../xsd/interesovanje.xsd">
     <licne_informacije>
         <drzavljanstvo>DRZAVLJANIN_REPUBLIKE_SRBIJE</drzavljanstvo>
         <jmbg>3101000230504</jmbg>

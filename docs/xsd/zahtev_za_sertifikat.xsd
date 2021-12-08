@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified"
-    vc:minVersion="1.1" targetNamespace="http://xmlprojekat/zahtev_za_sertifikat"
-    xmlns="http://xmlprojekat/zahtev_za_sertifikat" xmlns:za="https://www.bilgejc.rs/zajednicko">
+    vc:minVersion="1.1" targetNamespace="https://www.vakcinacija.rs/zahtev_za_sertifikat"
+    xmlns="https://www.vakcinacija.rs/zahtev_za_sertifikat"
+    xmlns:za="https://www.vakcinacija.rs/zajednicko">
 
-    <xs:import namespace="https://www.bilgejc.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    <xs:import namespace="https://www.vakcinacija.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
     <xs:element name="zahtev_za_sertifikat">
         <xs:complexType>
             <xs:sequence>

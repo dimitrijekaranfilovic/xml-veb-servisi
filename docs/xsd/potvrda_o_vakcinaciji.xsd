@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="https://www.bilgejc.rs/potvrda_o_vakcinaciji"
-    xmlns="https://www.bilgejc.rs/potvrda_o_vakcinaciji"
-    xmlns:za="https://www.bilgejc.rs/zajednicko">
-    <xs:import namespace="https://www.bilgejc.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    targetNamespace="https://www.vakcinacija.rs/potvrda_o_vakcinaciji"
+    xmlns="https://www.vakcinacija.rs/potvrda_o_vakcinaciji"
+    xmlns:za="https://www.vakcinacija.rs/zajednicko">
+    <xs:import namespace="https://www.vakcinacija.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
     <xs:element name="potvrda_o_vakcinaciji">
         <xs:complexType>
             <xs:sequence>

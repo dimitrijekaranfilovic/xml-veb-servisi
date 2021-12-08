@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="https://www.bilgejc.rs/zajednicko" xmlns="https://www.bilgejc.rs/zajednicko">
+    targetNamespace="https://www.vakcinacija.rs/zajednicko"
+    xmlns="https://www.vakcinacija.rs/zajednicko">
 
     <xs:simpleType name="TOgraniceni_string">
         <xs:restriction base="xs:string">

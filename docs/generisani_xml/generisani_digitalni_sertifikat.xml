@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<digitalni_sertifikat xmlns="https://www.bilgejc.rs/digitalni_sertifikat"
+<digitalni_sertifikat xmlns="https://www.vakcinacija.rs/digitalni_sertifikat"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://www.bilgejc.rs/digitalni_sertifikat ../xsd/digitalni_sertifikat.xsd" 
-    xmlns:za="https://www.bilgejc.rs/zajednicko"
+    xsi:schemaLocation="https://www.vakcinacija.rs/digitalni_sertifikat ../xsd/digitalni_sertifikat.xsd" 
+    xmlns:za="https://www.vakcinacija.rs/zajednicko"
     broj_sertifikata="123456" datum_vreme_izdavanja="2021-10-22">
     <licne_informacije>
         <za:ime>Pera</za:ime>

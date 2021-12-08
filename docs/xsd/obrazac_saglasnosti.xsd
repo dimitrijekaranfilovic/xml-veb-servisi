@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    targetNamespace="https://www.bigejc.rs/saglasnost" xmlns="https://www.bigejc.rs/saglasnost"
-    xmlns:za="https://www.bilgejc.rs/zajednicko">
+    targetNamespace="https://www.vakcinacija.rs/saglasnost"
+    xmlns="https://www.vakcinacija.rs/saglasnost" xmlns:za="https://www.vakcinacija.rs/zajednicko">
 
-    <xs:import id="za" namespace="https://www.bilgejc.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    <xs:import id="za" namespace="https://www.vakcinacija.rs/zajednicko"
+        schemaLocation="zajednicko.xsd"/>
     <xs:element name="saglasnost_za_sprovodjene_preporucene_imunizacije">
         <xs:complexType>
             <xs:sequence>
