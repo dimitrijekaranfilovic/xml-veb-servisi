@@ -1,10 +1,10 @@
 @XmlSchema(
-        namespace = "https://www.vakcinacija.rs/interesovanje",
+        namespace = "https://www.vakcinacija.rs/zajednicko",
         elementFormDefault = XmlNsForm.QUALIFIED,
-        xmlns = {@javax.xml.bind.annotation.XmlNs(prefix = "", namespaceURI = "https://www.vakcinacija.rs/interesovanje"),
+        xmlns = {@javax.xml.bind.annotation.XmlNs(prefix = "za", namespaceURI = "https://www.vakcinacija.rs/zajednicko"),
                 @javax.xml.bind.annotation.XmlNs(prefix = "xs", namespaceURI = "http://www.w3.org/2001/XMLSchema")}
 )
-package rs.vakcinacija.imunizacija.interesovanje.model;
+package rs.vakcinacija.imunizacija.zajednicko.model;
 
 import javax.xml.bind.annotation.XmlNsForm;
 import javax.xml.bind.annotation.XmlSchema;
