@@ -12,7 +12,7 @@ public class LicneInformacije {
     private Drzavljanstvo drzavljanstvo;
 
     @XmlElement(name = "puno_ime", required = true)
-    private PunoIme punoIme;
+    private PunoImePacijent punoIme;
 
     @XmlElement(name = "adresa", required = true)
     private Adresa adresa;
@@ -26,9 +26,10 @@ public class LicneInformacije {
     @XmlElement(name = "zanimanje_zaposlenog", required = true)
     private String zanimanjeZaposlenog;
 
-    public LicneInformacije() {}
+    public LicneInformacije() {
+    }
 
-    public LicneInformacije(Drzavljanstvo drzavljanstvo, PunoIme punoIme, Adresa adresa, Kontakt kontakt, String radniStatus, String zanimanjeZaposlenog) {
+    public LicneInformacije(Drzavljanstvo drzavljanstvo, PunoImePacijent punoIme, Adresa adresa, Kontakt kontakt, String radniStatus, String zanimanjeZaposlenog) {
         this.drzavljanstvo = drzavljanstvo;
         this.punoIme = punoIme;
         this.adresa = adresa;
@@ -45,11 +46,11 @@ public class LicneInformacije {
         this.drzavljanstvo = drzavljanstvo;
     }
 
-    public PunoIme getPunoIme() {
+    public PunoImePacijent getPunoIme() {
         return punoIme;
     }
 
-    public void setPunoIme(PunoIme punoIme) {
+    public void setPunoIme(PunoImePacijent punoIme) {
         this.punoIme = punoIme;
     }
 

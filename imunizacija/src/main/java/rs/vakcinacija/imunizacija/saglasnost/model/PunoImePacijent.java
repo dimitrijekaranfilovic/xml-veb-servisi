@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "puno_ime")
 @XmlType(name = "TPunoIme", propOrder = {"ime", "prezime", "imeRoditelja"})
-public class PunoIme {
+public class PunoImePacijent {
 
     @XmlElement(name = "ime", required = true, namespace = "https://www.vakcinacija.rs/zajednicko")
     private String ime;
@@ -16,9 +16,9 @@ public class PunoIme {
     @XmlElement(name = "ime_roditelja", required = true)
     private String imeRoditelja;
 
-    public PunoIme() {}
+    public PunoImePacijent() {}
 
-    public PunoIme(String ime, String prezime, String imeRoditelja) {
+    public PunoImePacijent(String ime, String prezime, String imeRoditelja) {
         this.ime = ime;
         this.prezime = prezime;
         this.imeRoditelja = imeRoditelja;
@@ -47,4 +47,5 @@ public class PunoIme {
     public void setImeRoditelja(String imeRoditelja) {
         this.imeRoditelja = imeRoditelja;
     }
+
 }
