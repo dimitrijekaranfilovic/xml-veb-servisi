@@ -1,11 +1,10 @@
-package rs.vakcinacija.imunizacija.interesovanje.model;
+package rs.vakcinacija.imunizacija.zajednicko.model;
 
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "kontakt")
-@XmlType(name = "TKontakt", propOrder = {"brojFiksnog", "brojMobilnog", "email"},
-        namespace = "https://www.vakcinacija.rs/zajednicko")
+@XmlType(name = "TKontakt", propOrder = {"brojFiksnog", "brojMobilnog", "email"})
 public class Kontakt {
 
     @XmlElement(name = "broj_fiksnog", required = true)
