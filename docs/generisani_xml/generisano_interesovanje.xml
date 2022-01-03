@@ -3,6 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:za="https://www.vakcinacija.rs/zajednicko"
     xsi:schemaLocation="http://www.vakcinacija.rs/interesovanje ../xsd/interesovanje.xsd">
+    <datum>2021-11-22</datum>
     <licne_informacije>
         <drzavljanstvo>DRZAVLJANIN_REPUBLIKE_SRBIJE</drzavljanstvo>
         <jmbg>3101000230504</jmbg>
