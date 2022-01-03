@@ -10,11 +10,11 @@
     <xs:element name="interesovanje">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="datum" type="xs:date"/>
                 <xs:element name="licne_informacije" type="TLicneInformacije"> </xs:element>
                 <xs:element name="odabrana_lokacija_primanja_vakcine" type="za:TOgraniceni_string"/>
                 <xs:element name="odabrani_proizvodjaci" type="TOdabraniProizvodjaci"> </xs:element>
             </xs:sequence>
-            <xs:attribute name="datum" type="xs:date"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TLicneInformacije">

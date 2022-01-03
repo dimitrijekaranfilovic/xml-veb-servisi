@@ -9,11 +9,11 @@
     <xs:element name="zahtev_za_sertifikat">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="mesto" type="za:TOgraniceni_string"/>
+                <xs:element name="datum" type="xs:date"/>
                 <xs:element name="podnosilac_zahteva" type="TPodnosilacZahteva"> </xs:element>
                 <xs:element name="razlog_za_podnosenje_zahteva" type="za:TOgraniceni_string"/>
             </xs:sequence>
-            <xs:attribute name="mesto" type="za:TOgraniceni_string"/>
-            <xs:attribute name="datum" type="xs:date"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TPodnosilacZahteva">
