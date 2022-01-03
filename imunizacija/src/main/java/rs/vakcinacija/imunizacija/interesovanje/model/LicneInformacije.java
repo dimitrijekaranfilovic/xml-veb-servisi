@@ -1,13 +1,13 @@
 package rs.vakcinacija.imunizacija.interesovanje.model;
 
+import rs.vakcinacija.imunizacija.zajednicko.model.ImePrezime;
 import rs.vakcinacija.imunizacija.zajednicko.model.Kontakt;
-import rs.vakcinacija.imunizacija.zajednicko.model.PunoIme;
 
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "licne_informacije")
-@XmlType(name = "TLicneInformacije", propOrder = {"drzavljanstvo", "jmbg", "kontakt", "punoIme", "davalacKrvi"})
+@XmlType(name = "TLicneInformacije", propOrder = {"drzavljanstvo", "jmbg", "kontakt", "imePrezime", "davalacKrvi"})
 public class LicneInformacije {
 
     @XmlElement(name = "drzavljanstvo", required = true)
@@ -20,7 +20,7 @@ public class LicneInformacije {
     private Kontakt kontakt;
 
     @XmlElement(name = "puno_ime", required = true)
-    private PunoIme punoIme;
+    private ImePrezime imePrezime;
 
     @XmlElement(name = "davalac_krvi", required = true)
     private Boolean davalacKrvi;
@@ -29,12 +29,12 @@ public class LicneInformacije {
     public LicneInformacije() {
     }
 
-    public LicneInformacije(String drzavljanstvo, String jmbg, Kontakt kontakt, PunoIme punoIme,
+    public LicneInformacije(String drzavljanstvo, String jmbg, Kontakt kontakt, ImePrezime imePrezime,
                             Boolean davalacKrvi) {
         this.drzavljanstvo = drzavljanstvo;
         this.jmbg = jmbg;
         this.kontakt = kontakt;
-        this.punoIme = punoIme;
+        this.imePrezime = imePrezime;
         this.davalacKrvi = davalacKrvi;
     }
 
@@ -63,12 +63,12 @@ public class LicneInformacije {
         this.kontakt = kontakt;
     }
 
-    public PunoIme getPunoIme() {
-        return punoIme;
+    public ImePrezime getPunoIme() {
+        return imePrezime;
     }
 
-    public void setPunoIme(PunoIme punoIme) {
-        this.punoIme = punoIme;
+    public void setPunoIme(ImePrezime imePrezime) {
+        this.imePrezime = imePrezime;
     }
 
     public Boolean getDavalacKrvi() {

@@ -5,7 +5,8 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "puno_ime")
 @XmlType(name = "TIme_prezime", propOrder = {"ime", "prezime"})
-public class PunoIme {
+@XmlSeeAlso({LicniPodaci.class})
+public class ImePrezime {
 
     @XmlElement(name = "ime", required = true)
     private String ime;
@@ -13,10 +14,10 @@ public class PunoIme {
     @XmlElement(name = "prezime", required = true)
     private String prezime;
 
-    public PunoIme() {
+    public ImePrezime() {
     }
 
-    public PunoIme(String ime, String prezime) {
+    public ImePrezime(String ime, String prezime) {
         this.ime = ime;
         this.prezime = prezime;
     }
