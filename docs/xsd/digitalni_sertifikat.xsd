@@ -8,20 +8,20 @@
     <xs:element name="digitalni_sertifikat">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="broj_sertifikata">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                            <xs:maxLength value="250"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="darum_vreme_izdavanja" type="xs:date"/>
                 <xs:element name="licne_informacije" type="TLicne_informacije"/>
                 <xs:element name="vakcinacija" type="TVakcinacija"/>
                 <xs:element name="testovi" type="TTestovi"/>
                 <xs:element name="informacije_o_sertifikatu" type="TInformacije_o_sertifikatu"/>
             </xs:sequence>
-            <xs:attribute name="broj_sertifikata" use="required">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1"/>
-                        <xs:maxLength value="250"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="datum_vreme_izdavanja" type="xs:date" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TLicne_informacije">
