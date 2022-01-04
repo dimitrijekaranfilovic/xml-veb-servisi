@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
 
 @RestController
-@RequestMapping(value = "digitalni_sertifikat",
+@RequestMapping(value = "digitalni-sertifikat",
         produces = MediaType.APPLICATION_XML_VALUE,
         consumes = MediaType.APPLICATION_XML_VALUE)
 public class DigitalniSertifikatController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DigitalniSertifikat test (@RequestBody DigitalniSertifikat digitalniSertifikat) {
+    public DigitalniSertifikat test(@RequestBody DigitalniSertifikat digitalniSertifikat) {
         return digitalniSertifikat;
     }
 

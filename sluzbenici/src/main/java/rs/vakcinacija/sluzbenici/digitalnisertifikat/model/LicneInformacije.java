@@ -1,21 +1,14 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
+import rs.vakcinacija.sluzbenici.zajednicko.model.LicniPodaci;
+
 import javax.xml.bind.annotation.*;
 import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "licne_informacije")
-@XmlType(name = "TLicne_informacije", propOrder = {"ime", "prezime", "jmbg", "datumRodjenja", "brojPasosa"})
-public class LicneInformacije {
-
-    @XmlElement(name = "ime", required = true, namespace = "https://www.vakcinacija.rs/zajednicko")
-    private String ime;
-
-    @XmlElement(name = "prezime", required = true, namespace = "https://www.vakcinacija.rs/zajednicko")
-    private String prezime;
-
-    @XmlElement(name = "jmbg", required = true, namespace = "https://www.vakcinacija.rs/zajednicko")
-    private String jmbg;
+@XmlType(name = "TLicne_informacije", propOrder = {"datumRodjenja", "brojPasosa"})
+public class LicneInformacije extends LicniPodaci {
 
     @XmlElement(name = "datum_rodjenja", required = true)
     @XmlSchemaType(name = "date")
@@ -27,36 +20,10 @@ public class LicneInformacije {
     public LicneInformacije() {
     }
 
-    public LicneInformacije(String ime, String prezime, String jmbg, Date datumRodjenja, String brojPasosa) {
-        this.ime = ime;
-        this.prezime = prezime;
-        this.jmbg = jmbg;
+    public LicneInformacije(String ime, String prezime, String jmbg, String pol, Date datumRodjenja, String brojPasosa) {
+        super(ime, prezime, jmbg, pol);
         this.datumRodjenja = datumRodjenja;
         this.brojPasosa = brojPasosa;
-    }
-
-    public String getIme() {
-        return ime;
-    }
-
-    public void setIme(String ime) {
-        this.ime = ime;
-    }
-
-    public String getPrezime() {
-        return prezime;
-    }
-
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
-    }
-
-    public String getJmbg() {
-        return jmbg;
-    }
-
-    public void setJmbg(String jmbg) {
-        this.jmbg = jmbg;
     }
 
     public Date getDatumRodjenja() {

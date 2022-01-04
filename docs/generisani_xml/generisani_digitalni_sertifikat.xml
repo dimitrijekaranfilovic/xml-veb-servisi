@@ -14,22 +14,22 @@
         <broj_pasosa></broj_pasosa>
     </licne_informacije>
     <vakcinacija>
-        <doza>
+        <doza_vakcine>
             <za:broj_doze>1</za:broj_doze>
             <za:datum_davanja>2021-01-01</za:datum_davanja>
             <za:broj_serije>42</za:broj_serije>
             <za:tip>Pfizer-BioNTech</za:tip>
             <za:proizvodjac>BIONTECH MANUFACTURING GMBH</za:proizvodjac>
             <zdravstvena_ustanova>KCV</zdravstvena_ustanova>
-        </doza>
-        <doza>
+        </doza_vakcine>
+        <doza_vakcine>
             <za:broj_doze>2</za:broj_doze>
             <za:datum_davanja>2021-01-22</za:datum_davanja>
             <za:broj_serije>42</za:broj_serije>
             <za:tip>Pfizer-BioNTech</za:tip>
             <za:proizvodjac>BIONTECH MANUFACTURING GMBH</za:proizvodjac>
             <zdravstvena_ustanova>KCV</zdravstvena_ustanova>
-        </doza>
+        </doza_vakcine>
     </vakcinacija>
     <testovi>
         <test>

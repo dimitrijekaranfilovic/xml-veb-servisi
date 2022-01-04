@@ -38,4 +38,52 @@ public class DigitalniSertifikat {
         this.testovi = testovi;
         this.informacijeOSertifikatu = informacijeOSertifikatu;
     }
+
+    public String getBrojSertifikata() {
+        return brojSertifikata;
+    }
+
+    public void setBrojSertifikata(String brojSertifikata) {
+        this.brojSertifikata = brojSertifikata;
+    }
+
+    public Date getDatumVremeIzdavanja() {
+        return datumVremeIzdavanja;
+    }
+
+    public void setDatumVremeIzdavanja(Date datumVremeIzdavanja) {
+        this.datumVremeIzdavanja = datumVremeIzdavanja;
+    }
+
+    public LicneInformacije getLicneInformacije() {
+        return licneInformacije;
+    }
+
+    public void setLicneInformacije(LicneInformacije licneInformacije) {
+        this.licneInformacije = licneInformacije;
+    }
+
+    public Vakcinacija getVakcinacija() {
+        return vakcinacija;
+    }
+
+    public void setVakcinacija(Vakcinacija vakcinacija) {
+        this.vakcinacija = vakcinacija;
+    }
+
+    public Testovi getTestovi() {
+        return testovi;
+    }
+
+    public void setTestovi(Testovi testovi) {
+        this.testovi = testovi;
+    }
+
+    public InformacijeOSertifikatu getInformacijeOSertifikatu() {
+        return informacijeOSertifikatu;
+    }
+
+    public void setInformacijeOSertifikatu(InformacijeOSertifikatu informacijeOSertifikatu) {
+        this.informacijeOSertifikatu = informacijeOSertifikatu;
+    }
 }

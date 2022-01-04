@@ -8,7 +8,7 @@ import java.util.Collection;
 @XmlType(name = "TVakcinacija", propOrder = {"vakcine"})
 public class Vakcinacija {
 
-    @XmlElement(name = "doza", required = true)
-    Collection<Doza> vakcine;
+    @XmlElement(name = "doza_vakcine", required = true)
+    Collection<DozaVakcine> vakcine;
 
 }

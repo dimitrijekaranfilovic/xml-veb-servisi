@@ -36,7 +36,7 @@
     </xs:complexType>
     <xs:complexType name="TVakcinacija">
         <xs:sequence maxOccurs="unbounded" minOccurs="1">
-            <xs:element name="doza" type="TDoza_vakcine"/>
+            <xs:element name="doza_vakcine" type="TDoza_vakcine"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TDoza_vakcine">
