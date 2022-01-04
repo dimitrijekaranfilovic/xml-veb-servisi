@@ -8,10 +8,10 @@
     <xs:element name="saglasnost_za_sprovodjene_preporucene_imunizacije">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="datum" type="xs:date"/>
                 <xs:element name="pacijent" type="TPacijent"/>
                 <xs:element name="vakcinacija" type="TVakcinacija"/>
             </xs:sequence>
-            <xs:attribute name="datum" type="xs:date" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TPacijent">

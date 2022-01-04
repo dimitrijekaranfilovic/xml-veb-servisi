@@ -2,8 +2,8 @@
 <saglasnost_za_sprovodjene_preporucene_imunizacije xmlns="https://www.vakcinacija.rs/saglasnost"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:za="https://www.vakcinacija.rs/zajednicko"
-    xsi:schemaLocation="https://www.vakcinacija.rs/saglasnost ../xsd/obrazac_saglasnosti.xsd"
-    datum="2020-11-03">
+    xsi:schemaLocation="https://www.vakcinacija.rs/saglasnost ../xsd/obrazac_saglasnosti.xsd">
+    <datum>2020-11-04</datum>
     <pacijent>
         <licne_informacije>
             <drzavljanstvo>
