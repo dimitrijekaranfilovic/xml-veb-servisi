@@ -8,6 +8,9 @@
     <xs:element name="izvestaj_o_imunizaciji">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="od" type="xs:date"/>
+                <xs:element name="do" type="xs:date"/>
+                <xs:element name="datum_izdavanja" type="xs:date"/>
                 <xs:element default="0" name="podneto_dokumenata_o_interesovanju"
                     type="xs:nonNegativeInteger"/>
                 <xs:element default="0" name="primljeno_zahteva_za_sertifikat"
@@ -18,9 +21,6 @@
                 <xs:element name="raspodela_po_proizvodjacima" type="TRaspodela_po_proizvodjacima">
                 </xs:element>
             </xs:sequence>
-            <xs:attribute name="od" type="xs:date" use="required"/>
-            <xs:attribute name="do" type="xs:date" use="required"/>
-            <xs:attribute name="datum_izdavanja" type="xs:date" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TDate_doze_vakcina">
