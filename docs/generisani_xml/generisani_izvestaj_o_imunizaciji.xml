@@ -2,8 +2,8 @@
 <izvestaj_o_imunizaciji xmlns="https://www.vakcinacija.rs/izvestaj_o_imunizaciji"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://www.vakcinacija.rs/izvestaj_o_imunizaciji ../xsd/izvestaj_o_imunizaciji.xsd" >
-    <od>2021-06-06</od>
-    <do>2021-06-20</do>
+    <periodOd>2021-06-06</periodOd>
+    <periodDo>2021-06-20</periodDo>
     <datum_izdavanja>2021-06-20</datum_izdavanja>
     <podneto_dokumenata_o_interesovanju></podneto_dokumenata_o_interesovanju>
     <primljeno_zahteva_za_sertifikat></primljeno_zahteva_za_sertifikat>

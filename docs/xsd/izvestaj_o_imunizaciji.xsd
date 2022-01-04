@@ -8,8 +8,8 @@
     <xs:element name="izvestaj_o_imunizaciji">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="od" type="xs:date"/>
-                <xs:element name="do" type="xs:date"/>
+                <xs:element name="periodOd" type="xs:date"/>
+                <xs:element name="periodDo" type="xs:date"/>
                 <xs:element name="datum_izdavanja" type="xs:date"/>
                 <xs:element default="0" name="podneto_dokumenata_o_interesovanju"
                     type="xs:nonNegativeInteger"/>
