@@ -10,7 +10,7 @@ public class DigitalniSertifikat {
     @XmlElement(name = "broj_sertifikata", required = true)
     private String brojSertifikata;
 
-    @XmlElement(name = "darum_vreme_izdavanja", required = true)
+    @XmlElement(name = "datum_vreme_izdavanja", required = true)
     @XmlSchemaType(name = "date")
     private Date datumVremeIzdavanja;
 
