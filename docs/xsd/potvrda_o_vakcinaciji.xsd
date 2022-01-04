@@ -7,19 +7,12 @@
     <xs:element name="potvrda_o_vakcinaciji">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="sifra_potvrde" type="xs:string"/>
+                <xs:element name="datum_izdavanja" type="xs:date"/>
                 <xs:element name="qr_kod" type="za:TQr_kod"/>
                 <xs:element name="licne_informacije" type="za:TLicni_podaci"/>
                 <xs:element name="vakcinacija" type="TVakcinacija"> </xs:element>
             </xs:sequence>
-            <xs:attribute name="sifra_potvrde" use="required">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1"/>
-                        <xs:maxLength value="250"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="datum_izdavanja" type="xs:date" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TDoze">

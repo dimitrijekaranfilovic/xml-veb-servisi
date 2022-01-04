@@ -2,9 +2,9 @@
 <potvrda_o_vakcinaciji xmlns="https://www.vakcinacija.rs/potvrda_o_vakcinaciji"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://www.vakcinacija.rs/potvrda_o_vakcinaciji ../xsd/potvrda_o_vakcinaciji.xsd" 
-    xmlns:za="https://www.vakcinacija.rs/zajednicko"
-    sifra_potvrde="1234" 
-    datum_izdavanja="2021-10-10">
+    xmlns:za="https://www.vakcinacija.rs/zajednicko">
+    <sifra_potvrde>1234</sifra_potvrde>
+    <datum_izdavanja>2021-10-10</datum_izdavanja>
     <qr_kod></qr_kod>
     <licne_informacije>
         <za:ime>Ime</za:ime>
