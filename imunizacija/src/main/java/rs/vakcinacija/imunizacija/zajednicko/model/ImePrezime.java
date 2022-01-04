@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.zajednicko.model;
 
+import rs.vakcinacija.imunizacija.saglasnost.model.Lekar;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
