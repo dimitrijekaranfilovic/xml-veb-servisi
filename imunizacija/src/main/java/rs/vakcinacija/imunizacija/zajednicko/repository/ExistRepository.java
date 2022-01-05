@@ -124,17 +124,18 @@ public class ExistRepository<T> {
             for(int i = 0; i <= pathSegmentOffset; i++) {
                 path.append("/").append(pathSegments[i]);
             }
-            Collection startCol = DatabaseManager.getCollection(uri + path, user, password);
-            if (startCol != null) {
-                startCol.close();
+            Collection startCollection = DatabaseManager.getCollection(uri + path, user, password);
+            if (startCollection == null) {
+                String parentPath = path.substring(0, path.lastIndexOf("/"));
+                Collection parentCollection = DatabaseManager.getCollection(uri + parentPath, user, password);
+                CollectionManagementService managementService =
+                        (CollectionManagementService) parentCollection.getService("CollectionManagementService", "1.0");
+                collection = managementService.createCollection(pathSegments[pathSegmentOffset]);
+                collection.close();
+                parentCollection.close();
+            } else {
+                startCollection.close();
             }
-            String parentPath = path.substring(0, path.lastIndexOf("/"));
-            Collection parentCollection = DatabaseManager.getCollection(uri + parentPath, user, password);
-            CollectionManagementService managementService =
-                    (CollectionManagementService) parentCollection.getService("CollectionManagementService", "1.0");
-            collection = managementService.createCollection(pathSegments[pathSegmentOffset]);
-            collection.close();
-            parentCollection.close();
         }
         return getOrCreateCollection(collectionUri, ++pathSegmentOffset);
     }
