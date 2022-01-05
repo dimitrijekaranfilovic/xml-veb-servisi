@@ -8,7 +8,6 @@ import java.util.Date;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "doza_detaljnije")
 @XmlType(name = "TDoza_detaljnije", propOrder = {"tip", "proizvodjac"})
-@XmlSeeAlso({DozaVakcine.class})
 public class DozaDetaljnije extends Doza {
 
     @XmlElement(name = "tip", required = true)

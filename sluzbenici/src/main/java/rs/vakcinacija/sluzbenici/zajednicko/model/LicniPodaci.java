@@ -1,13 +1,10 @@
 package rs.vakcinacija.sluzbenici.zajednicko.model;
 
-import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.LicneInformacije;
-
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "licni_podaci")
 @XmlType(name = "TLicni_podaci", propOrder = {"jmbg", "pol"})
-@XmlSeeAlso({LicneInformacije.class})
 public class LicniPodaci extends ImePrezime {
 
     @XmlElement(name = "jmbg", required = true)

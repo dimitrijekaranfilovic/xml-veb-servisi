@@ -1,14 +1,11 @@
 package rs.vakcinacija.imunizacija.zajednicko.model;
 
-import rs.vakcinacija.imunizacija.saglasnost.model.Vakcina;
-
 import javax.xml.bind.annotation.*;
 import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "doza_detaljnije")
 @XmlType(name = "TDoza_detaljnije", propOrder = {"tip", "proizvodjac"})
-@XmlSeeAlso({Vakcina.class})
 public class DozaDetaljnije extends Doza {
 
     @XmlElement(name = "tip", required = true)

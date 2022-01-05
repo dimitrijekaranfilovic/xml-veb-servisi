@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "puno_ime")
 @XmlType(name = "TIme_prezime", propOrder = {"ime", "prezime"})
-@XmlSeeAlso({LicniPodaci.class})
 public class ImePrezime {
 
     @XmlElement(name = "ime", required = true)
