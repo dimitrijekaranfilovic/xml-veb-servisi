@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  sluzbenici-db:
+    container_name: "sluzbenici-xml-exist-database"
+    image: existdb/existdb:4.6.1
+    ports:
+      - "8084:8080"
+    networks:
+      - sluzbenici-service-network
+
+# TODO: Commented out for development and debug purposes
+#  sluzbenici-service:
+#    container_name: "sluzbenici-service-api"
+#    build:
+#      context: .
+#      dockerfile: .docker/Dockerfile
+#    environment:
+#      API_PORT: 8082
+#      EXIST_DB_USER: admin
+#      EXIST_DB_PASSWORD:
+#      EXIST_DB_HOST: sluzbenici-db
+#      EXIST_DB_PORT: 8080
+#    ports:
+#      - "8082:8082"
+#    networks:
+#      - sluzbenici-service-network
+
+networks:
+  sluzbenici-service-network:
+    name: sluzbenici-service-network
