@@ -2,7 +2,7 @@ package rs.vakcinacija.sluzbenici.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import rs.vakcinacija.zajednicko.connection.ConnectionProvider;
+import rs.vakcinacija.zajednicko.data.connection.ConnectionProvider;
 
 @Component
 public class EnvironmentConnectionProvider implements ConnectionProvider {

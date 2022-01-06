@@ -1,4 +1,4 @@
-package rs.vakcinacija.zajednicko.connection;
+package rs.vakcinacija.zajednicko.data.connection;
 
 public interface ConnectionProvider {
 

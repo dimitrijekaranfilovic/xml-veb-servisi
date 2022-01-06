@@ -3,8 +3,8 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
-import rs.vakcinacija.zajednicko.connection.ConnectionProvider;
-import rs.vakcinacija.zajednicko.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.data.connection.ConnectionProvider;
+import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 
 
 @Component
