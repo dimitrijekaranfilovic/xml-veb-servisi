@@ -1,6 +1,6 @@
 package rs.vakcinacija.imunizacija.zahtevzasertifikat.model;
 
-import rs.vakcinacija.imunizacija.zajednicko.model.LicniPodaci;
+import rs.vakcinacija.zajednicko.model.LicniPodaci;
 
 import javax.xml.bind.annotation.*;
 

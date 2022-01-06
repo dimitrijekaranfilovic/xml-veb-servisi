@@ -1,12 +1,16 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
-import rs.vakcinacija.sluzbenici.zajednicko.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.connection.ConnectionProvider;
+import rs.vakcinacija.zajednicko.repository.ExistRepository;
 
 @Component
 public class PotvrdaOVakcinacijiRepository extends ExistRepository<PotvrdaOVakcinaciji> {
-    protected PotvrdaOVakcinacijiRepository() {
-        super("potvrda-o-vakcinaciji", PotvrdaOVakcinaciji.class);
+
+    @Autowired
+    public PotvrdaOVakcinacijiRepository(ConnectionProvider connectionProvider) {
+        super("potvrda-o-vakcinaciji", PotvrdaOVakcinaciji.class, connectionProvider);
     }
 }

@@ -1,7 +1,7 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 
 
-import rs.vakcinacija.sluzbenici.zajednicko.model.LicniPodaci;
+import rs.vakcinacija.zajednicko.model.LicniPodaci;
 
 import javax.xml.bind.annotation.*;
 import java.util.Date;
@@ -31,7 +31,7 @@ public class PotvrdaOVakcinaciji {
         super();
     }
 
-    public PotvrdaOVakcinaciji(String sifraPotvrde, Date datumIzdavanja, String qrKod, LicneInformacije licneInformacije) {
+    public PotvrdaOVakcinaciji(String sifraPotvrde, Date datumIzdavanja, String qrKod, LicniPodaci licneInformacije) {
         this.sifraPotvrde = sifraPotvrde;
         this.datumIzdavanja = datumIzdavanja;
         this.qrKod = qrKod;
