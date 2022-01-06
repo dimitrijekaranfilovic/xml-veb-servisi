@@ -1,14 +1,16 @@
 package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.IzvestajOImunizaciji;
-import rs.vakcinacija.sluzbenici.repository.SpringExistRepository;
+import rs.vakcinacija.zajednicko.connection.ConnectionProvider;
+import rs.vakcinacija.zajednicko.repository.ExistRepository;
 
 @Component
-public class IzvestajOImunizacijiRepository extends SpringExistRepository<IzvestajOImunizaciji> {
+public class IzvestajOImunizacijiRepository extends ExistRepository<IzvestajOImunizaciji> {
 
-
-    protected IzvestajOImunizacijiRepository() {
-        super("izvestaj-o-imunizaciji", IzvestajOImunizaciji.class);
+    @Autowired
+    public IzvestajOImunizacijiRepository(ConnectionProvider connectionProvider) {
+        super("izvestaj-o-imunizaciji", IzvestajOImunizaciji.class, connectionProvider);
     }
 }
