@@ -1,11 +1,11 @@
 package rs.vakcinacija.imunizacija.zahtevzasertifikat.repository;
 
 import org.springframework.stereotype.Component;
+import rs.vakcinacija.imunizacija.repository.SpringExistRepository;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
-import rs.vakcinacija.imunizacija.zajednicko.repository.ExistRepository;
 
 @Component
-public class ZahtevZaSertifikatRepository extends ExistRepository<ZahtevZaSertifikat> {
+public class ZahtevZaSertifikatRepository extends SpringExistRepository<ZahtevZaSertifikat> {
     protected ZahtevZaSertifikatRepository() {
         super("zahtev_za_sertifikat", ZahtevZaSertifikat.class);
     }

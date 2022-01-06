@@ -1,7 +1,8 @@
 package rs.vakcinacija.imunizacija.interesovanje.model;
 
-import rs.vakcinacija.imunizacija.zajednicko.model.ImePrezime;
-import rs.vakcinacija.imunizacija.zajednicko.model.Kontakt;
+
+import rs.vakcinacija.zajednicko.model.ImePrezime;
+import rs.vakcinacija.zajednicko.model.Kontakt;
 
 import javax.xml.bind.annotation.*;
 
