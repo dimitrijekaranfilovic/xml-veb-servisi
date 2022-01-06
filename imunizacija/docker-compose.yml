@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  imunizacija-db:
+    container_name: "imunizacija-xml-exist-database"
+    image: existdb/existdb:4.6.1
+    ports:
+      - "8083:8080"
+    networks:
+      - imunizacija-service-network
+
+# TODO: Commented out for development and debug purposes
+#  imunizacija-service:
+#    container_name: "imunizacija-service-api"
+#    build:
+#      context: .
+#      dockerfile: .docker/Dockerfile
+#    environment:
+#      API_PORT: 8081
+#      EXIST_DB_USER: admin
+#      EXIST_DB_PASSWORD:
+#      EXIST_DB_HOST: imunizacija-db
+#      EXIST_DB_PORT: 8080
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - imunizacija-service-network
+
+networks:
+  imunizacija-service-network:
+    name: imunizacija-service-network
