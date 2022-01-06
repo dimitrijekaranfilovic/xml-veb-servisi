@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
-import rs.vakcinacija.sluzbenici.zajednicko.model.DozaDetaljnije;
+
+import rs.vakcinacija.zajednicko.model.DozaDetaljnije;
 
 import javax.xml.bind.annotation.*;
 import java.util.Date;

@@ -1,1 +1,6 @@
-nekipaket/NekaKlasa.class
+rs/vakcinacija/zajednicko/model/package-info.class
+rs/vakcinacija/zajednicko/model/LicniPodaci.class
+rs/vakcinacija/zajednicko/model/ImePrezime.class
+rs/vakcinacija/zajednicko/model/DozaDetaljnije.class
+rs/vakcinacija/zajednicko/repository/ExistRepository.class
+rs/vakcinacija/zajednicko/model/Doza.class

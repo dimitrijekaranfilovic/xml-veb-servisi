@@ -1,4 +1,4 @@
-package model;
+package rs.vakcinacija.zajednicko.model;
 
 import javax.xml.bind.annotation.*;
 import java.util.Date;

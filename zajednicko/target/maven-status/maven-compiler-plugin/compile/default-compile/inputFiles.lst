@@ -1,1 +1,6 @@
-/home/dimitrije/Desktop/Fax/XML-i-veb-servisi/xml-veb-servisi/zajednicko/src/main/java/nekipaket/NekaKlasa.java
+/home/dimitrije/Desktop/Fax/XML-i-veb-servisi/xml-veb-servisi/zajednicko/src/main/java/rs/vakcinacija/zajednicko/model/package-info.java
+/home/dimitrije/Desktop/Fax/XML-i-veb-servisi/xml-veb-servisi/zajednicko/src/main/java/rs/vakcinacija/zajednicko/model/ImePrezime.java
+/home/dimitrije/Desktop/Fax/XML-i-veb-servisi/xml-veb-servisi/zajednicko/src/main/java/rs/vakcinacija/zajednicko/repository/ExistRepository.java
+/home/dimitrije/Desktop/Fax/XML-i-veb-servisi/xml-veb-servisi/zajednicko/src/main/java/rs/vakcinacija/zajednicko/model/DozaDetaljnije.java
+/home/dimitrije/Desktop/Fax/XML-i-veb-servisi/xml-veb-servisi/zajednicko/src/main/java/rs/vakcinacija/zajednicko/model/Doza.java
+/home/dimitrije/Desktop/Fax/XML-i-veb-servisi/xml-veb-servisi/zajednicko/src/main/java/rs/vakcinacija/zajednicko/model/LicniPodaci.java

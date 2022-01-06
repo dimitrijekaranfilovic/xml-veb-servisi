@@ -1,4 +1,4 @@
-package rs.vakcinacija.sluzbenici.zajednicko.model;
+package rs.vakcinacija.zajednicko.model;
 
 import javax.xml.bind.annotation.*;
 
@@ -38,3 +38,4 @@ public class LicniPodaci extends ImePrezime {
         this.pol = pol;
     }
 }
+

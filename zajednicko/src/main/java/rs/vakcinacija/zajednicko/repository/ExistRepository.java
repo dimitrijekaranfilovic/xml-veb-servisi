@@ -1,7 +1,6 @@
-package rs.vakcinacija.sluzbenici.zajednicko.repository;
+package rs.vakcinacija.zajednicko.repository;
 
 import org.exist.xmldb.EXistResource;
-import org.springframework.beans.factory.annotation.Value;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -19,25 +18,26 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class ExistRepository<T> {
-    @Value("${conn.user}")
-    public String user;
 
-    @Value("${conn.password}")
-    public String password;
+    protected String user;
 
-    @Value("${conn.driver}")
-    public String driver;
+    protected String password;
 
-    @Value("${conn.uri}")
-    public String uri;
+    protected String driver;
+
+    protected String uri;
+
 
     protected final String collectionId;
     private final Class<T> entityClazz;
+
 
     protected ExistRepository(String collectionName, Class<T> clazz) {
         this.collectionId = "/db/sample/xml/" + collectionName;
         this.entityClazz = clazz;
     }
+
+
 
     public UUID save(T entity) throws Exception {
         var id = UUID.randomUUID();
@@ -140,4 +140,44 @@ public class ExistRepository<T> {
         return getOrCreateCollection(collectionUri, ++pathSegmentOffset);
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getCollectionId() {
+        return collectionId;
+    }
+
+    public Class<T> getEntityClazz() {
+        return entityClazz;
+    }
 }
+

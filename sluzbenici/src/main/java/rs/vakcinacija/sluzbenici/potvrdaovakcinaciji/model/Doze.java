@@ -1,7 +1,7 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 
-import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.Test;
-import rs.vakcinacija.sluzbenici.zajednicko.model.Doza;
+
+import rs.vakcinacija.zajednicko.model.Doza;
 
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
