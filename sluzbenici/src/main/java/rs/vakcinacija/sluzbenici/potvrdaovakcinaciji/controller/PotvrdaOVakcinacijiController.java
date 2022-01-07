@@ -4,16 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.IzvestajOImunizaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiRepository;
 
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "potvrda-o-vakcinaciji",
-        produces = MediaType.APPLICATION_XML_VALUE,
-        consumes = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "potvrda-o-vakcinaciji")
 public class PotvrdaOVakcinacijiController {
 
     private final PotvrdaOVakcinacijiRepository potvrdaOVakcinacijiRepository;

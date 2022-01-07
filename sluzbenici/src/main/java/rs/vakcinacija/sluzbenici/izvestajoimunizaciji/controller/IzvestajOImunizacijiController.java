@@ -11,9 +11,7 @@ import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.IzvestajOImunizaciji
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "izvestaj-o-imunizaciji",
-        produces = MediaType.APPLICATION_XML_VALUE,
-        consumes = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "izvestaj-o-imunizaciji")
 public class IzvestajOImunizacijiController {
 
 
