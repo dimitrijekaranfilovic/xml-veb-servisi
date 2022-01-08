@@ -1,6 +1,10 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.PropertyXMLField;
+import rs.vakcinacija.zajednicko.model.PropertyXMLFieldAdapter;
+
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -8,8 +12,8 @@ import java.util.Date;
 public class SaglasnostZaSprovodjenjeImunizacije {
 
     @XmlElement(name = "datum", required = true)
-    @XmlSchemaType(name = "date")
-    private Date datum;
+    @XmlJavaTypeAdapter(PropertyXMLFieldAdapter.class)
+    private PropertyXMLField<Date> datum;
 
     @XmlElement(name = "pacijent", required = true)
     private Pacijent pacijent;
@@ -18,17 +22,17 @@ public class SaglasnostZaSprovodjenjeImunizacije {
 
     public SaglasnostZaSprovodjenjeImunizacije() {}
 
-    public SaglasnostZaSprovodjenjeImunizacije(Date datum, Pacijent pacijent, Vakcinacija vakcinacija) {
+    public SaglasnostZaSprovodjenjeImunizacije(PropertyXMLField<Date> datum, Pacijent pacijent, Vakcinacija vakcinacija) {
         this.datum = datum;
         this.pacijent = pacijent;
         this.vakcinacija = vakcinacija;
     }
 
-    public Date getDatum() {
+    public PropertyXMLField<Date> getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(PropertyXMLField<Date> datum) {
         this.datum = datum;
     }
 
