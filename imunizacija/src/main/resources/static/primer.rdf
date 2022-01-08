@@ -1,0 +1,5 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:h="http://www.w3.org/1999/xhtml">
+<rdf:Description rdf:about="">
+<ns0:datum_izdavanja xmlns:ns0="https://www.vakcinacija.rs/saglasnost" rdf:datatype="date">2020-11-03</ns0:datum_izdavanja>
+</rdf:Description>
+</rdf:RDF>

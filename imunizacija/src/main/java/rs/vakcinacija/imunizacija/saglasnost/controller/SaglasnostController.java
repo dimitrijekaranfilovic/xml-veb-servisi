@@ -34,4 +34,10 @@ public class SaglasnostController {
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRead(@PathVariable UUID id) throws Exception {
         return new ResponseEntity<>(saglasnostRepository.read(id).get(), HttpStatus.CREATED);
     }
+
+    @GetMapping(consumes = MediaType.ALL_VALUE)
+    public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRDF() throws Exception {
+        saglasnostRepository.run();
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
