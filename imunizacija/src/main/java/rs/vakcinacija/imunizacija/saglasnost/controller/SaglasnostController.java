@@ -27,17 +27,12 @@ public class SaglasnostController {
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testWrite(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
         var id = saglasnostRepository.save(saglasnost);
         System.out.println("Created entity with id: " + id);
+        saglasnostRepository.run(saglasnost);
         return new ResponseEntity<>(saglasnost, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRead(@PathVariable UUID id) throws Exception {
         return new ResponseEntity<>(saglasnostRepository.read(id).get(), HttpStatus.CREATED);
-    }
-
-    @GetMapping(consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRDF() throws Exception {
-        saglasnostRepository.run();
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

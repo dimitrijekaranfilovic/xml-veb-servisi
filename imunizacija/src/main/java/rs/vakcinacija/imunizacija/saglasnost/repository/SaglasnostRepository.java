@@ -20,6 +20,7 @@ import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.metadata.MetadataExtractor;
 import rs.vakcinacija.zajednicko.metadata.SparqlUtil;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 import java.io.*;
 
@@ -31,26 +32,24 @@ public class SaglasnostRepository extends ExistRepository<SaglasnostZaSprovodjen
         super("saglasnost", SaglasnostZaSprovodjenjeImunizacije.class, connectionProvider);
     }
 
-    public void run() throws IOException, SAXException, TransformerException {
-
-        // Referencing XML file with RDF data in attributes
-        String xmlFilePath = "src/main/resources/static/primer.xml";
-
-        String rdfFilePath = "src/main/resources/static/primer.rdf";
+    public void run(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws IOException, SAXException, TransformerException, JAXBException {
 
         // Automatic extraction of RDF triples from XML file
         MetadataExtractor metadataExtractor = new MetadataExtractor();
 
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        entityManager.marshall(saglasnost, os);
+        ByteArrayOutputStream os1 = new ByteArrayOutputStream();
+
         System.out.println("[INFO] Extracting metadata from RDFa attributes...");
         metadataExtractor.extractMetadata(
-                new FileInputStream(new File(xmlFilePath)),
-                new FileOutputStream(new File(rdfFilePath)));
-
-
+                new ByteArrayInputStream(os.toByteArray()),
+                os1);
 
         // Loading a default model with extracted metadata
         Model model = ModelFactory.createDefaultModel();
-        model.read(rdfFilePath);
+//        model.read(rdfFilePath);
+        model.read(new ByteArrayInputStream(os1.toByteArray()), "AAAAA");
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
