@@ -10,9 +10,7 @@ import rs.vakcinacija.sluzbenici.digitalnisertifikat.repository.DigitalniSertifi
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "digitalni-sertifikat",
-        produces = MediaType.APPLICATION_XML_VALUE,
-        consumes = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "digitalni-sertifikat")
 public class DigitalniSertifikatController {
 
     private final DigitalniSertifikatRepository digitalniSertifikatRepository;

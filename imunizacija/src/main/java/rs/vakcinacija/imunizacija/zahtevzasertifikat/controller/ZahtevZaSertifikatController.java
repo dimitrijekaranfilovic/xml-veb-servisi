@@ -11,9 +11,7 @@ import rs.vakcinacija.imunizacija.zahtevzasertifikat.repository.ZahtevZaSertifik
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "zahtev-za-sertifikat",
-        produces = MediaType.APPLICATION_XML_VALUE,
-        consumes = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "zahtev-za-sertifikat")
 public class ZahtevZaSertifikatController {
 
     private ZahtevZaSertifikatRepository zahtevZaSertifikatRepository;

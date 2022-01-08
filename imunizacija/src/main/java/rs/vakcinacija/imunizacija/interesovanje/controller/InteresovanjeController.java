@@ -11,9 +11,7 @@ import rs.vakcinacija.imunizacija.interesovanje.repository.InteresovanjeReposito
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "interesovanje",
-        produces = MediaType.APPLICATION_XML_VALUE,
-        consumes = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "interesovanje")
 public class InteresovanjeController {
 
     private final InteresovanjeRepository interesovanjeRepository;

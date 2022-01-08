@@ -11,9 +11,7 @@ import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostRepository;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "saglasnost",
-        produces = MediaType.APPLICATION_XML_VALUE,
-        consumes = MediaType.APPLICATION_XML_VALUE)
+@RequestMapping(value = "saglasnost")
 public class SaglasnostController {
 
     private final SaglasnostRepository saglasnostRepository;
