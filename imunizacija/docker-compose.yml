@@ -1,10 +1,19 @@
 version: "3.7"
 services:
-  imunizacija-db:
+  imunizacija-xml-db:
     container_name: "imunizacija-xml-exist-database"
     image: existdb/existdb:4.6.1
     ports:
       - "8083:8080"
+    networks:
+      - imunizacija-service-network
+  imunizacija-rdf-db:
+    container_name: "imunizacija-rdf-database"
+    image: stain/jena-fuseki:3.14.0
+    ports:
+      - "8085:3030"
+    environment:
+      - ADMIN_PASSWORD=password
     networks:
       - imunizacija-service-network
 
@@ -18,7 +27,7 @@ services:
 #      API_PORT: 8081
 #      EXIST_DB_USER: admin
 #      EXIST_DB_PASSWORD:
-#      EXIST_DB_HOST: imunizacija-db
+#      EXIST_DB_HOST: imunizacija-xml-db
 #      EXIST_DB_PORT: 8080
 #    ports:
 #      - "8081:8081"
