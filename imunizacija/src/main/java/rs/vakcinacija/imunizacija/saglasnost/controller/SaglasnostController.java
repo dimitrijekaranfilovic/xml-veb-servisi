@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
+import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostFusekiRepository;
 import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostRepository;
 
 import java.util.UUID;
@@ -15,17 +16,19 @@ import java.util.UUID;
 public class SaglasnostController {
 
     private final SaglasnostRepository saglasnostRepository;
+    private final SaglasnostFusekiRepository saglasnostFusekiRepository;
 
     @Autowired
-    public SaglasnostController(SaglasnostRepository saglasnostRepository) {
+    public SaglasnostController(SaglasnostRepository saglasnostRepository, SaglasnostFusekiRepository saglasnostFusekiRepository) {
         this.saglasnostRepository = saglasnostRepository;
+        this.saglasnostFusekiRepository = saglasnostFusekiRepository;
     }
 
     @PostMapping
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testWrite(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
         var id = saglasnostRepository.save(saglasnost);
         System.out.println("Created entity with id: " + id);
-        saglasnostRepository.run(saglasnost, id);
+        saglasnostFusekiRepository.save(id, saglasnost);
         return new ResponseEntity<>(saglasnost, HttpStatus.CREATED);
     }
 

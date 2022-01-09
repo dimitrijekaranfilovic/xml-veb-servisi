@@ -6,7 +6,7 @@ import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
-import rs.vakcinacija.zajednicko.data.connection.ConnectionProvider;
+import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
 import rs.vakcinacija.zajednicko.data.context.JAXBEntityManager;
 import rs.vakcinacija.zajednicko.data.context.ManagedCollectionAdapter;
 import rs.vakcinacija.zajednicko.data.context.ManagedXMLResourceAdapter;
@@ -16,13 +16,13 @@ import java.io.ByteArrayOutputStream;
 import java.util.Optional;
 import java.util.UUID;
 
-public class ExistRepository<T> {
+public abstract class ExistRepository<T> {
     protected final JAXBEntityManager<T> entityManager;
     protected final String collectionId;
     protected final Class<T> entityClazz;
-    protected final ConnectionProvider connectionProvider;
+    protected final ExistConnectionProvider connectionProvider;
 
-    protected ExistRepository(String collectionName, Class<T> clazz, ConnectionProvider connectionProvider) {
+    protected ExistRepository(String collectionName, Class<T> clazz, ExistConnectionProvider connectionProvider) {
         this.collectionId = "/db/sample/xml/" + collectionName;
         this.entityClazz = clazz;
         this.connectionProvider = connectionProvider;
@@ -43,7 +43,6 @@ public class ExistRepository<T> {
         return id;
     }
 
-    @SuppressWarnings("unchecked")
     public Optional<T> read(UUID id) throws Exception {
         String documentId = buildDocumentId(id);
         registerDatabase();

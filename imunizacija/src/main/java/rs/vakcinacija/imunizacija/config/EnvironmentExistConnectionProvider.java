@@ -1,21 +1,21 @@
-package rs.vakcinacija.sluzbenici.config;
+package rs.vakcinacija.imunizacija.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import rs.vakcinacija.zajednicko.data.connection.ConnectionProvider;
+import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
 
 @Component
-public class EnvironmentConnectionProvider implements ConnectionProvider {
-    @Value("${conn.uri}")
+public class EnvironmentExistConnectionProvider implements ExistConnectionProvider {
+    @Value("${exist.conn.uri}")
     public String uri;
 
-    @Value("${conn.user}")
+    @Value("${exist.conn.user}")
     public String user;
 
-    @Value("${conn.password}")
+    @Value("${exist.conn.password}")
     public String password;
 
-    @Value("${conn.driver}")
+    @Value("${exist.conn.driver}")
     public String driver;
 
     @Override

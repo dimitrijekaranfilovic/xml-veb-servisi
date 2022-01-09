@@ -1,6 +1,6 @@
 package rs.vakcinacija.zajednicko.data.connection;
 
-public interface ConnectionProvider {
+public interface ExistConnectionProvider {
 
     String getUri();
 

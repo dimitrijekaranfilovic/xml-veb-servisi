@@ -3,14 +3,13 @@ package rs.vakcinacija.imunizacija.saglasnost.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
-import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
-import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.metadata.connection.FusekiConnectionProvider;
+import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 
 @Component
-public class SaglasnostRepository extends ExistRepository<SaglasnostZaSprovodjenjeImunizacije> {
-
+public class SaglasnostFusekiRepository extends FusekiRepository<SaglasnostZaSprovodjenjeImunizacije> {
     @Autowired
-    public SaglasnostRepository(ExistConnectionProvider connectionProvider) {
+    public SaglasnostFusekiRepository(FusekiConnectionProvider connectionProvider) {
         super("saglasnost", SaglasnostZaSprovodjenjeImunizacije.class, connectionProvider);
     }
 }
