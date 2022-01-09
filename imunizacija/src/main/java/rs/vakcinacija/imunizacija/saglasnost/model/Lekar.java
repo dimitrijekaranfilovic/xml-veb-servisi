@@ -1,6 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
 import rs.vakcinacija.zajednicko.model.ImePrezime;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 
@@ -10,22 +11,22 @@ import javax.xml.bind.annotation.*;
 public class Lekar extends ImePrezime {
 
     @XmlElement(name = "telefon", required = true)
-    private Telefon telefon;
+    private RDFField<Telefon> telefon;
 
     public Lekar() {
         super();
     }
 
-    public Lekar(String ime, String prezime, Telefon telefon) {
+    public Lekar(RDFField<String> ime, RDFField<String> prezime, RDFField<Telefon> telefon) {
         super(ime, prezime);
         this.telefon = telefon;
     }
 
-    public Telefon getTelefon() {
+    public RDFField<Telefon> getTelefon() {
         return telefon;
     }
 
-    public void setTelefon(Telefon telefon) {
+    public void setTelefon(RDFField<Telefon> telefon) {
         this.telefon = telefon;
     }
 }

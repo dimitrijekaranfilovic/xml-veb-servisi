@@ -8,32 +8,32 @@ import javax.xml.bind.annotation.*;
 public class ImePrezime {
 
     @XmlElement(name = "ime", required = true)
-    private String ime;
+    private RDFField<String> ime;
 
     @XmlElement(name = "prezime", required = true)
-    private String prezime;
+    private RDFField<String> prezime;
 
     public ImePrezime() {
     }
 
-    public ImePrezime(String ime, String prezime) {
+    public ImePrezime(RDFField<String> ime, RDFField<String> prezime) {
         this.ime = ime;
         this.prezime = prezime;
     }
 
-    public String getIme() {
+    public RDFField<String> getIme() {
         return ime;
     }
 
-    public void setIme(String ime) {
+    public void setIme(RDFField<String> ime) {
         this.ime = ime;
     }
 
-    public String getPrezime() {
+    public RDFField<String> getPrezime() {
         return prezime;
     }
 
-    public void setPrezime(String prezime) {
+    public void setPrezime(RDFField<String> prezime) {
         this.prezime = prezime;
     }
 }

@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 import java.util.Date;
 
@@ -9,32 +11,31 @@ import java.util.Date;
 public class Kontraindikacija {
 
     @XmlElement(name = "datum_utvrdjivanja", required = true)
-    @XmlSchemaType(name = "date")
-    private Date datumUtvrdjivanja;
+    private RDFField<Date> datumUtvrdjivanja;
 
     @XmlElement(name = "dijagnoza", required = true)
-    private String dijagnoza;
+    private RDFField<String> dijagnoza;
 
     public Kontraindikacija() {}
 
-    public Kontraindikacija(Date datumUtvrdjivanja, String dijagnoza) {
+    public Kontraindikacija(RDFField<Date> datumUtvrdjivanja, RDFField<String> dijagnoza) {
         this.datumUtvrdjivanja = datumUtvrdjivanja;
         this.dijagnoza = dijagnoza;
     }
 
-    public Date getDatumUtvrdjivanja() {
+    public RDFField<Date> getDatumUtvrdjivanja() {
         return datumUtvrdjivanja;
     }
 
-    public void setDatumUtvrdjivanja(Date datumUtvrdjivanja) {
+    public void setDatumUtvrdjivanja(RDFField<Date> datumUtvrdjivanja) {
         this.datumUtvrdjivanja = datumUtvrdjivanja;
     }
 
-    public String getDijagnoza() {
+    public RDFField<String> getDijagnoza() {
         return dijagnoza;
     }
 
-    public void setDijagnoza(String dijagnoza) {
+    public void setDijagnoza(RDFField<String> dijagnoza) {
         this.dijagnoza = dijagnoza;
     }
 }

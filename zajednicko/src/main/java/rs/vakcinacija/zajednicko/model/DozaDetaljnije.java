@@ -9,33 +9,34 @@ import java.util.Date;
 public class DozaDetaljnije extends Doza {
 
     @XmlElement(name = "tip", required = true)
-    private String tip;
+    private RDFField<String> tip;
 
     @XmlElement(name = "proizvodjac", required = true)
-    private String proizvodjac;
+    private RDFField<String> proizvodjac;
 
     public DozaDetaljnije() {
     }
 
-    public DozaDetaljnije(Integer brojDoze, Date datumDavanja, String brojSerije, String tip, String proizvodjac) {
+    public DozaDetaljnije(RDFField<Integer> brojDoze, RDFField<Date> datumDavanja,
+                          RDFField<String> brojSerije, RDFField<String> tip, RDFField<String> proizvodjac) {
         super(brojDoze, datumDavanja, brojSerije);
         this.tip = tip;
         this.proizvodjac = proizvodjac;
     }
 
-    public String getTip() {
+    public RDFField<String> getTip() {
         return tip;
     }
 
-    public void setTip(String tip) {
+    public void setTip(RDFField<String> tip) {
         this.tip = tip;
     }
 
-    public String getProizvodjac() {
+    public RDFField<String> getProizvodjac() {
         return proizvodjac;
     }
 
-    public void setProizvodjac(String proizvodjac) {
+    public void setProizvodjac(RDFField<String> proizvodjac) {
         this.proizvodjac = proizvodjac;
     }
 }

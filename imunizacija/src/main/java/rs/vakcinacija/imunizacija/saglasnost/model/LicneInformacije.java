@@ -12,16 +12,16 @@ import javax.xml.bind.annotation.*;
 public class LicneInformacije {
 
     @XmlElement(name = "drzavljanstvo", required = true)
-    private Drzavljanstvo drzavljanstvo;
+    private RDFField<Drzavljanstvo> drzavljanstvo;
 
     @XmlElement(name = "puno_ime", required = true)
-    private PunoImePacijent punoIme;
+    private RDFField<PunoImePacijent> punoIme;
 
     @XmlElement(name = "adresa", required = true)
-    private Adresa adresa;
+    private RDFField<Adresa> adresa;
 
     @XmlElement(name = "kontakt", required = true)
-    private Kontakt kontakt;
+    private RDFField<Kontakt> kontakt;
 
     @XmlElement(name = "radni_status", required = true)
     private RDFField<String> radniStatus;
@@ -32,7 +32,9 @@ public class LicneInformacije {
     public LicneInformacije() {
     }
 
-    public LicneInformacije(Drzavljanstvo drzavljanstvo, PunoImePacijent punoIme, Adresa adresa, Kontakt kontakt, RDFField<String> radniStatus, RDFField<String> zanimanjeZaposlenog) {
+    public LicneInformacije(RDFField<Drzavljanstvo> drzavljanstvo, RDFField<PunoImePacijent> punoIme,
+                            RDFField<Adresa> adresa, RDFField<Kontakt> kontakt,
+                            RDFField<String> radniStatus, RDFField<String> zanimanjeZaposlenog) {
         this.drzavljanstvo = drzavljanstvo;
         this.punoIme = punoIme;
         this.adresa = adresa;
@@ -41,35 +43,35 @@ public class LicneInformacije {
         this.zanimanjeZaposlenog = zanimanjeZaposlenog;
     }
 
-    public Drzavljanstvo getDrzavljanstvo() {
+    public RDFField<Drzavljanstvo> getDrzavljanstvo() {
         return drzavljanstvo;
     }
 
-    public void setDrzavljanstvo(Drzavljanstvo drzavljanstvo) {
+    public void setDrzavljanstvo(RDFField<Drzavljanstvo> drzavljanstvo) {
         this.drzavljanstvo = drzavljanstvo;
     }
 
-    public PunoImePacijent getPunoIme() {
+    public RDFField<PunoImePacijent> getPunoIme() {
         return punoIme;
     }
 
-    public void setPunoIme(PunoImePacijent punoIme) {
+    public void setPunoIme(RDFField<PunoImePacijent> punoIme) {
         this.punoIme = punoIme;
     }
 
-    public Adresa getAdresa() {
+    public RDFField<Adresa> getAdresa() {
         return adresa;
     }
 
-    public void setAdresa(Adresa adresa) {
+    public void setAdresa(RDFField<Adresa> adresa) {
         this.adresa = adresa;
     }
 
-    public Kontakt getKontakt() {
+    public RDFField<Kontakt> getKontakt() {
         return kontakt;
     }
 
-    public void setKontakt(Kontakt kontakt) {
+    public void setKontakt(RDFField<Kontakt> kontakt) {
         this.kontakt = kontakt;
     }
 

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.*;
 public class Saglasnost {
 
     @XmlElement(name = "izjava", required = true)
-    private Boolean izjava;
+    private RDFField<Boolean> izjava;
 
     @XmlElement(name = "naziv_imunoloskog_leka", required = true)
     private RDFField<String> nazivImunoloskogLeka;
@@ -18,16 +18,16 @@ public class Saglasnost {
     public Saglasnost() {
     }
 
-    public Saglasnost(Boolean izjava, RDFField<String> nazivImunoloskogLeka) {
+    public Saglasnost(RDFField<Boolean> izjava, RDFField<String> nazivImunoloskogLeka) {
         this.izjava = izjava;
         this.nazivImunoloskogLeka = nazivImunoloskogLeka;
     }
 
-    public Boolean getIzjava() {
+    public RDFField<Boolean> getIzjava() {
         return izjava;
     }
 
-    public void setIzjava(Boolean izjava) {
+    public void setIzjava(RDFField<Boolean> izjava) {
         this.izjava = izjava;
     }
 

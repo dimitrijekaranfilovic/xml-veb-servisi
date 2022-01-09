@@ -9,15 +9,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Kontakt {
 
     @XmlElement(name = "broj_fiksnog", required = true)
-    @XmlJavaTypeAdapter(RDFFieldAdapter.class)
     private RDFField<String> brojFiksnog;
 
     @XmlElement(name = "broj_mobilnog", required = true)
-    @XmlJavaTypeAdapter(RDFFieldAdapter.class)
     private RDFField<String> brojMobilnog;
 
     @XmlElement(name = "email", required = true)
-    @XmlJavaTypeAdapter(RDFFieldAdapter.class)
     private RDFField<String> email;
 
 

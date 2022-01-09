@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -8,55 +10,55 @@ import javax.xml.bind.annotation.*;
 public class Adresa {
 
     @XmlElement(name = "ulica", required = true)
-    private String ulica;
+    private RDFField<String> ulica;
 
     @XmlElement(name = "broj_zgrade", required = true)
-    private String brojZgrade;
+    private RDFField<String> brojZgrade;
 
     @XmlElement(name = "mesto", required = true)
-    private String mesto;
+    private RDFField<String> mesto;
 
     @XmlElement(name = "opstina", required = true)
-    private String opstina;
+    private RDFField<String> opstina;
 
     public Adresa() {}
 
-    public Adresa(String ulica, String brojZgrade, String mesto, String opstina) {
+    public Adresa(RDFField<String> ulica, RDFField<String> brojZgrade, RDFField<String> mesto, RDFField<String> opstina) {
         this.ulica = ulica;
         this.brojZgrade = brojZgrade;
         this.mesto = mesto;
         this.opstina = opstina;
     }
 
-    public String getUlica() {
+    public RDFField<String> getUlica() {
         return ulica;
     }
 
-    public void setUlica(String ulica) {
+    public void setUlica(RDFField<String> ulica) {
         this.ulica = ulica;
     }
 
-    public String getBrojZgrade() {
+    public RDFField<String> getBrojZgrade() {
         return brojZgrade;
     }
 
-    public void setBrojZgrade(String brojZgrade) {
+    public void setBrojZgrade(RDFField<String> brojZgrade) {
         this.brojZgrade = brojZgrade;
     }
 
-    public String getMesto() {
+    public RDFField<String> getMesto() {
         return mesto;
     }
 
-    public void setMesto(String mesto) {
+    public void setMesto(RDFField<String> mesto) {
         this.mesto = mesto;
     }
 
-    public String getOpstina() {
+    public RDFField<String> getOpstina() {
         return opstina;
     }
 
-    public void setOpstina(String opstina) {
+    public void setOpstina(RDFField<String> opstina) {
         this.opstina = opstina;
     }
 }

@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
 
@@ -9,19 +11,19 @@ import java.util.Collection;
 public class Vakcine {
 
     @XmlElement(name="vakcina", required=false)
-    private Collection<Vakcina> vakcine;
+    private RDFField<Collection<Vakcina>> vakcine;
 
     public Vakcine() {}
 
-    public Vakcine(Collection<Vakcina> vakcine) {
+    public Vakcine(RDFField<Collection<Vakcina>> vakcine) {
         this.vakcine = vakcine;
     }
 
-    public Collection<Vakcina> getVakcine() {
+    public RDFField<Collection<Vakcina>> getVakcine() {
         return vakcine;
     }
 
-    public void setVakcine(Collection<Vakcina> vakcine) {
+    public void setVakcine(RDFField<Collection<Vakcina>> vakcine) {
         this.vakcine = vakcine;
     }
 }

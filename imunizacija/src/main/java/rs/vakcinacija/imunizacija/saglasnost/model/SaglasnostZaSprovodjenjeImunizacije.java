@@ -18,12 +18,12 @@ public class SaglasnostZaSprovodjenjeImunizacije {
     @XmlElement(name = "pacijent", required = true)
     private RDFField<Pacijent> pacijent;
 
-    private Vakcinacija vakcinacija;
+    private RDFField<Vakcinacija> vakcinacija;
 
     public SaglasnostZaSprovodjenjeImunizacije() {
     }
 
-    public SaglasnostZaSprovodjenjeImunizacije(RDFField<Date> datum, RDFField<Pacijent> pacijent, Vakcinacija vakcinacija) {
+    public SaglasnostZaSprovodjenjeImunizacije(RDFField<Date> datum, RDFField<Pacijent> pacijent, RDFField<Vakcinacija> vakcinacija) {
         this.datum = datum;
         this.pacijent = pacijent;
         this.vakcinacija = vakcinacija;
@@ -45,11 +45,11 @@ public class SaglasnostZaSprovodjenjeImunizacije {
         this.pacijent = pacijent;
     }
 
-    public Vakcinacija getVakcinacija() {
+    public RDFField<Vakcinacija> getVakcinacija() {
         return vakcinacija;
     }
 
-    public void setVakcinacija(Vakcinacija vakcinacija) {
+    public void setVakcinacija(RDFField<Vakcinacija> vakcinacija) {
         this.vakcinacija = vakcinacija;
     }
 }

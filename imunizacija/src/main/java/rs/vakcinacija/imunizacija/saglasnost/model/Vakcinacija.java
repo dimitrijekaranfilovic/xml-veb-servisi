@@ -11,16 +11,16 @@ import javax.xml.bind.annotation.*;
 public class Vakcinacija {
 
     @XmlElement(name = "zdravstvena_ustanova", required = true)
-    private ZdravstvenaUstanova zdravstvenaUstanova;
+    private RDFField<ZdravstvenaUstanova> zdravstvenaUstanova;
 
     @XmlElement(name = "lekar", required = true)
     private RDFField<Lekar> lekar;
 
     @XmlElement(name = "vakcine", required = true)
-    private Vakcine vakcine;
+    private RDFField<Vakcine> vakcine;
 
     @XmlElement(name = "privremene_kontraindikacije", required = false)
-    private PrivremeneKontraindikacije privremeneKontraindikacije;
+    private RDFField<PrivremeneKontraindikacije> privremeneKontraindikacije;
 
     @XmlElement(name = "odluka_komisije_za_trajne_kontraindikacije", required = true)
     private RDFField<Boolean> odlukaKomisije;
@@ -28,10 +28,8 @@ public class Vakcinacija {
     public Vakcinacija() {
     }
 
-    public Vakcinacija(ZdravstvenaUstanova zdravstvenaUstanova,
-                       RDFField<Lekar> lekar,
-                       Vakcine vakcine,
-                       PrivremeneKontraindikacije privremeneKontraindikacije,
+    public Vakcinacija(RDFField<ZdravstvenaUstanova> zdravstvenaUstanova, RDFField<Lekar> lekar,
+                       RDFField<Vakcine> vakcine, RDFField<PrivremeneKontraindikacije> privremeneKontraindikacije,
                        RDFField<Boolean> odlukaKomisije) {
         this.zdravstvenaUstanova = zdravstvenaUstanova;
         this.lekar = lekar;
@@ -40,11 +38,11 @@ public class Vakcinacija {
         this.odlukaKomisije = odlukaKomisije;
     }
 
-    public ZdravstvenaUstanova getZdravstvenaUstanova() {
+    public RDFField<ZdravstvenaUstanova> getZdravstvenaUstanova() {
         return zdravstvenaUstanova;
     }
 
-    public void setZdravstvenaUstanova(ZdravstvenaUstanova zdravstvenaUstanova) {
+    public void setZdravstvenaUstanova(RDFField<ZdravstvenaUstanova> zdravstvenaUstanova) {
         this.zdravstvenaUstanova = zdravstvenaUstanova;
     }
 
@@ -56,19 +54,19 @@ public class Vakcinacija {
         this.lekar = lekar;
     }
 
-    public Vakcine getVakcine() {
+    public RDFField<Vakcine> getVakcine() {
         return vakcine;
     }
 
-    public void setVakcine(Vakcine vakcine) {
+    public void setVakcine(RDFField<Vakcine> vakcine) {
         this.vakcine = vakcine;
     }
 
-    public PrivremeneKontraindikacije getPrivremeneKontraindikacije() {
+    public RDFField<PrivremeneKontraindikacije> getPrivremeneKontraindikacije() {
         return privremeneKontraindikacije;
     }
 
-    public void setPrivremeneKontraindikacije(PrivremeneKontraindikacije privremeneKontraindikacije) {
+    public void setPrivremeneKontraindikacije(RDFField<PrivremeneKontraindikacije> privremeneKontraindikacije) {
         this.privremeneKontraindikacije = privremeneKontraindikacije;
     }
 

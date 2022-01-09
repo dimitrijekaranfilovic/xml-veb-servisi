@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -8,31 +10,31 @@ import javax.xml.bind.annotation.*;
 public class StraniDrzavljanin {
 
     @XmlElement(name = "naziv_drzave", required = true)
-    private String nazivDrzave;
+    private RDFField<String> nazivDrzave;
 
     @XmlElement(name = "broj_pasosa", required = true)
-    private String brojPasosa;
+    private RDFField<String> brojPasosa;
 
     public StraniDrzavljanin() {}
 
-    public StraniDrzavljanin(String nazivDrzave, String brojPasosa) {
+    public StraniDrzavljanin(RDFField<String> nazivDrzave, RDFField<String> brojPasosa) {
         this.nazivDrzave = nazivDrzave;
         this.brojPasosa = brojPasosa;
     }
 
-    public String getNazivDrzave() {
+    public RDFField<String> getNazivDrzave() {
         return nazivDrzave;
     }
 
-    public void setNazivDrzave(String nazivDrzave) {
+    public void setNazivDrzave(RDFField<String> nazivDrzave) {
         this.nazivDrzave = nazivDrzave;
     }
 
-    public String getBrojPasosa() {
+    public RDFField<String> getBrojPasosa() {
         return brojPasosa;
     }
 
-    public void setBrojPasosa(String brojPasosa) {
+    public void setBrojPasosa(RDFField<String> brojPasosa) {
         this.brojPasosa = brojPasosa;
     }
 }

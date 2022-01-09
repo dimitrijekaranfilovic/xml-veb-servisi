@@ -8,33 +8,33 @@ import javax.xml.bind.annotation.*;
 public class LicniPodaci extends ImePrezime {
 
     @XmlElement(name = "jmbg", required = true)
-    private String jmbg;
+    private RDFField<String> jmbg;
 
     @XmlElement(name = "pol", required = true)
-    private String pol;
+    private RDFField<String> pol;
 
     public LicniPodaci() {
     }
 
-    public LicniPodaci(String ime, String prezime, String jmbg, String pol) {
+    public LicniPodaci(RDFField<String> ime, RDFField<String> prezime, RDFField<String> jmbg, RDFField<String> pol) {
         super(ime, prezime);
         this.jmbg = jmbg;
         this.pol = pol;
     }
 
-    public String getJmbg() {
+    public RDFField<String> getJmbg() {
         return jmbg;
     }
 
-    public void setJmbg(String jmbg) {
+    public void setJmbg(RDFField<String> jmbg) {
         this.jmbg = jmbg;
     }
 
-    public String getPol() {
+    public RDFField<String> getPol() {
         return pol;
     }
 
-    public void setPol(String pol) {
+    public void setPol(RDFField<String> pol) {
         this.pol = pol;
     }
 }

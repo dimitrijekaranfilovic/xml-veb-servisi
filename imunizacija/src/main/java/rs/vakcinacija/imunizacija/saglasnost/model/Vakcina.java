@@ -1,6 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
 import rs.vakcinacija.zajednicko.model.DozaDetaljnije;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 import java.util.Date;
@@ -11,40 +12,40 @@ import java.util.Date;
 public class Vakcina extends DozaDetaljnije {
 
     @XmlElement(name = "ekstremitet", required = true)
-    private String ekstremitet;
+    private RDFField<String> ekstremitet;
 
     @XmlElement(name = "nuspojava", required = true)
-    private String nuspojava;
+    private RDFField<String> nuspojava;
 
     public Vakcina() {
         super();
     }
 
-    public Vakcina(Integer brojDoze,
-                   Date datumDavanja,
-                   String brojSerije,
-                   String tip,
-                   String proizvodjac,
-                   String ekstremitet,
-                   String nuspojava) {
+    public Vakcina(RDFField<Integer> brojDoze,
+                   RDFField<Date> datumDavanja,
+                   RDFField<String> brojSerije,
+                   RDFField<String> tip,
+                   RDFField<String> proizvodjac,
+                   RDFField<String> ekstremitet,
+                   RDFField<String> nuspojava) {
         super(brojDoze, datumDavanja, brojSerije, tip, proizvodjac);
         this.ekstremitet = ekstremitet;
         this.nuspojava = nuspojava;
     }
 
-    public String getEkstremitet() {
+    public RDFField<String> getEkstremitet() {
         return ekstremitet;
     }
 
-    public void setEkstremitet(String ekstremitet) {
+    public void setEkstremitet(RDFField<String> ekstremitet) {
         this.ekstremitet = ekstremitet;
     }
 
-    public String getNuspojava() {
+    public RDFField<String> getNuspojava() {
         return nuspojava;
     }
 
-    public void setNuspojava(String nuspojava) {
+    public void setNuspojava(RDFField<String> nuspojava) {
         this.nuspojava = nuspojava;
     }
 }

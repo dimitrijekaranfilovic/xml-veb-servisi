@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
 
@@ -9,19 +11,19 @@ import java.util.Collection;
 public class PrivremeneKontraindikacije {
 
     @XmlElement(name="kontraindikacija", required=false)
-    private Collection<Kontraindikacija> kontraindikacije;
+    private RDFField<Collection<Kontraindikacija>> kontraindikacije;
 
     public PrivremeneKontraindikacije() {}
 
-    public PrivremeneKontraindikacije(Collection<Kontraindikacija> kontraindikacije) {
+    public PrivremeneKontraindikacije(RDFField<Collection<Kontraindikacija>> kontraindikacije) {
         this.kontraindikacije = kontraindikacije;
     }
 
-    public Collection<Kontraindikacija> getKontraindikacije() {
+    public RDFField<Collection<Kontraindikacija>> getKontraindikacije() {
         return kontraindikacije;
     }
 
-    public void setKontraindikacije(Collection<Kontraindikacija> kontraindikacije) {
+    public void setKontraindikacije(RDFField<Collection<Kontraindikacija>> kontraindikacije) {
         this.kontraindikacije = kontraindikacije;
     }
 }

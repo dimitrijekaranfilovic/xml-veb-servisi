@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -8,31 +10,31 @@ import javax.xml.bind.annotation.*;
 public class Pacijent {
 
     @XmlElement(name = "licne_informacije", required = true)
-    private LicneInformacije licneInformacije;
+    private RDFField<LicneInformacije> licneInformacije;
 
     @XmlElement(name = "saglasnost", required = true)
-    private Saglasnost saglasnost;
+    private RDFField<Saglasnost> saglasnost;
 
     public Pacijent() {}
 
-    public Pacijent(LicneInformacije licneInformacije, Saglasnost saglasnost) {
+    public Pacijent(RDFField<LicneInformacije> licneInformacije, RDFField<Saglasnost> saglasnost) {
         this.licneInformacije = licneInformacije;
         this.saglasnost = saglasnost;
     }
 
-    public LicneInformacije getLicneInformacije() {
+    public RDFField<LicneInformacije> getLicneInformacije() {
         return licneInformacije;
     }
 
-    public void setLicneInformacije(LicneInformacije licneInformacije) {
+    public void setLicneInformacije(RDFField<LicneInformacije> licneInformacije) {
         this.licneInformacije = licneInformacije;
     }
 
-    public Saglasnost getSaglasnost() {
+    public RDFField<Saglasnost> getSaglasnost() {
         return saglasnost;
     }
 
-    public void setSaglasnost(Saglasnost saglasnost) {
+    public void setSaglasnost(RDFField<Saglasnost> saglasnost) {
         this.saglasnost = saglasnost;
     }
 }
