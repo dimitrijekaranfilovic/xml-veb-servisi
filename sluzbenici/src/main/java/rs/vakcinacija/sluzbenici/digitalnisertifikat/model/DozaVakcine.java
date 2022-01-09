@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
 
 import rs.vakcinacija.zajednicko.model.DozaDetaljnije;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 import java.util.Date;
@@ -12,22 +13,13 @@ import java.util.Date;
 public class DozaVakcine extends DozaDetaljnije {
 
     @XmlElement(name = "zdravstvena_ustanova", required = true)
-    private String zdravstvenaUstanova;
+    private RDFField<String> zdravstvenaUstanova;
 
     public DozaVakcine() {
     }
 
-    public DozaVakcine(Integer brojDoze, Date datumDavanja, String brojSerije, String tip,
-                       String proizvodjac, String zdravstvenaUstanova) {
+    public DozaVakcine(Integer brojDoze, Date datumDavanja, String brojSerije, String tip, String proizvodjac, RDFField<String> zdravstvenaUstanova) {
         super(brojDoze, datumDavanja, brojSerije, tip, proizvodjac);
-        this.zdravstvenaUstanova = zdravstvenaUstanova;
-    }
-
-    public String getZdravstvenaUstanova() {
-        return zdravstvenaUstanova;
-    }
-
-    public void setZdravstvenaUstanova(String zdravstvenaUstanova) {
         this.zdravstvenaUstanova = zdravstvenaUstanova;
     }
 }
