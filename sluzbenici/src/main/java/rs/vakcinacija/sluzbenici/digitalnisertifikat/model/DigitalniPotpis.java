@@ -1,5 +1,7 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 import java.util.Date;
 
@@ -9,33 +11,32 @@ import java.util.Date;
 public class DigitalniPotpis {
 
     @XmlElement(name = "drzava", required = true)
-    private String drzava;
+    private RDFField<String> drzava;
 
     @XmlElement(name = "datum", required = true)
-    @XmlSchemaType(name = "date")
-    private Date datum;
+    private RDFField<Date> datum;
 
     public DigitalniPotpis() {
     }
 
-    public DigitalniPotpis(String drzava, Date datum) {
+    public DigitalniPotpis(RDFField<String> drzava, RDFField<Date> datum) {
         this.drzava = drzava;
         this.datum = datum;
     }
 
-    public String getDrzava() {
+    public RDFField<String> getDrzava() {
         return drzava;
     }
 
-    public void setDrzava(String drzava) {
+    public void setDrzava(RDFField<String> drzava) {
         this.drzava = drzava;
     }
 
-    public Date getDatum() {
+    public RDFField<Date> getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(RDFField<Date> datum) {
         this.datum = datum;
     }
 }

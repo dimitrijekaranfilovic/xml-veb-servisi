@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
-import rs.vakcinacija.sluzbenici.digitalnisertifikat.repository.DigitalniSertifikatRepository;
+import rs.vakcinacija.sluzbenici.digitalnisertifikat.service.DigitalniSertifikatService;
 
 import java.util.UUID;
 
@@ -13,24 +13,22 @@ import java.util.UUID;
 @RequestMapping(value = "digitalni-sertifikat")
 public class DigitalniSertifikatController {
 
-    private final DigitalniSertifikatRepository digitalniSertifikatRepository;
+    private final DigitalniSertifikatService digitalniSertifikatService;
 
     @Autowired
-    public DigitalniSertifikatController(DigitalniSertifikatRepository digitalniSertifikatRepository) {
-        this.digitalniSertifikatRepository = digitalniSertifikatRepository;
+    public DigitalniSertifikatController(DigitalniSertifikatService digitalniSertifikatService) {
+        this.digitalniSertifikatService = digitalniSertifikatService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public DigitalniSertifikat create(@RequestBody DigitalniSertifikat digitalniSertifikat) throws Exception {
-        var id = digitalniSertifikatRepository.save(digitalniSertifikat);
-        System.out.println("Created digitalni sertifikat with id: " + id);
-        return digitalniSertifikat;
+        return digitalniSertifikatService.create(digitalniSertifikat);
     }
 
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public DigitalniSertifikat read(@PathVariable UUID id) throws Exception {
-        return digitalniSertifikatRepository.read(id).get();
+        return digitalniSertifikatService.read(id);
     }
 
 }
