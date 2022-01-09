@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "vakcinacija")
@@ -9,46 +11,48 @@ import javax.xml.bind.annotation.*;
 public class Vakcinacija {
 
     @XmlElement(name = "ustanova", required = true)
-    private String ustanova;
+    private RDFField<String> ustanova;
 
     @XmlElement(name = "naziv_vakcine", required = true)
-    private String nazivVakcine;
+    private RDFField<String> nazivVakcine;
 
     @XmlElement(name = "doze", required = true)
-    private Doze doze;
+    private RDFField<Doze> doze;
 
 
     public Vakcinacija(){
         super();
     }
 
-    public Vakcinacija(String ustanova, String nazivVakcine, Doze doze) {
+    public Vakcinacija(RDFField<String> ustanova,
+                       RDFField<String> nazivVakcine,
+                       RDFField<Doze> doze) {
         this.ustanova = ustanova;
         this.nazivVakcine = nazivVakcine;
         this.doze = doze;
     }
 
-    public String getUstanova() {
+    public RDFField<String> getUstanova() {
         return ustanova;
     }
 
-    public void setUstanova(String ustanova) {
+    public void setUstanova(RDFField<String> ustanova) {
         this.ustanova = ustanova;
     }
 
-    public String getNazivVakcine() {
+    public RDFField<String> getNazivVakcine() {
         return nazivVakcine;
     }
 
-    public void setNazivVakcine(String nazivVakcine) {
+    public void setNazivVakcine(RDFField<String> nazivVakcine) {
         this.nazivVakcine = nazivVakcine;
     }
 
-    public Doze getDoze() {
+    public RDFField<Doze> getDoze() {
         return doze;
     }
 
-    public void setDoze(Doze doze) {
+    public void setDoze(RDFField<Doze> doze) {
         this.doze = doze;
     }
 }

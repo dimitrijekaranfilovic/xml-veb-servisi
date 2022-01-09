@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
 
@@ -10,22 +12,22 @@ import java.util.Collection;
 public class DateDozeVakcina {
 
     @XmlElement(name = "data_doza")
-    private Collection<DataDoza> dateDoze;
+    private RDFField<Collection<DataDoza>> dateDoze;
 
 
     public DateDozeVakcina() {
         super();
     }
 
-    public DateDozeVakcina(Collection<DataDoza> dateDoze) {
+    public DateDozeVakcina(RDFField<Collection<DataDoza>> dateDoze) {
         this.dateDoze = dateDoze;
     }
 
-    public Collection<DataDoza> getDateDoze() {
+    public RDFField<Collection<DataDoza>> getDateDoze() {
         return dateDoze;
     }
 
-    public void setDateDoze(Collection<DataDoza> dateDoze) {
+    public void setDateDoze(RDFField<Collection<DataDoza>> dateDoze) {
         this.dateDoze = dateDoze;
     }
 }

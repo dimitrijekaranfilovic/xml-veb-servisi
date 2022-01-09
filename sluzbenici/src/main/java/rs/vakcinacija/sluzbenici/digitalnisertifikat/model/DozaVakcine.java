@@ -18,7 +18,7 @@ public class DozaVakcine extends DozaDetaljnije {
     public DozaVakcine() {
     }
 
-    public DozaVakcine(Integer brojDoze, Date datumDavanja, String brojSerije, String tip, String proizvodjac, RDFField<String> zdravstvenaUstanova) {
+    public DozaVakcine(RDFField<Integer> brojDoze, RDFField<Date> datumDavanja, RDFField<String> brojSerije, RDFField<String> tip, RDFField<String> proizvodjac, RDFField<String> zdravstvenaUstanova) {
         super(brojDoze, datumDavanja, brojSerije, tip, proizvodjac);
         this.zdravstvenaUstanova = zdravstvenaUstanova;
     }

@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 
 
 import rs.vakcinacija.zajednicko.model.LicniPodaci;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 import java.util.Date;
@@ -12,69 +13,73 @@ public class PotvrdaOVakcinaciji {
 
 
     @XmlElement(name = "sifra_potvrde", required = true)
-    private String sifraPotvrde;
+    private RDFField<String> sifraPotvrde;
 
     @XmlElement(name = "datum_izdavanja", required = true)
-    @XmlSchemaType(name = "date")
-    private Date datumIzdavanja;
+    private RDFField<Date> datumIzdavanja;
 
     @XmlElement(name = "qr_kod", required = true)
-    private String qrKod;
+    private RDFField<String> qrKod;
 
     @XmlElement(name = "licne_informacije", required = true)
-    private LicniPodaci licneInformacije;
+    private RDFField<LicniPodaci> licneInformacije;
 
     @XmlElement(name = "vakcinacija", required = true)
-    private Vakcinacija vakcinacija;
+    private RDFField<Vakcinacija> vakcinacija;
 
     public PotvrdaOVakcinaciji(){
         super();
     }
 
-    public PotvrdaOVakcinaciji(String sifraPotvrde, Date datumIzdavanja, String qrKod, LicniPodaci licneInformacije) {
+    public PotvrdaOVakcinaciji(RDFField<String> sifraPotvrde,
+                               RDFField<Date> datumIzdavanja,
+                               RDFField<String> qrKod,
+                               RDFField<LicniPodaci> licneInformacije,
+                               RDFField<Vakcinacija> vakcinacija) {
         this.sifraPotvrde = sifraPotvrde;
         this.datumIzdavanja = datumIzdavanja;
         this.qrKod = qrKod;
         this.licneInformacije = licneInformacije;
+        this.vakcinacija = vakcinacija;
     }
 
-    public String getSifraPotvrde() {
+    public RDFField<String> getSifraPotvrde() {
         return sifraPotvrde;
     }
 
-    public void setSifraPotvrde(String sifraPotvrde) {
+    public void setSifraPotvrde(RDFField<String> sifraPotvrde) {
         this.sifraPotvrde = sifraPotvrde;
     }
 
-    public Date getDatumIzdavanja() {
+    public RDFField<Date> getDatumIzdavanja() {
         return datumIzdavanja;
     }
 
-    public void setDatumIzdavanja(Date datumIzdavanja) {
+    public void setDatumIzdavanja(RDFField<Date> datumIzdavanja) {
         this.datumIzdavanja = datumIzdavanja;
     }
 
-    public String getQrKod() {
+    public RDFField<String> getQrKod() {
         return qrKod;
     }
 
-    public void setQrKod(String qrKod) {
+    public void setQrKod(RDFField<String> qrKod) {
         this.qrKod = qrKod;
     }
 
-    public LicniPodaci getLicneInformacije() {
+    public RDFField<LicniPodaci> getLicneInformacije() {
         return licneInformacije;
     }
 
-    public void setLicneInformacije(LicniPodaci licneInformacije) {
+    public void setLicneInformacije(RDFField<LicniPodaci> licneInformacije) {
         this.licneInformacije = licneInformacije;
     }
 
-    public Vakcinacija getVakcinacija() {
+    public RDFField<Vakcinacija> getVakcinacija() {
         return vakcinacija;
     }
 
-    public void setVakcinacija(Vakcinacija vakcinacija) {
+    public void setVakcinacija(RDFField<Vakcinacija> vakcinacija) {
         this.vakcinacija = vakcinacija;
     }
 }

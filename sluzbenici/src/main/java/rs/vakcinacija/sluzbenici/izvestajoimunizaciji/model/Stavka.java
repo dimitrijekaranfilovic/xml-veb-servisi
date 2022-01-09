@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "stavka")
@@ -9,34 +11,34 @@ import javax.xml.bind.annotation.*;
 public class Stavka {
 
     @XmlElement(name = "proizvodjac", required = true)
-    private String proizvodjac;
+    private RDFField<String> proizvodjac;
 
     @XmlElement(name = "broj_doza", required = true)
-    private Integer brojDoza;
+    private RDFField<Integer> brojDoza;
 
 
     public Stavka() {
     }
 
-    public Stavka(String proizvodjac, Integer brojDoza) {
+    public Stavka(RDFField<String> proizvodjac, RDFField<Integer> brojDoza) {
         this.proizvodjac = proizvodjac;
         this.brojDoza = brojDoza;
     }
 
 
-    public String getProizvodjac() {
+    public RDFField<String> getProizvodjac() {
         return proizvodjac;
     }
 
-    public void setProizvodjac(String proizvodjac) {
+    public void setProizvodjac(RDFField<String> proizvodjac) {
         this.proizvodjac = proizvodjac;
     }
 
-    public Integer getBrojDoza() {
+    public RDFField<Integer> getBrojDoza() {
         return brojDoza;
     }
 
-    public void setBrojDoza(Integer brojDoza) {
+    public void setBrojDoza(RDFField<Integer> brojDoza) {
         this.brojDoza = brojDoza;
     }
 }

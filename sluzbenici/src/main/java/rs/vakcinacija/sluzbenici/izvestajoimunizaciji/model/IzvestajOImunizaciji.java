@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 import java.util.Date;
 
@@ -9,39 +11,37 @@ import java.util.Date;
 public class IzvestajOImunizaciji {
 
     @XmlElement(name = "periodOd", required = true)
-    @XmlSchemaType(name = "date")
-    private Date periodOd;
+    private RDFField<Date> periodOd;
 
     @XmlElement(name = "periodDo", required = true)
-    @XmlSchemaType(name = "date")
-    private Date periodDo;
+    private RDFField<Date> periodDo;
 
     @XmlElement(name = "datum_izdavanja", required = true)
-    @XmlSchemaType(name = "date")
-    private Date datumIzdavanja;
+    private RDFField<Date> datumIzdavanja;
 
     @XmlElement(name = "podneto_dokumenata_o_interesovanju", required = true)
-    private Integer podnetoDokumenataOInteresovanju;
+    private RDFField<Integer> podnetoDokumenataOInteresovanju;
 
     @XmlElement(name = "primljeno_zahteva_za_sertifikat", required = true)
-    private Integer primljenoZahtevaZaSertifikat;
+    private RDFField<Integer> primljenoZahtevaZaSertifikat;
 
     @XmlElement(name = "date_doze_vakcina", required = true)
-    private DateDozeVakcina dateDozeVakcina;
+    private RDFField<DateDozeVakcina> dateDozeVakcina;
 
     @XmlElement(name = "raspodela_po_proizvodjacima", required = true)
-    private RaspodelaPoProizvodjacima raspodelaPoProizvodjacima;
+    private RDFField<RaspodelaPoProizvodjacima> raspodelaPoProizvodjacima;
 
 
     public IzvestajOImunizaciji() {
     }
 
-    public IzvestajOImunizaciji(Date periodOD, Date periodDo,
-                                Date datumIzdavanja,
-                                Integer podnetoDokumenataOInteresovanju,
-                                Integer primljenoZahtevaZaSertifikat,
-                                DateDozeVakcina dateDozeVakcina,
-                                RaspodelaPoProizvodjacima raspodelaPoProizvodjacima) {
+    public IzvestajOImunizaciji(RDFField<Date> periodOD,
+                                RDFField<Date> periodDo,
+                                RDFField<Date> datumIzdavanja,
+                                RDFField<Integer> podnetoDokumenataOInteresovanju,
+                                RDFField<Integer> primljenoZahtevaZaSertifikat,
+                                RDFField<DateDozeVakcina> dateDozeVakcina,
+                                RDFField<RaspodelaPoProizvodjacima> raspodelaPoProizvodjacima) {
         this.periodOd = periodOD;
         this.periodDo = periodDo;
         this.datumIzdavanja = datumIzdavanja;
@@ -51,59 +51,59 @@ public class IzvestajOImunizaciji {
         this.raspodelaPoProizvodjacima = raspodelaPoProizvodjacima;
     }
 
-    public Date getPeriodOd() {
+    public RDFField<Date> getPeriodOd() {
         return periodOd;
     }
 
-    public void setPeriodOd(Date periodOd) {
+    public void setPeriodOd(RDFField<Date> periodOd) {
         this.periodOd = periodOd;
     }
 
-    public Date getPeriodDo() {
+    public RDFField<Date> getPeriodDo() {
         return periodDo;
     }
 
-    public void setPeriodDo(Date periodDo) {
+    public void setPeriodDo(RDFField<Date> periodDo) {
         this.periodDo = periodDo;
     }
 
-    public Date getDatumIzdavanja() {
+    public RDFField<Date> getDatumIzdavanja() {
         return datumIzdavanja;
     }
 
-    public void setDatumIzdavanja(Date datumIzdavanja) {
+    public void setDatumIzdavanja(RDFField<Date> datumIzdavanja) {
         this.datumIzdavanja = datumIzdavanja;
     }
 
-    public Integer getPodnetoDokumenataOInteresovanju() {
+    public RDFField<Integer> getPodnetoDokumenataOInteresovanju() {
         return podnetoDokumenataOInteresovanju;
     }
 
-    public void setPodnetoDokumenataOInteresovanju(Integer podnetoDokumenataOInteresovanju) {
+    public void setPodnetoDokumenataOInteresovanju(RDFField<Integer> podnetoDokumenataOInteresovanju) {
         this.podnetoDokumenataOInteresovanju = podnetoDokumenataOInteresovanju;
     }
 
-    public Integer getPrimljenoZahtevaZaSertifikat() {
+    public RDFField<Integer> getPrimljenoZahtevaZaSertifikat() {
         return primljenoZahtevaZaSertifikat;
     }
 
-    public void setPrimljenoZahtevaZaSertifikat(Integer primljenoZahtevaZaSertifikat) {
+    public void setPrimljenoZahtevaZaSertifikat(RDFField<Integer> primljenoZahtevaZaSertifikat) {
         this.primljenoZahtevaZaSertifikat = primljenoZahtevaZaSertifikat;
     }
 
-    public DateDozeVakcina getDateDozeVakcina() {
+    public RDFField<DateDozeVakcina> getDateDozeVakcina() {
         return dateDozeVakcina;
     }
 
-    public void setDateDozeVakcina(DateDozeVakcina dateDozeVakcina) {
+    public void setDateDozeVakcina(RDFField<DateDozeVakcina> dateDozeVakcina) {
         this.dateDozeVakcina = dateDozeVakcina;
     }
 
-    public RaspodelaPoProizvodjacima getRaspodelaPoProizvodjacima() {
+    public RDFField<RaspodelaPoProizvodjacima> getRaspodelaPoProizvodjacima() {
         return raspodelaPoProizvodjacima;
     }
 
-    public void setRaspodelaPoProizvodjacima(RaspodelaPoProizvodjacima raspodelaPoProizvodjacima) {
+    public void setRaspodelaPoProizvodjacima(RDFField<RaspodelaPoProizvodjacima> raspodelaPoProizvodjacima) {
         this.raspodelaPoProizvodjacima = raspodelaPoProizvodjacima;
     }
 }

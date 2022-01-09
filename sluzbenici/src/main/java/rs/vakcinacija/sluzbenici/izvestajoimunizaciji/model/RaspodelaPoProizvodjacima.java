@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
 
@@ -10,21 +12,21 @@ import java.util.Collection;
 public class RaspodelaPoProizvodjacima {
 
     @XmlElement(name = "stavka", required = true)
-    private Collection<Stavka> stavke;
+    private RDFField<Collection<Stavka>> stavke;
 
     public  RaspodelaPoProizvodjacima(){
         super();
     }
 
-    public RaspodelaPoProizvodjacima(Collection<Stavka> stavke) {
+    public RaspodelaPoProizvodjacima(RDFField<Collection<Stavka>> stavke) {
         this.stavke = stavke;
     }
 
-    public Collection<Stavka> getStavke() {
+    public RDFField<Collection<Stavka>> getStavke() {
         return stavke;
     }
 
-    public void setStavke(Collection<Stavka> stavke) {
+    public void setStavke(RDFField<Collection<Stavka>> stavke) {
         this.stavke = stavke;
     }
 }

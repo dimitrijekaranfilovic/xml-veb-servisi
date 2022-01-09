@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
 
 import rs.vakcinacija.zajednicko.model.LicniPodaci;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 import java.util.Date;
@@ -12,34 +13,33 @@ import java.util.Date;
 public class LicneInformacije extends LicniPodaci {
 
     @XmlElement(name = "datum_rodjenja", required = true)
-    @XmlSchemaType(name = "date")
-    private Date datumRodjenja;
+    private RDFField<Date> datumRodjenja;
 
     @XmlElement(name = "broj_pasosa", required = true)
-    private String brojPasosa;
+    private RDFField<String> brojPasosa;
 
     public LicneInformacije() {
     }
 
-    public LicneInformacije(String ime, String prezime, String jmbg, String pol, Date datumRodjenja, String brojPasosa) {
+    public LicneInformacije(RDFField<String> ime, RDFField<String> prezime, RDFField<String> jmbg, RDFField<String> pol, RDFField<Date> datumRodjenja, RDFField<String> brojPasosa) {
         super(ime, prezime, jmbg, pol);
         this.datumRodjenja = datumRodjenja;
         this.brojPasosa = brojPasosa;
     }
 
-    public Date getDatumRodjenja() {
+    public RDFField<Date> getDatumRodjenja() {
         return datumRodjenja;
     }
 
-    public void setDatumRodjenja(Date datumRodjenja) {
+    public void setDatumRodjenja(RDFField<Date> datumRodjenja) {
         this.datumRodjenja = datumRodjenja;
     }
 
-    public String getBrojPasosa() {
+    public RDFField<String> getBrojPasosa() {
         return brojPasosa;
     }
 
-    public void setBrojPasosa(String brojPasosa) {
+    public void setBrojPasosa(RDFField<String> brojPasosa) {
         this.brojPasosa = brojPasosa;
     }
 }
