@@ -1,10 +1,11 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
-import rs.vakcinacija.zajednicko.model.PropertyXMLField;
-import rs.vakcinacija.zajednicko.model.PropertyXMLFieldAdapter;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -12,35 +13,35 @@ import java.util.Date;
 public class SaglasnostZaSprovodjenjeImunizacije {
 
     @XmlElement(name = "datum", required = true)
-    @XmlJavaTypeAdapter(PropertyXMLFieldAdapter.class)
-    private PropertyXMLField<Date> datum;
+    private RDFField<Date> datum;
 
     @XmlElement(name = "pacijent", required = true)
-    private Pacijent pacijent;
+    private RDFField<Pacijent> pacijent;
 
     private Vakcinacija vakcinacija;
 
-    public SaglasnostZaSprovodjenjeImunizacije() {}
+    public SaglasnostZaSprovodjenjeImunizacije() {
+    }
 
-    public SaglasnostZaSprovodjenjeImunizacije(PropertyXMLField<Date> datum, Pacijent pacijent, Vakcinacija vakcinacija) {
+    public SaglasnostZaSprovodjenjeImunizacije(RDFField<Date> datum, RDFField<Pacijent> pacijent, Vakcinacija vakcinacija) {
         this.datum = datum;
         this.pacijent = pacijent;
         this.vakcinacija = vakcinacija;
     }
 
-    public PropertyXMLField<Date> getDatum() {
+    public RDFField<Date> getDatum() {
         return datum;
     }
 
-    public void setDatum(PropertyXMLField<Date> datum) {
+    public void setDatum(RDFField<Date> datum) {
         this.datum = datum;
     }
 
-    public Pacijent getPacijent() {
+    public RDFField<Pacijent> getPacijent() {
         return pacijent;
     }
 
-    public void setPacijent(Pacijent pacijent) {
+    public void setPacijent(RDFField<Pacijent> pacijent) {
         this.pacijent = pacijent;
     }
 

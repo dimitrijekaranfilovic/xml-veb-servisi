@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -11,11 +13,12 @@ public class Saglasnost {
     private Boolean izjava;
 
     @XmlElement(name = "naziv_imunoloskog_leka", required = true)
-    private String nazivImunoloskogLeka;
+    private RDFField<String> nazivImunoloskogLeka;
 
-    public Saglasnost() {}
+    public Saglasnost() {
+    }
 
-    public Saglasnost(Boolean izjava, String nazivImunoloskogLeka) {
+    public Saglasnost(Boolean izjava, RDFField<String> nazivImunoloskogLeka) {
         this.izjava = izjava;
         this.nazivImunoloskogLeka = nazivImunoloskogLeka;
     }
@@ -28,11 +31,11 @@ public class Saglasnost {
         this.izjava = izjava;
     }
 
-    public String getNazivImunoloskogLeka() {
+    public RDFField<String> getNazivImunoloskogLeka() {
         return nazivImunoloskogLeka;
     }
 
-    public void setNazivImunoloskogLeka(String nazivImunoloskogLeka) {
+    public void setNazivImunoloskogLeka(RDFField<String> nazivImunoloskogLeka) {
         this.nazivImunoloskogLeka = nazivImunoloskogLeka;
     }
 }

@@ -1,6 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
 import rs.vakcinacija.zajednicko.model.Kontakt;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 
@@ -23,15 +24,15 @@ public class LicneInformacije {
     private Kontakt kontakt;
 
     @XmlElement(name = "radni_status", required = true)
-    private String radniStatus;
+    private RDFField<String> radniStatus;
 
     @XmlElement(name = "zanimanje_zaposlenog", required = true)
-    private String zanimanjeZaposlenog;
+    private RDFField<String> zanimanjeZaposlenog;
 
     public LicneInformacije() {
     }
 
-    public LicneInformacije(Drzavljanstvo drzavljanstvo, PunoImePacijent punoIme, Adresa adresa, Kontakt kontakt, String radniStatus, String zanimanjeZaposlenog) {
+    public LicneInformacije(Drzavljanstvo drzavljanstvo, PunoImePacijent punoIme, Adresa adresa, Kontakt kontakt, RDFField<String> radniStatus, RDFField<String> zanimanjeZaposlenog) {
         this.drzavljanstvo = drzavljanstvo;
         this.punoIme = punoIme;
         this.adresa = adresa;
@@ -72,19 +73,19 @@ public class LicneInformacije {
         this.kontakt = kontakt;
     }
 
-    public String getRadniStatus() {
+    public RDFField<String> getRadniStatus() {
         return radniStatus;
     }
 
-    public void setRadniStatus(String radniStatus) {
+    public void setRadniStatus(RDFField<String> radniStatus) {
         this.radniStatus = radniStatus;
     }
 
-    public String getZanimanjeZaposlenog() {
+    public RDFField<String> getZanimanjeZaposlenog() {
         return zanimanjeZaposlenog;
     }
 
-    public void setZanimanjeZaposlenog(String zanimanjeZaposlenog) {
+    public void setZanimanjeZaposlenog(RDFField<String> zanimanjeZaposlenog) {
         this.zanimanjeZaposlenog = zanimanjeZaposlenog;
     }
 }

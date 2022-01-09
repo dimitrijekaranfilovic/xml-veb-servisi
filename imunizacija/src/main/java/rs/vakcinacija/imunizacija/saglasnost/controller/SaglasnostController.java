@@ -25,7 +25,7 @@ public class SaglasnostController {
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testWrite(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
         var id = saglasnostRepository.save(saglasnost);
         System.out.println("Created entity with id: " + id);
-        saglasnostRepository.run(saglasnost);
+        saglasnostRepository.run(saglasnost, id);
         return new ResponseEntity<>(saglasnost, HttpStatus.CREATED);
     }
 

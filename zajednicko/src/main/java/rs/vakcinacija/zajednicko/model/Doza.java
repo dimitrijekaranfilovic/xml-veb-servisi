@@ -12,7 +12,6 @@ public class Doza {
     private Integer brojDoze;
 
     @XmlElement(name = "datum_davanja", required = true)
-    @XmlSchemaType(name = "date")
     private Date datumDavanja;
 
     @XmlElement(name = "broj_serije", required = true)

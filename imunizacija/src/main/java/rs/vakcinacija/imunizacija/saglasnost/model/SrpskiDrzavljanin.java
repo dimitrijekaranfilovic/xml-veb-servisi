@@ -1,5 +1,6 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -8,19 +9,19 @@ import javax.xml.bind.annotation.*;
 public class SrpskiDrzavljanin {
 
     @XmlElement(name = "jmbg", required = true)
-    private String jmbg;
+    private RDFField<String> jmbg;
 
     public SrpskiDrzavljanin() {}
 
-    public SrpskiDrzavljanin(String jmbg) {
+    public SrpskiDrzavljanin(RDFField<String> jmbg) {
         this.jmbg = jmbg;
     }
 
-    public String getJmbg() {
+    public RDFField<String> getJmbg() {
         return jmbg;
     }
 
-    public void setJmbg(String jmbg) {
+    public void setJmbg(RDFField<String> jmbg) {
         this.jmbg = jmbg;
     }
 }

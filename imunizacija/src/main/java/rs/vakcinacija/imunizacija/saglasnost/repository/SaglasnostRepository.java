@@ -29,6 +29,7 @@ import javax.xml.transform.TransformerException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 @Component
 public class SaglasnostRepository extends ExistRepository<SaglasnostZaSprovodjenjeImunizacije> {
@@ -42,7 +43,7 @@ public class SaglasnostRepository extends ExistRepository<SaglasnostZaSprovodjen
         HttpOp.setDefaultHttpClient(httpclient);
     }
 
-    public void run(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws IOException, SAXException, TransformerException, JAXBException {
+    public void run(SaglasnostZaSprovodjenjeImunizacije saglasnost, UUID id) throws IOException, SAXException, TransformerException, JAXBException {
 
         // Automatic extraction of RDF triples from XML file
         MetadataExtractor metadataExtractor = new MetadataExtractor();
@@ -62,7 +63,7 @@ public class SaglasnostRepository extends ExistRepository<SaglasnostZaSprovodjen
         System.out.println("======================================");
         System.out.println(os1.toString());
         System.out.println("======================================");
-        model.read(new ByteArrayInputStream(os1.toByteArray()), "AAAAA");
+        model.read(new ByteArrayInputStream(os1.toByteArray()), "https://www.vakcinacija.rs/saglasnost/" + id.toString());
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -71,13 +72,13 @@ public class SaglasnostRepository extends ExistRepository<SaglasnostZaSprovodjen
         System.out.println("[INFO] Extracted metadata as RDF/XML...");
         model.write(System.out, SparqlUtil.RDF_XML);
 
-        String updateEndpoint = "http://localhost:8085/VakcinacijaDataset/update";
-        String dataEndpoint = "http://localhost:8085/VakcinacijaDataset/data";
-        String queryEndpoint = "http://localhost:8085/VakcinacijaDataset/query";
+        String updateEndpoint = "http://localhost:8083/fuseki/VakcinacijaDataset/update";
+        String dataEndpoint = "http://localhost:8083/fuseki/VakcinacijaDataset/data";
+        String queryEndpoint = "http://localhost:8083/fuseki/VakcinacijaDataset/query";
 
         // Writing the named graph
         System.out.println("[INFO] Populating named graph \"" + "/vakcinacija/saglasnost/metadata" + "\" with extracted metadata.");
-        String sparqlUpdate = SparqlUtil.insertData(dataEndpoint + "/vakcinacija/saglasnost/metadata", new String(out.toByteArray()));
+        String sparqlUpdate = SparqlUtil.insertData(dataEndpoint + "/vakcinacija/saglasnost/metadata", out.toString());
         System.out.println(sparqlUpdate);
 
         // UpdateRequest represents a unit of execution

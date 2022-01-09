@@ -2,19 +2,20 @@ package rs.vakcinacija.zajednicko.model;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class PropertyXMLFieldAdapter extends XmlAdapter<Object, PropertyXMLField<?>> {
+public class RDFFieldAdapter extends XmlAdapter<Object, RDFField<?>> {
+
     @Override
-    public PropertyXMLField<?> unmarshal(Object v) throws Exception {
+    public RDFField<?> unmarshal(Object v) throws Exception {
         if (v == null) {
             return null;
         }
-        PropertyXMLField<Object> field = new PropertyXMLField<>();
+        RDFField<Object> field = new RDFField<>();
         field.setValue(v);
         return field;
     }
 
     @Override
-    public Object marshal(PropertyXMLField<?> v) throws Exception {
+    public Object marshal(RDFField<?> v) throws Exception {
         if (v == null) {
             return null;
         }

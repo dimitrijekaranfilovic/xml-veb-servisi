@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import rs.vakcinacija.zajednicko.model.RDFField;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -12,7 +14,7 @@ public class Vakcinacija {
     private ZdravstvenaUstanova zdravstvenaUstanova;
 
     @XmlElement(name = "lekar", required = true)
-    private Lekar lekar;
+    private RDFField<Lekar> lekar;
 
     @XmlElement(name = "vakcine", required = true)
     private Vakcine vakcine;
@@ -21,16 +23,16 @@ public class Vakcinacija {
     private PrivremeneKontraindikacije privremeneKontraindikacije;
 
     @XmlElement(name = "odluka_komisije_za_trajne_kontraindikacije", required = true)
-    private Boolean odlukaKomisije;
+    private RDFField<Boolean> odlukaKomisije;
 
     public Vakcinacija() {
     }
 
     public Vakcinacija(ZdravstvenaUstanova zdravstvenaUstanova,
-                       Lekar lekar,
+                       RDFField<Lekar> lekar,
                        Vakcine vakcine,
                        PrivremeneKontraindikacije privremeneKontraindikacije,
-                       Boolean odlukaKomisije) {
+                       RDFField<Boolean> odlukaKomisije) {
         this.zdravstvenaUstanova = zdravstvenaUstanova;
         this.lekar = lekar;
         this.vakcine = vakcine;
@@ -46,11 +48,11 @@ public class Vakcinacija {
         this.zdravstvenaUstanova = zdravstvenaUstanova;
     }
 
-    public Lekar getLekar() {
+    public RDFField<Lekar> getLekar() {
         return lekar;
     }
 
-    public void setLekar(Lekar lekar) {
+    public void setLekar(RDFField<Lekar> lekar) {
         this.lekar = lekar;
     }
 
@@ -70,11 +72,11 @@ public class Vakcinacija {
         this.privremeneKontraindikacije = privremeneKontraindikacije;
     }
 
-    public Boolean getOdlukaKomisije() {
+    public RDFField<Boolean> getOdlukaKomisije() {
         return odlukaKomisije;
     }
 
-    public void setOdlukaKomisije(Boolean odlukaKomisije) {
+    public void setOdlukaKomisije(RDFField<Boolean> odlukaKomisije) {
         this.odlukaKomisije = odlukaKomisije;
     }
 }
