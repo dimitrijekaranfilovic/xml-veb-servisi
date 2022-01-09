@@ -1,14 +1,8 @@
 package rs.vakcinacija.zajednicko.metadata.repository;
 
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.riot.web.HttpOp;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
-import org.xml.sax.SAXException;
 import rs.vakcinacija.zajednicko.data.context.JAXBEntityManager;
 import rs.vakcinacija.zajednicko.metadata.MetadataExtractor;
 import rs.vakcinacija.zajednicko.metadata.SparqlUtil;
@@ -16,7 +10,8 @@ import rs.vakcinacija.zajednicko.metadata.connection.FusekiConnectionProvider;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 public abstract class FusekiRepository<T> {
@@ -31,10 +26,9 @@ public abstract class FusekiRepository<T> {
         this.entityClazz = entityClazz;
         this.collectionName = collectionName;
         this.entityManager = JAXBEntityManager.forEntity(this.entityClazz);
-        this.configureSecureFusekiConnection();
     }
 
-    public void save(UUID id, T entity) throws IOException, SAXException, TransformerException, JAXBException {
+    public void save(UUID id, T entity) throws TransformerException, JAXBException {
         var metadataOutputStream = extractMetadata(entity);
         var model = ModelFactory.createDefaultModel();
         model.read(new ByteArrayInputStream(metadataOutputStream.toByteArray()), buildModelDataUrl(id));
@@ -54,19 +48,12 @@ public abstract class FusekiRepository<T> {
         return String.format("%s/%s/%s", baseUrl, collectionName, id);
     }
 
-    protected ByteArrayOutputStream extractMetadata(T entity) throws JAXBException, IOException, TransformerException, SAXException {
+    protected ByteArrayOutputStream extractMetadata(T entity) throws JAXBException, TransformerException {
         MetadataExtractor metadataExtractor = new MetadataExtractor();
         ByteArrayOutputStream marshallOutputStream = new ByteArrayOutputStream();
         entityManager.marshall(entity, marshallOutputStream);
         ByteArrayOutputStream metadataOutputStream = new ByteArrayOutputStream();
         metadataExtractor.extractMetadata(new ByteArrayInputStream(marshallOutputStream.toByteArray()), metadataOutputStream);
         return metadataOutputStream;
-    }
-
-    private void configureSecureFusekiConnection() {
-        var credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(connectionProvider.getUsername(), connectionProvider.getPassword()));
-        var httpclient = HttpClients.custom().setDefaultCredentialsProvider(credentialsProvider).build();
-        HttpOp.setDefaultHttpClient(httpclient);
     }
 }

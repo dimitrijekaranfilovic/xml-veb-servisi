@@ -1,8 +1,15 @@
 package rs.vakcinacija.sluzbenici.config;
 
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.jena.riot.web.HttpOp;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import rs.vakcinacija.zajednicko.metadata.connection.FusekiConnectionProvider;
+
+import javax.annotation.PostConstruct;
 
 @Component
 public class EnvironmentFusekiConnectionProvider implements FusekiConnectionProvider {
@@ -14,6 +21,14 @@ public class EnvironmentFusekiConnectionProvider implements FusekiConnectionProv
 
     @Value("${fuseki.conn.url}")
     private String url;
+
+    @PostConstruct
+    public void configureSecureFusekiConnection() {
+        var credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(getUsername(), getPassword()));
+        var httpclient = HttpClients.custom().setDefaultCredentialsProvider(credentialsProvider).build();
+        HttpOp.setDefaultHttpClient(httpclient);
+    }
 
     @Override
     public String getUsername() {

@@ -12,7 +12,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "digitalni-sertifikat")
 public class DigitalniSertifikatController {
-
     private final DigitalniSertifikatService digitalniSertifikatService;
 
     @Autowired

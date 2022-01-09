@@ -8,9 +8,8 @@ import java.util.UUID;
 
 public abstract class DocumentService<T> {
 
-    protected ExistRepository<T> existRepository;
-
-    protected FusekiRepository<T> fusekiRepository;
+    protected final ExistRepository<T> existRepository;
+    protected final FusekiRepository<T> fusekiRepository;
 
     protected DocumentService(ExistRepository<T> existRepository, FusekiRepository<T> fusekiRepository) {
         this.existRepository = existRepository;
