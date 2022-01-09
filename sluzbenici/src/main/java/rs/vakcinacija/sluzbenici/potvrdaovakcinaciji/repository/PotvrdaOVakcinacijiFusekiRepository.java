@@ -1,16 +1,17 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
-import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
-import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.metadata.connection.FusekiConnectionProvider;
+import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 
 @Component
-public class PotvrdaOVakcinacijiRepository extends ExistRepository<PotvrdaOVakcinaciji> {
+public class PotvrdaOVakcinacijiFusekiRepository extends FusekiRepository<PotvrdaOVakcinaciji> {
 
     @Autowired
-    public PotvrdaOVakcinacijiRepository(ExistConnectionProvider connectionProvider) {
+    public PotvrdaOVakcinacijiFusekiRepository(FusekiConnectionProvider connectionProvider) {
         super("potvrda-o-vakcinaciji", PotvrdaOVakcinaciji.class, connectionProvider);
     }
 }
