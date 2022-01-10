@@ -29,4 +29,53 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
         return existRepository.read(id)
                 .orElseThrow(() -> new RuntimeException("Cannot find interesovanje with id: " + id));
     }
+
+    public Interesovanje insertRDFAttributes(Interesovanje interesovanje) {
+        var datum = interesovanje.getDatum();
+        datum.setProperty(PROP_DATUM);
+        datum.setDatatype(T_DATE);
+
+        var mesto = interesovanje.getOdabranaLokacijaPrimanjaVakcine();
+        mesto.setProperty(PROP_MESTO);
+        mesto.setDatatype(T_STRING);
+
+        var podnosilacZahteva = interesovanje.getLicneInformacije();
+
+        if (podnosilacZahteva.getJmbg() != null) {
+            String podnosilacUrl = RDF_PACIJENT_BASE + podnosilacZahteva.getJmbg().getValue();
+            podnosilacZahteva.setVocab(VOCAB);
+            podnosilacZahteva.setAbout(podnosilacUrl);
+
+            var jmbg = podnosilacZahteva.getJmbg();
+            jmbg.setProperty(PROP_JMBG);
+            jmbg.setDatatype(T_STRING);
+
+            var ime = interesovanje.getLicneInformacije().getImePrezime().getIme();
+            ime.setProperty(PROP_IME);
+            ime.setDatatype(T_STRING);
+
+            var prezime = interesovanje.getLicneInformacije().getImePrezime().getPrezime();
+            prezime.setProperty(PROP_PREZIME);
+            prezime.setDatatype(T_STRING);
+
+            var davalac = interesovanje.getLicneInformacije().getDavalacKrvi();
+            davalac.setProperty(PROP_DAVALAC_KRVI);
+            davalac.setProperty(T_BOOLEAN);
+
+            var brojFiksnog = interesovanje.getLicneInformacije().getKontakt().getBrojFiksnog();
+            brojFiksnog.setProperty(PROP_BROJ_FIKSNOG);
+            brojFiksnog.setProperty(T_STRING);
+
+            var brojMobilnog = interesovanje.getLicneInformacije().getKontakt().getBrojMobilnog();
+            brojMobilnog.setProperty(PROP_BROJ_MOBILNOG);
+            brojMobilnog.setDatatype(T_STRING);
+
+            var email = interesovanje.getLicneInformacije().getKontakt().getEmail();
+            email.setProperty(PROP_EMAIL);
+            email.setDatatype(T_STRING);
+
+        }
+
+        return interesovanje;
+    }
 }

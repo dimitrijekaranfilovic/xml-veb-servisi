@@ -1,5 +1,6 @@
 package rs.vakcinacija.imunizacija.interesovanje.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import rs.vakcinacija.imunizacija.interesovanje.service.InteresovanjeService;
 
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "interesovanje")
 public class InteresovanjeController {
@@ -21,13 +23,20 @@ public class InteresovanjeController {
 
 
     @PostMapping
-    public Interesovanje interesovanjeWrite(@RequestBody Interesovanje interesovanje) throws Exception {
+    public Interesovanje write(@RequestBody Interesovanje interesovanje) throws Exception {
         return interesovanjeService.create(interesovanje);
     }
 
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
-    public Interesovanje interesovanjeRead(@PathVariable UUID id) throws Exception {
+    public Interesovanje read(@PathVariable UUID id) throws Exception {
         return interesovanjeService.read(id);
+    }
+
+    @PostMapping(value = "raw")
+    public Interesovanje writeRaw(@RequestBody Interesovanje interesovanje) throws Exception {
+        var updatedInteresovanje = interesovanjeService.insertRDFAttributes(interesovanje);
+        log.info(updatedInteresovanje.getDatum().getProperty());
+        return interesovanjeService.create(updatedInteresovanje);
     }
 
 }
