@@ -3,7 +3,7 @@ package rs.vakcinacija.imunizacija.saglasnost.model;
 import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.ImePrezime;
-import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
 
@@ -15,13 +15,13 @@ import javax.xml.bind.annotation.*;
 public class PunoImePacijent extends ImePrezime {
 
     @XmlElement(name = "ime_roditelja", required = true)
-    private RDFField<String> imeRoditelja;
+    private RDFString imeRoditelja;
 
     public PunoImePacijent() {
         super();
     }
 
-    public PunoImePacijent(RDFField<String> ime, RDFField<String> prezime, RDFField<String> imeRoditelja) {
+    public PunoImePacijent(RDFString ime, RDFString prezime, RDFString imeRoditelja) {
         super(ime, prezime);
         this.imeRoditelja = imeRoditelja;
     }

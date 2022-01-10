@@ -12,14 +12,14 @@ import java.util.Collection;
 @XmlType(name = "TPrivremeneKontraindikacije", propOrder = {"kontraindikacije"})
 @Getter
 @Setter
-public class PrivremeneKontraindikacije {
+public class PrivremeneKontraindikacije extends RDFField {
 
     @XmlElement(name="kontraindikacija", required=false)
-    private RDFField<Collection<Kontraindikacija>> kontraindikacije;
+    private Collection<Kontraindikacija> kontraindikacije;
 
     public PrivremeneKontraindikacije() {}
 
-    public PrivremeneKontraindikacije(RDFField<Collection<Kontraindikacija>> kontraindikacije) {
+    public PrivremeneKontraindikacije(Collection<Kontraindikacija> kontraindikacije) {
         this.kontraindikacije = kontraindikacije;
     }
 }

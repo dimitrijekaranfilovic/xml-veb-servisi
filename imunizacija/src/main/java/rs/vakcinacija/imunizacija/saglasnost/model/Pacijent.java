@@ -11,17 +11,17 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "TPacijent", propOrder = {"licneInformacije", "saglasnost"})
 @Getter
 @Setter
-public class Pacijent {
+public class Pacijent extends RDFField {
 
     @XmlElement(name = "licne_informacije", required = true)
-    private RDFField<LicneInformacije> licneInformacije;
+    private LicneInformacije licneInformacije;
 
     @XmlElement(name = "saglasnost", required = true)
-    private RDFField<Saglasnost> saglasnost;
+    private Saglasnost saglasnost;
 
     public Pacijent() {}
 
-    public Pacijent(RDFField<LicneInformacije> licneInformacije, RDFField<Saglasnost> saglasnost) {
+    public Pacijent(LicneInformacije licneInformacije, Saglasnost saglasnost) {
         this.licneInformacije = licneInformacije;
         this.saglasnost = saglasnost;
     }

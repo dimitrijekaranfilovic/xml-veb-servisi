@@ -11,22 +11,22 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "TKontakt", propOrder = {"brojFiksnog", "brojMobilnog", "email"})
 @Getter
 @Setter
-public class Kontakt {
+public class Kontakt extends RDFField {
 
     @XmlElement(name = "broj_fiksnog", required = true)
-    private RDFField<String> brojFiksnog;
+    private RDFString brojFiksnog;
 
     @XmlElement(name = "broj_mobilnog", required = true)
-    private RDFField<String> brojMobilnog;
+    private RDFString brojMobilnog;
 
     @XmlElement(name = "email", required = true)
-    private RDFField<String> email;
+    private RDFString email;
 
 
     public Kontakt() {
     }
 
-    public Kontakt(RDFField<String> brojFiksnog, RDFField<String> brojMobilnog, RDFField<String> email) {
+    public Kontakt(RDFString brojFiksnog, RDFString brojMobilnog, RDFString email) {
         this.brojFiksnog = brojFiksnog;
         this.brojMobilnog = brojMobilnog;
         this.email = email;

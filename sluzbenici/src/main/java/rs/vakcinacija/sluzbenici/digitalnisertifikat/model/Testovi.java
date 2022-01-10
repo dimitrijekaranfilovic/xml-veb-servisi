@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
@@ -11,7 +12,7 @@ import java.util.Collection;
 @XmlType(name = "TTestovi", propOrder = {"testovi"})
 @Getter
 @Setter
-public class Testovi {
+public class Testovi extends RDFField {
 
     @XmlElement(name = "test")
     private Collection<Test> testovi;

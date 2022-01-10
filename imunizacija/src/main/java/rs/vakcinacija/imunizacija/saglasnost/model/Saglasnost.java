@@ -2,7 +2,9 @@ package rs.vakcinacija.imunizacija.saglasnost.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.RDFBoolean;
 import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
 
@@ -11,18 +13,18 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "TSaglasnost", propOrder = {"izjava", "nazivImunoloskogLeka"})
 @Getter
 @Setter
-public class Saglasnost {
+public class Saglasnost extends RDFField {
 
     @XmlElement(name = "izjava", required = true)
-    private RDFField<Boolean> izjava;
+    private RDFBoolean izjava;
 
     @XmlElement(name = "naziv_imunoloskog_leka", required = true)
-    private RDFField<String> nazivImunoloskogLeka;
+    private RDFString nazivImunoloskogLeka;
 
     public Saglasnost() {
     }
 
-    public Saglasnost(RDFField<Boolean> izjava, RDFField<String> nazivImunoloskogLeka) {
+    public Saglasnost(RDFBoolean izjava, RDFString nazivImunoloskogLeka) {
         this.izjava = izjava;
         this.nazivImunoloskogLeka = nazivImunoloskogLeka;
     }

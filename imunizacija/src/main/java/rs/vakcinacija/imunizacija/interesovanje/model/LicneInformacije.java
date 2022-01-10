@@ -3,9 +3,7 @@ package rs.vakcinacija.imunizacija.interesovanje.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.model.ImePrezime;
-import rs.vakcinacija.zajednicko.model.Kontakt;
-import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.*;
 
 import javax.xml.bind.annotation.*;
 
@@ -14,29 +12,29 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "TLicneInformacije", propOrder = {"drzavljanstvo", "jmbg", "kontakt", "imePrezime", "davalacKrvi"})
 @Getter
 @Setter
-public class LicneInformacije {
+public class LicneInformacije extends RDFField {
 
     @XmlElement(name = "drzavljanstvo", required = true)
-    private RDFField<String> drzavljanstvo;
+    private RDFString drzavljanstvo;
 
     @XmlElement(name = "jmbg", required = true)
-    private RDFField<String> jmbg;
+    private RDFString jmbg;
 
     @XmlElement(name = "kontakt", required = true)
-    private RDFField<Kontakt> kontakt;
+    private Kontakt kontakt;
 
     @XmlElement(name = "puno_ime", required = true)
-    private RDFField<ImePrezime> imePrezime;
+    private ImePrezime imePrezime;
 
     @XmlElement(name = "davalac_krvi", required = true)
-    private RDFField<Boolean> davalacKrvi;
+    private RDFBoolean davalacKrvi;
 
 
     public LicneInformacije() {
     }
 
-    public LicneInformacije(RDFField<String> drzavljanstvo, RDFField<String> jmbg,
-                            RDFField<Kontakt> kontakt, RDFField<ImePrezime> imePrezime, RDFField<Boolean> davalacKrvi) {
+    public LicneInformacije(RDFString drzavljanstvo, RDFString jmbg,
+                            Kontakt kontakt, ImePrezime imePrezime, RDFBoolean davalacKrvi) {
         this.drzavljanstvo = drzavljanstvo;
         this.jmbg = jmbg;
         this.kontakt = kontakt;

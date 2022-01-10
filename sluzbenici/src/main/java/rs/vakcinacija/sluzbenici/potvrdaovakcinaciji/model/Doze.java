@@ -14,16 +14,16 @@ import java.util.Collection;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
-public class Doze {
+public class Doze extends RDFField {
     @XmlElement(name = "doza")
-    private RDFField<Collection<Doza>> doze;
+    private Collection<Doza> doze;
 
 
     public Doze(){
         super();
     }
 
-    public Doze(RDFField<Collection<Doza>> doze) {
+    public Doze(Collection<Doza> doze) {
         this.doze = doze;
     }
 }

@@ -4,6 +4,7 @@ package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
 
@@ -12,25 +13,25 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "TVakcinacija")
 @Getter
 @Setter
-public class Vakcinacija {
+public class Vakcinacija extends RDFField {
 
     @XmlElement(name = "ustanova", required = true)
-    private RDFField<String> ustanova;
+    private RDFString ustanova;
 
     @XmlElement(name = "naziv_vakcine", required = true)
-    private RDFField<String> nazivVakcine;
+    private RDFString nazivVakcine;
 
     @XmlElement(name = "doze", required = true)
-    private RDFField<Doze> doze;
+    private Doze doze;
 
 
     public Vakcinacija(){
         super();
     }
 
-    public Vakcinacija(RDFField<String> ustanova,
-                       RDFField<String> nazivVakcine,
-                       RDFField<Doze> doze) {
+    public Vakcinacija(RDFString ustanova,
+                       RDFString nazivVakcine,
+                       Doze doze) {
         this.ustanova = ustanova;
         this.nazivVakcine = nazivVakcine;
         this.doze = doze;

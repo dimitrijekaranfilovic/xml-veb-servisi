@@ -4,42 +4,46 @@ package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.LicniPodaci;
+import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
-import javax.xml.bind.annotation.*;
-import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "potvrda_o_vakcinaciji")
 @Getter
 @Setter
-public class PotvrdaOVakcinaciji {
+public class PotvrdaOVakcinaciji extends RDFField {
 
 
     @XmlElement(name = "sifra_potvrde", required = true)
-    private RDFField<String> sifraPotvrde;
+    private RDFString sifraPotvrde;
 
     @XmlElement(name = "datum_izdavanja", required = true)
-    private RDFField<Date> datumIzdavanja;
+    private RDFDate datumIzdavanja;
 
     @XmlElement(name = "qr_kod", required = true)
-    private RDFField<String> qrKod;
+    private RDFString qrKod;
 
     @XmlElement(name = "licne_informacije", required = true)
-    private RDFField<LicniPodaci> licneInformacije;
+    private LicniPodaci licneInformacije;
 
     @XmlElement(name = "vakcinacija", required = true)
-    private RDFField<Vakcinacija> vakcinacija;
+    private Vakcinacija vakcinacija;
 
     public PotvrdaOVakcinaciji(){
         super();
     }
 
-    public PotvrdaOVakcinaciji(RDFField<String> sifraPotvrde,
-                               RDFField<Date> datumIzdavanja,
-                               RDFField<String> qrKod,
-                               RDFField<LicniPodaci> licneInformacije,
-                               RDFField<Vakcinacija> vakcinacija) {
+    public PotvrdaOVakcinaciji(RDFString sifraPotvrde,
+                               RDFDate datumIzdavanja,
+                               RDFString qrKod,
+                               LicniPodaci licneInformacije,
+                               Vakcinacija vakcinacija) {
         this.sifraPotvrde = sifraPotvrde;
         this.datumIzdavanja = datumIzdavanja;
         this.qrKod = qrKod;

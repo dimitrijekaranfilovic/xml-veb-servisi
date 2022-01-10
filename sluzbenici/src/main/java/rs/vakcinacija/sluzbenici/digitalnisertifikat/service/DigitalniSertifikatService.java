@@ -1,5 +1,6 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
@@ -10,6 +11,7 @@ import rs.vakcinacija.zajednicko.service.DocumentService;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class DigitalniSertifikatService extends DocumentService<DigitalniSertifikat> {
     @Autowired
     public DigitalniSertifikatService(DigitalniSertifikatExistRepository digitalniSertifikatExistRepository, DigitalniSertifikatFusekiRepository digitalniSertifikatFusekiRepository) {
@@ -17,6 +19,8 @@ public class DigitalniSertifikatService extends DocumentService<DigitalniSertifi
     }
 
     public DigitalniSertifikat create(DigitalniSertifikat digitalniSertifikat) throws Exception {
+        log.warn(digitalniSertifikat.getLicneInformacije().getDatumRodjenja().getValue().toString());
+        log.warn(digitalniSertifikat.getLicneInformacije().getAbout());
         var id = existRepository.save(digitalniSertifikat);
         fusekiRepository.save(id, digitalniSertifikat);
         return digitalniSertifikat;

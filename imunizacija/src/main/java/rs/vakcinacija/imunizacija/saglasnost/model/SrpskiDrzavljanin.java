@@ -3,6 +3,8 @@ package rs.vakcinacija.imunizacija.saglasnost.model;
 import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -10,14 +12,14 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "TSrpskiDrzavljanin", propOrder = {"jmbg"})
 @Getter
 @Setter
-public class SrpskiDrzavljanin {
+public class SrpskiDrzavljanin extends RDFField {
 
     @XmlElement(name = "jmbg", required = true)
-    private RDFField<String> jmbg;
+    private RDFString jmbg;
 
     public SrpskiDrzavljanin() {}
 
-    public SrpskiDrzavljanin(RDFField<String> jmbg) {
+    public SrpskiDrzavljanin(RDFString jmbg) {
         this.jmbg = jmbg;
     }
 }

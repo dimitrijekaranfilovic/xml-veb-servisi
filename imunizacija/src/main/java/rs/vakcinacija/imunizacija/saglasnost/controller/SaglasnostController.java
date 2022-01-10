@@ -1,5 +1,6 @@
 package rs.vakcinacija.imunizacija.saglasnost.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import rs.vakcinacija.imunizacija.saglasnost.service.SaglasnostService;
 
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "saglasnost")
 public class SaglasnostController {
@@ -29,7 +31,7 @@ public class SaglasnostController {
     @PostMapping(value = "raw")
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRawWrite(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
         var updatedSaglasnost = saglasnostService.insertRDFAttributes(saglasnost);
-        System.out.println(updatedSaglasnost.getDatum().getProperty());
+        log.info(updatedSaglasnost.getDatum().getProperty());
         var savedSaglasnost = saglasnostService.create(updatedSaglasnost);
         return new ResponseEntity<>(savedSaglasnost, HttpStatus.CREATED);
     }

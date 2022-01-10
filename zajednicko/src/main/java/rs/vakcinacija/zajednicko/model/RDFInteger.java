@@ -1,15 +1,21 @@
 package rs.vakcinacija.zajednicko.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType
+@XmlType(propOrder = {"value"})
 @Getter
 @Setter
-public class RDFField {
+@NoArgsConstructor
+@AllArgsConstructor
+public class RDFInteger {
+    @XmlValue
+    private Integer value;
 
     @XmlAttribute(name = "property")
     protected String property;

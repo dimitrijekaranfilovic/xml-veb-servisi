@@ -3,10 +3,13 @@ package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.model.RDFInteger;
 
-import javax.xml.bind.annotation.*;
-import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "izvestaj_o_imunizaciji")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -15,37 +18,37 @@ import java.util.Date;
 public class IzvestajOImunizaciji {
 
     @XmlElement(name = "periodOd", required = true)
-    private RDFField<Date> periodOd;
+    private RDFDate periodOd;
 
     @XmlElement(name = "periodDo", required = true)
-    private RDFField<Date> periodDo;
+    private RDFDate periodDo;
 
     @XmlElement(name = "datum_izdavanja", required = true)
-    private RDFField<Date> datumIzdavanja;
+    private RDFDate datumIzdavanja;
 
     @XmlElement(name = "podneto_dokumenata_o_interesovanju", required = true)
-    private RDFField<Integer> podnetoDokumenataOInteresovanju;
+    private RDFInteger podnetoDokumenataOInteresovanju;
 
     @XmlElement(name = "primljeno_zahteva_za_sertifikat", required = true)
-    private RDFField<Integer> primljenoZahtevaZaSertifikat;
+    private RDFInteger primljenoZahtevaZaSertifikat;
 
     @XmlElement(name = "date_doze_vakcina", required = true)
-    private RDFField<DateDozeVakcina> dateDozeVakcina;
+    private DateDozeVakcina dateDozeVakcina;
 
     @XmlElement(name = "raspodela_po_proizvodjacima", required = true)
-    private RDFField<RaspodelaPoProizvodjacima> raspodelaPoProizvodjacima;
+    private RaspodelaPoProizvodjacima raspodelaPoProizvodjacima;
 
 
     public IzvestajOImunizaciji() {
     }
 
-    public IzvestajOImunizaciji(RDFField<Date> periodOD,
-                                RDFField<Date> periodDo,
-                                RDFField<Date> datumIzdavanja,
-                                RDFField<Integer> podnetoDokumenataOInteresovanju,
-                                RDFField<Integer> primljenoZahtevaZaSertifikat,
-                                RDFField<DateDozeVakcina> dateDozeVakcina,
-                                RDFField<RaspodelaPoProizvodjacima> raspodelaPoProizvodjacima) {
+    public IzvestajOImunizaciji(RDFDate periodOD,
+                                RDFDate periodDo,
+                                RDFDate datumIzdavanja,
+                                RDFInteger podnetoDokumenataOInteresovanju,
+                                RDFInteger primljenoZahtevaZaSertifikat,
+                                DateDozeVakcina dateDozeVakcina,
+                                RaspodelaPoProizvodjacima raspodelaPoProizvodjacima) {
         this.periodOd = periodOD;
         this.periodDo = periodDo;
         this.datumIzdavanja = datumIzdavanja;

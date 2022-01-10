@@ -3,7 +3,8 @@ package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFInteger;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
 
@@ -15,16 +16,16 @@ import javax.xml.bind.annotation.*;
 public class Stavka {
 
     @XmlElement(name = "proizvodjac", required = true)
-    private RDFField<String> proizvodjac;
+    private RDFString proizvodjac;
 
     @XmlElement(name = "broj_doza", required = true)
-    private RDFField<Integer> brojDoza;
+    private RDFInteger brojDoza;
 
 
     public Stavka() {
     }
 
-    public Stavka(RDFField<String> proizvodjac, RDFField<Integer> brojDoza) {
+    public Stavka(RDFString proizvodjac, RDFInteger brojDoza) {
         this.proizvodjac = proizvodjac;
         this.brojDoza = brojDoza;
     }

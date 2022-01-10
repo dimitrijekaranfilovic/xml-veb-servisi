@@ -3,6 +3,7 @@ package rs.vakcinacija.imunizacija.saglasnost.model;
 import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
 
@@ -11,17 +12,17 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "TTelefon", propOrder = {"brojFiksnog", "brojMobilnog"})
 @Getter
 @Setter
-public class Telefon {
+public class Telefon extends RDFField {
 
     @XmlElement(name = "broj_fiksnog", required = true)
-    private RDFField<String> brojFiksnog;
+    private RDFString brojFiksnog;
 
     @XmlElement(name = "broj_mobilnog", required = true)
-    private RDFField<String> brojMobilnog;
+    private RDFString brojMobilnog;
 
     public Telefon() {}
 
-    public Telefon(RDFField<String> brojFiksnog, RDFField<String> brojMobilnog) {
+    public Telefon(RDFString brojFiksnog, RDFString brojMobilnog) {
         this.brojFiksnog = brojFiksnog;
         this.brojMobilnog = brojMobilnog;
     }

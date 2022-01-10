@@ -4,10 +4,11 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.DozaDetaljnije;
-import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.model.RDFInteger;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
-import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "doza_vakcine")
@@ -17,12 +18,13 @@ import java.util.Date;
 public class DozaVakcine extends DozaDetaljnije {
 
     @XmlElement(name = "zdravstvena_ustanova", required = true)
-    private RDFField<String> zdravstvenaUstanova;
+    private RDFString zdravstvenaUstanova;
 
     public DozaVakcine() {
     }
 
-    public DozaVakcine(RDFField<Integer> brojDoze, RDFField<Date> datumDavanja, RDFField<String> brojSerije, RDFField<String> tip, RDFField<String> proizvodjac, RDFField<String> zdravstvenaUstanova) {
+    public DozaVakcine(RDFInteger brojDoze, RDFDate datumDavanja, RDFString brojSerije,
+                       RDFString tip, RDFString proizvodjac, RDFString zdravstvenaUstanova) {
         super(brojDoze, datumDavanja, brojSerije, tip, proizvodjac);
         this.zdravstvenaUstanova = zdravstvenaUstanova;
     }

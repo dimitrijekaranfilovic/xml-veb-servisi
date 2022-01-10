@@ -13,17 +13,17 @@ import java.util.Collection;
 @XmlType(name = "TDate_doze_vakcina")
 @Getter
 @Setter
-public class DateDozeVakcina {
+public class DateDozeVakcina extends RDFField {
 
     @XmlElement(name = "data_doza")
-    private RDFField<Collection<DataDoza>> dateDoze;
+    private Collection<DataDoza> dateDoze;
 
 
     public DateDozeVakcina() {
         super();
     }
 
-    public DateDozeVakcina(RDFField<Collection<DataDoza>> dateDoze) {
+    public DateDozeVakcina(Collection<DataDoza> dateDoze) {
         this.dateDoze = dateDoze;
     }
 }

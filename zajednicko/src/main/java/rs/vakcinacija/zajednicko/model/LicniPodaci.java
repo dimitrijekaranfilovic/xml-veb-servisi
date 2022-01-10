@@ -13,15 +13,15 @@ import javax.xml.bind.annotation.*;
 public class LicniPodaci extends ImePrezime {
 
     @XmlElement(name = "jmbg", required = true)
-    private RDFField<String> jmbg;
+    private RDFString jmbg;
 
     @XmlElement(name = "pol", required = true)
-    private RDFField<String> pol;
+    private RDFString pol;
 
     public LicniPodaci() {
     }
 
-    public LicniPodaci(RDFField<String> ime, RDFField<String> prezime, RDFField<String> jmbg, RDFField<String> pol) {
+    public LicniPodaci(RDFString ime, RDFString prezime, RDFString jmbg, RDFString pol) {
         super(ime, prezime);
         this.jmbg = jmbg;
         this.pol = pol;

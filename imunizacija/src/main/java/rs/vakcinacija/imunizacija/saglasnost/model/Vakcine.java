@@ -12,14 +12,14 @@ import java.util.Collection;
 @XmlType(name = "TVakcine", propOrder = {"vakcine"})
 @Getter
 @Setter
-public class Vakcine {
+public class Vakcine extends RDFField {
 
     @XmlElement(name="vakcina", required=false)
-    private RDFField<Collection<Vakcina>> vakcine;
+    private Collection<Vakcina> vakcine;
 
     public Vakcine() {}
 
-    public Vakcine(RDFField<Collection<Vakcina>> vakcine) {
+    public Vakcine(Collection<Vakcina> vakcine) {
         this.vakcine = vakcine;
     }
 }

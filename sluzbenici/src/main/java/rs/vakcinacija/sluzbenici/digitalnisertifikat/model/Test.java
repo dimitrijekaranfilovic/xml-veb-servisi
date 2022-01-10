@@ -2,6 +2,9 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
 import java.util.Date;
@@ -11,38 +14,37 @@ import java.util.Date;
 @XmlType(name = "TTest", propOrder = {"naziv", "opis", "vrstaUzorka", "proizvodjacTesta", "datumIVremeUzorkovanja", "datumIVremeRezultata", "rezultat", "laboratorija"})
 @Getter
 @Setter
-public class Test {
+public class Test extends RDFField {
 
     @XmlElement(name = "naziv", required = true)
-    private String naziv;
+    private RDFString naziv;
 
     @XmlElement(name = "opis", required = true)
-    private String opis;
+    private RDFString opis;
 
     @XmlElement(name = "vrsta_uzorka", required = true)
-    private String vrstaUzorka;
+    private RDFString vrstaUzorka;
 
     @XmlElement(name = "proizvodjac_testa", required = true)
-    private String proizvodjacTesta;
+    private RDFString proizvodjacTesta;
 
     @XmlElement(name = "datum_i_vreme_uzorkovanja", required = true)
-    @XmlSchemaType(name = "date")
-    private Date datumIVremeUzorkovanja;
+    private RDFDate datumIVremeUzorkovanja;
 
     @XmlElement(name = "datum_i_vreme_rezultata", required = true)
-    @XmlSchemaType(name = "date")
-    private Date datumIVremeRezultata;
+    private RDFDate datumIVremeRezultata;
 
     @XmlElement(name = "rezultat", required = true)
-    private String rezultat;
+    private RDFString rezultat;
 
     @XmlElement(name = "laboratorija", required = true)
-    private String laboratorija;
+    private RDFString laboratorija;
 
     public Test() {
     }
 
-    public Test(String naziv, String opis, String vrstaUzorka, String proizvodjacTesta, Date datumIVremeUzorkovanja, Date datumIVremeRezultata, String rezultat, String laboratorija) {
+    public Test(RDFString naziv, RDFString opis, RDFString vrstaUzorka, RDFString proizvodjacTesta,
+                RDFDate datumIVremeUzorkovanja, RDFDate datumIVremeRezultata, RDFString rezultat, RDFString laboratorija) {
         this.naziv = naziv;
         this.opis = opis;
         this.vrstaUzorka = vrstaUzorka;

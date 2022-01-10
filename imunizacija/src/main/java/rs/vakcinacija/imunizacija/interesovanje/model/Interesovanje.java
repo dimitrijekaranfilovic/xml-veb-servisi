@@ -2,35 +2,38 @@ package rs.vakcinacija.imunizacija.interesovanje.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
-import javax.xml.bind.annotation.*;
-import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "interesovanje")
 @Getter
 @Setter
-public class Interesovanje {
+public class Interesovanje extends RDFField {
 
     @XmlElement(name = "datum", required = true)
-    private RDFField<Date> datum;
+    private RDFDate datum;
 
     @XmlElement(name = "licne_informacije", required = true)
-    private RDFField<LicneInformacije> licneInformacije;
+    private LicneInformacije licneInformacije;
 
     @XmlElement(name = "odabrana_lokacija_primanja_vakcine", required = true)
-    private RDFField<String> odabranaLokacijaPrimanjaVakcine;
+    private RDFString odabranaLokacijaPrimanjaVakcine;
 
     @XmlElement(name = "odabrani_proizvodjaci", required = true)
-    private RDFField<OdabraniProizvodjaci> odabraniProizvodjaci;
+    private OdabraniProizvodjaci odabraniProizvodjaci;
 
     public Interesovanje() {
     }
 
-    public Interesovanje(RDFField<Date> datum, RDFField<LicneInformacije> licneInformacije,
-                         RDFField<String> odabranaLokacijaPrimanjaVakcine,
-                         RDFField<OdabraniProizvodjaci> odabraniProizvodjaci) {
+    public Interesovanje(RDFDate datum, LicneInformacije licneInformacije,
+                         RDFString odabranaLokacijaPrimanjaVakcine, OdabraniProizvodjaci odabraniProizvodjaci) {
         this.datum = datum;
         this.licneInformacije = licneInformacije;
         this.odabranaLokacijaPrimanjaVakcine = odabranaLokacijaPrimanjaVakcine;

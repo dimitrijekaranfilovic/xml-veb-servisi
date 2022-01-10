@@ -2,41 +2,44 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
-import javax.xml.bind.annotation.*;
-import java.util.Date;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "digitalni_sertifikat")
 @Getter
 @Setter
-public class DigitalniSertifikat {
+public class DigitalniSertifikat extends RDFField {
 
     @XmlElement(name = "broj_sertifikata", required = true)
-    private RDFField<Date> brojSertifikata;
+    private RDFDate brojSertifikata;
 
     @XmlElement(name = "datum_vreme_izdavanja", required = true)
-    private RDFField<Date> datumVremeIzdavanja;
+    private RDFDate datumVremeIzdavanja;
 
     @XmlElement(name = "licne_informacije", required = true)
-    private RDFField<LicneInformacije> licneInformacije;
+    private LicneInformacije licneInformacije;
 
     @XmlElement(name = "vakcinacija", required = true)
-    private RDFField<Vakcinacija> vakcinacija;
+    private Vakcinacija vakcinacija;
 
     @XmlElement(name = "testovi", required = true)
-    private RDFField<Testovi> testovi;
+    private Testovi testovi;
 
     @XmlElement(name = "informacije_o_sertifikatu", required = true)
-    private RDFField<InformacijeOSertifikatu> informacijeOSertifikatu;
+    private InformacijeOSertifikatu informacijeOSertifikatu;
 
     public DigitalniSertifikat() {
     }
 
-    public DigitalniSertifikat(RDFField<Date> brojSertifikata, RDFField<Date> datumVremeIzdavanja,
-                               RDFField<LicneInformacije> licneInformacije, RDFField<Vakcinacija> vakcinacija,
-                               RDFField<Testovi> testovi, RDFField<InformacijeOSertifikatu> informacijeOSertifikatu) {
+    public DigitalniSertifikat(RDFDate brojSertifikata, RDFDate datumVremeIzdavanja,
+                               LicneInformacije licneInformacije, Vakcinacija vakcinacija,
+                               Testovi testovi, InformacijeOSertifikatu informacijeOSertifikatu) {
         this.brojSertifikata = brojSertifikata;
         this.datumVremeIzdavanja = datumVremeIzdavanja;
         this.licneInformacije = licneInformacije;

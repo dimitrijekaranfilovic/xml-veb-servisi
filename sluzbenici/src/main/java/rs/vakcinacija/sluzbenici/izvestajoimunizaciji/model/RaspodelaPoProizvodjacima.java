@@ -3,7 +3,6 @@ package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
@@ -16,13 +15,13 @@ import java.util.Collection;
 public class RaspodelaPoProizvodjacima {
 
     @XmlElement(name = "stavka", required = true)
-    private RDFField<Collection<Stavka>> stavke;
+    private Collection<Stavka> stavke;
 
     public  RaspodelaPoProizvodjacima(){
         super();
     }
 
-    public RaspodelaPoProizvodjacima(RDFField<Collection<Stavka>> stavke) {
+    public RaspodelaPoProizvodjacima(Collection<Stavka> stavke) {
         this.stavke = stavke;
     }
 }

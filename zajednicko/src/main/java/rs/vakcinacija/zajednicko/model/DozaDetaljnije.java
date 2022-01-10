@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.*;
-import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "doza_detaljnije")
@@ -14,16 +13,16 @@ import java.util.Date;
 public class DozaDetaljnije extends Doza {
 
     @XmlElement(name = "tip", required = true)
-    private RDFField<String> tip;
+    private RDFString tip;
 
     @XmlElement(name = "proizvodjac", required = true)
-    private RDFField<String> proizvodjac;
+    private RDFString proizvodjac;
 
     public DozaDetaljnije() {
     }
 
-    public DozaDetaljnije(RDFField<Integer> brojDoze, RDFField<Date> datumDavanja,
-                          RDFField<String> brojSerije, RDFField<String> tip, RDFField<String> proizvodjac) {
+    public DozaDetaljnije(RDFInteger brojDoze, RDFDate datumDavanja,
+                          RDFString brojSerije, RDFString tip, RDFString proizvodjac) {
         super(brojDoze, datumDavanja, brojSerije);
         this.tip = tip;
         this.proizvodjac = proizvodjac;
