@@ -28,9 +28,11 @@ public abstract class DocumentService<T> {
     protected static final String PROP_MESTO = "pred:mesto";
     protected static final String PROP_QR_KOD = "pred:qr_kod";
     protected static final String PROP_SIFRA_DOKUMENTA = "pred:sifra_dokumenta";
+    protected static final String PROP_DAVALAC_KRVI = "pred:davalac_krvi";
 
     protected static final String T_STRING = "xs:string";
     protected static final String T_DATE = "xs:date";
+    protected static final String T_BOOLEAN = "xs:boolean";
 
     protected DocumentService(ExistRepository<T> existRepository, FusekiRepository<T> fusekiRepository) {
         this.existRepository = existRepository;
