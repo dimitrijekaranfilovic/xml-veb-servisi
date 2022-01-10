@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFField;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class DigitalniSertifikat extends RDFField {
 
     @XmlElement(name = "broj_sertifikata", required = true)
-    private RDFDate brojSertifikata;
+    private RDFString brojSertifikata;
 
     @XmlElement(name = "datum_vreme_izdavanja", required = true)
     private RDFDate datumVremeIzdavanja;
@@ -37,7 +38,7 @@ public class DigitalniSertifikat extends RDFField {
     public DigitalniSertifikat() {
     }
 
-    public DigitalniSertifikat(RDFDate brojSertifikata, RDFDate datumVremeIzdavanja,
+    public DigitalniSertifikat(RDFString brojSertifikata, RDFDate datumVremeIzdavanja,
                                LicneInformacije licneInformacije, Vakcinacija vakcinacija,
                                Testovi testovi, InformacijeOSertifikatu informacijeOSertifikatu) {
         this.brojSertifikata = brojSertifikata;

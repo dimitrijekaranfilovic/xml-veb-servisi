@@ -12,7 +12,7 @@ public class ManagedCollectionAdapter extends ManagedAdapterBase<Collection> imp
 
     @Override
     public void close() {
-        log.info("Closing Collection resource");
+        log.debug("Closing Collection resource");
         if (resource != null) {
             try {
                 resource.close();
