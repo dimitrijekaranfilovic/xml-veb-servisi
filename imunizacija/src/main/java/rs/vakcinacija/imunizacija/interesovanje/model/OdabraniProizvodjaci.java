@@ -2,6 +2,7 @@ package rs.vakcinacija.imunizacija.interesovanje.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
@@ -14,8 +15,6 @@ import java.util.Collection;
 public class OdabraniProizvodjaci {
 
     @XmlElement(name = "proizvodjac", required = true)
-    private Collection<String> proizvodjaci;
-
-    public OdabraniProizvodjaci() {
-    }
+    private Collection<RDFField<String>> proizvodjaci;
+    
 }

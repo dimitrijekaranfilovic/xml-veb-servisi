@@ -1,12 +1,10 @@
 package rs.vakcinacija.imunizacija.interesovanje.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
-import rs.vakcinacija.imunizacija.interesovanje.repository.InteresovanjeRepository;
+import rs.vakcinacija.imunizacija.interesovanje.service.InteresovanjeService;
 
 import java.util.UUID;
 
@@ -14,23 +12,22 @@ import java.util.UUID;
 @RequestMapping(value = "interesovanje")
 public class InteresovanjeController {
 
-    private final InteresovanjeRepository interesovanjeRepository;
+    private final InteresovanjeService interesovanjeService;
 
     @Autowired
-    public InteresovanjeController(InteresovanjeRepository interesovanjeRepository) {
-        this.interesovanjeRepository = interesovanjeRepository;
+    public InteresovanjeController(InteresovanjeService interesovanjeService) {
+        this.interesovanjeService = interesovanjeService;
     }
 
+
     @PostMapping
-    public ResponseEntity<Interesovanje> interesovanjeWrite(@RequestBody Interesovanje interesovanje) throws Exception {
-        var id = interesovanjeRepository.save(interesovanje);
-        System.out.println("Created interesovanje with id : " + id);
-        return new ResponseEntity<>(interesovanje, HttpStatus.CREATED);
+    public Interesovanje interesovanjeWrite(@RequestBody Interesovanje interesovanje) throws Exception {
+        return interesovanjeService.create(interesovanje);
     }
 
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<Interesovanje> interesovanjeRead(@PathVariable UUID id) throws Exception {
-        return new ResponseEntity<>(interesovanjeRepository.read(id).get(), HttpStatus.OK);
+    public Interesovanje interesovanjeRead(@PathVariable UUID id) throws Exception {
+        return interesovanjeService.read(id);
     }
 
 }

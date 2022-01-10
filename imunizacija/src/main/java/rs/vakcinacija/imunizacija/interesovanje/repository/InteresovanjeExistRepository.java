@@ -7,10 +7,10 @@ import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 
 @Component
-public class InteresovanjeRepository extends ExistRepository<Interesovanje> {
+public class InteresovanjeExistRepository extends ExistRepository<Interesovanje> {
 
     @Autowired
-    public InteresovanjeRepository(ExistConnectionProvider connectionProvider) {
+    public InteresovanjeExistRepository(ExistConnectionProvider connectionProvider) {
         super("interesovanje", Interesovanje.class, connectionProvider);
     }
 }

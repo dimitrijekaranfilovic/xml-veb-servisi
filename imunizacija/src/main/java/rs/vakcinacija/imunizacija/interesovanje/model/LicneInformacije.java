@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.ImePrezime;
 import rs.vakcinacija.zajednicko.model.Kontakt;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
 
@@ -16,26 +17,26 @@ import javax.xml.bind.annotation.*;
 public class LicneInformacije {
 
     @XmlElement(name = "drzavljanstvo", required = true)
-    private String drzavljanstvo;
+    private RDFField<String> drzavljanstvo;
 
     @XmlElement(name = "jmbg", required = true)
-    private String jmbg;
+    private RDFField<String> jmbg;
 
     @XmlElement(name = "kontakt", required = true)
-    private Kontakt kontakt;
+    private RDFField<Kontakt> kontakt;
 
     @XmlElement(name = "puno_ime", required = true)
-    private ImePrezime imePrezime;
+    private RDFField<ImePrezime> imePrezime;
 
     @XmlElement(name = "davalac_krvi", required = true)
-    private Boolean davalacKrvi;
+    private RDFField<Boolean> davalacKrvi;
 
 
     public LicneInformacije() {
     }
 
-    public LicneInformacije(String drzavljanstvo, String jmbg, Kontakt kontakt, ImePrezime imePrezime,
-                            Boolean davalacKrvi) {
+    public LicneInformacije(RDFField<String> drzavljanstvo, RDFField<String> jmbg,
+                            RDFField<Kontakt> kontakt, RDFField<ImePrezime> imePrezime, RDFField<Boolean> davalacKrvi) {
         this.drzavljanstvo = drzavljanstvo;
         this.jmbg = jmbg;
         this.kontakt = kontakt;
