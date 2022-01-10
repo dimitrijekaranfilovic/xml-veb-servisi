@@ -40,7 +40,7 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
 
         String podnosilacUrl;
         if (podnosilacZahteva.getLicniPodaci().getJmbg() != null) {
-            podnosilacUrl = RDF_PACIJENT_BASE + podnosilacZahteva.getLicniPodaci().getJmbg();
+            podnosilacUrl = RDF_PACIJENT_BASE + podnosilacZahteva.getLicniPodaci().getJmbg().getValue();
             var jmbg = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getJmbg();
             jmbg.setProperty(PROP_JMBG);
             jmbg.setDatatype(T_STRING);
@@ -58,6 +58,14 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
         var mesto = zahtevZaSertifikat.getMesto();
         mesto.setProperty(PROP_MESTO);
         mesto.setDatatype(T_STRING);
+
+        var ime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getIme();
+        ime.setProperty(PROP_IME);
+        ime.setDatatype(T_STRING);
+
+        var prezime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPrezime();
+        prezime.setProperty(PROP_PREZIME);
+        prezime.setDatatype(T_STRING);
 
         return zahtevZaSertifikat;
     }
