@@ -1,5 +1,6 @@
 package rs.vakcinacija.imunizacija.zahtevzasertifikat.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import rs.vakcinacija.imunizacija.zahtevzasertifikat.service.ZahtevZaSertifiaktS
 
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "zahtev-za-sertifikat")
 public class ZahtevZaSertifikatController {
@@ -30,4 +32,12 @@ public class ZahtevZaSertifikatController {
     public ZahtevZaSertifikat read(@PathVariable UUID id) throws Exception {
         return zahtevZaSertifiaktService.read(id);
     }
+
+    @PostMapping(value = "raw")
+    public ZahtevZaSertifikat rawWrite(@RequestBody ZahtevZaSertifikat zahtevZaSertifikat) throws Exception {
+        var updatedZahtev = zahtevZaSertifiaktService.insertRDFAttributes(zahtevZaSertifikat);
+        log.info(updatedZahtev.getDatum().getProperty());
+        return zahtevZaSertifiaktService.create(updatedZahtev);
+    }
+
 }
