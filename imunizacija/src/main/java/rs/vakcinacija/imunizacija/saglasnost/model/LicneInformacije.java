@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.Kontakt;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
@@ -9,6 +11,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "licne_informacije")
 @XmlType(name = "TLicneInformacije",
         propOrder = {"drzavljanstvo", "punoIme", "adresa", "kontakt", "radniStatus", "zanimanjeZaposlenog"})
+@Getter
+@Setter
 public class LicneInformacije {
 
     @XmlElement(name = "drzavljanstvo", required = true)
@@ -40,54 +44,6 @@ public class LicneInformacije {
         this.adresa = adresa;
         this.kontakt = kontakt;
         this.radniStatus = radniStatus;
-        this.zanimanjeZaposlenog = zanimanjeZaposlenog;
-    }
-
-    public RDFField<Drzavljanstvo> getDrzavljanstvo() {
-        return drzavljanstvo;
-    }
-
-    public void setDrzavljanstvo(RDFField<Drzavljanstvo> drzavljanstvo) {
-        this.drzavljanstvo = drzavljanstvo;
-    }
-
-    public RDFField<PunoImePacijent> getPunoIme() {
-        return punoIme;
-    }
-
-    public void setPunoIme(RDFField<PunoImePacijent> punoIme) {
-        this.punoIme = punoIme;
-    }
-
-    public RDFField<Adresa> getAdresa() {
-        return adresa;
-    }
-
-    public void setAdresa(RDFField<Adresa> adresa) {
-        this.adresa = adresa;
-    }
-
-    public RDFField<Kontakt> getKontakt() {
-        return kontakt;
-    }
-
-    public void setKontakt(RDFField<Kontakt> kontakt) {
-        this.kontakt = kontakt;
-    }
-
-    public RDFField<String> getRadniStatus() {
-        return radniStatus;
-    }
-
-    public void setRadniStatus(RDFField<String> radniStatus) {
-        this.radniStatus = radniStatus;
-    }
-
-    public RDFField<String> getZanimanjeZaposlenog() {
-        return zanimanjeZaposlenog;
-    }
-
-    public void setZanimanjeZaposlenog(RDFField<String> zanimanjeZaposlenog) {
         this.zanimanjeZaposlenog = zanimanjeZaposlenog;
     }
 }

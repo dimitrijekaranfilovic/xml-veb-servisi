@@ -1,11 +1,16 @@
 package rs.vakcinacija.zajednicko.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "kontakt")
 @XmlType(name = "TKontakt", propOrder = {"brojFiksnog", "brojMobilnog", "email"})
+@Getter
+@Setter
 public class Kontakt {
 
     @XmlElement(name = "broj_fiksnog", required = true)
@@ -24,30 +29,6 @@ public class Kontakt {
     public Kontakt(RDFField<String> brojFiksnog, RDFField<String> brojMobilnog, RDFField<String> email) {
         this.brojFiksnog = brojFiksnog;
         this.brojMobilnog = brojMobilnog;
-        this.email = email;
-    }
-
-    public RDFField<String> getBrojFiksnog() {
-        return brojFiksnog;
-    }
-
-    public void setBrojFiksnog(RDFField<String> brojFiksnog) {
-        this.brojFiksnog = brojFiksnog;
-    }
-
-    public RDFField<String> getBrojMobilnog() {
-        return brojMobilnog;
-    }
-
-    public void setBrojMobilnog(RDFField<String> brojMobilnog) {
-        this.brojMobilnog = brojMobilnog;
-    }
-
-    public RDFField<String> getEmail() {
-        return email;
-    }
-
-    public void setEmail(RDFField<String> email) {
         this.email = email;
     }
 }

@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.Doza;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
@@ -10,6 +12,8 @@ import java.util.Collection;
 @XmlRootElement(name = "doze")
 @XmlType(name = "TDoze")
 @XmlAccessorType(XmlAccessType.FIELD)
+@Getter
+@Setter
 public class Doze {
     @XmlElement(name = "doza")
     private RDFField<Collection<Doza>> doze;
@@ -20,14 +24,6 @@ public class Doze {
     }
 
     public Doze(RDFField<Collection<Doza>> doze) {
-        this.doze = doze;
-    }
-
-    public RDFField<Collection<Doza>> getDoze() {
-        return doze;
-    }
-
-    public void setDoze(RDFField<Collection<Doza>> doze) {
         this.doze = doze;
     }
 }

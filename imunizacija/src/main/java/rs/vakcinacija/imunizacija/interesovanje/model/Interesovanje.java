@@ -1,10 +1,15 @@
 package rs.vakcinacija.imunizacija.interesovanje.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.xml.bind.annotation.*;
 import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "interesovanje")
+@Getter
+@Setter
 public class Interesovanje {
 
     @XmlElement(name = "datum", required = true)
@@ -29,38 +34,6 @@ public class Interesovanje {
         this.datum = datum;
         this.licneInformacije = licneInformacije;
         this.odabranaLokacijaPrimanjaVakcine = odabranaLokacijaPrimanjaVakcine;
-        this.odabraniProizvodjaci = odabraniProizvodjaci;
-    }
-
-    public Date getDatum() {
-        return datum;
-    }
-
-    public void setDatum(Date datum) {
-        this.datum = datum;
-    }
-
-    public LicneInformacije getLicneInformacije() {
-        return licneInformacije;
-    }
-
-    public void setLicneInformacije(LicneInformacije licneInformacije) {
-        this.licneInformacije = licneInformacije;
-    }
-
-    public String getOdabranaLokacijaPrimanjaVakcine() {
-        return odabranaLokacijaPrimanjaVakcine;
-    }
-
-    public void setOdabranaLokacijaPrimanjaVakcine(String odabranaLokacijaPrimanjaVakcine) {
-        this.odabranaLokacijaPrimanjaVakcine = odabranaLokacijaPrimanjaVakcine;
-    }
-
-    public OdabraniProizvodjaci getOdabraniProizvodjaci() {
-        return odabraniProizvodjaci;
-    }
-
-    public void setOdabraniProizvodjaci(OdabraniProizvodjaci odabraniProizvodjaci) {
         this.odabraniProizvodjaci = odabraniProizvodjaci;
     }
 }

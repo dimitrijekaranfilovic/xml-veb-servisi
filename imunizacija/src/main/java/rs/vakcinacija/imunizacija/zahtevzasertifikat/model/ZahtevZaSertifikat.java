@@ -1,5 +1,8 @@
 package rs.vakcinacija.imunizacija.zahtevzasertifikat.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -8,6 +11,8 @@ import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "zahtev_za_sertifikat")
+@Getter
+@Setter
 public class ZahtevZaSertifikat {
 
     @XmlElement(name = "mesto", required = true)
@@ -30,38 +35,6 @@ public class ZahtevZaSertifikat {
         this.mesto = mesto;
         this.datum = datum;
         this.podnosilacZahteva = podnosilacZahteva;
-        this.razlogZaPodnosenjeZahteva = razlogZaPodnosenjeZahteva;
-    }
-
-    public String getMesto() {
-        return mesto;
-    }
-
-    public void setMesto(String mesto) {
-        this.mesto = mesto;
-    }
-
-    public Date getDatum() {
-        return datum;
-    }
-
-    public void setDatum(Date datum) {
-        this.datum = datum;
-    }
-
-    public PodnosilacZahteva getPodnosilacZahteva() {
-        return podnosilacZahteva;
-    }
-
-    public void setPodnosilacZahteva(PodnosilacZahteva podnosilacZahteva) {
-        this.podnosilacZahteva = podnosilacZahteva;
-    }
-
-    public String getRazlogZaPodnosenjeZahteva() {
-        return razlogZaPodnosenjeZahteva;
-    }
-
-    public void setRazlogZaPodnosenjeZahteva(String razlogZaPodnosenjeZahteva) {
         this.razlogZaPodnosenjeZahteva = razlogZaPodnosenjeZahteva;
     }
 }

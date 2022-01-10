@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.zahtevzasertifikat.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.LicniPodaci;
 
 import javax.xml.bind.annotation.*;
@@ -7,6 +9,8 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "podnosilac_zahteva")
 @XmlType(name = "TPodnosilacZahteva", propOrder = {"licniPodaci", "brojPasosa"})
+@Getter
+@Setter
 public class PodnosilacZahteva {
 
     @XmlElement(name = "licni_podaci", required = true)
@@ -21,22 +25,6 @@ public class PodnosilacZahteva {
 
     public PodnosilacZahteva(LicniPodaci licniPodaci, String brojPasosa) {
         this.licniPodaci = licniPodaci;
-        this.brojPasosa = brojPasosa;
-    }
-
-    public LicniPodaci getLicniPodaci() {
-        return licniPodaci;
-    }
-
-    public void setLicniPodaci(LicniPodaci licniPodaci) {
-        this.licniPodaci = licniPodaci;
-    }
-
-    public String getBrojPasosa() {
-        return brojPasosa;
-    }
-
-    public void setBrojPasosa(String brojPasosa) {
         this.brojPasosa = brojPasosa;
     }
 }

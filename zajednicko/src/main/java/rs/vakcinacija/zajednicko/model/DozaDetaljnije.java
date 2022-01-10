@@ -1,11 +1,16 @@
 package rs.vakcinacija.zajednicko.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.xml.bind.annotation.*;
 import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "doza_detaljnije")
 @XmlType(name = "TDoza_detaljnije", propOrder = {"tip", "proizvodjac"})
+@Getter
+@Setter
 public class DozaDetaljnije extends Doza {
 
     @XmlElement(name = "tip", required = true)
@@ -21,22 +26,6 @@ public class DozaDetaljnije extends Doza {
                           RDFField<String> brojSerije, RDFField<String> tip, RDFField<String> proizvodjac) {
         super(brojDoze, datumDavanja, brojSerije);
         this.tip = tip;
-        this.proizvodjac = proizvodjac;
-    }
-
-    public RDFField<String> getTip() {
-        return tip;
-    }
-
-    public void setTip(RDFField<String> tip) {
-        this.tip = tip;
-    }
-
-    public RDFField<String> getProizvodjac() {
-        return proizvodjac;
-    }
-
-    public void setProizvodjac(RDFField<String> proizvodjac) {
         this.proizvodjac = proizvodjac;
     }
 }

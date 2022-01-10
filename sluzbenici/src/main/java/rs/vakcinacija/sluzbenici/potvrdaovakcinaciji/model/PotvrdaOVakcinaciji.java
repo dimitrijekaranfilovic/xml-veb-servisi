@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.LicniPodaci;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
@@ -9,6 +11,8 @@ import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "potvrda_o_vakcinaciji")
+@Getter
+@Setter
 public class PotvrdaOVakcinaciji {
 
 
@@ -40,46 +44,6 @@ public class PotvrdaOVakcinaciji {
         this.datumIzdavanja = datumIzdavanja;
         this.qrKod = qrKod;
         this.licneInformacije = licneInformacije;
-        this.vakcinacija = vakcinacija;
-    }
-
-    public RDFField<String> getSifraPotvrde() {
-        return sifraPotvrde;
-    }
-
-    public void setSifraPotvrde(RDFField<String> sifraPotvrde) {
-        this.sifraPotvrde = sifraPotvrde;
-    }
-
-    public RDFField<Date> getDatumIzdavanja() {
-        return datumIzdavanja;
-    }
-
-    public void setDatumIzdavanja(RDFField<Date> datumIzdavanja) {
-        this.datumIzdavanja = datumIzdavanja;
-    }
-
-    public RDFField<String> getQrKod() {
-        return qrKod;
-    }
-
-    public void setQrKod(RDFField<String> qrKod) {
-        this.qrKod = qrKod;
-    }
-
-    public RDFField<LicniPodaci> getLicneInformacije() {
-        return licneInformacije;
-    }
-
-    public void setLicneInformacije(RDFField<LicniPodaci> licneInformacije) {
-        this.licneInformacije = licneInformacije;
-    }
-
-    public RDFField<Vakcinacija> getVakcinacija() {
-        return vakcinacija;
-    }
-
-    public void setVakcinacija(RDFField<Vakcinacija> vakcinacija) {
         this.vakcinacija = vakcinacija;
     }
 }

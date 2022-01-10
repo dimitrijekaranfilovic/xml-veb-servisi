@@ -1,11 +1,16 @@
 package rs.vakcinacija.zajednicko.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "reference_field")
 @XmlJavaTypeAdapter(RDFFieldAdapter.class)
+@Getter
+@Setter
 public class RDFField<T> {
 
     @XmlAttribute(name = "property")
@@ -61,70 +66,6 @@ public class RDFField<T> {
         this.rel = rel;
         this.typeof = typeof;
         this.href = href;
-        this.value = value;
-    }
-
-    public String getProperty() {
-        return property;
-    }
-
-    public void setProperty(String property) {
-        this.property = property;
-    }
-
-    public String getDatatype() {
-        return datatype;
-    }
-
-    public void setDatatype(String datatype) {
-        this.datatype = datatype;
-    }
-
-    public String getVocab() {
-        return vocab;
-    }
-
-    public void setVocab(String vocab) {
-        this.vocab = vocab;
-    }
-
-    public String getAbout() {
-        return about;
-    }
-
-    public void setAbout(String about) {
-        this.about = about;
-    }
-
-    public String getRel() {
-        return rel;
-    }
-
-    public void setRel(String rel) {
-        this.rel = rel;
-    }
-
-    public String getTypeof() {
-        return typeof;
-    }
-
-    public void setTypeof(String typeof) {
-        this.typeof = typeof;
-    }
-
-    public String getHref() {
-        return href;
-    }
-
-    public void setHref(String href) {
-        this.href = href;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public void setValue(T value) {
         this.value = value;
     }
 }

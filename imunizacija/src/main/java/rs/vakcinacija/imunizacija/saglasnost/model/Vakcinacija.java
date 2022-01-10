@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
@@ -8,6 +10,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "vakcinacija")
 @XmlType(name = "TVakcinacija",
         propOrder = {"zdravstvenaUstanova", "lekar", "vakcine", "privremeneKontraindikacije", "odlukaKomisije"})
+@Getter
+@Setter
 public class Vakcinacija {
 
     @XmlElement(name = "zdravstvena_ustanova", required = true)
@@ -35,46 +39,6 @@ public class Vakcinacija {
         this.lekar = lekar;
         this.vakcine = vakcine;
         this.privremeneKontraindikacije = privremeneKontraindikacije;
-        this.odlukaKomisije = odlukaKomisije;
-    }
-
-    public RDFField<ZdravstvenaUstanova> getZdravstvenaUstanova() {
-        return zdravstvenaUstanova;
-    }
-
-    public void setZdravstvenaUstanova(RDFField<ZdravstvenaUstanova> zdravstvenaUstanova) {
-        this.zdravstvenaUstanova = zdravstvenaUstanova;
-    }
-
-    public RDFField<Lekar> getLekar() {
-        return lekar;
-    }
-
-    public void setLekar(RDFField<Lekar> lekar) {
-        this.lekar = lekar;
-    }
-
-    public RDFField<Vakcine> getVakcine() {
-        return vakcine;
-    }
-
-    public void setVakcine(RDFField<Vakcine> vakcine) {
-        this.vakcine = vakcine;
-    }
-
-    public RDFField<PrivremeneKontraindikacije> getPrivremeneKontraindikacije() {
-        return privremeneKontraindikacije;
-    }
-
-    public void setPrivremeneKontraindikacije(RDFField<PrivremeneKontraindikacije> privremeneKontraindikacije) {
-        this.privremeneKontraindikacije = privremeneKontraindikacije;
-    }
-
-    public RDFField<Boolean> getOdlukaKomisije() {
-        return odlukaKomisije;
-    }
-
-    public void setOdlukaKomisije(RDFField<Boolean> odlukaKomisije) {
         this.odlukaKomisije = odlukaKomisije;
     }
 }

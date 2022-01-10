@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
@@ -7,6 +9,8 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "drzavljanstvo")
 @XmlType(name = "TDrzavljanstvo", propOrder = {"srpskiDrzavljanin", "straniDrzavljanin"})
+@Getter
+@Setter
 public class Drzavljanstvo {
 
     @XmlElement(name = "srpski_drzavljanin", required = false)
@@ -20,22 +24,6 @@ public class Drzavljanstvo {
     public Drzavljanstvo(RDFField<SrpskiDrzavljanin> srpskiDrzavljanin,
                          RDFField<StraniDrzavljanin> straniDrzavljanin) {
         this.srpskiDrzavljanin = srpskiDrzavljanin;
-        this.straniDrzavljanin = straniDrzavljanin;
-    }
-
-    public RDFField<SrpskiDrzavljanin> getSrpskiDrzavljanin() {
-        return srpskiDrzavljanin;
-    }
-
-    public void setSrpskiDrzavljanin(RDFField<SrpskiDrzavljanin> srpskiDrzavljanin) {
-        this.srpskiDrzavljanin = srpskiDrzavljanin;
-    }
-
-    public RDFField<StraniDrzavljanin> getStraniDrzavljanin() {
-        return straniDrzavljanin;
-    }
-
-    public void setStraniDrzavljanin(RDFField<StraniDrzavljanin> straniDrzavljanin) {
         this.straniDrzavljanin = straniDrzavljanin;
     }
 }

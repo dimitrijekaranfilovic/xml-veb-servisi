@@ -1,5 +1,7 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
@@ -7,6 +9,8 @@ import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "digitalni_sertifikat")
+@Getter
+@Setter
 public class DigitalniSertifikat {
 
     @XmlElement(name = "broj_sertifikata", required = true)
@@ -38,54 +42,6 @@ public class DigitalniSertifikat {
         this.licneInformacije = licneInformacije;
         this.vakcinacija = vakcinacija;
         this.testovi = testovi;
-        this.informacijeOSertifikatu = informacijeOSertifikatu;
-    }
-
-    public RDFField<Date> getBrojSertifikata() {
-        return brojSertifikata;
-    }
-
-    public void setBrojSertifikata(RDFField<Date> brojSertifikata) {
-        this.brojSertifikata = brojSertifikata;
-    }
-
-    public RDFField<Date> getDatumVremeIzdavanja() {
-        return datumVremeIzdavanja;
-    }
-
-    public void setDatumVremeIzdavanja(RDFField<Date> datumVremeIzdavanja) {
-        this.datumVremeIzdavanja = datumVremeIzdavanja;
-    }
-
-    public RDFField<LicneInformacije> getLicneInformacije() {
-        return licneInformacije;
-    }
-
-    public void setLicneInformacije(RDFField<LicneInformacije> licneInformacije) {
-        this.licneInformacije = licneInformacije;
-    }
-
-    public RDFField<Vakcinacija> getVakcinacija() {
-        return vakcinacija;
-    }
-
-    public void setVakcinacija(RDFField<Vakcinacija> vakcinacija) {
-        this.vakcinacija = vakcinacija;
-    }
-
-    public RDFField<Testovi> getTestovi() {
-        return testovi;
-    }
-
-    public void setTestovi(RDFField<Testovi> testovi) {
-        this.testovi = testovi;
-    }
-
-    public RDFField<InformacijeOSertifikatu> getInformacijeOSertifikatu() {
-        return informacijeOSertifikatu;
-    }
-
-    public void setInformacijeOSertifikatu(RDFField<InformacijeOSertifikatu> informacijeOSertifikatu) {
         this.informacijeOSertifikatu = informacijeOSertifikatu;
     }
 }

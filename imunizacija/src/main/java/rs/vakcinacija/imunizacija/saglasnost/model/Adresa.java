@@ -1,5 +1,7 @@
 package rs.vakcinacija.imunizacija.saglasnost.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
@@ -7,6 +9,8 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "adresa")
 @XmlType(name = "TAdresa", propOrder = {"ulica", "brojZgrade", "mesto", "opstina"})
+@Getter
+@Setter
 public class Adresa {
 
     @XmlElement(name = "ulica", required = true)
@@ -27,38 +31,6 @@ public class Adresa {
         this.ulica = ulica;
         this.brojZgrade = brojZgrade;
         this.mesto = mesto;
-        this.opstina = opstina;
-    }
-
-    public RDFField<String> getUlica() {
-        return ulica;
-    }
-
-    public void setUlica(RDFField<String> ulica) {
-        this.ulica = ulica;
-    }
-
-    public RDFField<String> getBrojZgrade() {
-        return brojZgrade;
-    }
-
-    public void setBrojZgrade(RDFField<String> brojZgrade) {
-        this.brojZgrade = brojZgrade;
-    }
-
-    public RDFField<String> getMesto() {
-        return mesto;
-    }
-
-    public void setMesto(RDFField<String> mesto) {
-        this.mesto = mesto;
-    }
-
-    public RDFField<String> getOpstina() {
-        return opstina;
-    }
-
-    public void setOpstina(RDFField<String> opstina) {
         this.opstina = opstina;
     }
 }

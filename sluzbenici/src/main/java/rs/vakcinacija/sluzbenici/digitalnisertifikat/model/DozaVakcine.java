@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.DozaDetaljnije;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
@@ -10,6 +12,8 @@ import java.util.Date;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "doza_vakcine")
 @XmlType(name = "TDoza_vakcine", propOrder = {"zdravstvenaUstanova"})
+@Getter
+@Setter
 public class DozaVakcine extends DozaDetaljnije {
 
     @XmlElement(name = "zdravstvena_ustanova", required = true)
