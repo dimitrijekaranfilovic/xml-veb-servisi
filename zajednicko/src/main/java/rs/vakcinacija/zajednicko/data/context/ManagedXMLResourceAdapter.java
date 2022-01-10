@@ -12,7 +12,7 @@ public class ManagedXMLResourceAdapter extends ManagedAdapterBase<XMLResource> i
 
     @Override
     public void close() {
-        log.info("Closing XMLResource resource");
+        log.debug("Closing XMLResource resource");
         if (resource != null) {
             try {
                 ((EXistResource) resource).freeResources();

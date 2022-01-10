@@ -26,6 +26,8 @@ public abstract class DocumentService<T> {
     protected static final String PROP_DATUM = "pred:datum";
     protected static final String PROP_BROJ_PASOSA = "pred:broj_pasosa";
     protected static final String PROP_MESTO = "pred:mesto";
+    protected static final String PROP_QR_KOD = "pred:qr_kod";
+    protected static final String PROP_SIFRA_DOKUMENTA = "pred:sifra_dokumenta";
 
     protected static final String T_STRING = "xs:string";
     protected static final String T_DATE = "xs:date";
