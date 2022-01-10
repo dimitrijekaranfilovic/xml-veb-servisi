@@ -11,6 +11,22 @@ public abstract class DocumentService<T> {
     protected final ExistRepository<T> existRepository;
     protected final FusekiRepository<T> fusekiRepository;
 
+    protected static final String VOCAB = "https://www.vakcinacija.rs/rdf/predicate/";
+    protected static final String RDF_LEKAR_BASE = "https://www.vakcinacija.rs/rdf/lekar/";
+    protected static final String RDF_PACIJENT_BASE = "https://www.vakcinacija.rs/rdf/pacijent/";
+
+    protected static final String PROP_DATUM_IZDAVANJA = "pred:datum_izdavanja";
+    protected static final String PROP_JMBG = "pred:jmbg";
+    protected static final String PROP_BROJ_FIKSNOG = "pred:broj_fiksnog";
+    protected static final String PROP_BROJ_MOBILNOG = "pred:broj_mobilnog";
+    protected static final String PROP_EMAIL = "pred:email";
+    protected static final String PROP_IME = "pred:ime";
+    protected static final String PROP_PREZIME = "pred:prezime";
+    protected static final String PROP_IME_RODITELJA = "pred:ime_roditelja";
+
+    protected static final String T_STRING = "xs:string";
+    protected static final String T_DATE = "xs:date";
+
     protected DocumentService(ExistRepository<T> existRepository, FusekiRepository<T> fusekiRepository) {
         this.existRepository = existRepository;
         this.fusekiRepository = fusekiRepository;

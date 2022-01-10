@@ -8,26 +8,11 @@ import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
-import java.util.Date;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
 @Slf4j
 public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeImunizacije> {
-
-    public static final String VOCAB = "https://www.vakcinacija.rs/rdf/predicate/";
-    public static final String RDF_LEKAR_BASE = "https://www.vakcinacija.rs/rdf/lekar/";
-    public static final String RDF_PACIJENT_BASE = "https://www.vakcinacija.rs/rdf/pacijent/";
-
-    public static final String PROP_DATUM_IZDAVANJA = "pred:datum_izdavanja";
-    public static final String PROP_JMBG = "pred:jmbg";
-    public static final String PROP_BROJ_FIKSNOG = "pred:broj_fiksnog";
-    public static final String PROP_BROJ_MOBILNOG = "pred:broj_mobilnog";
-    public static final String PROP_EMAIL = "pred:email";
-
-    public static final String T_STRING = "xs:string";
-    public static final String T_DATE = "xs:date";
 
     @Autowired
     protected SaglasnostService(ExistRepository<SaglasnostZaSprovodjenjeImunizacije> existRepository,
@@ -55,10 +40,25 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
         var pacijent = saglasnost.getPacijent();
         var vakcinacija = saglasnost.getVakcinacija();
-        var punoImePacijenta = pacijent.getLicneInformacije().getPunoIme();
         var lekar = saglasnost.getVakcinacija().getLekar();
-        var pacijentURL = RDF_PACIJENT_BASE + punoImePacijenta.getIme().getValue() + "_" + punoImePacijenta.getPrezime().getValue();
-        var lekarURL = RDF_LEKAR_BASE + lekar.getIme().getValue() + "_" + lekar.getPrezime().getValue();
+        var drzavljanstvo = pacijent.getLicneInformacije().getDrzavljanstvo();
+
+        String pacijentURL;
+
+        if (drzavljanstvo.getSrpskiDrzavljanin() != null) {
+            drzavljanstvo.getSrpskiDrzavljanin().getJmbg().setProperty(PROP_JMBG);
+            drzavljanstvo.getSrpskiDrzavljanin().getJmbg().setDatatype(T_STRING);
+            pacijentURL = RDF_PACIJENT_BASE + drzavljanstvo.getSrpskiDrzavljanin().getJmbg().getValue();
+        } else {
+            drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().setProperty("pred:naziv_drzave");
+            drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().setDatatype(T_STRING);
+            drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().setProperty("pred:broj_pasosa");
+            drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().setDatatype(T_STRING);
+            pacijentURL = RDF_PACIJENT_BASE + drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().getValue() + "_" + drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().getValue();
+        }
+
+        lekar.setId(UUID.randomUUID());
+        var lekarURL = RDF_LEKAR_BASE + lekar.getId().toString();
 
         pacijent.setVocab(VOCAB);
         pacijent.setAbout(pacijentURL);
@@ -66,17 +66,13 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         pacijent.setTypeof("pred:Pacijent");
         pacijent.setHref(lekarURL);
 
-        var drzavljanstvo = pacijent.getLicneInformacije().getDrzavljanstvo();
-
-        if(drzavljanstvo.getSrpskiDrzavljanin() != null) {
-            drzavljanstvo.getSrpskiDrzavljanin().getJmbg().setProperty(PROP_JMBG);
-            drzavljanstvo.getSrpskiDrzavljanin().getJmbg().setDatatype(T_STRING);
-        } else {
-            drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().setProperty("pred:naziv_drzave");
-            drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().setDatatype(T_STRING);
-            drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().setProperty("pred:broj_pasosa");
-            drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().setDatatype(T_STRING);
-        }
+        var punoImePacijenta = pacijent.getLicneInformacije().getPunoIme();
+        punoImePacijenta.getIme().setProperty(PROP_IME);
+        punoImePacijenta.getIme().setDatatype(T_STRING);
+        punoImePacijenta.getPrezime().setProperty(PROP_PREZIME);
+        punoImePacijenta.getPrezime().setDatatype(T_STRING);
+        punoImePacijenta.getImeRoditelja().setProperty(PROP_IME_RODITELJA);
+        punoImePacijenta.getImeRoditelja().setDatatype(T_STRING);
 
         var kontakt = pacijent.getLicneInformacije().getKontakt();
         kontakt.getBrojFiksnog().setProperty(PROP_BROJ_FIKSNOG);
@@ -107,7 +103,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         lekar.setVocab(VOCAB);
         lekar.setAbout(lekarURL);
 
-        if(lekar.getTelefon().getBrojFiksnog() != null) {
+        if (lekar.getTelefon().getBrojFiksnog() != null) {
             lekar.getTelefon().getBrojFiksnog().setProperty(PROP_BROJ_FIKSNOG);
             lekar.getTelefon().getBrojFiksnog().setDatatype(T_STRING);
         } else {
