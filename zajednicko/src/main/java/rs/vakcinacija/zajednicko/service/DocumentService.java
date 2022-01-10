@@ -23,6 +23,9 @@ public abstract class DocumentService<T> {
     protected static final String PROP_IME = "pred:ime";
     protected static final String PROP_PREZIME = "pred:prezime";
     protected static final String PROP_IME_RODITELJA = "pred:ime_roditelja";
+    protected static final String PROP_DATUM = "pred:datum";
+    protected static final String PROP_BROJ_PASOSA = "pred:broj_pasosa";
+    protected static final String PROP_MESTO = "pred:mesto";
 
     protected static final String T_STRING = "xs:string";
     protected static final String T_DATE = "xs:date";
