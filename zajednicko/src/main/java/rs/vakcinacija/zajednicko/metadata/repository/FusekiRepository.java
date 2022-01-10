@@ -19,7 +19,7 @@ public abstract class FusekiRepository<T> {
     protected final JAXBEntityManager<T> entityManager;
     protected final String collectionName;
     protected final Class<T> entityClazz;
-    protected final String baseUrl = "https://www.vakcinacija.rs/";
+    protected final String baseUrl = "https://www.vakcinacija.rs";
 
     public FusekiRepository(String collectionName, Class<T> entityClazz, FusekiConnectionProvider connectionProvider) {
         this.connectionProvider = connectionProvider;
