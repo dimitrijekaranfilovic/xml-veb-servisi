@@ -10,6 +10,6 @@ import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 public class SaglasnostFusekiRepository extends FusekiRepository<SaglasnostZaSprovodjenjeImunizacije> {
     @Autowired
     public SaglasnostFusekiRepository(FusekiConnectionProvider connectionProvider) {
-        super("saglasnost", SaglasnostZaSprovodjenjeImunizacije.class, connectionProvider);
+        super("obrazac_saglasnosti", SaglasnostZaSprovodjenjeImunizacije.class, connectionProvider);
     }
 }

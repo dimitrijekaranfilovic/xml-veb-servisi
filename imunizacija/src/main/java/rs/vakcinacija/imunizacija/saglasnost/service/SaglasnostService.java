@@ -60,7 +60,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
             lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojMobilnog().getValue();
         }
 
-        pacijent.rdf().vocab(VOCAB).about(pacijentURL).rel("pred:vaccinatedBy").typeof("pred:Pacijent").href(lekarURL);
+        pacijent.rdf().vocab(VOCAB).about(pacijentURL).rel("pred:vakcinisan_od").typeof("pred:Pacijent").href(lekarURL);
         if (drzavljanstvo.getStraniDrzavljanin() != null) {
             pacijent.getLicneInformacije().getDrzavljanstvo().getStraniDrzavljanin().getNazivDrzave().rdf().property("pred:naziv_drzave").datatype(T_STRING);
         }

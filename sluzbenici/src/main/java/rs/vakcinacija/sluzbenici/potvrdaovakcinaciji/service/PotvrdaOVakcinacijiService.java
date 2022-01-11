@@ -63,7 +63,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         vakcinacija.rdf()
                 .vocab(VOCAB)
                 .about(vakcinaUrl)
-                .rel("pred:usedOn")
+                .rel("pred:upotrebljeno_na")
                 .href(pacijentUrl)
                 .typeof("pred:Vakcinacija");
 

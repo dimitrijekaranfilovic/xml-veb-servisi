@@ -1,8 +1,8 @@
-https://www.vakcinacija.rs/digitalni-sertifikat/{id}
+https://www.vakcinacija.rs/digitalni_sertifikat/{id}
 https://www.vakcinacija.rs/interesovanje/{id}
-https://www.vakcinacija.rs/izvestaj-o-imunizaciji/{id}
-https://www.vakcinacija.rs/obrazac-saglasnosti/{id}
-https://www.vakcinacija.rs/potvrda-o-vakcinaciji/{id}
-https://www.vakcinacija.rs/zahtev-za-sertifikat/{id}
+https://www.vakcinacija.rs/izvestaj_o_imunizaciji/{id}
+https://www.vakcinacija.rs/obrazac_saglasnosti/{id}
+https://www.vakcinacija.rs/potvrda_o_vakcinaciji/{id}
+https://www.vakcinacija.rs/zahtev_za_sertifikat/{id}
 
 * id predstavlja surogatni kljuc koji jedinstveno identifikuje dokument
