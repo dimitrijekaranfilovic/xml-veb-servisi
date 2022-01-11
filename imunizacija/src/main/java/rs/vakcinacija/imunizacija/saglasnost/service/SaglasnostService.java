@@ -49,7 +49,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         } else {
             drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().rdf().property("pred:naziv_drzave").datatype(T_STRING);
             drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().rdf().property("pred:broj_pasosa").datatype(T_STRING);
-            pacijentURL = RDF_PACIJENT_BASE + drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().getValue() + "_" + drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().getValue();
+            pacijentURL = RDF_PACIJENT_BASE + drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().getValue();
         }
 
         String lekarURL;
@@ -61,6 +61,9 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         }
 
         pacijent.rdf().vocab(VOCAB).about(pacijentURL).rel("pred:vaccinatedBy").typeof("pred:Pacijent").href(lekarURL);
+        if (drzavljanstvo.getStraniDrzavljanin() != null) {
+            pacijent.getLicneInformacije().getDrzavljanstvo().getStraniDrzavljanin().getNazivDrzave().rdf().property("pred:naziv_drzave").datatype(T_STRING);
+        }
 
         var punoImePacijenta = pacijent.getLicneInformacije().getPunoIme();
         punoImePacijenta.getIme().rdf().property(PROP_IME).datatype(T_STRING);
