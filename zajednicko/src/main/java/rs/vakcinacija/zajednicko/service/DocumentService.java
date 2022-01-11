@@ -14,6 +14,7 @@ public abstract class DocumentService<T> {
     protected static final String VOCAB = "https://www.vakcinacija.rs/rdf/predicate/";
     protected static final String RDF_LEKAR_BASE = "https://www.vakcinacija.rs/rdf/lekar/";
     protected static final String RDF_PACIJENT_BASE = "https://www.vakcinacija.rs/rdf/pacijent/";
+    protected static final String RDF_VAKCINA_BASE = "https://www.vakcinacija.rs/rdf/vakcina/";
 
     protected static final String PROP_DATUM_IZDAVANJA = "pred:datum_izdavanja";
     protected static final String PROP_JMBG = "pred:jmbg";
@@ -22,6 +23,7 @@ public abstract class DocumentService<T> {
     protected static final String PROP_EMAIL = "pred:email";
     protected static final String PROP_IME = "pred:ime";
     protected static final String PROP_PREZIME = "pred:prezime";
+    protected static final String PROP_POL = "pred:pol";
     protected static final String PROP_IME_RODITELJA = "pred:ime_roditelja";
     protected static final String PROP_DATUM = "pred:datum";
     protected static final String PROP_BROJ_PASOSA = "pred:broj_pasosa";
