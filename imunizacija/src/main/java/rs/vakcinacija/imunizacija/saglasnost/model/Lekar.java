@@ -10,13 +10,10 @@ import java.util.UUID;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "lekar")
-@XmlType(name = "TLekar", propOrder = {"id", "telefon"})
+@XmlType(name = "TLekar", propOrder = {"telefon"})
 @Getter
 @Setter
 public class Lekar extends ImePrezime {
-
-    @XmlElement(name = "id", required = false)
-    private UUID id;
 
     @XmlElement(name = "telefon", required = true)
     private Telefon telefon;
@@ -27,7 +24,6 @@ public class Lekar extends ImePrezime {
 
     public Lekar(RDFString ime, RDFString prezime, UUID id, Telefon telefon) {
         super(ime, prezime);
-        this.id = id;
         this.telefon = telefon;
     }
 }
