@@ -34,9 +34,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
     }
 
     public SaglasnostZaSprovodjenjeImunizacije insertRDFAttributes(SaglasnostZaSprovodjenjeImunizacije saglasnost) {
-        var datum = saglasnost.getDatum();
-        datum.setProperty(PROP_DATUM_IZDAVANJA);
-        datum.setDatatype(T_DATE);
+        saglasnost.getDatum().rdf().property(PROP_DATUM_IZDAVANJA).datatype(T_DATE);
 
         var pacijent = saglasnost.getPacijent();
         var vakcinacija = saglasnost.getVakcinacija();
@@ -46,73 +44,47 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         String pacijentURL;
 
         if (drzavljanstvo.getSrpskiDrzavljanin() != null) {
-            drzavljanstvo.getSrpskiDrzavljanin().getJmbg().setProperty(PROP_JMBG);
-            drzavljanstvo.getSrpskiDrzavljanin().getJmbg().setDatatype(T_STRING);
+            drzavljanstvo.getSrpskiDrzavljanin().getJmbg().rdf().property(PROP_JMBG).datatype(T_STRING);
             pacijentURL = RDF_PACIJENT_BASE + drzavljanstvo.getSrpskiDrzavljanin().getJmbg().getValue();
         } else {
-            drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().setProperty("pred:naziv_drzave");
-            drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().setDatatype(T_STRING);
-            drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().setProperty("pred:broj_pasosa");
-            drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().setDatatype(T_STRING);
+            drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().rdf().property("pred:naziv_drzave").datatype(T_STRING);
+            drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().rdf().property("pred:broj_pasosa").datatype(T_STRING);
             pacijentURL = RDF_PACIJENT_BASE + drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().getValue() + "_" + drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().getValue();
         }
 
-        lekar.setId(UUID.randomUUID());
-        var lekarURL = RDF_LEKAR_BASE + lekar.getId().toString();
-
-        pacijent.setVocab(VOCAB);
-        pacijent.setAbout(pacijentURL);
-        pacijent.setRel("pred:vaccinatedBy");
-        pacijent.setTypeof("pred:Pacijent");
-        pacijent.setHref(lekarURL);
-
-        var punoImePacijenta = pacijent.getLicneInformacije().getPunoIme();
-        punoImePacijenta.getIme().setProperty(PROP_IME);
-        punoImePacijenta.getIme().setDatatype(T_STRING);
-        punoImePacijenta.getPrezime().setProperty(PROP_PREZIME);
-        punoImePacijenta.getPrezime().setDatatype(T_STRING);
-        punoImePacijenta.getImeRoditelja().setProperty(PROP_IME_RODITELJA);
-        punoImePacijenta.getImeRoditelja().setDatatype(T_STRING);
-
-        var kontakt = pacijent.getLicneInformacije().getKontakt();
-        kontakt.getBrojFiksnog().setProperty(PROP_BROJ_FIKSNOG);
-        kontakt.getBrojFiksnog().setDatatype(T_STRING);
-        kontakt.getBrojMobilnog().setProperty(PROP_BROJ_MOBILNOG);
-        kontakt.getBrojMobilnog().setDatatype(T_STRING);
-        kontakt.getEmail().setProperty(PROP_EMAIL);
-        kontakt.getEmail().setDatatype(T_STRING);
-
-        var radniStatus = pacijent.getLicneInformacije().getRadniStatus();
-        radniStatus.setProperty("pred:radni_status");
-        radniStatus.setDatatype(T_STRING);
-
-        var zanimanje = pacijent.getLicneInformacije().getZanimanjeZaposlenog();
-        zanimanje.setProperty("pred:zanimanje");
-        zanimanje.setDatatype(T_STRING);
-
-        var imunoloskiLek = pacijent.getSaglasnost().getNazivImunoloskogLeka();
-        imunoloskiLek.setProperty("pred:cip");
-        imunoloskiLek.setDatatype(T_STRING);
-
-        var zdravstvenaUstanova = vakcinacija.getZdravstvenaUstanova();
-        zdravstvenaUstanova.getNaziv().setProperty("pred:ustanova");
-        zdravstvenaUstanova.getNaziv().setDatatype(T_STRING);
-        zdravstvenaUstanova.getPunkt().setProperty("pred:punkt");
-        zdravstvenaUstanova.getPunkt().setDatatype(T_STRING);
-
-        lekar.setVocab(VOCAB);
-        lekar.setAbout(lekarURL);
+        String lekarURL;
 
         if (lekar.getTelefon().getBrojFiksnog() != null) {
-            lekar.getTelefon().getBrojFiksnog().setProperty(PROP_BROJ_FIKSNOG);
-            lekar.getTelefon().getBrojFiksnog().setDatatype(T_STRING);
+            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojFiksnog().getValue();
         } else {
-            lekar.getTelefon().getBrojMobilnog().setProperty(PROP_BROJ_MOBILNOG);
-            lekar.getTelefon().getBrojMobilnog().setDatatype(T_STRING);
+            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojMobilnog().getValue();
         }
 
-        vakcinacija.getOdlukaKomisije().setProperty("pred:trajne_kontraindikacije");
-        vakcinacija.getOdlukaKomisije().setDatatype(T_STRING);
+        pacijent.rdf().vocab(VOCAB).about(pacijentURL).rel("pred:vaccinatedBy").typeof("pred:Pacijent").href(lekarURL);
+
+        var punoImePacijenta = pacijent.getLicneInformacije().getPunoIme();
+        punoImePacijenta.getIme().rdf().property(PROP_IME).datatype(T_STRING);
+        punoImePacijenta.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
+        punoImePacijenta.getImeRoditelja().rdf().property(PROP_IME_RODITELJA).datatype(T_STRING);
+
+        var kontakt = pacijent.getLicneInformacije().getKontakt();
+        kontakt.getBrojFiksnog().rdf().property(PROP_BROJ_FIKSNOG).datatype(T_STRING);
+        kontakt.getBrojMobilnog().rdf().property(PROP_BROJ_MOBILNOG).datatype(T_STRING);
+        kontakt.getEmail().rdf().property(PROP_EMAIL).datatype(T_STRING);
+
+        pacijent.getLicneInformacije().getRadniStatus().rdf().property("pred:radni_status").datatype(T_STRING);
+        pacijent.getLicneInformacije().getZanimanjeZaposlenog().rdf().property("pred:zanimanje").datatype(T_STRING);
+        pacijent.getSaglasnost().getNazivImunoloskogLeka().rdf().property("pred:cip").datatype(T_STRING);
+
+        var zdravstvenaUstanova = vakcinacija.getZdravstvenaUstanova();
+        zdravstvenaUstanova.getNaziv().rdf().property("pred:ustanova").datatype(T_STRING);
+        zdravstvenaUstanova.getPunkt().rdf().property("pred:punkt").datatype(T_STRING);
+
+        lekar.rdf().vocab(VOCAB).about(lekarURL);
+        lekar.getIme().rdf().property(PROP_IME).datatype(T_STRING);
+        lekar.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
+
+        vakcinacija.getOdlukaKomisije().rdf().property("pred:trajne_kontraindikacije").datatype(T_BOOLEAN);
 
         return saglasnost;
     }

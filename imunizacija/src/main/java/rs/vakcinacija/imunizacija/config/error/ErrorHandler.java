@@ -16,10 +16,17 @@ import java.util.NoSuchElementException;
 public class ErrorHandler {
 
 
-    @ExceptionHandler(NoSuchElementException.class)
+    @ExceptionHandler({NoSuchElementException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     ErrorObject handleNoSuchElementException(HttpServletRequest request, NoSuchElementException e){
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
+    }
+
+    @ExceptionHandler({RuntimeException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ErrorObject handleRuntimeException(HttpServletRequest request, RuntimeException e){
         return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
     }
 
