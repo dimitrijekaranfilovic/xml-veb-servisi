@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.metadata.RDFMetadataField;
+import rs.vakcinacija.zajednicko.metadata.builder.RDFMetadataBuilder;
 
 import javax.xml.bind.annotation.*;
 
@@ -13,7 +15,7 @@ import javax.xml.bind.annotation.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RDFBoolean {
+public class RDFBoolean implements RDFMetadataField {
     @XmlValue
     private Boolean value;
 
@@ -37,4 +39,9 @@ public class RDFBoolean {
 
     @XmlAttribute(name = "href")
     protected String href;
+
+    @Override
+    public RDFMetadataBuilder rdf() {
+        return RDFMetadataBuilder.of(this);
+    }
 }

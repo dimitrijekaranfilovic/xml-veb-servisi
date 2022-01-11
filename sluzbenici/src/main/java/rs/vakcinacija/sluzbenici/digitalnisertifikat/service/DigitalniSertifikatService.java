@@ -33,32 +33,24 @@ public class DigitalniSertifikatService extends DocumentService<DigitalniSertifi
 
     private void populateMetadata(DigitalniSertifikat digitalniSertifikat) {
         var brojSertifikata = digitalniSertifikat.getBrojSertifikata();
-        brojSertifikata.setProperty(PROP_SIFRA_DOKUMENTA);
-        brojSertifikata.setDatatype(T_STRING);
+        brojSertifikata.rdf().property(PROP_SIFRA_DOKUMENTA).datatype(T_STRING);
         var datumIzdavanja = digitalniSertifikat.getDatumVremeIzdavanja();
-        datumIzdavanja.setProperty(PROP_DATUM_IZDAVANJA);
-        datumIzdavanja.setDatatype(T_DATE);
+        datumIzdavanja.rdf().property(PROP_DATUM_IZDAVANJA).datatype(T_DATE);
         var licneInformacije = digitalniSertifikat.getLicneInformacije();
         String podnosilacUrl;
         if (licneInformacije.getJmbg() != null) {
             var jmbg = licneInformacije.getJmbg();
             podnosilacUrl = RDF_PACIJENT_BASE + jmbg.getValue();
-            jmbg.setProperty(PROP_JMBG);
-            jmbg.setDatatype(T_STRING);
+            jmbg.rdf().property(PROP_JMBG).datatype(T_STRING);
         } else {
             var brojPasosa = licneInformacije.getBrojPasosa();
             podnosilacUrl = RDF_PACIJENT_BASE + brojPasosa.getValue();
-            brojPasosa.setProperty(PROP_BROJ_PASOSA);
-            brojPasosa.setDatatype(T_STRING);
+            brojPasosa.rdf().property(PROP_BROJ_PASOSA).datatype(T_STRING);
         }
-        licneInformacije.setVocab(VOCAB);
-        licneInformacije.setAbout(podnosilacUrl);
-        licneInformacije.getIme().setProperty(PROP_IME);
-        licneInformacije.getIme().setDatatype(T_STRING);
-        licneInformacije.getPrezime().setProperty(PROP_PREZIME);
-        licneInformacije.getPrezime().setDatatype(T_STRING);
+        licneInformacije.rdf().vocab(VOCAB).about(podnosilacUrl);
+        licneInformacije.getIme().rdf().property(PROP_IME).datatype(T_STRING);
+        licneInformacije.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
         var informacijeOSertifikatu = digitalniSertifikat.getInformacijeOSertifikatu();
-        informacijeOSertifikatu.getQrKod().setProperty(PROP_QR_KOD);
-        informacijeOSertifikatu.getQrKod().setDatatype(T_STRING);
+        informacijeOSertifikatu.getQrKod().rdf().property(PROP_QR_KOD).datatype(T_STRING);
     }
 }

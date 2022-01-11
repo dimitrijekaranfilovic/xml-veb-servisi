@@ -2,6 +2,8 @@ package rs.vakcinacija.zajednicko.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.metadata.RDFMetadataField;
+import rs.vakcinacija.zajednicko.metadata.builder.RDFMetadataBuilder;
 
 import javax.xml.bind.annotation.*;
 
@@ -9,7 +11,7 @@ import javax.xml.bind.annotation.*;
 @XmlType
 @Getter
 @Setter
-public class RDFField {
+public class RDFField implements RDFMetadataField {
 
     @XmlAttribute(name = "property")
     protected String property;
@@ -31,4 +33,9 @@ public class RDFField {
 
     @XmlAttribute(name = "href")
     protected String href;
+
+    @Override
+    public RDFMetadataBuilder rdf() {
+        return RDFMetadataBuilder.of(this);
+    }
 }
