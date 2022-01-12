@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiExistRepository;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiFusekiRepository;
+import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
 
     @Override
     public PotvrdaOVakcinaciji read(UUID id) throws Exception {
-        return this.existRepository.read(id).orElseThrow(() -> new RuntimeException("Cannot find digitalni sertifikat with id: " + id));
+        return this.existRepository.read(id).orElseThrow(() -> new DocumentNotFoundException("Cannot find digitalni sertifikat with id: " + id));
     }
 
     private void addMetadata(PotvrdaOVakcinaciji potvrdaOVakcinaciji){
