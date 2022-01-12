@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://www.vakcinacija.rs/zahtev_za_sertifikat"
+    xmlns="https://www.vakcinacija.rs/zahtev_za_sertifikat"
+    xmlns:za="https://www.vakcinacija.rs/zajednicko">
+
+    <xs:import namespace="https://www.vakcinacija.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    <xs:element name="zahtev_za_sertifikat">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="mesto">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="za:TOgraniceni_string">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="datum">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:date">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="podnosilac_zahteva" type="TPodnosilacZahteva"> </xs:element>
+                <xs:element name="razlog_za_podnosenje_zahteva" type="za:TOgraniceni_string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TPodnosilacZahteva">
+        <xs:sequence>
+            <xs:element name="licni_podaci" type="za:TLicni_podaci"/>
+            <xs:element name="broj_pasosa" nillable="false">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="za:TOgraniceni_string">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="vocab" type="xs:string"/>
+        <xs:attribute name="about" type="xs:string"/>
+    </xs:complexType>
+</xs:schema>

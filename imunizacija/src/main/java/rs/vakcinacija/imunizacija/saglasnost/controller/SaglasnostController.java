@@ -28,13 +28,13 @@ public class SaglasnostController {
         return new ResponseEntity<>(savedSaglasnost, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "raw")
-    public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRawWrite(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
-        var updatedSaglasnost = saglasnostService.insertRDFAttributes(saglasnost);
-        log.info(updatedSaglasnost.getDatum().getProperty());
-        var savedSaglasnost = saglasnostService.create(updatedSaglasnost);
-        return new ResponseEntity<>(savedSaglasnost, HttpStatus.CREATED);
-    }
+//    @PostMapping(value = "raw")
+//    public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRawWrite(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
+//        var updatedSaglasnost = saglasnostService.insertRDFAttributes(saglasnost);
+//        log.info(updatedSaglasnost.getDatum().getProperty());
+//        var savedSaglasnost = saglasnostService.create(updatedSaglasnost);
+//        return new ResponseEntity<>(savedSaglasnost, HttpStatus.CREATED);
+//    }
 
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRead(@PathVariable UUID id) throws Exception {

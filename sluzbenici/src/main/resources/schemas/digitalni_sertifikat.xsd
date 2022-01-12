@@ -9,14 +9,25 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="broj_sertifikata">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:minLength value="1"/>
-                            <xs:maxLength value="250"/>
-                        </xs:restriction>
-                    </xs:simpleType>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
                 </xs:element>
-                <xs:element name="darum_vreme_izdavanja" type="xs:date"/>
+                <xs:element name="datum_vreme_izdavanja">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:date">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
                 <xs:element name="licne_informacije" type="TLicne_informacije"/>
                 <xs:element name="vakcinacija" type="TVakcinacija"/>
                 <xs:element name="testovi" type="TTestovi"/>
@@ -29,7 +40,16 @@
             <xs:extension base="za:TLicni_podaci">
                 <xs:sequence>
                     <xs:element name="datum_rodjenja" type="xs:date"/>
-                    <xs:element name="broj_pasosa" type="za:TBroj_pasosa"/>
+                    <xs:element name="broj_pasosa">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="za:TBroj_pasosa">
+                                    <xs:attribute name="property" type="xs:string"/>
+                                    <xs:attribute name="datatype" type="xs:string"/>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -75,7 +95,16 @@
     </xs:complexType>
     <xs:complexType name="TInformacije_o_sertifikatu">
         <xs:sequence>
-            <xs:element name="qr_kod" type="za:TQr_kod"/>
+            <xs:element name="qr_kod">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="TQR_kod">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="digitalni_potpis" type="TDigitalni_potpis"/>
         </xs:sequence>
     </xs:complexType>
@@ -85,4 +114,10 @@
             <xs:element name="datum" type="xs:date"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:simpleType name="TQR_kod">
+        <xs:restriction base="za:TQr_kod">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>
