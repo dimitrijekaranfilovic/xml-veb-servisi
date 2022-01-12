@@ -3,13 +3,19 @@
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xml:base="https://www.vakcinacija.rs/rdf/">
-
+  
+  <rdfs:Class rdf:ID="Osoba">
+    <rdfs:comment>Pacijent koji se vakcinise.</rdfs:comment>
+  </rdfs:Class>
   <rdfs:Class rdf:ID="Pacijent">
+    <rdfs:subClassOf rdf:resource="#Osoba" />
     <rdfs:comment>Pacijent koji se vakcinise.</rdfs:comment>
   </rdfs:Class>
   <rdfs:Class rdf:ID="Lekar">
+    <rdfs:subClassOf rdf:resource="#Osoba" />
     <rdfs:comment>Lekar koji cipuje pacijenta.</rdfs:comment>
   </rdfs:Class>
+  
   <rdfs:Class rdf:ID="Vakcinacija">
     <rdfs:comment>Proces imunizacije pacijenta.</rdfs:comment>
   </rdfs:Class>
@@ -63,45 +69,87 @@
     <rdfs:range rdf:resource="#Pacijent" />
   </rdf:Property>
 
-  <rdf:Property rdf:ID="datum_izdavanja" />
-  <rdf:Property rdf:ID="jmbg" />
-  <rdf:Property rdf:ID="broj_fiksnog" />
-  <rdf:Property rdf:ID="broj_mobilnog" />
-  <rdf:Property rdf:ID="email" />
-  <rdf:Property rdf:ID="ime" />
-  <rdf:Property rdf:ID="prezime" />
-  <rdf:Property rdf:ID="pol" />
-  <rdf:Property rdf:ID="ime_roditelja" />
-  <rdf:Property rdf:ID="datum" />
-  <rdf:Property rdf:ID="broj_pasosa" />
+  <rdf:Property rdf:ID="datum_izdavanja">
+    <rdfs:domain rdf:resource="#Dokument" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="jmbg" >
+    <rdfs:domain rdf:resource="#Pacijent" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="broj_fiksnog" >
+          <rdfs:domain rdf:resource="#Osoba" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="broj_mobilnog" >
+    <rdfs:domain rdf:resource="#Osoba" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="email" >
+    <rdfs:domain rdf:resource="#Pacijent" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="ime" >
+    <rdfs:domain rdf:resource="#Osoba" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="prezime" >
+    <rdfs:domain rdf:resource="#Osoba" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="pol" >
+    <rdfs:domain rdf:resource="#Pacijent" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="ime_roditelja" >
+    <rdfs:domain rdf:resource="#Pacijent" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="datum" >
+    <rdfs:domain rdf:resource="#dokument" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="broj_pasosa" >
+    <rdfs:domain rdf:resource="#Pacijent" />
+  </rdf:Property>
   <rdf:Property rdf:ID="mesto">
+    <rdfs:domain rdf:resource="#dokument" />
     <rdfs:comment>Mesto zdravstvene ustanove u kojoj je obavljena konkretna imunizacija.</rdfs:comment>
   </rdf:Property>
-  <rdf:Property rdf:ID="qr_kod" />
-  <rdf:Property rdf:ID="sifra_dokumenta" />
+  <rdf:Property rdf:ID="qr_kod" >
+    <rdfs:domain rdf:resource="#dokument" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="sifra_dokumenta" >
+    <rdfs:domain rdf:resource="#potvrda_o_vakcinaciji" />
+  </rdf:Property>
   <rdf:Property rdf:ID="davalac_krvi" >
+    <rdfs:domain rdf:resource="#Pacijent" />
     <rdfs:comment>Indicija da li je pacijent davalac krvi.</rdfs:comment>
   </rdf:Property>
-  <rdf:Property rdf:ID="naziv_drzave" />
-  <rdf:Property rdf:ID="broj_pasosa" />
-  <rdf:Property rdf:ID="radni_status" >
+  <rdf:Property rdf:ID="naziv_drzave" >
+    <rdfs:domain rdf:resource="#Pacijent" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="broj_pasosa" >
+    <rdfs:domain rdf:resource="#Pacijent" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="radni_status">
+    <rdfs:domain rdf:resource="#Pacijent" />
     <rdfs:comment>Radni status pacijenta.</rdfs:comment>
   </rdf:Property>
   <rdf:Property rdf:ID="zanimanje" >
+    <rdfs:domain rdf:resource="#Pacijent" />
     <rdfs:comment>Zanimanje pacijenta.</rdfs:comment>
   </rdf:Property>
   <rdf:Property rdf:ID="cip" >
+    <rdfs:domain rdf:resource="#Pacijent" />
     <rdfs:comment>Tip vakcine za koju se pacijent odlucio da primi.</rdfs:comment>
   </rdf:Property>
   <rdf:Property rdf:ID="ustanova" >
+    <rdfs:domain rdf:resource="#obrazac_saglasnosti" />
     <rdfs:comment>Naziv ustanove gde je obavljena vakcinacija.</rdfs:comment>
   </rdf:Property>
   <rdf:Property rdf:ID="punkt">
+    <rdfs:domain rdf:resource="#obrazac_saglasnosti" />
     <rdfs:comment>Vakcinalni punkt.</rdfs:comment>
   </rdf:Property>
-  <rdf:Property rdf:ID="trajne_kontraindikacije" />
-  <rdf:Property rdf:ID="upotrebljeno_na" />
-  <rdf:Property rdf:ID="period_od" />
-  <rdf:Property rdf:ID="period_do" />
+  <rdf:Property rdf:ID="trajne_kontraindikacije" >
+    <rdfs:domain rdf:resource="#obrazac_saglasnosti" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="period_od" >
+    <rdfs:domain rdf:resource="#izvestaj_o_imunizaciji" />
+  </rdf:Property>
+  <rdf:Property rdf:ID="period_do" >
+    <rdfs:domain rdf:resource="#izvestaj_o_imunizaciji" />
+  </rdf:Property>
 
 </rdf:RDF>
