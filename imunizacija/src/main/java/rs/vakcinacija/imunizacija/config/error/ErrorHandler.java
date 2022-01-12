@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.xmldb.api.base.XMLDBException;
+import rs.vakcinacija.zajednicko.exception.SchemaValidationException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -15,6 +16,12 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 public class ErrorHandler {
 
+    @ExceptionHandler(SchemaValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ErrorObject handleSchemaValidationException(HttpServletRequest request, SchemaValidationException e){
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
+    }
 
     @ExceptionHandler({NoSuchElementException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -23,12 +30,6 @@ public class ErrorHandler {
         return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
     }
 
-    @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    ErrorObject handleRuntimeException(HttpServletRequest request, RuntimeException e){
-        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
-    }
 
     @ExceptionHandler(XMLDBException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
