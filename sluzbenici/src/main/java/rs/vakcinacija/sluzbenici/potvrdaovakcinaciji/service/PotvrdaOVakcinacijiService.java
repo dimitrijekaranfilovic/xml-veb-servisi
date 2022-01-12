@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiExistRepository;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiFusekiRepository;
+import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.UUID;
@@ -30,10 +31,11 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
 
     @Override
     public PotvrdaOVakcinaciji read(UUID id) throws Exception {
-        return this.existRepository.read(id).orElseThrow(() -> new RuntimeException("Cannot find digitalni sertifikat with id: " + id));
+        return this.existRepository.read(id).orElseThrow(() -> new DocumentNotFoundException("Cannot find digitalni sertifikat with id: " + id));
     }
 
     private void addMetadata(PotvrdaOVakcinaciji potvrdaOVakcinaciji){
+        var qrKod = potvrdaOVakcinaciji.getQrKod();
         var sifra = potvrdaOVakcinaciji.getSifraPotvrde();
         var datumIzdavanja = potvrdaOVakcinaciji.getDatumIzdavanja();
 
@@ -59,6 +61,8 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         licneInformacije.rdf().vocab(VOCAB).about(pacijentUrl);
 
         var vakcinaUrl = RDF_VAKCINA_BASE +  vakcinacija.getNazivVakcine().getValue();
+
+        qrKod.rdf().property(PROP_QR_KOD).datatype(T_STRING);
 
         vakcinacija.rdf()
                 .vocab(VOCAB)

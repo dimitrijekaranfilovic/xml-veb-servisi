@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://www.vakcinacija.rs/zajednicko"
+    xmlns="https://www.vakcinacija.rs/zajednicko">
+
+    <xs:simpleType name="TOgraniceni_string">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1000"/>
+            <xs:minLength value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TEmail">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TJmbg">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:pattern value="[0-9]{13}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TBroj_fiksnog">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:pattern value="\d{9,10}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TBroj_mobilnog">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:pattern value="06\d{7,8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType final="" name="TPol">
+        <xs:restriction base="TOgraniceni_string">
+            <xs:enumeration value="MUSKO"/>
+            <xs:enumeration value="ZENSKO"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType final="" name="TBroj_pasosa">
+        <xs:restriction base="TOgraniceni_string"/>
+    </xs:simpleType>
+    <xs:simpleType name="TQr_kod">
+        <xs:restriction base="TOgraniceni_string"/>
+    </xs:simpleType>
+    <xs:complexType name="TDoza">
+        <xs:sequence>
+            <xs:element name="broj_doze" type="xs:positiveInteger"/>
+            <xs:element name="datum_davanja" type="xs:date"/>
+            <xs:element name="broj_serije" type="TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TDoza_detaljnije" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="TDoza">
+                <xs:sequence>
+                    <xs:element name="tip" type="TOgraniceni_string"/>
+                    <xs:element name="proizvodjac" type="TOgraniceni_string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TKontakt">
+        <xs:sequence>
+            <xs:element name="broj_fiksnog">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="TBroj_fiksnog">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="broj_mobilnog">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="TBroj_mobilnog">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="email">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="TEmail">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TIme_prezime">
+        <xs:sequence>
+            <xs:element name="ime">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="TOgraniceni_string">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="prezime">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="TOgraniceni_string">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TLicni_podaci">
+        <xs:complexContent>
+            <xs:extension base="TIme_prezime">
+                <xs:sequence>
+                    <xs:element name="jmbg">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="TJmbg">
+                                    <xs:attribute name="property" type="xs:string"/>
+                                    <xs:attribute name="datatype" type="xs:string"/>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="pol">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="TPol">
+                                    <xs:attribute name="property" type="xs:string"/>
+                                    <xs:attribute name="datatype" type="xs:string"/>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="vocab" type="xs:string"/>
+                <xs:attribute name="about" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.IzvestajOImunizaciji;
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository.IzvestajOImunizacijiExistRepository;
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository.IzvestajOImunizacijiFusekiRepository;
+import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class IzvestajOImunizacijiService extends DocumentService<IzvestajOImuniz
     @Override
     public IzvestajOImunizaciji read(UUID id) throws Exception {
         return this.existRepository.read(id)
-                .orElseThrow(() -> new RuntimeException("Cannot find digitalni sertifikat with id: " + id));
+                .orElseThrow(() -> new DocumentNotFoundException("Cannot find digitalni sertifikat with id: " + id));
     }
 
     private void addMetadata(IzvestajOImunizaciji izvestajOImunizaciji){

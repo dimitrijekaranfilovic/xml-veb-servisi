@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://www.vakcinacija.rs/digitalni_sertifikat"
+    xmlns="https://www.vakcinacija.rs/digitalni_sertifikat"
+    xmlns:za="https://www.vakcinacija.rs/zajednicko">
+
+    <xs:import namespace="https://www.vakcinacija.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    <xs:element name="digitalni_sertifikat">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="broj_sertifikata">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="datum_vreme_izdavanja">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:date">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="licne_informacije" type="TLicne_informacije"/>
+                <xs:element name="vakcinacija" type="TVakcinacija"/>
+                <xs:element name="testovi" type="TTestovi"/>
+                <xs:element name="informacije_o_sertifikatu" type="TInformacije_o_sertifikatu"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TLicne_informacije">
+        <xs:complexContent>
+            <xs:extension base="za:TLicni_podaci">
+                <xs:sequence>
+                    <xs:element name="datum_rodjenja" type="xs:date"/>
+                    <xs:element name="broj_pasosa">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="za:TBroj_pasosa">
+                                    <xs:attribute name="property" type="xs:string"/>
+                                    <xs:attribute name="datatype" type="xs:string"/>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TVakcinacija">
+        <xs:sequence maxOccurs="unbounded" minOccurs="1">
+            <xs:element name="doza_vakcine" type="TDoza_vakcine"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TDoza_vakcine">
+        <xs:complexContent>
+            <xs:extension base="za:TDoza_detaljnije">
+                <xs:sequence>
+                    <xs:element name="zdravstvena_ustanova" type="za:TOgraniceni_string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TTestovi">
+        <xs:sequence maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="test" type="TTest"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TTest">
+        <xs:sequence>
+            <xs:element name="naziv" type="za:TOgraniceni_string"/>
+            <xs:element name="opis" type="za:TOgraniceni_string"/>
+            <xs:element name="vrsta_uzorka" type="za:TOgraniceni_string"/>
+            <xs:element name="proizvodjac_testa" type="za:TOgraniceni_string"/>
+            <xs:element name="datum_i_vreme_uzorkovanja" type="xs:date"/>
+            <xs:element name="datum_i_vreme_rezultata" type="xs:date"/>
+            <xs:element name="rezultat">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="N/A"/>
+                        <xs:enumeration value="pozitivan"/>
+                        <xs:enumeration value="negativan"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="laboratorija" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TInformacije_o_sertifikatu">
+        <xs:sequence>
+            <xs:element name="qr_kod">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="TQR_kod">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="digitalni_potpis" type="TDigitalni_potpis"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TDigitalni_potpis">
+        <xs:sequence>
+            <xs:element name="drzava" type="za:TOgraniceni_string"/>
+            <xs:element name="datum" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="TQR_kod">
+        <xs:restriction base="za:TQr_kod">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="250"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

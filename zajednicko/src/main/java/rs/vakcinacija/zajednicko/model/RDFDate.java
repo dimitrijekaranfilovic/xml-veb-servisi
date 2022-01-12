@@ -18,6 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class RDFDate implements RDFMetadataField {
     @XmlValue
+    @XmlSchemaType(name = "date")
     private Date value;
 
     @XmlAttribute(name = "property")
