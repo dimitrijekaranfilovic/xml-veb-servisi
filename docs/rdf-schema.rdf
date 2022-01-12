@@ -14,24 +14,44 @@
     <rdfs:comment>Proces imunizacije pacijenta.</rdfs:comment>
   </rdfs:Class>
 
+  <rdfs:Class rdf:ID="dokument" />
+
   <rdfs:Class rdf:ID="obrazac_saglasnosti">
+    <rdfs:subClassOf rdf:resource="#dokument" />
     <rdfs:comment>Instanca dokumenta obrazca saglasnosti.</rdfs:comment>
   </rdfs:Class>
   <rdfs:Class rdf:ID="interesovanje">
+    <rdfs:subClassOf rdf:resource="#dokument" />
     <rdfs:comment>Instanca dokumenta interesovanja za imunizacijom.</rdfs:comment>
   </rdfs:Class>
   <rdfs:Class rdf:ID="digitalni_sertifikat">
+    <rdfs:subClassOf rdf:resource="#dokument" />
     <rdfs:comment>Instanca dokumenta digitalnog zelenog sertifikata.</rdfs:comment>
   </rdfs:Class>
   <rdfs:Class rdf:ID="izvestaj_o_imunizaciji">
+    <rdfs:subClassOf rdf:resource="#dokument" />
     <rdfs:comment>Instanca dokumenta izvestaja o imunizaciji.</rdfs:comment>
   </rdfs:Class>
   <rdfs:Class rdf:ID="potvrda_o_vakcinaciji">
+    <rdfs:subClassOf rdf:resource="#dokument" />
     <rdfs:comment>Instanca dokumenta potvrde o vakcinaciji.</rdfs:comment>
   </rdfs:Class>
   <rdfs:Class rdf:ID="zahtev_za_sertifikat">
+    <rdfs:subClassOf rdf:resource="#dokument" />
     <rdfs:comment>Instanca dokumenta zahteva za izdavanje digitalnog zelenog sertifikata.</rdfs:comment>
   </rdfs:Class>
+
+  <rdf:Property rdf:ID="prethodi"> 
+    <rdfs:domain rdf:resource="#dokument" />
+    <rdfs:range rdf:resource="#dokument" />
+    <rdfs:comment>Predavanjem odredjenog dokumenta se inicira kreacija drugog.</rdfs:comment>
+  </rdf:Property>
+
+  <rdf:Property rdf:ID="zahteva"> 
+    <rdfs:domain rdf:resource="#dokument" />
+    <rdfs:range rdf:resource="#dokument" />
+    <rdfs:comment>Dokument zahteva postojanje drugih dokumenata.</rdfs:comment>
+  </rdf:Property>
 
   <rdf:Property rdf:ID="vakcinisan_od"> 
     <rdfs:domain rdf:resource="#Pacijent" />
