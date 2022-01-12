@@ -33,11 +33,4 @@ public class ZahtevZaSertifikatController {
         return zahtevZaSertifiaktService.read(id);
     }
 
-//    @PostMapping(value = "raw")
-//    public ZahtevZaSertifikat rawWrite(@RequestBody ZahtevZaSertifikat zahtevZaSertifikat) throws Exception {
-//        var updatedZahtev = zahtevZaSertifiaktService.insertRDFAttributes(zahtevZaSertifikat);
-//        log.info(updatedZahtev.getDatum().getProperty());
-//        return zahtevZaSertifiaktService.create(updatedZahtev);
-//    }
-
 }

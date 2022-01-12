@@ -32,11 +32,4 @@ public class InteresovanjeController {
         return interesovanjeService.read(id);
     }
 
-//    @PostMapping(value = "raw")
-//    public Interesovanje writeRaw(@RequestBody Interesovanje interesovanje) throws Exception {
-//        var updatedInteresovanje = interesovanjeService.insertRDFAttributes(interesovanje);
-//        log.info(updatedInteresovanje.getDatum().getProperty());
-//        return interesovanjeService.create(updatedInteresovanje);
-//    }
-
 }

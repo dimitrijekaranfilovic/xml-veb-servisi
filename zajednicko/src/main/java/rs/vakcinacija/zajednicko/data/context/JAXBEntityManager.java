@@ -37,14 +37,7 @@ public class JAXBEntityManager<T> {
         this.unmarshaller.setEventHandler(eventHandler);
         this.marshaller.setEventHandler(eventHandler);
 
-
         this.entityClazz = entityClazz;
-
-
-
-
-
-
     }
 
     public String getSchemaName(Class<T> clazz) {
