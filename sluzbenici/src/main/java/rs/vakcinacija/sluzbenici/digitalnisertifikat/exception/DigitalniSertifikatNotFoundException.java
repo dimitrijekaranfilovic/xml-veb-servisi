@@ -1,8 +1,8 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.exception;
 
-import rs.vakcinacija.sluzbenici.shared.exception.NotFoundException;
+import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 
-public class DigitalniSertifikatNotFoundException extends NotFoundException {
+public class DigitalniSertifikatNotFoundException extends DocumentNotFoundException {
     public DigitalniSertifikatNotFoundException(String message) {
         super(message);
     }

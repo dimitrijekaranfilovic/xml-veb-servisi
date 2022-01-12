@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
@@ -28,7 +29,7 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
     @Override
     public Interesovanje read(UUID id) throws Exception {
         return existRepository.read(id)
-                .orElseThrow(() -> new RuntimeException("Cannot find interesovanje with id: " + id));
+                .orElseThrow(() -> new DocumentNotFoundException("Cannot find interesovanje with id: " + id));
     }
 
     public Interesovanje insertRDFAttributes(Interesovanje interesovanje) {
@@ -74,7 +75,6 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
             var email = interesovanje.getLicneInformacije().getKontakt().getEmail();
             email.setProperty(PROP_EMAIL);
             email.setDatatype(T_STRING);
-
         }
 
         return interesovanje;

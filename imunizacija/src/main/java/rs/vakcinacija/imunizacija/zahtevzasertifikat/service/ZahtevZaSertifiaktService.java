@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
@@ -29,7 +30,7 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
     @Override
     public ZahtevZaSertifikat read(UUID id) throws Exception {
         return existRepository.read(id)
-                .orElseThrow(() -> new RuntimeException("Cannot find zahtev za sertifikat with id: " + id));
+                .orElseThrow(() -> new DocumentNotFoundException("Cannot find zahtev za sertifikat with id: " + id));
     }
 
     public ZahtevZaSertifikat insertRDFAttributes(ZahtevZaSertifikat zahtevZaSertifikat) {

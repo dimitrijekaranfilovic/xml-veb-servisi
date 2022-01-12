@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
@@ -31,7 +32,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
     @Override
     public SaglasnostZaSprovodjenjeImunizacije read(UUID uuid) throws Exception {
         return this.existRepository.read(uuid)
-                .orElseThrow(() -> new RuntimeException("Cannot find saglasnost with id: " + uuid.toString()));
+                .orElseThrow(() -> new DocumentNotFoundException("Cannot find saglasnost with id: " + uuid.toString()));
     }
 
     public SaglasnostZaSprovodjenjeImunizacije insertRDFAttributes(SaglasnostZaSprovodjenjeImunizacije saglasnost) {
