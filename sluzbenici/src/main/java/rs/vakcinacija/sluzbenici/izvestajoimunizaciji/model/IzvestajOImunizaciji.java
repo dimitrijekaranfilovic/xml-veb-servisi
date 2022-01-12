@@ -32,6 +32,9 @@ public class IzvestajOImunizaciji {
     @XmlElement(name = "primljeno_zahteva_za_sertifikat", required = true)
     private RDFInteger primljenoZahtevaZaSertifikat;
 
+    @XmlElement(name = "izdato_zahteva_za_sertifikat", required = true)
+    private RDFInteger izdatoZahtevaZaSertifikat;
+
     @XmlElement(name = "date_doze_vakcina", required = true)
     private DateDozeVakcina dateDozeVakcina;
 
