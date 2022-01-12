@@ -20,21 +20,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         super(potvrdaOVakcinacijiExistRepository, potvrdaOVakcinacijiFusekiRepository);
     }
 
-
-    @Override
-    public PotvrdaOVakcinaciji create(PotvrdaOVakcinaciji potvrdaOVakcinaciji) throws Exception {
-        addMetadata(potvrdaOVakcinaciji);
-        var id = this.existRepository.save(potvrdaOVakcinaciji);
-        this.fusekiRepository.save(id, potvrdaOVakcinaciji);
-        return potvrdaOVakcinaciji;
-    }
-
-    @Override
-    public PotvrdaOVakcinaciji read(UUID id) throws Exception {
-        return this.existRepository.read(id).orElseThrow(() -> new DocumentNotFoundException("Cannot find digitalni sertifikat with id: " + id));
-    }
-
-    private void addMetadata(PotvrdaOVakcinaciji potvrdaOVakcinaciji){
+    protected void insertRDFMetadata(PotvrdaOVakcinaciji potvrdaOVakcinaciji) {
         var qrKod = potvrdaOVakcinaciji.getQrKod();
         var sifra = potvrdaOVakcinaciji.getSifraPotvrde();
         var datumIzdavanja = potvrdaOVakcinaciji.getDatumIzdavanja();
@@ -70,9 +56,5 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
                 .rel("pred:upotrebljeno_na")
                 .href(pacijentUrl)
                 .typeof("pred:Vakcinacija");
-
-
-
-
     }
 }

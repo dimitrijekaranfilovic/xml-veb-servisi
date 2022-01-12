@@ -62,7 +62,6 @@ public class JAXBEntityManager<T> {
             return new JAXBEntityManager<>(JAXBContext.newInstance(entityClazz), entityClazz);
         } catch (Exception exception) {
             log.error("Cannot create an instance of JAXBEntityManager for class " + entityClazz.getName());
-            //exception.printStackTrace();
             return null;
         }
     }

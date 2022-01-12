@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
-import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.service.DocumentService;
-
-import java.util.UUID;
 
 @Service
 public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifikat> {
@@ -19,21 +16,7 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
         super(existRepository, fusekiRepository);
     }
 
-    @Override
-    public ZahtevZaSertifikat create(ZahtevZaSertifikat zahtevZaSertifikat) throws Exception {
-        insertRDFAttributes(zahtevZaSertifikat);
-        var id = existRepository.save(zahtevZaSertifikat);
-        fusekiRepository.save(id, zahtevZaSertifikat);
-        return zahtevZaSertifikat;
-    }
-
-    @Override
-    public ZahtevZaSertifikat read(UUID id) throws Exception {
-        return existRepository.read(id)
-                .orElseThrow(() -> new DocumentNotFoundException("Cannot find zahtev za sertifikat with id: " + id));
-    }
-
-    public ZahtevZaSertifikat insertRDFAttributes(ZahtevZaSertifikat zahtevZaSertifikat) {
+    protected void insertRDFMetadata(ZahtevZaSertifikat zahtevZaSertifikat) {
         var datum = zahtevZaSertifikat.getDatum();
         datum.setProperty(PROP_DATUM);
         datum.setDatatype(T_DATE);
@@ -68,8 +51,6 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
         var prezime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPrezime();
         prezime.setProperty(PROP_PREZIME);
         prezime.setDatatype(T_STRING);
-
-        return zahtevZaSertifikat;
     }
 
 }

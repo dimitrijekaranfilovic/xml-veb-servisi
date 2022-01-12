@@ -16,26 +16,12 @@ import java.util.UUID;
 public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeImunizacije> {
 
     @Autowired
-    protected SaglasnostService(ExistRepository<SaglasnostZaSprovodjenjeImunizacije> existRepository,
+    public SaglasnostService(ExistRepository<SaglasnostZaSprovodjenjeImunizacije> existRepository,
                                 FusekiRepository<SaglasnostZaSprovodjenjeImunizacije> fusekiRepository) {
         super(existRepository, fusekiRepository);
     }
 
-    @Override
-    public SaglasnostZaSprovodjenjeImunizacije create(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
-        insertRDFAttributes(saglasnost);
-        var id = this.existRepository.save(saglasnost);
-        this.fusekiRepository.save(id, saglasnost);
-        return saglasnost;
-    }
-
-    @Override
-    public SaglasnostZaSprovodjenjeImunizacije read(UUID uuid) throws Exception {
-        return this.existRepository.read(uuid)
-                .orElseThrow(() -> new DocumentNotFoundException("Cannot find saglasnost with id: " + uuid.toString()));
-    }
-
-    public SaglasnostZaSprovodjenjeImunizacije insertRDFAttributes(SaglasnostZaSprovodjenjeImunizacije saglasnost) {
+    protected void insertRDFMetadata(SaglasnostZaSprovodjenjeImunizacije saglasnost) {
         saglasnost.getDatum().rdf().property(PROP_DATUM_IZDAVANJA).datatype(T_DATE);
 
         var pacijent = saglasnost.getPacijent();
@@ -90,7 +76,5 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         lekar.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
 
         vakcinacija.getOdlukaKomisije().rdf().property("pred:trajne_kontraindikacije").datatype(T_BOOLEAN);
-
-        return saglasnost;
     }
 }

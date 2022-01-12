@@ -19,22 +19,7 @@ public class IzvestajOImunizacijiService extends DocumentService<IzvestajOImuniz
         super(izvestajOImunizacijiExistRepository, izvestajOImunizacijiFusekiRepository);
     }
 
-
-    @Override
-    public IzvestajOImunizaciji create(IzvestajOImunizaciji izvestajOImunizaciji) throws Exception {
-        addMetadata(izvestajOImunizaciji);
-        var id = this.existRepository.save(izvestajOImunizaciji);
-        this.fusekiRepository.save(id, izvestajOImunizaciji);
-        return izvestajOImunizaciji;
-    }
-
-    @Override
-    public IzvestajOImunizaciji read(UUID id) throws Exception {
-        return this.existRepository.read(id)
-                .orElseThrow(() -> new DocumentNotFoundException("Cannot find digitalni sertifikat with id: " + id));
-    }
-
-    private void addMetadata(IzvestajOImunizaciji izvestajOImunizaciji){
+    protected void insertRDFMetadata(IzvestajOImunizaciji izvestajOImunizaciji) {
         var periodOd = izvestajOImunizaciji.getPeriodOd();
         var periodDo = izvestajOImunizaciji.getPeriodDo();
         var datumIzdavanja = izvestajOImunizaciji.getDatumIzdavanja();

@@ -2,14 +2,33 @@ package rs.vakcinacija.zajednicko.service;
 
 
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 
 import java.util.UUID;
 
 public abstract class DocumentService<T> {
-
     protected final ExistRepository<T> existRepository;
     protected final FusekiRepository<T> fusekiRepository;
+
+    protected DocumentService(ExistRepository<T> existRepository, FusekiRepository<T> fusekiRepository) {
+        this.existRepository = existRepository;
+        this.fusekiRepository = fusekiRepository;
+    }
+
+    public T create(T entity) throws Exception {
+        insertRDFMetadata(entity);
+        var id = existRepository.save(entity);
+        fusekiRepository.save(id, entity);
+        return entity;
+    }
+
+    public T read(UUID id) throws Exception {
+        return existRepository.read(id)
+                .orElseThrow(() -> new DocumentNotFoundException(String.format("Cannot find document with id: '%s'.", id)));
+    }
+
+    protected abstract void insertRDFMetadata(T entity);
 
     protected static final String VOCAB = "https://www.vakcinacija.rs/rdf/predicate/";
     protected static final String RDF_LEKAR_BASE = "https://www.vakcinacija.rs/rdf/lekar/";
@@ -35,14 +54,4 @@ public abstract class DocumentService<T> {
     protected static final String T_STRING = "xs:string";
     protected static final String T_DATE = "xs:date";
     protected static final String T_BOOLEAN = "xs:boolean";
-
-    protected DocumentService(ExistRepository<T> existRepository, FusekiRepository<T> fusekiRepository) {
-        this.existRepository = existRepository;
-        this.fusekiRepository = fusekiRepository;
-    }
-
-    public abstract T create(T entity) throws Exception;
-
-    public abstract T read(UUID id) throws Exception;
-
 }
