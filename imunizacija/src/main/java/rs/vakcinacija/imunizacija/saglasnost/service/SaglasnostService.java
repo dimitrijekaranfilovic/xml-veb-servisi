@@ -23,8 +23,8 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
     @Override
     public SaglasnostZaSprovodjenjeImunizacije create(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
-        var id = this.existRepository.save(saglasnost);
         insertRDFAttributes(saglasnost);
+        var id = this.existRepository.save(saglasnost);
         this.fusekiRepository.save(id, saglasnost);
         return saglasnost;
     }

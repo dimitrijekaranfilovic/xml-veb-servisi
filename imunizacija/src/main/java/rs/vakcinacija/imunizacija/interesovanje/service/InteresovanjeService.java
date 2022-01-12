@@ -20,8 +20,8 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
 
     @Override
     public Interesovanje create(Interesovanje interesovanje) throws Exception {
-        var id = existRepository.save(interesovanje);
         insertRDFAttributes(interesovanje);
+        var id = existRepository.save(interesovanje);
         fusekiRepository.save(id, interesovanje);
         return interesovanje;
     }

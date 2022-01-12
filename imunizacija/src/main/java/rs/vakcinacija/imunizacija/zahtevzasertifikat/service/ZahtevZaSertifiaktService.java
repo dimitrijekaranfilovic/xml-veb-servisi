@@ -21,8 +21,8 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
 
     @Override
     public ZahtevZaSertifikat create(ZahtevZaSertifikat zahtevZaSertifikat) throws Exception {
-        var id = existRepository.save(zahtevZaSertifikat);
         insertRDFAttributes(zahtevZaSertifikat);
+        var id = existRepository.save(zahtevZaSertifikat);
         fusekiRepository.save(id, zahtevZaSertifikat);
         return zahtevZaSertifikat;
     }

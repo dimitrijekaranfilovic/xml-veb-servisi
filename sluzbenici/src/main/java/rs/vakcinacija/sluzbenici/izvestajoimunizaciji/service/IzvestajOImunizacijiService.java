@@ -22,8 +22,8 @@ public class IzvestajOImunizacijiService extends DocumentService<IzvestajOImuniz
 
     @Override
     public IzvestajOImunizaciji create(IzvestajOImunizaciji izvestajOImunizaciji) throws Exception {
-        var id = this.existRepository.save(izvestajOImunizaciji);
         addMetadata(izvestajOImunizaciji);
+        var id = this.existRepository.save(izvestajOImunizaciji);
         this.fusekiRepository.save(id, izvestajOImunizaciji);
         return izvestajOImunizaciji;
     }

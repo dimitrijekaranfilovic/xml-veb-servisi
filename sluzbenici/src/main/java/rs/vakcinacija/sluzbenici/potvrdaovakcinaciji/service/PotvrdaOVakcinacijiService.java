@@ -23,8 +23,8 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
 
     @Override
     public PotvrdaOVakcinaciji create(PotvrdaOVakcinaciji potvrdaOVakcinaciji) throws Exception {
-        var id = this.existRepository.save(potvrdaOVakcinaciji);
         addMetadata(potvrdaOVakcinaciji);
+        var id = this.existRepository.save(potvrdaOVakcinaciji);
         this.fusekiRepository.save(id, potvrdaOVakcinaciji);
         return potvrdaOVakcinaciji;
     }

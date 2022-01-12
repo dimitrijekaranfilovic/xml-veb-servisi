@@ -20,8 +20,8 @@ public class DigitalniSertifikatService extends DocumentService<DigitalniSertifi
     }
 
     public DigitalniSertifikat create(DigitalniSertifikat digitalniSertifikat) throws Exception {
-        var id = existRepository.save(digitalniSertifikat);
         populateMetadata(digitalniSertifikat);
+        var id = existRepository.save(digitalniSertifikat);
         fusekiRepository.save(id, digitalniSertifikat);
         return digitalniSertifikat;
     }
