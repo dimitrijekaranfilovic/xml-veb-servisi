@@ -4,25 +4,43 @@
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xml:base="https://www.vakcinacija.rs/rdf/">
 
-  <rdfs:Class rdf:ID="Pacijent"/>
-  <rdfs:Class rdf:ID="Lekar"/>
-  <rdfs:Class rdf:ID="Vakcinacija"/>
+  <rdfs:Class rdf:ID="Pacijent">
+    <rdfs:comment>Pacijent koji se vakcinise.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="Lekar">
+    <rdfs:comment>Lekar koji cipuje pacijenta.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="Vakcinacija">
+    <rdfs:comment>Proces imunizacije pacijenta.</rdfs:comment>
+  </rdfs:Class>
 
-  <rdfs:Class rdf:ID="obrazac_saglasnosti"/>
-  <rdfs:Class rdf:ID="interesovanje"/>
-  <rdfs:Class rdf:ID="digitalni_sertifikat"/>
-  <rdfs:Class rdf:ID="izvestaj_o_imunizaciji"/>
-  <rdfs:Class rdf:ID="potvrda_o_vakcinaciji"/>
-  <rdfs:Class rdf:ID="zahtev_za_sertifikat"/>
+  <rdfs:Class rdf:ID="obrazac_saglasnosti">
+    <rdfs:comment>Instanca dokumenta obrazca saglasnosti.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="interesovanje">
+    <rdfs:comment>Instanca dokumenta interesovanja za imunizacijom.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="digitalni_sertifikat">
+    <rdfs:comment>Instanca dokumenta digitalnog zelenog sertifikata.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="izvestaj_o_imunizaciji">
+    <rdfs:comment>Instanca dokumenta izvestaja o imunizaciji.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="potvrda_o_vakcinaciji">
+    <rdfs:comment>Instanca dokumenta potvrde o vakcinaciji.</rdfs:comment>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="zahtev_za_sertifikat">
+    <rdfs:comment>Instanca dokumenta zahteva za izdavanje digitalnog zelenog sertifikata.</rdfs:comment>
+  </rdfs:Class>
 
   <rdf:Property rdf:ID="vakcinisan_od"> 
-    <rdfs:domain rdf:resource="#Pacijent">
-    <rdfs:range rdf:resource="#Lekar">
+    <rdfs:domain rdf:resource="#Pacijent" />
+    <rdfs:range rdf:resource="#Lekar" />
   </rdf:Property>
 
   <rdf:Property rdf:ID="upotrebljeno_na"> 
-    <rdfs:domain rdf:resource="#Vakcinacija">
-    <rdfs:range rdf:resource="#Pacijent">
+    <rdfs:domain rdf:resource="#Vakcinacija" />
+    <rdfs:range rdf:resource="#Pacijent" />
   </rdf:Property>
 
   <rdf:Property rdf:ID="datum_izdavanja" />
@@ -36,17 +54,31 @@
   <rdf:Property rdf:ID="ime_roditelja" />
   <rdf:Property rdf:ID="datum" />
   <rdf:Property rdf:ID="broj_pasosa" />
-  <rdf:Property rdf:ID="mesto" />
+  <rdf:Property rdf:ID="mesto">
+    <rdfs:comment>Mesto zdravstvene ustanove u kojoj je obavljena konkretna imunizacija.</rdfs:comment>
+  </rdf:Property>
   <rdf:Property rdf:ID="qr_kod" />
   <rdf:Property rdf:ID="sifra_dokumenta" />
-  <rdf:Property rdf:ID="davalac_krvi" />
+  <rdf:Property rdf:ID="davalac_krvi" >
+    <rdfs:comment>Indicija da li je pacijent davalac krvi.</rdfs:comment>
+  </rdf:Property>
   <rdf:Property rdf:ID="naziv_drzave" />
   <rdf:Property rdf:ID="broj_pasosa" />
-  <rdf:Property rdf:ID="radni_status" />
-  <rdf:Property rdf:ID="zanimanje" />
-  <rdf:Property rdf:ID="cip" />
-  <rdf:Property rdf:ID="ustanova" />
-  <rdf:Property rdf:ID="punkt" />
+  <rdf:Property rdf:ID="radni_status" >
+    <rdfs:comment>Radni status pacijenta.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:ID="zanimanje" >
+    <rdfs:comment>Zanimanje pacijenta.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:ID="cip" >
+    <rdfs:comment>Tip vakcine za koju se pacijent odlucio da primi.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:ID="ustanova" >
+    <rdfs:comment>Naziv ustanove gde je obavljena vakcinacija.</rdfs:comment>
+  </rdf:Property>
+  <rdf:Property rdf:ID="punkt">
+    <rdfs:comment>Vakcinalni punkt.</rdfs:comment>
+  </rdf:Property>
   <rdf:Property rdf:ID="trajne_kontraindikacije" />
   <rdf:Property rdf:ID="upotrebljeno_na" />
   <rdf:Property rdf:ID="period_od" />
