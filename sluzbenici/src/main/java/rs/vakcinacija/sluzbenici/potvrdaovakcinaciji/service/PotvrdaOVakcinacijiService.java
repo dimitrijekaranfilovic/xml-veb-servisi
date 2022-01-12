@@ -35,6 +35,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
     }
 
     private void addMetadata(PotvrdaOVakcinaciji potvrdaOVakcinaciji){
+        var qrKod = potvrdaOVakcinaciji.getQrKod();
         var sifra = potvrdaOVakcinaciji.getSifraPotvrde();
         var datumIzdavanja = potvrdaOVakcinaciji.getDatumIzdavanja();
 
@@ -60,6 +61,8 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         licneInformacije.rdf().vocab(VOCAB).about(pacijentUrl);
 
         var vakcinaUrl = RDF_VAKCINA_BASE +  vakcinacija.getNazivVakcine().getValue();
+
+        qrKod.rdf().property(PROP_QR_KOD).datatype(T_STRING);
 
         vakcinacija.rdf()
                 .vocab(VOCAB)

@@ -27,7 +27,16 @@
                         </xs:simpleContent>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="qr_kod" type="za:TQr_kod"/>
+                <xs:element name="qr_kod">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="za:TQr_kod">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
                 <xs:element name="licne_informacije" type="za:TLicni_podaci"/>
                 <xs:element name="vakcinacija" type="TVakcinacija"> </xs:element>
             </xs:sequence>

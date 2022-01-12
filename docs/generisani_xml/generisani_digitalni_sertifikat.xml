@@ -4,7 +4,7 @@
     xmlns:za="https://www.vakcinacija.rs/zajednicko"
     xsi:schemaLocation="https://www.vakcinacija.rs/digitalni_sertifikat ../xsd/digitalni_sertifikat.xsd">
     <broj_sertifikata>123456</broj_sertifikata>
-    <darum_vreme_izdavanja>2021-10-22</darum_vreme_izdavanja>
+    <datum_vreme_izdavanja>2021-10-22</datum_vreme_izdavanja>
     <licne_informacije>
         <za:ime>Pera</za:ime>
         <za:prezime>Peric</za:prezime>
