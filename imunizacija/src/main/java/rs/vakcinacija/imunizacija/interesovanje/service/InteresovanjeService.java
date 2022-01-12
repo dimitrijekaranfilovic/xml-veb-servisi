@@ -61,11 +61,11 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
 
             var davalac = interesovanje.getLicneInformacije().getDavalacKrvi();
             davalac.setProperty(PROP_DAVALAC_KRVI);
-            davalac.setProperty(T_BOOLEAN);
+            davalac.setDatatype(T_BOOLEAN);
 
             var brojFiksnog = interesovanje.getLicneInformacije().getKontakt().getBrojFiksnog();
             brojFiksnog.setProperty(PROP_BROJ_FIKSNOG);
-            brojFiksnog.setProperty(T_STRING);
+            brojFiksnog.setDatatype(T_STRING);
 
             var brojMobilnog = interesovanje.getLicneInformacije().getKontakt().getBrojMobilnog();
             brojMobilnog.setProperty(PROP_BROJ_MOBILNOG);
