@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="https://www.vakcinacija.rs/potvrda_o_vakcinaciji"
+    xmlns="https://www.vakcinacija.rs/potvrda_o_vakcinaciji"
+    xmlns:za="https://www.vakcinacija.rs/zajednicko">
+    <xs:import namespace="https://www.vakcinacija.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    <xs:element name="potvrda_o_vakcinaciji">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="sifra_potvrde">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="datum_izdavanja">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:date">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="qr_kod" type="za:TQr_kod"/>
+                <xs:element name="licne_informacije" type="za:TLicni_podaci"/>
+                <xs:element name="vakcinacija" type="TVakcinacija"> </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TDoze">
+        <xs:sequence maxOccurs="1">
+            <xs:element maxOccurs="unbounded" name="doza" type="za:TDoza"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TVakcinacija">
+        <xs:sequence>
+            <xs:element name="ustanova">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="za:TOgraniceni_string">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="naziv_vakcine" type="za:TOgraniceni_string"/>
+            <xs:element name="doze" type="TDoze"/>
+        </xs:sequence>
+        <xs:attribute name="property" type="xs:string"/>
+        <xs:attribute name="datatype" type="xs:string"/>
+        <xs:attribute name="vocab" type="xs:string"/>
+        <xs:attribute name="about" type="xs:string"/>
+        <xs:attribute name="rel" type="xs:string"/>
+        <xs:attribute name="href" type="xs:string"/>
+        <xs:attribute name="typeof" type="xs:string"/>
+    </xs:complexType>
+</xs:schema>
