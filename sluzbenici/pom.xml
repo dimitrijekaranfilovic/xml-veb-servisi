@@ -30,6 +30,10 @@
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>rs.vakcinacija</groupId>
 			<artifactId>zajednicko</artifactId>
 			<version>1.0.0</version>
