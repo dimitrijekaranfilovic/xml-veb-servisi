@@ -30,6 +30,9 @@
                     <xs:sequence>
                         <xs:element name="drzavljanstvo" type="TDrzavljanstvo"/>
                         <xs:element name="puno_ime" type="TPuno_ime"/>
+                        <xs:element name="datum_rodjenja" type="xs:date"/>
+                        <xs:element name="mesto_rodjenja" type="za:TOgraniceni_string"/>
+                        <xs:element name="pol" type="za:TPol"/>
                         <xs:element name="adresa" type="TAdresa"/>
                         <xs:element name="kontakt" type="za:TKontakt"/>
                         <xs:element name="radni_status">

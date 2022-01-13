@@ -3,6 +3,7 @@ package rs.vakcinacija.imunizacija.saglasnost.model;
 import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.Kontakt;
+import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFField;
 import rs.vakcinacija.zajednicko.model.RDFString;
 
@@ -11,7 +12,7 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "licne_informacije")
 @XmlType(name = "TLicneInformacije",
-        propOrder = {"drzavljanstvo", "punoIme", "adresa", "kontakt", "radniStatus", "zanimanjeZaposlenog"})
+        propOrder = {"drzavljanstvo", "punoIme", "datumRodjenja", "mestoRodjenja", "pol", "adresa", "kontakt", "radniStatus", "zanimanjeZaposlenog"})
 @Getter
 @Setter
 public class LicneInformacije extends RDFField {
@@ -21,6 +22,15 @@ public class LicneInformacije extends RDFField {
 
     @XmlElement(name = "puno_ime", required = true)
     private PunoImePacijent punoIme;
+
+    @XmlElement(name = "datum_rodjenja", required = true)
+    private RDFDate datumRodjenja;
+
+    @XmlElement(name = "mesto_rodjenja", required = true)
+    private String mestoRodjenja;
+
+    @XmlElement(name = "pol", required = true)
+    private String pol;
 
     @XmlElement(name = "adresa", required = true)
     private Adresa adresa;
