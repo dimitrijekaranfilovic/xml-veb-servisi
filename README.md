@@ -4,23 +4,28 @@ Predmetni projekat iz predmeta XML i Veb servisi.
 
 ## Pokretanje projekta
 
-Spring servisi se za sada pokreću ručno. U docker-compose.yml fajlu svakog servisa je zakomentarisan deo koji pokreće spring projekat. Ovako je lakše zbog debagovanja, kasnije se samo otkomentariše taj deo i sve će raditi. Projekti su konfigurisani tako da se i baze mogu ručno pokretati. Kredencijali za Fuseki su username=`admin` i password=`password`.
+Spring servisi se za sada pokreću ručno. U docker-compose.yml fajlu svakog servisa je zakomentarisan deo koji pokreće spring projekat. Ovako je lakše zbog debagovanja, kasnije se samo otkomentariše taj deo i sve će raditi. Projekti su konfigurisani tako da se i baze mogu ručno pokretati. Kredencijali za Fuseki su username=`admin` i password=`password`. Kredencijali za RabbitMQ su username=`guest` i password=`guest`.
 
-### Opcija 1
+### Pokretanje RabbitMQ Message Broker-a
 
- * Iz sluzbenici foldera pokrenuti `docker-compose up` (samo prvi put)
- * Iz imunizacija foldera pokrenuti `docker-compose up` (samo prvi put)
- * Svaki sledeci put moguće je pokrenuti kontejner iz Docker Desktop-a:
- ![image](https://user-images.githubusercontent.com/27950949/148374518-eea2ded7-edc4-4295-904a-d743e0c3b45b.png)
- * Ili iz terminala, na primer: `docker {start | stop} sluzbenici-xml-exist-database`
+ * Iz message-broker foldera pokrenuti `docker-compose up` (samo prvi put).
+ * Svaki sledeći put pokrenuti `docker start rabbitmq-message-broker`.
 
-### Opcija 2
+### Pokretanje E-Mail servisa
 
- * Iz korenskog foldera pokrenuti `docker-compose -f .\imunizacija\docker-compose.yml -f .\sluzbenici\docker-compose.yml up` (samo prvi put)
- * Svaki sledeci put moguće je pokrenuti kontejner iz Docker Desktop-a:
- ![image](https://user-images.githubusercontent.com/27950949/148374375-889d7997-81cc-4989-a588-cc8fcc865071.png)
- * Ili iz terminala, na primer: `docker {start | stop} sluzbenici-xml-exist-database`
-  
+ * Iz email-service foldera pokrenuti `mvn install` (samo prvi put).
+ * Iz email-service foldera pokrenuti `docker-compose up` (samo prvi put).
+ * Svaki sledeći put pokrenuti `docker start email-service-api`.
+
+### Pokretanje infrastrukture za Imunizacija servis
+
+ * Iz imunizacija foldera pokrenuti `docker-compose up` (samo prvi put).
+ * Svaki sledeći put pokrenuti `docker start imunizacija-rdf-database` i `docker start imunizacija-xml-exist-database`.
+
+### Pokretanje infrastrukture za Sluzbenici servis
+
+ * Iz sluzbenici foldera pokrenuti `docker-compose up` (samo prvi put).
+ * Svaki sledeći put pokrenuti `docker start sluzbenici-rdf-database` i `docker start sluzbenici-xml-exist-database`.
   
 ## Zajednički projekat
 
