@@ -1,88 +1,79 @@
-# sudo docker start imunizacija-xml-exist-database
-# sudo docker start imunizacija-rdf-database
-# sudo docker start sluzbenici-xml-exist-database
-# sudo docker start sluzbenici-rdf-database
-
-#i - imunizacija
-#s - sluzbenici
-#e - email
-
 help='false'
+start='false'
+stop='false'
 
 print_usage(){
-    echo "You can run this script with either -s, -e or -h flag.";
+    echo "You run this script like any other. Its first argument is either 'start' or 'stop'.";
+    echo "After that, you specify services to start or stop."
+    echo "They can be one of: 'imunizacija', 'sluzbenici' or 'email'."
 }
 
-while getopts s:e:h flag; do
-    case "${flag}" in
-        e) end=${OPTARG} ;;
-        s) start=${OPTARG} ;;
-        h) help='true' ;;
-    esac
-done
 
-if (( $OPTIND == 1 )); then
-   print_usage
-   exit 0
-fi
+option=$1 # opcija moze biti start ili stop
+service_1=$2
+service_2=$3
+service_3=$4
+
+total="$service_1$service_2$service_3"
 
 
-if "$help"; then
-    echo "-s           Flag for starting services. Its value can be one of 'i'(imunizacija), 's'(sluzbenici), 'e'(email) or any combination of them. It starts all docker containers needed for these services.";
-    echo "-e           Same as above, except it stops docker containers. e stands for end, because I can't have two -s flags now can I";
-    echo "-h           Displays this."
-    echo ""
-    echo "Some examples:"
-    echo "1. ./manage-docker-containers.sh -s i  => Starts containers for 'imunizacija' service."
-    echo "2. ./manage-docker-containers.sh -e ise => Stops containers for 'imunizacija', 'sluzbenici' and 'email' services."
-    exit 0
-fi
 
-if ([  -z "$end" ] && [ -z "$start" ]) || ([ ! -z "$end" ] && [ ! -z "$start" ]); then
-    echo "There can only be either -s or -e argument present at the time.";
-else
-    if [ ! -z "$start" ]; then
-        if [[ "$start" == *"i"* ]]; then
-            echo "starting imunizacija service...";
-            sudo docker start imunizacija-xml-exist-database;
-            sudo docker start imunizacija-rdf-database;
-            echo "";
-        fi
-        
-        if [[ "$start" == *"s"* ]]; then
-            echo "starting sluzbenici service...";
-            sudo docker start sluzbenici-xml-exist-database;
-            sudo docker start sluzbenici-rdf-database;
-            echo "";
-        fi
+if [[ "$option" == "start" ]];then
 
-        if [[ "$start" == *"e"* ]]; then
-            echo "starting email service...";
-            sudo docker start rabbitmq-message-broker;
-            sudo docker start email-service-api;
-            echo "";
-        fi
-    
-    else
-        if [[ "$end" == *"i"* ]]; then
-            echo "stopping imunizacija service...";
-            sudo docker stop imunizacija-xml-exist-database;
-            sudo docker stop imunizacija-rdf-database;
-            echo "";
-        fi
-        
-        if [[ "$end" == *"s"* ]]; then
-            echo "stopping sluzbenici service...";
-            sudo docker stop sluzbenici-xml-exist-database;
-            sudo docker stop sluzbenici-rdf-database;
-            echo "";
-        fi
-
-        if [[ "$end" == *"e"* ]]; then
-            echo "stopping email service...";
-            sudo docker stop email-service-api;
-            sudo docker stop rabbitmq-message-broker;
-            echo "";
-        fi
+    if [[ "$total" == *"imunizacija"* ]]; then
+        echo "starting imunizacija service...";
+        sudo docker start imunizacija-xml-exist-database;
+        sudo docker start imunizacija-rdf-database;
+        echo "";
     fi
+
+    if [[ "$total" == *"sluzbenici"* ]]; then
+        echo "starting sluzbenici service...";
+        sudo docker start sluzbenici-xml-exist-database;
+        sudo docker start sluzbenici-rdf-database;
+        echo "";
+    fi
+
+    if [[ "$total" == *"email"* ]]; then
+        echo "starting email service...";
+        sudo docker start rabbitmq-message-broker;
+        sudo docker start email-service-api;
+        echo "";
+    fi
+
+    if [[ "$total" == "" ]]; then
+        echo "No service specified."
+    fi
+
+
+
+elif [[ "$option" == "stop" ]];then
+    if [[ "$total" == *"imunizacija"* ]]; then
+        echo "stopping imunizacija service...";
+        sudo docker stop imunizacija-xml-exist-database;
+        sudo docker stop imunizacija-rdf-database;
+        echo "";
+    fi
+
+    if [[ "$total" == *"sluzbenici"* ]]; then
+        echo "stopping sluzbenici service...";
+        sudo docker stop sluzbenici-xml-exist-database;
+        sudo docker stop sluzbenici-rdf-database;
+        echo "";
+    fi
+
+    if [[ "$total" == *"email"* ]]; then
+        echo "stopping email service...";
+        sudo docker stop email-service-api;
+        sudo docker stop rabbitmq-message-broker;
+        echo "";
+    fi
+
+    if [[ "$total" == "" ]]; then
+        echo "No service specified."
+    fi
+else
+    echo "Option '$option' not recognized."
+    print_usage
+    exit 0
 fi
