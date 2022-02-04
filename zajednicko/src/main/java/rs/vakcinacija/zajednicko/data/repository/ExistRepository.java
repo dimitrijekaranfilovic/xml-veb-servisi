@@ -3,9 +3,11 @@ package rs.vakcinacija.zajednicko.data.repository;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
+import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
+import org.xmldb.api.modules.XPathQueryService;
 import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
 import rs.vakcinacija.zajednicko.data.context.JAXBEntityManager;
 import rs.vakcinacija.zajednicko.data.context.ManagedCollectionAdapter;
@@ -41,6 +43,16 @@ public abstract class ExistRepository<T> {
             collection.get().storeResource(xmlResource.get());
         }
         return id;
+    }
+
+    public ResourceSet runXPathQuery(String query) throws Exception {
+        registerDatabase();
+        try (var collection = new ManagedCollectionAdapter(DatabaseManager.getCollection(connectionProvider.getUri() + collectionId))) {
+            XPathQueryService xpathService = (XPathQueryService) collection.get().getService("XPathQueryService", "1.0");
+            xpathService.setProperty("indent", "yes");
+
+            return xpathService.query(query);
+        }
     }
 
     public Optional<T> read(UUID id) throws Exception {

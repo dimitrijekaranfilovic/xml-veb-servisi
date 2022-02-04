@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.xmldb.api.base.XMLDBException;
+import rs.vakcinacija.imunizacija.authentication.exception.UserAllreadyExistsException;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.exception.SchemaValidationException;
 
@@ -43,6 +44,13 @@ public class ErrorHandler {
     @ResponseBody
     ErrorObject handleDocumentNotFoundException(HttpServletRequest request, DocumentNotFoundException e){
         return new ErrorObject(HttpStatus.NOT_FOUND, request.getServletPath(), new Date(), e.getMessage());
+    }
+
+    @ExceptionHandler({UserAllreadyExistsException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    ErrorObject handleUserAllreadyExistsException(HttpServletRequest request, DocumentNotFoundException e){
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
     }
 
 }
