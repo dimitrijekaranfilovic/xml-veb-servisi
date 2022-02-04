@@ -47,7 +47,7 @@ public abstract class ExistRepository<T> {
 
     public ResourceSet runXPathQuery(String query) throws Exception {
         registerDatabase();
-        try (var collection = new ManagedCollectionAdapter(DatabaseManager.getCollection(connectionProvider.getUri() + collectionId))) {
+        try (var collection = new ManagedCollectionAdapter(getOrCreateCollection(collectionId))) {
             XPathQueryService xpathService = (XPathQueryService) collection.get().getService("XPathQueryService", "1.0");
             xpathService.setProperty("indent", "yes");
 
@@ -58,7 +58,7 @@ public abstract class ExistRepository<T> {
     public Optional<T> read(UUID id) throws Exception {
         String documentId = buildDocumentId(id);
         registerDatabase();
-        try (var collection = new ManagedCollectionAdapter(DatabaseManager.getCollection(connectionProvider.getUri() + collectionId));
+        try (var collection = new ManagedCollectionAdapter(getOrCreateCollection(collectionId));
              var xmlResource = new ManagedXMLResourceAdapter((XMLResource) collection.get().getResource(documentId))) {
             collection.get().setProperty(OutputKeys.INDENT, "yes");
             if (!xmlResource.hasResource()) {

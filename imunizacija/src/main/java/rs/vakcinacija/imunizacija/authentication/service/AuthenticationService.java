@@ -1,6 +1,5 @@
 package rs.vakcinacija.imunizacija.authentication.service;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.authentication.model.Gradjanin;
@@ -20,7 +19,7 @@ public class AuthenticationService {
     }
 
     public Gradjanin createNew(Gradjanin gradjanin) throws Exception {
-        authenticationRepository.create(gradjanin);
+        authenticationRepository.save(gradjanin);
         return gradjanin;
     }
 

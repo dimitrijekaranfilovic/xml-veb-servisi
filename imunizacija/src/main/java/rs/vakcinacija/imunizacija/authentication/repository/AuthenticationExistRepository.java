@@ -26,13 +26,14 @@ public class AuthenticationExistRepository extends ExistRepository<Gradjanin> {
         super("korisnici", Gradjanin.class, connectionProvider);
     }
 
-    public UUID create(Gradjanin gradjanin) throws Exception {
+    @Override
+    public UUID save(Gradjanin gradjanin) throws Exception {
         ResourceSet results = runXPathQuery("//email[text()='" + gradjanin.getEmail().getValue() + "']");
         ResourceIterator i = results.getIterator();
-        if (!i.hasMoreResources()) {
-            return save(gradjanin);
+        if (i.hasMoreResources()) {
+            throw new UserAllreadyExistsException("Citizen with that email allready exists.");
         }
-        throw new UserAllreadyExistsException("Citizen with that email allready exists.");
+        return super.save(gradjanin);
     }
 
     public boolean checkEmailPassword(String email, String password) throws Exception {
