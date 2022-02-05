@@ -13,6 +13,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.io.File;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 public class JAXBEntityManager<T> {
@@ -72,6 +73,11 @@ public class JAXBEntityManager<T> {
 
     @SuppressWarnings("unchecked")
     public T unmarshall(Node resource) throws JAXBException {
+        return (T) unmarshaller.unmarshal(resource);
+    }
+
+    @SuppressWarnings("unchecked")
+    public T unmarshall(InputStream resource) throws JAXBException {
         return (T) unmarshaller.unmarshal(resource);
     }
 
