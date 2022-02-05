@@ -23,14 +23,23 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenUtil {
 
-    @Value("${jwt.token.validity}")
+    @Value("${jwt.token.validity:18000000}")
     public Long tokenValidity;
 
-    @Value("${jwt.signing.key}")
+    @Value("${jwt.signing.key:signingkey}")
     public String signingKey;
 
-    @Value("${jwt.authorities.key}")
+    @Value("${jwt.authorities.key:roles}")
     public String authoritiesKey;
+
+    @Value("${jwt.token.name:name}")
+    public String tokenName;
+
+    @Value("${jwt.token.surname:surname}")
+    public String tokenSurname;
+
+    @Value("${jwt.token.jmbg:jmbg}")
+    public String tokenJmbg;
 
     public String extractUsernameFromToken(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -66,9 +75,9 @@ public class JwtTokenUtil {
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(authoritiesKey, authorities) // add custom claims here
-                .claim("name", gradjanin.getName().getValue())
-                .claim("surname", gradjanin.getSurname().getValue())
-                .claim("jmbg", gradjanin.getJmbg().getValue())
+                .claim(tokenName, gradjanin.getName().getValue())
+                .claim(tokenSurname, gradjanin.getSurname().getValue())
+                .claim(tokenJmbg, gradjanin.getJmbg().getValue())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + tokenValidity*1000))
                 .signWith(SignatureAlgorithm.HS256, signingKey)
