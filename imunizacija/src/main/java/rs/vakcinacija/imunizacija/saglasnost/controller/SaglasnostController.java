@@ -29,6 +29,6 @@ public class SaglasnostController {
 
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRead(@PathVariable UUID id) throws Exception {
-        return new ResponseEntity<>(saglasnostService.read(id), HttpStatus.CREATED);
+        return new ResponseEntity<>(saglasnostService.read(id), HttpStatus.OK);
     }
 }

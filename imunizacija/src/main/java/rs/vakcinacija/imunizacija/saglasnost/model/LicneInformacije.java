@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "licne_informacije")
 @XmlType(name = "TLicneInformacije",
-        propOrder = {"drzavljanstvo", "punoIme", "datumRodjenja", "mestoRodjenja", "pol", "adresa", "kontakt", "radniStatus", "zanimanjeZaposlenog"})
+        propOrder = {"drzavljanstvo", "punoIme", "datumRodjenja", "mestoRodjenja", "pol", "adresa", "kontakt", "radniStatus", "zanimanjeZaposlenog", "socijalnaZastita"})
 @Getter
 @Setter
 public class LicneInformacije extends RDFField {
@@ -44,16 +44,20 @@ public class LicneInformacije extends RDFField {
     @XmlElement(name = "zanimanje_zaposlenog", required = true)
     private RDFString zanimanjeZaposlenog;
 
+    @XmlElement(name = "socijalna_zastita", required = true)
+    private SocijalnaZastita socijalnaZastita;
+
     public LicneInformacije() {
     }
 
     public LicneInformacije(Drzavljanstvo drzavljanstvo, PunoImePacijent punoIme, Adresa adresa, Kontakt kontakt,
-                            RDFString radniStatus, RDFString zanimanjeZaposlenog) {
+                            RDFString radniStatus, RDFString zanimanjeZaposlenog, SocijalnaZastita zastita) {
         this.drzavljanstvo = drzavljanstvo;
         this.punoIme = punoIme;
         this.adresa = adresa;
         this.kontakt = kontakt;
         this.radniStatus = radniStatus;
         this.zanimanjeZaposlenog = zanimanjeZaposlenog;
+        this.socijalnaZastita = zastita;
     }
 }

@@ -35,7 +35,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
             drzavljanstvo.getSrpskiDrzavljanin().getJmbg().rdf().property(PROP_JMBG).datatype(T_STRING);
             pacijentURL = RDF_PACIJENT_BASE + drzavljanstvo.getSrpskiDrzavljanin().getJmbg().getValue();
         } else {
-            drzavljanstvo.getStraniDrzavljanin().getNazivDrzave().rdf().property("pred:naziv_drzave").datatype(T_STRING);
+            drzavljanstvo.getStraniDrzavljanin().getNazivDrzavljanstva().rdf().property("pred:naziv_drzavljanstva").datatype(T_STRING);
             drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().rdf().property("pred:broj_pasosa").datatype(T_STRING);
             pacijentURL = RDF_PACIJENT_BASE + drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().getValue();
         }
@@ -50,7 +50,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
         pacijent.rdf().vocab(VOCAB).about(pacijentURL).rel("pred:vakcinisan_od").typeof("pred:Pacijent").href(lekarURL);
         if (drzavljanstvo.getStraniDrzavljanin() != null) {
-            pacijent.getLicneInformacije().getDrzavljanstvo().getStraniDrzavljanin().getNazivDrzave().rdf().property("pred:naziv_drzave").datatype(T_STRING);
+            pacijent.getLicneInformacije().getDrzavljanstvo().getStraniDrzavljanin().getNazivDrzavljanstva().rdf().property("pred:naziv_drzavljanstva").datatype(T_STRING);
         }
 
         var punoImePacijenta = pacijent.getLicneInformacije().getPunoIme();
