@@ -15,6 +15,8 @@ import rs.vakcinacija.zajednicko.data.context.ManagedXMLResourceAdapter;
 
 import javax.xml.transform.OutputKeys;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,6 +31,22 @@ public abstract class ExistRepository<T> {
         this.entityClazz = clazz;
         this.connectionProvider = connectionProvider;
         this.entityManager = JAXBEntityManager.forEntity(clazz);
+    }
+
+    public List<T> read() throws Exception {
+        registerDatabase();
+        List<T> result = new ArrayList<>();
+        try (var collection = new ManagedCollectionAdapter(getOrCreateCollection(collectionId))) {
+            collection.get().setProperty(OutputKeys.INDENT, "yes");
+            for (var resourceId: collection.get().listResources()) {
+                try (var xmlResource = new ManagedXMLResourceAdapter((XMLResource) collection.get().getResource(resourceId))) {
+                    if (xmlResource.hasResource()) {
+                        result.add(entityManager.unmarshall(xmlResource.get().getContentAsDOM()));
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     public UUID save(T entity) throws Exception {
@@ -87,13 +105,13 @@ public abstract class ExistRepository<T> {
         if (collection != null) {
             return collection;
         }
-        if(collectionUri.startsWith("/")) {
+        if (collectionUri.startsWith("/")) {
             collectionUri = collectionUri.substring(1);
         }
         String[] pathSegments = collectionUri.split("/");
-        if(pathSegments.length > 0) {
+        if (pathSegments.length > 0) {
             StringBuilder path = new StringBuilder();
-            for(int i = 0; i <= pathSegmentOffset; i++) {
+            for (int i = 0; i <= pathSegmentOffset; i++) {
                 path.append("/").append(pathSegments[i]);
             }
             Collection startCollection = DatabaseManager.getCollection(connectionProvider.getUri() + path, connectionProvider.getUser(), connectionProvider.getPassword());

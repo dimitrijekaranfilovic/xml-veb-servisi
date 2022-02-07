@@ -5,6 +5,7 @@ import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 public abstract class DocumentService<T> {
@@ -26,6 +27,10 @@ public abstract class DocumentService<T> {
     public T read(UUID id) throws Exception {
         return existRepository.read(id)
                 .orElseThrow(() -> new DocumentNotFoundException(String.format("Cannot find document with id: '%s'.", id)));
+    }
+
+    public List<T> read() throws Exception {
+        return existRepository.read();
     }
 
     protected abstract void insertRDFMetadata(T entity);

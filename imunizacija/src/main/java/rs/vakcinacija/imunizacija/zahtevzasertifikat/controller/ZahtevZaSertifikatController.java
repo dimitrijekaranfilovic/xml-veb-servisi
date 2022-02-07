@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.KolekcijaZahtevaZaSertifikat;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.service.ZahtevZaSertifiaktService;
 
@@ -31,6 +32,11 @@ public class ZahtevZaSertifikatController {
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public ZahtevZaSertifikat read(@PathVariable UUID id) throws Exception {
         return zahtevZaSertifiaktService.read(id);
+    }
+
+    @GetMapping
+    public KolekcijaZahtevaZaSertifikat read() throws Exception {
+        return KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.read());
     }
 
 }
