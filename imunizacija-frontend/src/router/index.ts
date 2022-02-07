@@ -4,11 +4,17 @@ import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
 
+const roles = { gradjanin: "GRADJANIN" };
+
 const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Login",
     component: Login,
+    meta: {
+      authenticated: false,
+      authorities: [],
+    },
   },
   {
     path: "/register",
@@ -18,6 +24,19 @@ const routes: Array<RouteConfig> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Register.vue"),
+    meta: {
+      authenticated: false,
+      authorities: [],
+    },
+  },
+  {
+    path: "/saglasnost",
+    name: "Saglasnost",
+    component: () => import("../views/Saglasnost.vue"),
+    meta: {
+      authenticated: true,
+      authorities: [roles.gradjanin],
+    },
   },
 ];
 

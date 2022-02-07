@@ -32,15 +32,28 @@
         </v-form>
       </v-col>
     </v-row>
+    <v-snackbar v-model="snackbar" :timeout="timeout">
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+          Zatvori
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
 import Vue from "vue";
+import AuthenticationService from "../services/AuthenticationService";
 
 export default Vue.extend({
   name: "Login",
   data: () => ({
+    snackbar: false,
+    text: "Pogresan username/password",
+    timeout: 2000,
     valid: true,
     show: false,
     email: "",
@@ -51,10 +64,30 @@ export default Vue.extend({
     password: "",
     passwordRules: [(p) => !!p || "Lozinka je obavezna"],
   }),
-
+  mounted: function () {
+    if (AuthenticationService.userLoggedIn) {
+      this.$router.push("/saglasnost");
+    }
+  },
   methods: {
-    login: () => {
-      console.log("aaaaa");
+    login() {
+      let that = this;
+      let loginRequest = {
+        auth_request: {
+          email: that.email,
+          password: that.password,
+        },
+      };
+      let loginResponse = AuthenticationService.login(loginRequest);
+      loginResponse
+        .then((res) => {
+          localStorage.setItem("jwt", res.data.jwt);
+          that.$root.$emit("loginSuccess");
+          that.$router.push("/saglasnost");
+        })
+        .catch((err) => {
+          that.snackbar = true;
+        });
     },
   },
 });

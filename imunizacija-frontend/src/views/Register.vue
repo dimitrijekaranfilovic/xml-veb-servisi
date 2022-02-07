@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import AuthenticationService from "../services/AuthenticationService";
+
 export default {
   data: () => ({
     valid: true,
@@ -97,7 +99,16 @@ export default {
 
   methods: {
     register() {
-      this.$refs.form.validate();
+      let registrationRequest = {
+        gradjanin: {
+          ime: this.ime,
+          prezime: this.prezime,
+          email: this.email,
+          password: this.password,
+          jmbg: this.jmbg,
+        },
+      };
+      let response = AuthenticationService.register(registrationRequest);
     },
   },
 };
