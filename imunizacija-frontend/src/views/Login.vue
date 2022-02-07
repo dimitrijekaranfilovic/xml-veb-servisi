@@ -65,7 +65,7 @@ export default Vue.extend({
     passwordRules: [(p) => !!p || "Lozinka je obavezna"],
   }),
   mounted: function () {
-    if (AuthenticationService.userLoggedIn) {
+    if (AuthenticationService.userLoggedIn()) {
       this.$router.push("/saglasnost");
     }
   },

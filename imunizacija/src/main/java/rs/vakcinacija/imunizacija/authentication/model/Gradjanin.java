@@ -8,6 +8,8 @@ import rs.vakcinacija.zajednicko.model.RDFBoolean;
 import rs.vakcinacija.zajednicko.model.RDFField;
 import rs.vakcinacija.zajednicko.model.RDFString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;

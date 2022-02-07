@@ -34,7 +34,7 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    public ResponseEntity<Gradjanin> createNew(@RequestBody Gradjanin gradjanin) throws Exception {
+    public ResponseEntity<Gradjanin> createNew(@RequestBody @Valid Gradjanin gradjanin) throws Exception {
         var savedGradjanin = authenticationService.createNew(gradjanin);
         return new ResponseEntity<Gradjanin>(savedGradjanin, HttpStatus.CREATED);
     }

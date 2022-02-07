@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.authentication.model.Gradjanin;
 import rs.vakcinacija.imunizacija.authentication.repository.AuthenticationExistRepository;
+import rs.vakcinacija.zajednicko.model.RDFBoolean;
 
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -27,7 +28,9 @@ public class AuthenticationService implements UserDetailsService {
 
     public Gradjanin createNew(Gradjanin gradjanin) throws Exception {
         gradjanin.getRdfpassword().setValue(passwordEncoder.encode(gradjanin.getRdfpassword().getValue()));
+        gradjanin.setAgreedOnVaccination(new RDFBoolean());
         authenticationRepository.save(gradjanin);
+        gradjanin.getRdfpassword().setValue("");
         return gradjanin;
     }
 
