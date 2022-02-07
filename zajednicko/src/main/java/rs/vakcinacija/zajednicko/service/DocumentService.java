@@ -4,10 +4,12 @@ package rs.vakcinacija.zajednicko.service;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
+import rs.vakcinacija.zajednicko.model.RDFField;
 
+import java.util.List;
 import java.util.UUID;
 
-public abstract class DocumentService<T> {
+public abstract class DocumentService<T extends RDFField> {
     protected final ExistRepository<T> existRepository;
     protected final FusekiRepository<T> fusekiRepository;
 
@@ -26,6 +28,10 @@ public abstract class DocumentService<T> {
     public T read(UUID id) throws Exception {
         return existRepository.read(id)
                 .orElseThrow(() -> new DocumentNotFoundException(String.format("Cannot find document with id: '%s'.", id)));
+    }
+
+    public List<T> read() throws Exception {
+        return existRepository.read();
     }
 
     protected abstract void insertRDFMetadata(T entity);

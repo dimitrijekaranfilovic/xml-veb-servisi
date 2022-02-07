@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
+import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.KolekcijaDigitalnihSertifikata;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.service.DigitalniSertifikatService;
 
 import java.util.UUID;
@@ -28,6 +29,11 @@ public class DigitalniSertifikatController {
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public DigitalniSertifikat read(@PathVariable UUID id) throws Exception {
         return digitalniSertifikatService.read(id);
+    }
+
+    @GetMapping
+    public KolekcijaDigitalnihSertifikata read() throws Exception {
+        return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read());
     }
 
 }
