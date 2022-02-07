@@ -4,12 +4,11 @@ package rs.vakcinacija.zajednicko.service;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
-import rs.vakcinacija.zajednicko.model.RDFField;
 
 import java.util.List;
 import java.util.UUID;
 
-public abstract class DocumentService<T extends RDFField> {
+public abstract class DocumentService<T> {
     protected final ExistRepository<T> existRepository;
     protected final FusekiRepository<T> fusekiRepository;
 
