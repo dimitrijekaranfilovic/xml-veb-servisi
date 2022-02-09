@@ -27,8 +27,9 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     public Gradjanin createNew(Gradjanin gradjanin) throws Exception {
+        System.out.println(gradjanin);
         gradjanin.getRdfpassword().setValue(passwordEncoder.encode(gradjanin.getRdfpassword().getValue()));
-        gradjanin.setAgreedOnVaccination(new RDFBoolean());
+        gradjanin.setAgreedOnVaccination(new RDFBoolean(false, null, null, null, null, null, null, null));
         authenticationRepository.save(gradjanin);
         gradjanin.getRdfpassword().setValue("");
         return gradjanin;

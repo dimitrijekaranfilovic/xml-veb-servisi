@@ -47,9 +47,9 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler({UserAlreadyExistsException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ErrorObject handleUserAllreadyExistsException(HttpServletRequest request, DocumentNotFoundException e){
+    ErrorObject handleUserAlreadyExistsException(HttpServletRequest request, DocumentNotFoundException e){
         return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
     }
 

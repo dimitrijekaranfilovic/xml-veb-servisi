@@ -114,10 +114,10 @@ export default {
     register() {
       let registrationRequest = {
         gradjanin: {
-          ime: this.name,
-          prezime: this.surname,
+          name: this.name,
+          surname: this.surname,
           email: this.email,
-          password: this.password,
+          rdfpassword: this.password,
           jmbg: this.jmbg,
         },
       };
@@ -128,8 +128,12 @@ export default {
           that.text = "Uspesna registracija.";
           that.snackbar = true;
         })
-        .catch(() => {
-          that.text = "Korisnik sa tim email-om vec postoji.";
+        .catch((err) => {
+          if (err.message.includes("500")) {
+            that.text = "Korisnik sa tim email-om vec postoji.";
+          } else {
+            that.text = "Morate popuniti sva polja.";
+          }
           that.snackbar = true;
         });
     },

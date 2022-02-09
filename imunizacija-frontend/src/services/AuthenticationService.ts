@@ -29,8 +29,6 @@ class AuthenticationService {
       headers: { "Content-Type": "application/xml" },
     };
 
-    console.log(xmlRegistrationRequest);
-
     let response = await axios.post(
       "http://localhost:8081/auth",
       xmlRegistrationRequest,

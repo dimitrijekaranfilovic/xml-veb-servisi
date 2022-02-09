@@ -22,11 +22,11 @@ public class AuthenticationExistRepository extends ExistRepository<Gradjanin> {
     }
 
     @Override
-    public UUID save(Gradjanin gradjanin) throws Exception {
+    public UUID save(Gradjanin gradjanin) throws Exception, UserAlreadyExistsException {
         ResourceSet results = runXPathQuery("//email[text()='" + gradjanin.getEmail().getValue() + "']");
         ResourceIterator i = results.getIterator();
         if (i.hasMoreResources()) {
-            throw new UserAlreadyExistsException("Citizen with that email allready exists.");
+            throw new UserAlreadyExistsException("Gradjanin sa datim email-om vec postoji.");
         }
         return super.save(gradjanin);
     }
