@@ -27,10 +27,10 @@ public class LicneInformacije extends RDFField {
     private RDFDate datumRodjenja;
 
     @XmlElement(name = "mesto_rodjenja", required = true)
-    private String mestoRodjenja;
+    private RDFString mestoRodjenja;
 
     @XmlElement(name = "pol", required = true)
-    private String pol;
+    private RDFString pol;
 
     @XmlElement(name = "adresa", required = true)
     private Adresa adresa;
@@ -50,7 +50,8 @@ public class LicneInformacije extends RDFField {
     public LicneInformacije() {
     }
 
-    public LicneInformacije(Drzavljanstvo drzavljanstvo, PunoImePacijent punoIme, Adresa adresa, Kontakt kontakt,
+    public LicneInformacije(Drzavljanstvo drzavljanstvo, PunoImePacijent punoIme, RDFDate datumRodjenja,
+                            RDFString mestoRodjenja, RDFString pol, Adresa adresa, Kontakt kontakt,
                             RDFString radniStatus, RDFString zanimanjeZaposlenog, SocijalnaZastita zastita) {
         this.drzavljanstvo = drzavljanstvo;
         this.punoIme = punoIme;
@@ -59,5 +60,8 @@ public class LicneInformacije extends RDFField {
         this.radniStatus = radniStatus;
         this.zanimanjeZaposlenog = zanimanjeZaposlenog;
         this.socijalnaZastita = zastita;
+        this.datumRodjenja = datumRodjenja;
+        this.mestoRodjenja = mestoRodjenja;
+        this.pol = pol;
     }
 }

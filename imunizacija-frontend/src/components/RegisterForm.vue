@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row justify="center">
       <v-col lg="4" sm="12">
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form ref="form" v-model="valid">
           <v-text-field
             v-model="name"
             :rules="nameRules"

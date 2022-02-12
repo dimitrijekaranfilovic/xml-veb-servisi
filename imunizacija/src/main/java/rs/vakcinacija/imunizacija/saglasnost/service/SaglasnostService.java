@@ -7,8 +7,10 @@ import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImuni
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
+import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -19,6 +21,14 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
     public SaglasnostService(ExistRepository<SaglasnostZaSprovodjenjeImunizacije> existRepository,
                                 FusekiRepository<SaglasnostZaSprovodjenjeImunizacije> fusekiRepository) {
         super(existRepository, fusekiRepository);
+    }
+
+    public SaglasnostZaSprovodjenjeImunizacije createFirstHalfOfDocument(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
+        saglasnost.setDatum(new RDFDate(new Date(), "", "", null, null, null, null, null));
+        insertRDFMetadataForFirstHalf(saglasnost);
+        var id = existRepository.save(saglasnost);
+        fusekiRepository.save(id, saglasnost);
+        return saglasnost;
     }
 
     protected void insertRDFMetadata(SaglasnostZaSprovodjenjeImunizacije saglasnost) {
@@ -76,5 +86,37 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         lekar.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
 
         vakcinacija.getOdlukaKomisije().rdf().property("pred:trajne_kontraindikacije").datatype(T_BOOLEAN);
+    }
+
+    protected void insertRDFMetadataForFirstHalf(SaglasnostZaSprovodjenjeImunizacije saglasnost) {
+        saglasnost.getDatum().rdf().property(PROP_DATUM_IZDAVANJA).datatype(T_DATE);
+
+        var pacijent = saglasnost.getPacijent();
+        var drzavljanstvo = pacijent.getLicneInformacije().getDrzavljanstvo();
+
+        if (drzavljanstvo.getSrpskiDrzavljanin() != null) {
+            drzavljanstvo.getSrpskiDrzavljanin().getJmbg().rdf().property(PROP_JMBG).datatype(T_STRING);
+        } else {
+            drzavljanstvo.getStraniDrzavljanin().getNazivDrzavljanstva().rdf().property("pred:naziv_drzavljanstva").datatype(T_STRING);
+            drzavljanstvo.getStraniDrzavljanin().getBrojPasosa().rdf().property("pred:broj_pasosa").datatype(T_STRING);
+        }
+
+        if (drzavljanstvo.getStraniDrzavljanin() != null) {
+            pacijent.getLicneInformacije().getDrzavljanstvo().getStraniDrzavljanin().getNazivDrzavljanstva().rdf().property("pred:naziv_drzavljanstva").datatype(T_STRING);
+        }
+
+        var punoImePacijenta = pacijent.getLicneInformacije().getPunoIme();
+        punoImePacijenta.getIme().rdf().property(PROP_IME).datatype(T_STRING);
+        punoImePacijenta.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
+        punoImePacijenta.getImeRoditelja().rdf().property(PROP_IME_RODITELJA).datatype(T_STRING);
+
+        var kontakt = pacijent.getLicneInformacije().getKontakt();
+        kontakt.getBrojFiksnog().rdf().property(PROP_BROJ_FIKSNOG).datatype(T_STRING);
+        kontakt.getBrojMobilnog().rdf().property(PROP_BROJ_MOBILNOG).datatype(T_STRING);
+        kontakt.getEmail().rdf().property(PROP_EMAIL).datatype(T_STRING);
+
+        pacijent.getLicneInformacije().getRadniStatus().rdf().property("pred:radni_status").datatype(T_STRING);
+        pacijent.getLicneInformacije().getZanimanjeZaposlenog().rdf().property("pred:zanimanje").datatype(T_STRING);
+        pacijent.getSaglasnost().getNazivImunoloskogLeka().rdf().property("pred:cip").datatype(T_STRING);
     }
 }
