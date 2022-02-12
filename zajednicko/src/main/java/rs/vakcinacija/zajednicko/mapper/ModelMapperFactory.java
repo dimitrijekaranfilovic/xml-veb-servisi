@@ -85,7 +85,7 @@ public class ModelMapperFactory {
         modelMapper.addConverter(new IntegerToRDFInteger());
         modelMapper.addConverter(new RDFDateToDate());
         modelMapper.addConverter(new DateToRDFDate());
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper;
     }
 }

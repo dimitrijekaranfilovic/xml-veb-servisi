@@ -16,7 +16,6 @@ public class SaglasnostToSaglasnostCreateRequest extends AbstractConverter<Sagla
 
     @Override
     public SaglasnostCreateRequest convert(SaglasnostZaSprovodjenjeImunizacije saglasnostZaSprovodjenjeImunizacije) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper.map(saglasnostZaSprovodjenjeImunizacije, SaglasnostCreateRequest.class);
     }
 }

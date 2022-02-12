@@ -16,7 +16,6 @@ public class GradjaninCreateRequestToGradjanin extends AbstractConverter<Gradjan
 
     @Override
     public Gradjanin convert(GradjaninCreateRequest gradjaninCreateRequest) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper.map(gradjaninCreateRequest, Gradjanin.class);
     }
 }
