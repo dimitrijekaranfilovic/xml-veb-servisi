@@ -161,15 +161,15 @@
             label="Radni status"
             data-vv-name="radniStatus"
             required
+            @change="clearZanimanje"
           ></v-select>
 
           <v-select
             v-model="zanimanjeZaposlenog"
             :items="zanimanja"
-            :rules="zanimanjaRules"
             label="Zanimanje zaposlenog"
             data-vv-name="zanimanjeZaposlenog"
-            required
+            :disabled="radniStatus !== 'ZAPOSLEN'"
           ></v-select>
 
           <v-row>
@@ -177,12 +177,24 @@
               class="mr-5"
               v-model="korisnikUstanoveSocZastite"
               label="Korisnik ustanove socijalne zastite?"
+              @change="clearNazivIOpstinaSedista"
             ></v-checkbox>
+
             <v-divider vertical> </v-divider>
+
+            <v-text-field
+              class="mx-5"
+              v-model="nazivSedista"
+              label="Naziv sedista"
+              :disabled="!korisnikUstanoveSocZastite"
+            ></v-text-field>
+
+            <v-divider vertical> </v-divider>
+
             <v-text-field
               class="ml-5"
-              v-model="nazivIOpstinaSedista"
-              label="Naziv i opstina sedista"
+              v-model="opstinaSedista"
+              label="Opstina sedista"
               :disabled="!korisnikUstanoveSocZastite"
             ></v-text-field>
           </v-row>
@@ -192,6 +204,7 @@
               class="mr-5"
               v-model="izjava"
               label="Saglasan sam"
+              @change="clearVakcina"
             ></v-checkbox>
             <v-divider vertical> </v-divider>
             <v-text-field
@@ -301,24 +314,49 @@ export default {
       "VOJSKA RS",
       "DRUGO",
     ],
-    zanimanjaRules: [(v) => !!v || "Morate izabrati zanimanje"],
     korisnikUstanoveSocZastite: false,
-    nazivIOpstinaSedista: "",
+    nazivSedista: "",
+    opstinaSedista: "",
     izjava: false,
     vakcina: "",
   }),
 
   methods: {
     submit() {
+      if (this.izjava && this.vakcina.trim() === "") {
+        this.text = "Unesite naziv imunoloskog leka";
+        this.snackbar = true;
+        return;
+      } else if (
+        this.korisnikUstanoveSocZastite &&
+        (this.opstinaSedista.trim() === "" || this.nazivSedista.trim() === "")
+      ) {
+        this.text = "Unesite naziv i sediste ustanove soc. zastite";
+        this.snackbar = true;
+        return;
+      }
+
+      let drzavljanstvo;
+      if (this.jmbg === "") {
+        drzavljanstvo = {
+          straniDrzavljanin: {
+            nazivDrzavljanstva: this.nazivStranogDrzavljanstva,
+            brojPasosa: this.brojPasosa,
+          },
+        };
+      } else {
+        drzavljanstvo = {
+          srpskiDrzavljanin: {
+            jmbg: this.jmbg,
+          },
+        };
+      }
+
       let saglasnostJSON = {
         saglasnostZaSprovodjenjeImunizacije: {
           pacijent: {
             licneInformacije: {
-              drzavljanstvo: {
-                srpskiDrzavljanin: {
-                  jmbg: this.jmbg,
-                },
-              },
+              drzavljanstvo: drzavljanstvo,
               punoIme: {
                 ime: this.name,
                 prezime: this.surname,
@@ -341,8 +379,8 @@ export default {
               radniStatus: this.radniStatus,
               zanimanjeZaposlenog: this.zanimanjeZaposlenog,
               socijalnaZastita: {
-                nazivSedista: this.nazivIOpstinaSedista,
-                opstinaSedista: this.nazivIOpstinaSedista,
+                nazivSedista: this.nazivSedista,
+                opstinaSedista: this.opstinaSedista,
               },
             },
             saglasnost: {
@@ -369,6 +407,22 @@ export default {
           that.text = "Podnosenje dokumenta nije uspelo";
           that.snackbar = true;
         });
+    },
+    clearZanimanje() {
+      if (this.radniStatus !== "ZAPOSLEN") {
+        this.zanimanjeZaposlenog = "";
+      }
+    },
+    clearVakcina() {
+      if (!this.izjava) {
+        this.vakcina = "";
+      }
+    },
+    clearNazivIOpstinaSedista() {
+      if (!this.korisnikUstanoveSocZastite) {
+        this.nazivSedista = "";
+        this.opstinaSedista = "";
+      }
     },
   },
 };
