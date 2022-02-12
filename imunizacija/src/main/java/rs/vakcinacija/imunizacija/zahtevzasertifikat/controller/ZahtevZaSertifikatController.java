@@ -36,8 +36,7 @@ public class ZahtevZaSertifikatController {
 
     @GetMapping
     public KolekcijaZahtevaZaSertifikat read() throws Exception {
-//        return KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.read());
-        return null;
+        return KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.read());
     }
 
 }

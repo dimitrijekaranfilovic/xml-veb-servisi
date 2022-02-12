@@ -23,6 +23,10 @@
 
       <v-spacer></v-spacer>
 
+      <v-btn text :to="{ name: 'DigitalCertifikateRequestsView' }"
+        >Zahtevi za digitalni sertifikat</v-btn
+      >
+
       <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
         target="_blank"
