@@ -3,6 +3,7 @@ package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.BaseDocument;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFInteger;
 
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
-public class IzvestajOImunizaciji {
+public class IzvestajOImunizaciji extends BaseDocument {
 
     @XmlElement(name = "periodOd", required = true)
     private RDFDate periodOd;

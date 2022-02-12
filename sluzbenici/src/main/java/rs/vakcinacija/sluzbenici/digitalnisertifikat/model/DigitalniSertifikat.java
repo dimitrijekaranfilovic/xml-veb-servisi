@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.BaseDocument;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFField;
 import rs.vakcinacija.zajednicko.model.RDFString;
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "digitalni_sertifikat")
 @Getter
 @Setter
-public class DigitalniSertifikat extends RDFField {
+public class DigitalniSertifikat extends BaseDocument {
 
     @XmlElement(name = "broj_sertifikata", required = true)
     private RDFString brojSertifikata;

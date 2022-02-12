@@ -4,11 +4,12 @@ package rs.vakcinacija.zajednicko.service;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
+import rs.vakcinacija.zajednicko.model.BaseDocument;
 
 import java.util.List;
 import java.util.UUID;
 
-public abstract class DocumentService<T> {
+public abstract class DocumentService<T extends BaseDocument> {
     protected final ExistRepository<T> existRepository;
     protected final FusekiRepository<T> fusekiRepository;
 

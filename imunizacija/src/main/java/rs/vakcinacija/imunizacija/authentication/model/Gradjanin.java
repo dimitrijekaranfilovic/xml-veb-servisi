@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import rs.vakcinacija.zajednicko.model.BaseDocument;
 import rs.vakcinacija.zajednicko.model.RDFBoolean;
 import rs.vakcinacija.zajednicko.model.RDFField;
 import rs.vakcinacija.zajednicko.model.RDFString;
@@ -18,7 +19,7 @@ import java.util.List;
 @XmlRootElement(name = "gradjanin")
 @Getter
 @Setter
-public class Gradjanin extends RDFField implements UserDetails {
+public class Gradjanin extends BaseDocument implements UserDetails {
 
     @XmlElement(name = "ime", required = true)
     private RDFString name;

@@ -2,6 +2,7 @@ package rs.vakcinacija.imunizacija.saglasnost.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.BaseDocument;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "saglasnost_za_sprovodjene_preporucene_imunizacije")
 @Getter
 @Setter
-public class SaglasnostZaSprovodjenjeImunizacije extends RDFField {
+public class SaglasnostZaSprovodjenjeImunizacije extends BaseDocument {
 
     @XmlElement(name = "datum", required = true)
     private RDFDate datum;

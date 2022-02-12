@@ -12,6 +12,7 @@ import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
 import rs.vakcinacija.zajednicko.data.context.JAXBEntityManager;
 import rs.vakcinacija.zajednicko.data.context.ManagedCollectionAdapter;
 import rs.vakcinacija.zajednicko.data.context.ManagedXMLResourceAdapter;
+import rs.vakcinacija.zajednicko.model.BaseDocument;
 
 import javax.xml.transform.OutputKeys;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class ExistRepository<T> {
+public abstract class ExistRepository<T extends BaseDocument> {
     protected final JAXBEntityManager<T> entityManager;
     protected final String collectionId;
     protected final Class<T> entityClazz;
@@ -52,6 +53,7 @@ public abstract class ExistRepository<T> {
     public UUID save(T entity) throws Exception {
         var id = UUID.randomUUID();
         String documentId = buildDocumentId(id);
+        entity.setId(id);
         registerDatabase();
         try (var collection = new ManagedCollectionAdapter(getOrCreateCollection(collectionId));
              var xmlResource = new ManagedXMLResourceAdapter((XMLResource) collection.get().createResource(documentId, XMLResource.RESOURCE_TYPE));

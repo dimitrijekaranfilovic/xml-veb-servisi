@@ -3,10 +3,7 @@ package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.model.LicniPodaci;
-import rs.vakcinacija.zajednicko.model.RDFDate;
-import rs.vakcinacija.zajednicko.model.RDFField;
-import rs.vakcinacija.zajednicko.model.RDFString;
+import rs.vakcinacija.zajednicko.model.*;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "potvrda_o_vakcinaciji")
 @Getter
 @Setter
-public class PotvrdaOVakcinaciji extends RDFField {
+public class PotvrdaOVakcinaciji extends BaseDocument {
 
 
     @XmlElement(name = "sifra_potvrde", required = true)
