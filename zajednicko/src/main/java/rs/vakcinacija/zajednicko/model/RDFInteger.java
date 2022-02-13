@@ -40,6 +40,12 @@ public class RDFInteger implements RDFMetadataField {
     @XmlAttribute(name = "href")
     protected String href;
 
+    public static RDFInteger of(Integer integer) {
+        var rdfInteger = new RDFInteger();
+        rdfInteger.setValue(integer);
+        return rdfInteger;
+    }
+
     @Override
     public RDFMetadataBuilder rdf() {
         return RDFMetadataBuilder.of(this);

@@ -7,7 +7,8 @@ import org.springframework.amqp.support.converter.Jackson2XmlMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import rs.vakcinacija.sluzbenici.MyCustomEvent;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.ZahtevZaSertifikatOdbijenEvent;
 import rs.vakcinacija.zajednicko.rabbitmq.event.MessageEvent;
 import rs.vakcinacija.zajednicko.rabbitmq.queue.QueueOptionsBuilder;
 
@@ -33,8 +34,13 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue myCustomEventQueue() {
-        return buildQueue(MyCustomEvent.class);
+    public Queue digitalniSertifikatOdobrenEventQueue() {
+        return buildQueue(DigitalniSertifikatOdobrenEvent.class);
+    }
+
+    @Bean
+    public Queue zahtevZaSertifikatOdbijenEventQueue() {
+        return buildQueue(ZahtevZaSertifikatOdbijenEvent.class);
     }
 
 }

@@ -6,6 +6,10 @@ class DigitalCertificateRequestsService {
   read(): Promise<any> {
     return this.http.get("/zahtev-za-sertifikat");
   }
+
+  readOne(id: string): Promise<any> {
+    return this.http.get(`/zahtev-za-sertifikat/${id}`);
+  }
 }
 
 export default new DigitalCertificateRequestsService(httpClient);

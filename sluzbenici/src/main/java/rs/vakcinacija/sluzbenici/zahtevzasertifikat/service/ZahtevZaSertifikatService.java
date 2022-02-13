@@ -1,19 +1,65 @@
 package rs.vakcinacija.sluzbenici.zahtevzasertifikat.service;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.ZahtevZaSertifikatOdbijenEvent;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.KolekcijaZahtevaZaSertifikat;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.ZahtevZaSertifikat;
+import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
+import rs.vakcinacija.zajednicko.email.service.EmailService;
+import rs.vakcinacija.zajednicko.rabbitmq.ServiceBus;
 
 import java.util.UUID;
 
-@FeignClient(value = "zahtevZaSertifikatClient", url = "http://localhost:8081/zahtev-za-sertifikat")
-public interface ZahtevZaSertifikatService {
+@Service
+public class ZahtevZaSertifikatService {
+    private final ZahtevZaSertifikatClient client;
+    private final DigitalniSertifikatIssueService digitalniSertifikatIssueService;
+    private final EmailService emailService;
+    private final ServiceBus serviceBus;
 
-    @GetMapping(produces = "application/xml")
-    KolekcijaZahtevaZaSertifikat read();
+    @Autowired
+    public ZahtevZaSertifikatService(ZahtevZaSertifikatClient client,
+                                     DigitalniSertifikatIssueService digitalniSertifikatIssueService,
+                                     EmailService emailService,
+                                     ServiceBus serviceBus) {
+        this.client = client;
+        this.digitalniSertifikatIssueService = digitalniSertifikatIssueService;
+        this.emailService = emailService;
+        this.serviceBus = serviceBus;
+    }
 
-    @GetMapping(value = "/{id}", produces = "application/xml")
-    ZahtevZaSertifikat read(@PathVariable UUID id);
+    public ZahtevZaSertifikat read(UUID id) {
+        return client.read(id);
+    }
+
+    public KolekcijaZahtevaZaSertifikat read() {
+        return client.read();
+    }
+
+    public void approve(UUID id) throws Exception {
+        // Issue digital certificate and store it
+        var request = client.read(id);
+        var digitalCertificate = digitalniSertifikatIssueService.issueFor(request);
+        // Notify user via email that his request has been approved
+        emailService.sendEmail(
+                new SendEmailRequest("dusanerdeljan99@gmail.com", "Izdavanje Digitalnog sertifikata", "Postovani, odobren Vam je zahtev.")
+        );
+        // Notify imunizacija service to update link to newly created digital certificate
+        serviceBus.publish(
+                new DigitalniSertifikatOdobrenEvent(request.getId(), digitalCertificate.getId())
+        );
+    }
+
+    public void reject(UUID id, String reason) {
+        var request = client.read(id);
+        emailService.sendEmail(
+                new SendEmailRequest("dusanerdeljan99@gmail.com", "Odbijanje zahteva za izdavanje Digitalnog sertifikata", "Odbijen Vam je zahtev zbog: " + reason)
+        );
+        // TODO: Maybe notify imunizacija service to update some metadata on the original document?
+        serviceBus.publish(
+                new ZahtevZaSertifikatOdbijenEvent(request.getId(), reason)
+        );
+    }
 }

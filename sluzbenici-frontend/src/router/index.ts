@@ -20,7 +20,12 @@ const routes: Array<RouteConfig> = [
     path: "/zahtevi-za-digitalni-sertifikat",
     name: "DigitalCertifikateRequestsView",
     component: () => import("../views/DigitalCertificateRequestsView.vue"),
-  }
+  },
+  {
+    path: "/zahtevi-za-digitalni-sertifikat/:id",
+    name: "SingleDigitalCertificateRequestView",
+    component: () => import("../views/SingleDigitalCertificateRequestView.vue"),
+  },
 ];
 
 const router = new VueRouter({
