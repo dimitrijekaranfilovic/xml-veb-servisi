@@ -11,7 +11,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script>
 import DigitalCertificateRequestTable from "@/components/DigitalCertificateRequestTable.vue";
 import Vue from "vue";
 

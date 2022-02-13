@@ -46,7 +46,7 @@
 
 <style scoped></style>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import digitalCertificateRequestService from "@/services/DigitalCertificateRequestService";
 

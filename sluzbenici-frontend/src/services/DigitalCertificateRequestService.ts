@@ -10,6 +10,14 @@ class DigitalCertificateRequestsService {
   readOne(id: string): Promise<any> {
     return this.http.get(`/zahtev-za-sertifikat/${id}`);
   }
+
+  approve(id: string): Promise<any> {
+    return this.http.post(`/zahtev-za-sertifikat/${id}/odobri`, {});
+  }
+
+  reject(id: string, reason: any) {
+    return this.http.post(`/zahtev-za-sertifikat/${id}/odbij`, reason);
+  }
 }
 
 export default new DigitalCertificateRequestsService(httpClient);

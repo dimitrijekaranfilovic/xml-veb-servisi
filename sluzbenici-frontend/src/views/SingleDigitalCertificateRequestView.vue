@@ -19,7 +19,11 @@
             <v-btn color="primary" text @click="issueDigitalCertificate"
               >Izdaj sertifikat</v-btn
             >
-            <v-dialog v-model="dialog" max-width="600px">
+            <v-dialog
+              v-model="dialog"
+              max-width="600px"
+              @click:outside="$refs.form.resetValidation()"
+            >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn text color="error" v-bind="attrs" v-on="on">
                   Odbij zahtev
@@ -30,21 +34,30 @@
                   <span class="text-h5">Razlog za odbijanje zahteva</span>
                 </v-card-title>
                 <v-card-text>
-                  <v-container fluid>
-                    <v-textarea
-                      label="Razlog za odbijanje zahteva"
-                      auto-grow
-                      hint="Detaljno obrazložite zašto odbijate zahtev za izdavanje Digitalnog sertifikata."
-                      required
-                    ></v-textarea>
-                  </v-container>
+                  <v-form ref="form" v-model="valid">
+                    <v-container fluid>
+                      <v-textarea
+                        v-model="reason.model"
+                        :rules="reason.rules"
+                        label="Razlog za odbijanje zahteva"
+                        auto-grow
+                        hint="Detaljno obrazložite zašto odbijate zahtev za izdavanje Digitalnog sertifikata."
+                        required
+                      ></v-textarea>
+                    </v-container>
+                  </v-form>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary" text @click="dialog = false">
+                  <v-btn color="primary" text @click="toggleDialog(false)">
                     Odustani
                   </v-btn>
-                  <v-btn color="error" text @click="rejectRequest">
+                  <v-btn
+                    :disabled="!valid"
+                    color="error"
+                    text
+                    @click="rejectRequest"
+                  >
                     Odbij zahtev
                   </v-btn>
                 </v-card-actions>
@@ -57,7 +70,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import DigitalCertificateRequestDetails from "@/components/DigitalCertificateRequestDetails.vue";
 import digitalCertificateRequestService from "@/services/DigitalCertificateRequestService";
@@ -67,6 +80,11 @@ export default Vue.extend({
   name: "SingleDigitalCertificateRequestView",
   data: () => ({
     request: {},
+    valid: true,
+    reason: {
+      model: "",
+      rules: [(v) => !!v || "Razlog odbijanja zazhteva je obavezno polje."],
+    },
     dialog: false,
   }),
   async mounted() {
@@ -77,10 +95,24 @@ export default Vue.extend({
   },
   methods: {
     async issueDigitalCertificate() {
-      this.$router.push({ name: "DigitalCertifikateRequestsView" });
+      await digitalCertificateRequestService.approve(this.request.id);
+      this.navigateAllRequests();
     },
     async rejectRequest() {
-      this.dialog = false;
+      await digitalCertificateRequestService.reject(this.request.id, {
+        OdbijZahtevZaSertifikatRequest: {
+          razlog: this.reason.model,
+        },
+      });
+      this.toggleDialog(false);
+      this.navigateAllRequests();
+    },
+    navigateAllRequests() {
+      this.$router.push({ name: "DigitalCertifikateRequestsView" });
+    },
+    toggleDialog(state) {
+      this.dialog = state;
+      this.$refs.form.resetValidation();
     },
   },
 });
