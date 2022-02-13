@@ -35,17 +35,9 @@ import vaccinationPlaceService from "@/services/VaccinationPlaceService";
 
 export default {
   name: "VaccinationPlaceTable",
-  data() {
-    return {
-      vaccinationPlaces: [],
-    };
-  },
+  props: ["vaccinationPlaces"],
 
-  mounted() {
-    vaccinationPlaceService.getVaccinationPlaces().then((response) => {
-      this.vaccinationPlaces = response.data.vakcinacioniPunktovi;
-    });
-  },
+  mounted() {},
   methods: {
     showDetails(id) {
       alert(id);
