@@ -4,7 +4,7 @@
       <v-col lg="8" md="12">
         <v-form ref="form" v-model="valid">
           <v-row>
-            <h3 class="mr-5 mt-5">Drzavljanin republike srbije:</h3>
+            <h3 class="mr-5 mt-5">Državljanin republike Srbije:</h3>
             <v-divider vertical> </v-divider>
             <v-text-field
               class="ml-5"
@@ -19,7 +19,7 @@
             <v-text-field
               class="mr-5"
               v-model="nazivStranogDrzavljanstva"
-              label="Naziv stranog drzavljanstva"
+              label="Naziv stranog državljanstva"
               required
               :disabled="jmbg !== ''"
             ></v-text-field>
@@ -27,7 +27,7 @@
             <v-text-field
               class="ml-5"
               v-model="brojPasosa"
-              label="Broj pasosa ili EBS"
+              label="Broj pasoša ili EBS"
               required
               :disabled="jmbg !== ''"
             ></v-text-field>
@@ -86,7 +86,7 @@
               class="ml-5"
               v-model="mestoRodjenja"
               :rules="mestoRodjenjaRules"
-              label="Mesto rodjenja"
+              label="Mesto rođenja"
               required
             ></v-text-field>
           </v-row>
@@ -124,7 +124,7 @@
               class="mr-5"
               v-model="opstina"
               :rules="opstinaRules"
-              label="Opstina"
+              label="Opština"
               required
             ></v-text-field>
             <v-divider vertical> </v-divider>
@@ -176,7 +176,7 @@
             <v-checkbox
               class="mr-5"
               v-model="korisnikUstanoveSocZastite"
-              label="Korisnik ustanove socijalne zastite?"
+              label="Korisnik ustanove socijalne zaštite?"
               @change="clearNazivIOpstinaSedista"
             ></v-checkbox>
 
@@ -186,7 +186,7 @@
               class="mx-5"
               v-model="nazivSedista"
               :rules="[checkNazivSedista]"
-              label="Naziv sedista"
+              label="Naziv sedišta"
               :disabled="!korisnikUstanoveSocZastite"
             ></v-text-field>
 
@@ -196,7 +196,7 @@
               class="ml-5"
               v-model="opstinaSedista"
               :rules="[checkOpstinaSedista]"
-              label="Opstina sedista"
+              label="Opština sedišta"
               :disabled="!korisnikUstanoveSocZastite"
             ></v-text-field>
           </v-row>
@@ -213,7 +213,7 @@
               class="ml-5"
               v-model="vakcina"
               :rules="[checkVakcina]"
-              label="Naziv imunoloskog leka"
+              label="Naziv imunološkog leka"
               :disabled="!izjava"
             ></v-text-field>
           </v-row>
@@ -249,7 +249,7 @@ export default {
   data: () => ({
     extended: false,
     snackbar: false,
-    text: "Dokument je uspesno podnet.",
+    text: "Dokument je uspešno podnet",
     timeout: 2000,
     valid: true,
     show: false,
@@ -275,13 +275,13 @@ export default {
     polovi: ["MUSKI", "ZENSKI"],
     datumRodjenja: null,
     datumRodjenjaRules: [
-      (v) => !!v || "Morate izabrati datum rodjenja",
-      (v) => (v && v.trim() !== "") || "Morate izabrati datum rodjenja",
+      (v) => !!v || "Morate izabrati datum rođenja",
+      (v) => (v && v.trim() !== "") || "Morate izabrati datum rođenja",
     ],
     mestoRodjenja: "",
     mestoRodjenjaRules: [
-      (v) => !!v || "Mesto rodjenja je obavezno",
-      (v) => (v && v.trim() !== "") || "Mesto rodjenja je obavezno",
+      (v) => !!v || "Mesto rođenja je obavezno",
+      (v) => (v && v.trim() !== "") || "Mesto rođenja je obavezno",
     ],
     ulica: "",
     ulicaRules: [
@@ -300,8 +300,8 @@ export default {
     ],
     opstina: "",
     opstinaRules: [
-      (v) => !!v || "Opstina stanovanja je obavezna",
-      (v) => (v && v.trim() !== "") || "Opstina stanovanja je obavezna",
+      (v) => !!v || "Opština stanovanja je obavezna",
+      (v) => (v && v.trim() !== "") || "Opština stanovanja je obavezna",
     ],
     fiksni: "",
     fiksniRules: [
@@ -349,14 +349,14 @@ export default {
   methods: {
     submit() {
       if (this.izjava && this.vakcina.trim() === "") {
-        this.text = "Unesite naziv imunoloskog leka";
+        this.text = "Unesite naziv imunološkog leka";
         this.snackbar = true;
         return;
       } else if (
         this.korisnikUstanoveSocZastite &&
         (this.opstinaSedista.trim() === "" || this.nazivSedista.trim() === "")
       ) {
-        this.text = "Unesite naziv i sediste ustanove soc. zastite";
+        this.text = "Unesite naziv i sedište ustanove soc. zaštite";
         this.snackbar = true;
         return;
       }
@@ -427,15 +427,15 @@ export default {
       response
         .then((res) => {
           if (res.status === 201) {
-            that.text = "Dokument uspesno podnesen";
+            that.text = "Dokument uspešno podnešen";
             that.snackbar = true;
           } else {
-            that.text = "Podnosenje dokumenta nije uspelo";
+            that.text = "Podnošenje dokumenta nije uspelo";
             that.snackbar = true;
           }
         })
         .catch((err) => {
-          that.text = "Podnosenje dokumenta nije uspelo";
+          that.text = "Podnošenje dokumenta nije uspelo";
           that.snackbar = true;
         });
     },
@@ -457,19 +457,19 @@ export default {
     },
     checkNazivSedista(value) {
       if (this.korisnikUstanoveSocZastite && value.trim() === "") {
-        return "Naziv sedista je obavezan";
+        return "Naziv sedišta je obavezan";
       }
       return true;
     },
     checkOpstinaSedista(value) {
       if (this.korisnikUstanoveSocZastite && value.trim() === "") {
-        return "Opstina sedista je obavezna";
+        return "Opština sedišta je obavezna";
       }
       return true;
     },
     checkVakcina(value) {
       if (this.izjava && value.trim() === "") {
-        return "Naziv imunoloskog leka je obavezan";
+        return "Naziv imunološkog leka je obavezan";
       }
       return true;
     },

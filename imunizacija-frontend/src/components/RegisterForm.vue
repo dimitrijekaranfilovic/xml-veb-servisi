@@ -78,7 +78,7 @@ export default {
   name: "RegisterForm",
   data: () => ({
     snackbar: false,
-    text: "Korisnik sa tim email-om vec postoji.",
+    text: "Korisnik sa tim email-om već postoji.",
     timeout: 2000,
     valid: true,
     show: false,
@@ -88,13 +88,13 @@ export default {
     nameRules: [
       (v) => !!v || "Ime je obavezno",
       (v) => (v && v.trim() !== "") || "Ime je obavezno",
-      (v) => (v && v.length <= 20) || "Ime ne moze biti duze od 20 karaktera",
+      (v) => (v && v.length <= 20) || "Ime ne može biti duže od 20 karaktera",
     ],
     surnameRules: [
       (v) => !!v || "Prezime je obavezno",
       (v) => (v && v.trim() !== "") || "Prezime je obavezno",
       (v) =>
-        (v && v.length <= 20) || "Prezime ne moze biti duze od 20 karaktera",
+        (v && v.length <= 20) || "Prezime ne može biti duže od 20 karaktera",
     ],
     email: "",
     password: "",
@@ -106,8 +106,7 @@ export default {
       (v) => !!v || "Lozinka je obavezna",
       (v) => (v && v.trim() !== "") || "Lozinka je obavezna",
       (v) =>
-        (v && v.length >= 6 && v.length <= 12) ||
-        "Lozinka mora sadrzati izmedju 6 i 12 karaktera",
+        (v && v.length >= 6) || "Lozinka mora sadržati 6 ili više karaktera",
     ],
     confirmPasswordRules: [(v) => !!v || "Morate potvrditi lozinku"],
   }),
@@ -126,12 +125,12 @@ export default {
       let response = AuthenticationService.register(registrationRequest);
       response
         .then(() => {
-          that.text = "Uspesna registracija.";
+          that.text = "Uspešna registracija.";
           that.snackbar = true;
         })
         .catch((err) => {
           if (err.message.includes("500")) {
-            that.text = "Korisnik sa tim email-om vec postoji.";
+            that.text = "Korisnik sa tim email-om već postoji.";
           } else {
             that.text = "Morate popuniti sva polja.";
           }

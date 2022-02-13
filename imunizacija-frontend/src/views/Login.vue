@@ -15,7 +15,7 @@
             :rules="passwordRules"
             :type="show ? 'text' : 'password'"
             name="input-10-1"
-            label="Unesite vasu lozinku"
+            label="Unesite vašu lozinku"
             counter
             @click:append="show = !show"
           ></v-text-field>
@@ -52,7 +52,7 @@ export default Vue.extend({
   name: "Login",
   data: () => ({
     snackbar: false,
-    text: "Pogresan username/password",
+    text: "Pogrešan username/password",
     timeout: 2000,
     valid: true,
     show: false,

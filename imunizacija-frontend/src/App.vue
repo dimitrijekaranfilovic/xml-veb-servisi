@@ -3,7 +3,7 @@
     <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
+          alt="Imunizacija Logo"
           class="mr-2"
           contain
           src="./assets/logo.png"
