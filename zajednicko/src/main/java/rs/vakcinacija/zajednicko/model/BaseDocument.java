@@ -16,4 +16,11 @@ import java.util.UUID;
 public class BaseDocument extends RDFField {
     @XmlElement(name = "id", required = true)
     protected UUID id;
+
+    @XmlElement(name = "reference")
+    protected Reference reference = new Reference();
+
+    public ReferenceBuilder ref(String name) {
+        return ReferenceBuilder.of(this.reference, name);
+    }
 }

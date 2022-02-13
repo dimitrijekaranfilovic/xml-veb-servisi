@@ -16,10 +16,7 @@ import rs.vakcinacija.zajednicko.model.BaseDocument;
 
 import javax.xml.transform.OutputKeys;
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class ExistRepository<T extends BaseDocument> {
     protected final JAXBEntityManager<T> entityManager;
@@ -51,18 +48,9 @@ public abstract class ExistRepository<T extends BaseDocument> {
     }
 
     public UUID save(T entity) throws Exception {
-        String documentId;
-        var predefinedId = entity.getId();
-        UUID finalId;
-        if( predefinedId == null){
-            var id = UUID.randomUUID();
-            finalId = id;
-            documentId = buildDocumentId(id);
-            entity.setId(id);
-        } else {
-            documentId = buildDocumentId(predefinedId);
-            finalId = predefinedId;
-        }
+        var id = Objects.requireNonNullElse(entity.getId(), UUID.randomUUID());
+        var documentId = buildDocumentId(id);
+        entity.setId(id);
         registerDatabase();
         try (var collection = new ManagedCollectionAdapter(getOrCreateCollection(collectionId));
              var xmlResource = new ManagedXMLResourceAdapter((XMLResource) collection.get().createResource(documentId, XMLResource.RESOURCE_TYPE));
@@ -71,7 +59,7 @@ public abstract class ExistRepository<T extends BaseDocument> {
             xmlResource.get().setContent(outputStream);
             collection.get().storeResource(xmlResource.get());
         }
-        return finalId;
+        return id;
     }
 
     public ResourceSet runXPathQuery(String query) throws Exception {

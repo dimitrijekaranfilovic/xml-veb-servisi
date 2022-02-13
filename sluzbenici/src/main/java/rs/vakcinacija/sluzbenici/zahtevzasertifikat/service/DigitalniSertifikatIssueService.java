@@ -30,6 +30,10 @@ public class DigitalniSertifikatIssueService {
         var informacijeOSertifikatu = buildDefaultInformacijeOSertifikatu();
 
         var sertifikat = new DigitalniSertifikat(brojSertifikata, datumVremeIzdavanja, licneInformacije, vakcinacija, testovi, informacijeOSertifikatu);
+        sertifikat.ref("pred:na_zahtev")
+                  .entity(zahtevZaSertifikat)
+                  .type(ZahtevZaSertifikat.class)
+                  .configure();
 
         return digitalniSertifikatService.create(sertifikat);
     }

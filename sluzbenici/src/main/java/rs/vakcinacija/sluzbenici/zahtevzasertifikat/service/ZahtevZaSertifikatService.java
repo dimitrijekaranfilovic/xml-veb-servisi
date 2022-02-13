@@ -38,6 +38,8 @@ public class ZahtevZaSertifikatService {
         return client.read();
     }
 
+    // TODO: Actually fetch the email of the request issuer
+
     public void approve(UUID id) throws Exception {
         // Issue digital certificate and store it
         var request = client.read(id);
@@ -57,7 +59,7 @@ public class ZahtevZaSertifikatService {
         emailService.sendEmail(
                 new SendEmailRequest("dusanerdeljan99@gmail.com", "Odbijanje zahteva za izdavanje Digitalnog sertifikata", "Odbijen Vam je zahtev zbog: " + reason)
         );
-        // TODO: Maybe notify imunizacija service to update some metadata on the original document?
+        // Maybe notify imunizacija service to update some metadata on the original document?
         serviceBus.publish(
                 new ZahtevZaSertifikatOdbijenEvent(request.getId(), reason)
         );
