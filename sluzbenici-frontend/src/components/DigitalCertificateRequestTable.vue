@@ -26,7 +26,18 @@
           <td>{{ request.datum | deRdf | moment("DD.MM.YYYY.") }}</td>
           <td>{{ request.mesto | deRdf }}</td>
           <td>{{ request.razlogZaPodnosenjeZahteva | deRdf }}</td>
-          <td><v-btn plain text color="primary">Prikaži detalje</v-btn></td>
+          <td>
+            <v-btn
+              plain
+              text
+              color="primary"
+              :to="{
+                name: 'SingleDigitalCertificateRequestView',
+                params: { id: request.id },
+              }"
+              >Prikaži detalje</v-btn
+            >
+          </td>
         </tr>
       </tbody>
     </template>
@@ -37,17 +48,15 @@
 
 <script lang="ts">
 import Vue from "vue";
-import digitalCertificateService from "@/services/DigitalCertificateRequestService";
+import digitalCertificateRequestService from "@/services/DigitalCertificateRequestService";
 
 export default Vue.extend({
   name: "DigitalCertificateRequestTable",
-  data() {
-    return {
-      requests: [],
-    };
-  },
+  data: () => ({
+    requests: [],
+  }),
   async mounted() {
-    const response = await digitalCertificateService.read();
+    const response = await digitalCertificateRequestService.read();
     this.requests = response.data.zahteviZaSertifikat;
   },
 });
