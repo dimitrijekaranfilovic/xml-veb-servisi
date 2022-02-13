@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import InteresovanjeForm from "@/components/saglasnost/InteresovanjeForm.vue";
+import InteresovanjeForm from "@/components/interesovanje/InteresovanjeForm.vue";
 export default {
   components: { InteresovanjeForm },
   name: "Interesovanje",
