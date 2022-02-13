@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.vakcinacionipunkt.service;
 
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import rs.vakcinacija.sluzbenici.vakcinacionipunkt.repository.VakcinacioniPunktE
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
@@ -34,7 +36,7 @@ public class VakcinacioniPunktService {
                 .orElseThrow(() -> new DocumentNotFoundException(String.format("Cannot find document with id: '%s'.", id)));
     }
 
-    public VakcinacioniPunkt createTermin(UUID id, XMLGregorianCalendar termin) throws Exception {
+    public VakcinacioniPunkt createTermin(UUID id, Date termin) throws Exception {
         var punkt = this.read(id);
         punkt.getTermini().getTermini().add(termin);
         this.vakcinacioniPunktExistRepository.save(punkt);

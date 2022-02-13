@@ -3,7 +3,6 @@ package rs.vakcinacija.sluzbenici.vakcinacionipunkt.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
 
@@ -15,12 +14,12 @@ import javax.xml.bind.annotation.*;
 public class DostupnaVakcina {
 
     @XmlElement(name = "naziv_vakcine")
-    private RDFString nazivVakcine;
+    private String nazivVakcine;
 
     @XmlElement(name = "stanje_vakcine")
     private Integer stanjeVakcine;
 
-    public DostupnaVakcina(RDFString nazivVakcine, Integer stanjeVakcine) {
+    public DostupnaVakcina(String nazivVakcine, Integer stanjeVakcine) {
         this.nazivVakcine = nazivVakcine;
         this.stanjeVakcine = stanjeVakcine;
     }

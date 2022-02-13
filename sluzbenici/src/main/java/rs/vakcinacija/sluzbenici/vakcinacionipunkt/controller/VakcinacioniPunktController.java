@@ -38,7 +38,6 @@ public class VakcinacioniPunktController {
 
     @PostMapping(value = "/termin/{id}")
     public VakcinacioniPunkt createTermin(@PathVariable UUID id, @RequestBody TerminDTO terminDTO) throws Exception {
-        log.info(terminDTO.getDatumVreme().toXMLFormat());
         return this.vakcinacioniPunktService.createTermin(id, terminDTO.getDatumVreme());
     }
 
