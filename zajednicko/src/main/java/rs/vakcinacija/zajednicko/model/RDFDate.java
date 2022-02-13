@@ -42,6 +42,12 @@ public class RDFDate implements RDFMetadataField {
     @XmlAttribute(name = "href")
     protected String href;
 
+    public static RDFDate of(Date date) {
+        var rdfDate = new RDFDate();
+        rdfDate.setValue(date);
+        return rdfDate;
+    }
+
     @Override
     public RDFMetadataBuilder rdf() {
         return RDFMetadataBuilder.of(this);

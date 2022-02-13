@@ -40,6 +40,12 @@ public class RDFString implements RDFMetadataField {
     @XmlAttribute(name = "href")
     protected String href;
 
+    public static RDFString of(String string) {
+        var rdfString = new RDFString();
+        rdfString.setValue(string);
+        return rdfString;
+    }
+
     @Override
     public RDFMetadataBuilder rdf() {
         return RDFMetadataBuilder.of(this);

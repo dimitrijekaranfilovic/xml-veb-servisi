@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.xpath.operations.Bool;
 import rs.vakcinacija.zajednicko.metadata.RDFMetadataField;
 import rs.vakcinacija.zajednicko.metadata.builder.RDFMetadataBuilder;
 
@@ -39,6 +40,12 @@ public class RDFBoolean implements RDFMetadataField {
 
     @XmlAttribute(name = "href")
     protected String href;
+
+    public static RDFBoolean of(Boolean b) {
+        var rdfBoolean = new RDFBoolean();
+        rdfBoolean.setValue(b);
+        return rdfBoolean;
+    }
 
     @Override
     public RDFMetadataBuilder rdf() {
