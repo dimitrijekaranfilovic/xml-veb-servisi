@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="vakcinacioni_punkt">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="naziv_punkta" type="xs:string"/>
+                <xs:element name="termini" type="TTermini"/>
+                <xs:element name="dostupne_vakcine" type="TDostupne_vakcine"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TDostupna_vakcina">
+        <xs:sequence>
+            <xs:element name="naziv_vakcine" type="xs:string"/>
+            <xs:element name="stanje_vakcine" type="xs:nonNegativeInteger"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TDostupne_vakcine">
+        <xs:sequence>
+            <xs:element name="dostupna_vakcina" type="TDostupna_vakcina"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TTermini">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="termin" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
