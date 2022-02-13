@@ -38,6 +38,15 @@ const routes: Array<RouteConfig> = [
       authorities: [roles.gradjanin],
     },
   },
+  {
+    path: "/interesovanje",
+    name: "Interesovanje",
+    component: () => import("../views/Interesovanje.vue"),
+    meta: {
+      authenticated: true,
+      authorities: [roles.gradjanin],
+    },
+  },
 ];
 
 const router = new VueRouter({

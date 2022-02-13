@@ -20,7 +20,7 @@
       <v-btn v-if="!loggedIn" href="#/register" text> Registracija </v-btn>
       <v-btn v-if="!loggedIn" href="#/" text> Prijava </v-btn>
       <v-btn v-if="loggedIn" href="#/saglasnost" text> Saglasnost </v-btn>
-      <v-btn v-if="loggedIn" href="#/interesobanje" text> Interesovanje </v-btn>
+      <v-btn v-if="loggedIn" href="#/interesovanje" text> Interesovanje </v-btn>
       <v-btn v-if="loggedIn" href="#/zahtev" text> Zahtev za sertifikat </v-btn>
 
       <v-btn v-if="loggedIn" v-on:click="logout" text>Odjava</v-btn>
