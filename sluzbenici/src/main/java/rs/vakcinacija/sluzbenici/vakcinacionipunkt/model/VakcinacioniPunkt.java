@@ -18,7 +18,7 @@ import java.util.Date;
 public class VakcinacioniPunkt extends BaseDocument {
 
 
-    @XmlElement(name = "naziv_punkta")
+    @XmlElement(name = "naziv_punkta", required = true)
     private String nazivPunkta;
 
     @XmlElement(name = "termini")

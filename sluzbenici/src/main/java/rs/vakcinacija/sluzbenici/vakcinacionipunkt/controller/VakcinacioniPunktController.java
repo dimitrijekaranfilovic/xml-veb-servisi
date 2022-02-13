@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.dto.NovaVakcinaDTO;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.dto.TerminDTO;
-import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.DostupnaVakcina;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.KolekcijaVakcinacionihPunktova;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.VakcinacioniPunkt;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.service.VakcinacioniPunktService;
 
@@ -28,7 +28,7 @@ public class VakcinacioniPunktController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String createPunkt(@RequestBody  VakcinacioniPunkt vakcinacioniPunkt) throws Exception {
+    public VakcinacioniPunkt createPunkt(@RequestBody  VakcinacioniPunkt vakcinacioniPunkt) throws Exception {
         return this.vakcinacioniPunktService.create(vakcinacioniPunkt);
     }
 
@@ -51,6 +51,11 @@ public class VakcinacioniPunktController {
     @PutMapping("/dostupna-vakcina/{id}")
     public VakcinacioniPunkt updateDostupnaVakcina(@PathVariable UUID id, @RequestBody NovaVakcinaDTO novaVakcinaDTO) throws Exception{
         return this.vakcinacioniPunktService.updateDostupnaVakcina(id, novaVakcinaDTO.getNazivVakcine(), novaVakcinaDTO.getStanjeVakcine());
+    }
+
+    @GetMapping
+    public KolekcijaVakcinacionihPunktova getPunktovi() throws Exception {
+        return KolekcijaVakcinacionihPunktova.of(this.vakcinacioniPunktService.read());
     }
 
 }

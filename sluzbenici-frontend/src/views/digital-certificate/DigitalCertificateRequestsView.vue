@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import DigitalCertificateRequestTable from "@/components/DigitalCertificateRequestTable.vue";
+import DigitalCertificateRequestTable from "@/components/digital-certificate/DigitalCertificateRequestTable.vue";
 import Vue from "vue";
 
 export default Vue.extend({

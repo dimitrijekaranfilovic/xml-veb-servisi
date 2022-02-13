@@ -59,7 +59,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import DigitalCertificateRequestDetails from "@/components/DigitalCertificateRequestDetails.vue";
+import DigitalCertificateRequestDetails from "@/components/digital-certificate/DigitalCertificateRequestDetails.vue";
 import digitalCertificateRequestService from "@/services/DigitalCertificateRequestService";
 
 export default Vue.extend({
