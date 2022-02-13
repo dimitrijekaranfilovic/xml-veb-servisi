@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 @XmlRootElement(name = "vakcinacioni_punkt")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -26,7 +27,7 @@ public class VakcinacioniPunkt extends BaseDocument {
     @XmlElement(name = "dostupne_vakcine")
     private DostupneVakcine dostupneVakcine;
 
-    public VakcinacioniPunkt(String nazivPunkta) {
+    public VakcinacioniPunkt(String nazivPunkta, Termini termini, DostupneVakcine dostupneVakcine) {
         this.nazivPunkta = nazivPunkta;
         this.termini = termini;
         this.dostupneVakcine = dostupneVakcine;
@@ -34,5 +35,13 @@ public class VakcinacioniPunkt extends BaseDocument {
 
     public VakcinacioniPunkt() {
         super();
+    }
+
+    public void addTermin(Date date) {
+        this.getTermini().getTermini().add(date);
+    }
+
+    public void addDostupnaVakcina(DostupnaVakcina dostupnaVakcina){
+        this.getDostupneVakcine().getDostupneVakcine().add(dostupnaVakcina);
     }
 }
