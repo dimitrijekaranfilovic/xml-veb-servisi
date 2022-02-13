@@ -51,9 +51,12 @@ public abstract class ExistRepository<T extends BaseDocument> {
     }
 
     public UUID save(T entity) throws Exception {
-        var id = UUID.randomUUID();
-        String documentId = buildDocumentId(id);
-        entity.setId(id);
+        if(entity.getId() == null){
+            var id = UUID.randomUUID();
+            entity.setId(id);
+        }
+        String documentId = buildDocumentId(entity.getId());
+
         registerDatabase();
         try (var collection = new ManagedCollectionAdapter(getOrCreateCollection(collectionId));
              var xmlResource = new ManagedXMLResourceAdapter((XMLResource) collection.get().createResource(documentId, XMLResource.RESOURCE_TYPE));
@@ -62,7 +65,7 @@ public abstract class ExistRepository<T extends BaseDocument> {
             xmlResource.get().setContent(outputStream);
             collection.get().storeResource(xmlResource.get());
         }
-        return id;
+        return entity.getId();
     }
 
     public ResourceSet runXPathQuery(String query) throws Exception {

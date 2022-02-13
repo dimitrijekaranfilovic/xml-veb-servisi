@@ -3,9 +3,8 @@ package rs.vakcinacija.sluzbenici.vakcinacionipunkt.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.xml.bind.annotation.*;
-import java.time.LocalDateTime;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Collection;
 
 @XmlRootElement(name = "termini")
@@ -17,12 +16,13 @@ public class Termini {
 
 
     @XmlElement(name = "termin")
-    private Collection<Termin> termini;
+    private Collection<XMLGregorianCalendar> termini;
 
-    public Termini(Collection<Termin> termini) {
+    public Termini(Collection<XMLGregorianCalendar> termini) {
         this.termini = termini;
     }
 
     public Termini() {
     }
+
 }
