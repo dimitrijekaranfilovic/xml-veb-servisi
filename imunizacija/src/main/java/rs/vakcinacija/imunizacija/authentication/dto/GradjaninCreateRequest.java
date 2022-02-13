@@ -23,8 +23,4 @@ public class GradjaninCreateRequest {
     @NotBlank
     @XmlElement(name = "password", required = true)
     private String rdfpassword;
-
-    @NotBlank
-    @XmlElement(name = "jmbg", required = true)
-    private String jmbg;
 }

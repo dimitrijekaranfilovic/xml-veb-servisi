@@ -36,9 +36,13 @@
           ></v-text-field>
 
           <v-text-field
-            v-model="jmbg"
-            :rules="jmbgRules"
-            label="JMBG"
+            v-model="confirmPassword"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show ? 'text' : 'password'"
+            :rules="[checkMatching]"
+            label="Potvrdi lozinku"
+            @click:append="show = !show"
+            counter
             required
           ></v-text-field>
 
@@ -80,19 +84,15 @@ export default {
     show: false,
     name: "",
     surname: "",
-    jmbg: "",
+    confirmPassword: "",
     nameRules: [
       (v) => !!v || "Ime je obavezno",
+      (v) => (v && v.trim() !== "") || "Ime je obavezno",
       (v) => (v && v.length <= 20) || "Ime ne moze biti duze od 20 karaktera",
-    ],
-    jmbgRules: [
-      (v) => !!v || "JMBG je obavezan",
-      (v) =>
-        (v && v.length == 13 && /[0-9]{13}/.test(v)) ||
-        "JMBG mora imati tacno 13 cifara",
     ],
     surnameRules: [
       (v) => !!v || "Prezime je obavezno",
+      (v) => (v && v.trim() !== "") || "Prezime je obavezno",
       (v) =>
         (v && v.length <= 20) || "Prezime ne moze biti duze od 20 karaktera",
     ],
@@ -104,10 +104,12 @@ export default {
     ],
     passwordRules: [
       (v) => !!v || "Lozinka je obavezna",
+      (v) => (v && v.trim() !== "") || "Lozinka je obavezna",
       (v) =>
         (v && v.length >= 6 && v.length <= 12) ||
         "Lozinka mora sadrzati izmedju 6 i 12 karaktera",
     ],
+    confirmPasswordRules: [(v) => !!v || "Morate potvrditi lozinku"],
   }),
 
   methods: {
@@ -118,7 +120,6 @@ export default {
           surname: this.surname,
           email: this.email,
           rdfpassword: this.password,
-          jmbg: this.jmbg,
         },
       };
       let that = this;
@@ -136,6 +137,12 @@ export default {
           }
           that.snackbar = true;
         });
+    },
+    checkMatching(value) {
+      if (value !== this.password) {
+        return "Lozinke se ne podudaraju";
+      }
+      return true;
     },
   },
 };

@@ -48,8 +48,7 @@ public class AuthenticationController {
     @PostMapping
     public ResponseEntity<GradjaninCreateRequest> createNew(@RequestBody @Valid GradjaninCreateRequest gradjanin) throws Exception {
         if(gradjanin.getName().trim().equals("") || gradjanin.getSurname().trim().equals("") ||
-                gradjanin.getEmail().trim().equals("") || gradjanin.getRdfpassword().trim().equals("") ||
-                gradjanin.getJmbg().trim().equals("")) {
+                gradjanin.getEmail().trim().equals("") || gradjanin.getRdfpassword().trim().equals("")) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST); // javax validation ne radi :(
         }
         var savedGradjanin = authenticationService.createNew(gradjaninCreateRequestToGradjanin.convert(gradjanin));

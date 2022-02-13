@@ -38,9 +38,6 @@ public class JwtTokenUtil {
     @Value("${jwt.token.surname:surname}")
     public String tokenSurname;
 
-    @Value("${jwt.token.jmbg:jmbg}")
-    public String tokenJmbg;
-
     public String extractUsernameFromToken(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -77,7 +74,6 @@ public class JwtTokenUtil {
                 .claim(authoritiesKey, authorities) // add custom claims here
                 .claim(tokenName, gradjanin.getName().getValue())
                 .claim(tokenSurname, gradjanin.getSurname().getValue())
-                .claim(tokenJmbg, gradjanin.getJmbg().getValue())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + tokenValidity*1000))
                 .signWith(SignatureAlgorithm.HS256, signingKey)

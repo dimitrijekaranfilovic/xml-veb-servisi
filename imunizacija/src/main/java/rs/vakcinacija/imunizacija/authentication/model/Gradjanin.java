@@ -36,17 +36,14 @@ public class Gradjanin extends BaseDocument implements UserDetails {
     @XmlElement(name = "dao_saglasnost", required = true)
     private RDFBoolean agreedOnVaccination;
 
-    @XmlElement(name = "jmbg", required = true)
-    private RDFString jmbg;
 
     public Gradjanin() {}
 
-    public Gradjanin(RDFString email, RDFString password, RDFString name, RDFString surname, RDFString jmbg) {
+    public Gradjanin(RDFString email, RDFString password, RDFString name, RDFString surname) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.rdfpassword = password;
-        this.jmbg = jmbg;
         this.agreedOnVaccination.setValue(false);
     }
 

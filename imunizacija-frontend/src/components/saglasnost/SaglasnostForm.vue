@@ -36,17 +36,17 @@
             <v-text-field
               class="mr-5"
               v-model="name"
-              :rules="nameRules"
               label="Ime"
               required
+              disabled
             ></v-text-field>
             <v-divider vertical> </v-divider>
             <v-text-field
               class="mx-5"
               v-model="surname"
-              :rules="surnameRules"
               label="Prezime"
               required
+              disabled
             ></v-text-field>
             <v-divider vertical> </v-divider>
             <v-text-field
@@ -148,9 +148,9 @@
             <v-text-field
               class="ml-5"
               v-model="email"
-              :rules="emailRules"
               label="E-mail"
               required
+              disabled
             ></v-text-field>
           </v-row>
 
@@ -185,6 +185,7 @@
             <v-text-field
               class="mx-5"
               v-model="nazivSedista"
+              :rules="[checkNazivSedista]"
               label="Naziv sedista"
               :disabled="!korisnikUstanoveSocZastite"
             ></v-text-field>
@@ -194,6 +195,7 @@
             <v-text-field
               class="ml-5"
               v-model="opstinaSedista"
+              :rules="[checkOpstinaSedista]"
               label="Opstina sedista"
               :disabled="!korisnikUstanoveSocZastite"
             ></v-text-field>
@@ -210,6 +212,7 @@
             <v-text-field
               class="ml-5"
               v-model="vakcina"
+              :rules="[checkVakcina]"
               label="Naziv imunoloskog leka"
               :disabled="!izjava"
             ></v-text-field>
@@ -238,6 +241,7 @@
 <script>
 import DatePicker from "../shared/DatePicker.vue";
 import SaglasnostService from "../../services/SaglasnostService";
+import jwt_decode from "jwt-decode";
 
 export default {
   name: "SaglasnostForm",
@@ -252,49 +256,63 @@ export default {
     name: "",
     surname: "",
     jmbg: "",
-    nameRules: [
-      (v) => !!v || "Ime je obavezno",
-      (v) => (v && v.length <= 20) || "Ime ne moze biti duze od 20 karaktera",
-    ],
     jmbgRules: [
       (v) =>
         ((v.length == 13 || v.length == 0) &&
           /[0-9]{13} || [0-9]{0}/.test(v)) ||
         "JMBG mora imati tacno 13 cifara",
     ],
-    surnameRules: [
-      (v) => !!v || "Prezime je obavezno",
-      (v) =>
-        (v && v.length <= 20) || "Prezime ne moze biti duze od 20 karaktera",
-    ],
     email: "",
-    emailRules: [
-      (v) => !!v || "E-mail je obavezan",
-      (v) => /.+@.+\..+/.test(v) || "E-mail mora biti validan",
-    ],
     nazivStranogDrzavljanstva: "",
     brojPasosa: "",
     imeRoditelja: "",
-    imeRoditeljaRules: [(v) => !!v || "Ime roditelja je obavezno"],
+    imeRoditeljaRules: [
+      (v) => !!v || "Ime roditelja je obavezno",
+      (v) => (v && v.trim() !== "") || "Ime roditelja je obavezno",
+    ],
     pol: "",
     polRules: [(v) => !!v || "Morati izabrati pol"],
     polovi: ["MUSKI", "ZENSKI"],
     datumRodjenja: null,
-    datumRodjenjaRules: [(v) => !!v || "Morate izabrati datum rodjenja"],
+    datumRodjenjaRules: [
+      (v) => !!v || "Morate izabrati datum rodjenja",
+      (v) => (v && v.trim() !== "") || "Morate izabrati datum rodjenja",
+    ],
     mestoRodjenja: "",
-    mestoRodjenjaRules: [(v) => !!v || "Mesto rodjenja je obavezno"],
+    mestoRodjenjaRules: [
+      (v) => !!v || "Mesto rodjenja je obavezno",
+      (v) => (v && v.trim() !== "") || "Mesto rodjenja je obavezno",
+    ],
     ulica: "",
-    ulicaRules: [(v) => !!v || "Naziv ulice je obavezan"],
+    ulicaRules: [
+      (v) => !!v || "Naziv ulice je obavezan",
+      (v) => (v && v.trim() !== "") || "Naziv ulice je obavezan",
+    ],
     brojZgrade: "",
-    brojZgradeRules: [(v) => !!v || "Broj zgrade je obavezan"],
+    brojZgradeRules: [
+      (v) => !!v || "Broj zgrade je obavezan",
+      (v) => (v && v.trim() !== "") || "Broj zgrade je obavezan",
+    ],
     mesto: "",
-    mestoRules: [(v) => !!v || "Mesto stanovanja je obavezno"],
+    mestoRules: [
+      (v) => !!v || "Mesto stanovanja je obavezno",
+      (v) => (v && v.trim() !== "") || "Mesto stanovanja je obavezno",
+    ],
     opstina: "",
-    opstinaRules: [(v) => !!v || "Opstina stanovanja je obavezna"],
+    opstinaRules: [
+      (v) => !!v || "Opstina stanovanja je obavezna",
+      (v) => (v && v.trim() !== "") || "Opstina stanovanja je obavezna",
+    ],
     fiksni: "",
-    fiksniRules: [(v) => !!v || "Fiksni telefon je obavezan"],
+    fiksniRules: [
+      (v) => !!v || "Fiksni telefon je obavezan",
+      (v) => (v && v.trim() !== "") || "Fiksni telefon je obavezan",
+    ],
     mobilni: "",
-    mobilniRules: [(v) => !!v || "Mobilni telefon je obavezan"],
+    mobilniRules: [
+      (v) => !!v || "Mobilni telefon je obavezan",
+      (v) => (v && v.trim() !== "") || "Mobilni telefon je obavezan",
+    ],
     radniStatus: "",
     radniStatusi: [
       "ZAPOSLEN",
@@ -320,7 +338,14 @@ export default {
     izjava: false,
     vakcina: "",
   }),
+  mounted() {
+    let jwt = localStorage.getItem("jwt");
+    let decoded = jwt_decode(jwt);
 
+    this.email = decoded.sub;
+    this.name = decoded.name;
+    this.surname = decoded.surname;
+  },
   methods: {
     submit() {
       if (this.izjava && this.vakcina.trim() === "") {
@@ -332,6 +357,11 @@ export default {
         (this.opstinaSedista.trim() === "" || this.nazivSedista.trim() === "")
       ) {
         this.text = "Unesite naziv i sediste ustanove soc. zastite";
+        this.snackbar = true;
+        return;
+      }
+      if (this.radniStatus === "ZAPOSLEN" && this.zanimanjeZaposlenog === "") {
+        this.text = "Morate uneti zanimanje";
         this.snackbar = true;
         return;
       }
@@ -379,6 +409,7 @@ export default {
               radniStatus: this.radniStatus,
               zanimanjeZaposlenog: this.zanimanjeZaposlenog,
               socijalnaZastita: {
+                korisnikUstanove: this.korisnikUstanoveSocZastite,
                 nazivSedista: this.nazivSedista,
                 opstinaSedista: this.opstinaSedista,
               },
@@ -423,6 +454,24 @@ export default {
         this.nazivSedista = "";
         this.opstinaSedista = "";
       }
+    },
+    checkNazivSedista(value) {
+      if (this.korisnikUstanoveSocZastite && value.trim() === "") {
+        return "Naziv sedista je obavezan";
+      }
+      return true;
+    },
+    checkOpstinaSedista(value) {
+      if (this.korisnikUstanoveSocZastite && value.trim() === "") {
+        return "Opstina sedista je obavezna";
+      }
+      return true;
+    },
+    checkVakcina(value) {
+      if (this.izjava && value.trim() === "") {
+        return "Naziv imunoloskog leka je obavezan";
+      }
+      return true;
     },
   },
 };
