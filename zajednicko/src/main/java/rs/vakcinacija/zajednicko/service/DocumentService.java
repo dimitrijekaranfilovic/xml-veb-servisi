@@ -48,6 +48,7 @@ public abstract class DocumentService<T extends BaseDocument> {
     protected static final String RDF_LEKAR_BASE = "https://www.vakcinacija.rs/rdf/lekar/";
     protected static final String RDF_PACIJENT_BASE = "https://www.vakcinacija.rs/rdf/pacijent/";
     protected static final String RDF_VAKCINA_BASE = "https://www.vakcinacija.rs/rdf/vakcina/";
+    protected static final String RDF_INTERESOVANJE_BASE = "https://www.vakcinacija.rs/rdf/interesovanje/";
 
     protected static final String PROP_DATUM_IZDAVANJA = "pred:datum_izdavanja";
     protected static final String PROP_JMBG = "pred:jmbg";
@@ -64,8 +65,10 @@ public abstract class DocumentService<T extends BaseDocument> {
     protected static final String PROP_QR_KOD = "pred:qr_kod";
     protected static final String PROP_SIFRA_DOKUMENTA = "pred:sifra_dokumenta";
     protected static final String PROP_DAVALAC_KRVI = "pred:davalac_krvi";
+    protected static final String PROP_PODNESEN_OD = "pred:podnesenOd";
 
     protected static final String T_STRING = "xs:string";
     protected static final String T_DATE = "xs:date";
     protected static final String T_BOOLEAN = "xs:boolean";
+    protected static final String T_INTERESOVANJE = "pred:Interesovanje";
 }
