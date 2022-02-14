@@ -6,8 +6,10 @@ import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.IzvestajOImunizaciji
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository.IzvestajOImunizacijiExistRepository;
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository.IzvestajOImunizacijiFusekiRepository;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
+import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -17,6 +19,13 @@ public class IzvestajOImunizacijiService extends DocumentService<IzvestajOImuniz
     public IzvestajOImunizacijiService(IzvestajOImunizacijiExistRepository izvestajOImunizacijiExistRepository,
                                 IzvestajOImunizacijiFusekiRepository izvestajOImunizacijiFusekiRepository){
         super(izvestajOImunizacijiExistRepository, izvestajOImunizacijiFusekiRepository);
+    }
+
+    public IzvestajOImunizaciji generateIzvestaj(Date periodOd, Date periodDo) throws Exception {
+        //TODO: ovdje pozovi imunizacija servis
+        var izvestajOImunizaciji = new IzvestajOImunizaciji(RDFDate.of(periodOd), RDFDate.of(periodDo), RDFDate.of(new Date()));
+        this.create(izvestajOImunizaciji);
+        return izvestajOImunizaciji;
     }
 
     protected void insertRDFMetadata(IzvestajOImunizaciji izvestajOImunizaciji) {

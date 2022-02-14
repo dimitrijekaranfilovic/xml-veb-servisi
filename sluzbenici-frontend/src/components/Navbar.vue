@@ -20,6 +20,7 @@
     <v-btn text :to="{ name: 'VaccinationPlaceManagementView' }">
       Пунктови
     </v-btn>
+    <v-btn text :to="{ name: 'ReportsView' }"> Извештаји </v-btn>
   </v-app-bar>
 </template>
 

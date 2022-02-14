@@ -18,10 +18,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Setter
 public class IzvestajOImunizaciji extends BaseDocument {
 
-    @XmlElement(name = "periodOd", required = true)
+    @XmlElement(name = "period_od", required = true)
     private RDFDate periodOd;
 
-    @XmlElement(name = "periodDo", required = true)
+    @XmlElement(name = "period_do", required = true)
     private RDFDate periodDo;
 
     @XmlElement(name = "datum_izdavanja", required = true)
@@ -60,5 +60,11 @@ public class IzvestajOImunizaciji extends BaseDocument {
         this.primljenoZahtevaZaSertifikat = primljenoZahtevaZaSertifikat;
         this.dateDozeVakcina = dateDozeVakcina;
         this.raspodelaPoProizvodjacima = raspodelaPoProizvodjacima;
+    }
+
+    public IzvestajOImunizaciji(RDFDate periodOd, RDFDate periodDo, RDFDate datumIzdavanja) {
+        this.periodOd = periodOd;
+        this.periodDo = periodDo;
+        this.datumIzdavanja = datumIzdavanja;
     }
 }
