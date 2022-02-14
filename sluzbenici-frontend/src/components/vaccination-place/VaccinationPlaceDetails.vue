@@ -29,7 +29,12 @@
                       {{ item.stanjeVakcine }}
                     </td>
                     <td>
-                      <v-btn text plain color="primary">
+                      <v-btn
+                        text
+                        plain
+                        color="primary"
+                        @click="openUpdateVaccineDialog(item)"
+                      >
                         Ажурирај стање вакцине
                       </v-btn>
                     </td>
@@ -69,6 +74,45 @@
     </v-row>
     <v-row align="center" justify="center">
       <v-col cols="12">
+        <v-dialog v-model="updateVaccineDialog" max-width="600px">
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">Ажурирај вакцину</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container fluid>
+                <v-text-field
+                  label="Назив вакцине"
+                  required
+                  readonly
+                  :value="updateVaccineObj.nova_vakcina.naziv_vakcine"
+                ></v-text-field>
+                <v-text-field
+                  type="number"
+                  label="Стање вакцине"
+                  min="0"
+                  v-model="updateVaccineObj.nova_vakcina.stanje_vakcine"
+                  required
+                >
+                </v-text-field>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="updateVaccineDialog = false">
+                Одустани
+              </v-btn>
+              <v-btn
+                color="primary"
+                text
+                :disabled="updateVaccineObj.nova_vakcina.naziv_vakcine === ''"
+                @click="updateVaccine()"
+              >
+                Потврди
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
         <v-dialog v-model="addVaccineDialog" max-width="600px">
           <v-card>
             <v-card-title>
@@ -100,6 +144,7 @@
                 color="primary"
                 text
                 :disabled="newVaccineObj.nova_vakcina.naziv_vakcine === ''"
+                @click="addVaccine()"
               >
                 Потврди
               </v-btn>
@@ -116,7 +161,7 @@
             <v-card-text>
               <v-container fluid>
                 <v-row align="center" justify="center">
-                  <v-col cols="6">
+                  <v-col cols="12" md="6">
                     <v-menu
                       ref="menuDate"
                       v-model="menuDate"
@@ -157,7 +202,7 @@
                       </v-date-picker>
                     </v-menu>
                   </v-col>
-                  <v-col cols="6">
+                  <v-col cols="12" md="6">
                     <v-menu
                       ref="menuTime"
                       v-model="menuTime"
@@ -205,6 +250,7 @@
                   newAppointmentObj.termin.datum === null ||
                   newAppointmentObj.termin.vreme === null
                 "
+                @click="addAppointment()"
               >
                 Потврди
               </v-btn>
@@ -217,6 +263,7 @@
 </template>
 
 <script>
+import vaccinationPlaceService from "@/services/VaccinationPlaceService";
 export default {
   name: "VaccinationPlaceDetails",
   props: ["vaccinationPlace"],
@@ -234,6 +281,14 @@ export default {
       updateVaccineDialog: false,
       addAppointmentDialog: false,
       addVaccineDialog: false,
+
+      updateVaccineObj: {
+        nova_vakcina: {
+          naziv_vakcine: "",
+          stanje_vakcine: 0,
+        },
+      },
+
       newVaccineObj: {
         nova_vakcina: {
           naziv_vakcine: "",
@@ -247,6 +302,46 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    newAppointment() {
+      return {
+        termin: {
+          datum_vreme: `${this.newAppointmentObj.termin.datum}T${this.newAppointmentObj.termin.vreme}:00`,
+        },
+      };
+    },
+  },
+  methods: {
+    openUpdateVaccineDialog(item) {
+      this.updateVaccineObj.nova_vakcina.naziv_vakcine = item.nazivVakcine;
+      this.updateVaccineObj.nova_vakcina.stanje_vakcine = item.stanjeVakcine;
+      this.updateVaccineDialog = true;
+    },
+    addAppointment() {
+      const apppointment = this.newAppointment;
+      vaccinationPlaceService
+        .addAppointment(this.vaccinationPlace.id, apppointment)
+        .then((_) => {
+          //TODO: vidi ovo malo bolje
+          this.$router.go(0);
+        });
+    },
+    addVaccine() {
+      vaccinationPlaceService
+        .addVaccine(this.vaccinationPlace.id, this.newVaccineObj)
+        .then((_) => {
+          //TODO: vidi ovo malo bolje
+          this.$router.go(0);
+        });
+    },
+    updateVaccine() {
+      vaccinationPlaceService
+        .updateVaccine(this.vaccinationPlace.id, this.updateVaccineObj)
+        .then((_) => {
+          this.$router.go(0);
+        });
+    },
   },
 };
 </script>
