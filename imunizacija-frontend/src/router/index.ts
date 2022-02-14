@@ -47,6 +47,15 @@ const routes: Array<RouteConfig> = [
       authorities: [roles.gradjanin],
     },
   },
+  {
+    path: "/zahtev-za-sertifikat",
+    name: "ZahtevZaSertifikat",
+    component: () => import("../views/ZahtevZaSertifikat.vue"),
+    meta: {
+      authenticated: true,
+      authorities: [roles.gradjanin],
+    },
+  },
 ];
 
 const router = new VueRouter({

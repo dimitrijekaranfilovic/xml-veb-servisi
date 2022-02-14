@@ -47,12 +47,12 @@
             ></v-text-field>
           </v-row>
           <v-row>
-            <div>
+            <p class="text-justify">
               Iskazujem interesovanje da primim isključivo vakcinu sledećih
               proizvođača za koji Agencija za lekove i medicinska sredstva
               potvrdi bezbednost, efikasnost i kvalitet i izda dozvolu za
               upotrebu leka
-            </div>
+            </p>
             <v-select
               v-model="odabrani_proizvodjaci"
               :items="proizvodjaci_items"
