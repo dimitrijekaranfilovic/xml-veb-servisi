@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.zahtevzasertifikat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.ZahtevZaSertifikatOdbijenEvent;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.ZahtevZaSertifikatAlreadyProcessed;
@@ -48,7 +49,7 @@ public class ZahtevZaSertifikatService {
         var digitalCertificate = digitalniSertifikatIssueService.issueFor(request);
         // Notify user via email that his request has been approved
         emailService.sendEmail(
-                new SendEmailRequest("dusanerdeljan99@gmail.com", "Izdavanje Digitalnog sertifikata", "Postovani, odobren Vam je zahtev.")
+                new SendEmailRequest("dusanerdeljan99@gmail.com", "Издавање Дигиталног сертификата", buildApproveMessage(request, digitalCertificate))
         );
         // Notify imunizacija service to update link to newly created digital certificate
         serviceBus.publish(
@@ -59,7 +60,7 @@ public class ZahtevZaSertifikatService {
     public void reject(UUID id, String reason) {
         var request = readForResponse(id);
         emailService.sendEmail(
-                new SendEmailRequest("dusanerdeljan99@gmail.com", "Odbijanje zahteva za izdavanje Digitalnog sertifikata", "Odbijen Vam je zahtev zbog: " + reason)
+                new SendEmailRequest("dusanerdeljan99@gmail.com", "Одбијање захтева за издавање Дигиталног сертификата",  buildRejectMessage(request, reason))
         );
         // Maybe notify imunizacija service to update some metadata on the original document?
         serviceBus.publish(
@@ -73,5 +74,23 @@ public class ZahtevZaSertifikatService {
             throw new ZahtevZaSertifikatAlreadyProcessed(String.format("Захтев за сертификат са идентификатором: %s је већ обрађен.", id));
         }
         return zahtevZaSertifikat;
+    }
+
+    private String buildApproveMessage(ZahtevZaSertifikat zahtevZaSertifikat, DigitalniSertifikat digitalniSertifikat) {
+        var ime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getIme().getValue();
+        var prezime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPrezime().getValue();
+        return String.format("Поштовани %s %s,\n\n", ime, prezime) +
+                String.format("Одобрен Вам је Дигитални сертификат на основу захтева %s.\n\n", digitalniSertifikat.getId()) +
+                "Срдачан поздрав,\nВаш портал за имунизацију\n\n";
+    }
+
+    private String buildRejectMessage(ZahtevZaSertifikat zahtevZaSertifikat, String razlog) {
+        var ime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getIme().getValue();
+        var prezime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPrezime().getValue();
+        return String.format("Поштовани %s %s,\n\n", ime, prezime) +
+                String.format("Ваш захтев за издавање Дигиталног сертификата са идентификатором %s је одбијен из следећих разлога:\n\n", zahtevZaSertifikat.getId()) +
+                razlog +
+                "Срдачан поздрав,\nВаш портал за имунизацију\n\n";
+
     }
 }
