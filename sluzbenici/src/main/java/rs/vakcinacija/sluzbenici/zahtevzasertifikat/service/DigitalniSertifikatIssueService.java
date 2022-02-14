@@ -52,7 +52,9 @@ public class DigitalniSertifikatIssueService {
                   .type(PotvrdaOVakcinaciji.class)
                   .configure();
 
-        return digitalniSertifikatService.create(sertifikat);
+        sertifikat = digitalniSertifikatService.create(sertifikat);
+        potvrdaOVakcinacijiService.onIssueCertificate(potvrdaOVakcinaciji, sertifikat);
+        return sertifikat;
     }
 
     private Vakcinacija buildVakcinacija(PotvrdaOVakcinaciji potvrdaOVakcinaciji) {

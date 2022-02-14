@@ -1,8 +1,10 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.service;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiExistRepository;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiFusekiRepository;
@@ -14,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinaciji> {
 
     @Autowired
@@ -24,6 +27,15 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
 
     public Optional<PotvrdaOVakcinaciji> readForCitizen(String jmbg) throws Exception {
         return existRepository.read(p -> p.getLicneInformacije().getJmbg().getValue().equals(jmbg)).stream().findFirst();
+    }
+
+    public void onIssueCertificate(PotvrdaOVakcinaciji potvrdaOVakcinaciji, DigitalniSertifikat sertifikat) throws Exception {
+        potvrdaOVakcinaciji.ref("pred:kreirao")
+                           .entity(sertifikat)
+                           .type(DigitalniSertifikat.class)
+                           .configure();
+        super.update(potvrdaOVakcinaciji);
+        log.info(String.format("Potvrda o vakcinaciji: %s izmenjena tako da ima vezu ka sertifikatu: %s", potvrdaOVakcinaciji.getId(), sertifikat.getId()));
     }
 
     protected void insertRDFMetadata(PotvrdaOVakcinaciji potvrdaOVakcinaciji) {
