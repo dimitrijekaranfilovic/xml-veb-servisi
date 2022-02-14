@@ -9,16 +9,16 @@
         transition="scale-transition"
         width="40"
       />
-      <span class="title"> SLUŽBENICI </span>
+      <span class="title"> СЛУЖБЕНИЦИ </span>
     </div>
 
     <v-spacer></v-spacer>
 
     <v-btn text :to="{ name: 'DigitalCertifikateRequestsView' }">
-      Zahtevi za digitalni sertifikat
+      Захтеви за дигитални сертификат
     </v-btn>
     <v-btn text :to="{ name: 'VaccinationPlaceManagementView' }">
-      Punktovi
+      Пунктови
     </v-btn>
   </v-app-bar>
 </template>

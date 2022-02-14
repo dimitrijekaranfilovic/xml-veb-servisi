@@ -3,8 +3,8 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">Naziv punkta</th>
-          <th class="text-left">Detalji</th>
+          <th class="text-left">Назив пункта</th>
+          <th class="text-left">Детаљи</th>
         </tr>
       </thead>
       <tbody>
@@ -21,7 +21,7 @@
                 name: 'SingleVaccinationPlaceView',
                 params: { id: item.id },
               }"
-              >Prikazi detalje</v-btn
+              >Прикажи детаље</v-btn
             >
           </td>
         </tr>
@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import vaccinationPlaceService from "@/services/VaccinationPlaceService";
-
 export default {
   name: "VaccinationPlaceTable",
   props: ["vaccinationPlaces"],

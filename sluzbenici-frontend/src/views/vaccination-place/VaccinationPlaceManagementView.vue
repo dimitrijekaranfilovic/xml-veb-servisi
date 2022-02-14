@@ -6,17 +6,17 @@
         <v-dialog v-model="dialog" max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" v-bind="attrs" v-on="on">
-              Dodaj punkt
+              Додај пункт
             </v-btn>
           </template>
           <v-card>
             <v-card-title>
-              <span class="text-h5">Dodaj punkt</span>
+              <span class="text-h5">Додај пункт</span>
             </v-card-title>
             <v-card-text>
               <v-container fluid>
                 <v-text-field
-                  label="Naziv punkta"
+                  label="Назив пункта"
                   v-model="obj.vakcinacioni_punkt.naziv_punkta"
                   required
                 ></v-text-field>
@@ -25,7 +25,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="primary" text @click="dialog = false">
-                Odustani
+                Одустани
               </v-btn>
               <v-btn
                 color="primary"
@@ -33,7 +33,7 @@
                 @click="addVaccinationPlace()"
                 :disabled="obj.vakcinacioni_punkt.naziv_punkta === ''"
               >
-                Potvrdi
+                Потврди
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -70,10 +70,17 @@ export default {
   },
   methods: {
     addVaccinationPlace() {
-      vaccinationPlaceService.createVaccinationPlace(this.obj).then((_) => {
-        //this.$router.push({ name: "VaccinationPlaceManagementView" });
-        this.$router.go(0);
-      });
+      vaccinationPlaceService
+        .createVaccinationPlace(this.obj)
+        .then((response) => {
+          const data = response.data;
+          this.obj.vakcinacioni_punkt.naziv_punkta = "";
+          this.dialog = false;
+          this.vaccinationPlaces.push({
+            nazivPunkta: data.nazivPunkta,
+            id: data.id,
+          });
+        });
     },
   },
 };
