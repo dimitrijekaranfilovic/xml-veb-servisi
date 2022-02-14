@@ -27,26 +27,6 @@ public class ErrorHandler {
         return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
     }
 
-    @ExceptionHandler(PunktExistsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    ErrorObject handlePunktExistsException(HttpServletRequest request, PunktExistsException e){
-        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
-    }
-    @ExceptionHandler(VaccineExistsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    ErrorObject handleVaccineExistsException(HttpServletRequest request, VaccineExistsException e){
-        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
-    }
-
-    @ExceptionHandler(VaccineDoesntExistException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    ErrorObject handleVaccineDoesntExistException(HttpServletRequest request, VaccineDoesntExistException e){
-        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
-    }
-
     @ExceptionHandler(XMLDBException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
