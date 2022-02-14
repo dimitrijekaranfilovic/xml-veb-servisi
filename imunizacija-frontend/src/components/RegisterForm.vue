@@ -78,7 +78,7 @@ export default {
   name: "RegisterForm",
   data: () => ({
     snackbar: false,
-    text: "Korisnik sa tim email-om već postoji.",
+    text: "Корисник са том адресом електронске поште већ постоји.",
     timeout: 2000,
     valid: true,
     show: false,
@@ -86,29 +86,30 @@ export default {
     surname: "",
     confirmPassword: "",
     nameRules: [
-      (v) => !!v || "Ime je obavezno",
-      (v) => (v && v.trim() !== "") || "Ime je obavezno",
-      (v) => (v && v.length <= 20) || "Ime ne može biti duže od 20 karaktera",
+      (v) => !!v || "Име је обавезно",
+      (v) => (v && v.trim() !== "") || "Име је обавезно",
+      (v) => (v && v.length <= 20) || "Име не може бити дуже од 20 карактера",
     ],
     surnameRules: [
-      (v) => !!v || "Prezime je obavezno",
-      (v) => (v && v.trim() !== "") || "Prezime je obavezno",
+      (v) => !!v || "Презиме је обавезно",
+      (v) => (v && v.trim() !== "") || "Презиме је обавезно",
       (v) =>
-        (v && v.length <= 20) || "Prezime ne može biti duže od 20 karaktera",
+        (v && v.length <= 20) || "Презиме не може бити дуже од 20 карактера",
     ],
     email: "",
     password: "",
     emailRules: [
-      (v) => !!v || "E-mail je obavezan",
-      (v) => /.+@.+\..+/.test(v) || "E-mail mora biti validan",
+      (v) => !!v || "Адреса електронске поште је обавезна",
+      (v) =>
+        /.+@.+\..+/.test(v) || "Адреса електронске поште мора бити валидна",
     ],
     passwordRules: [
-      (v) => !!v || "Lozinka je obavezna",
-      (v) => (v && v.trim() !== "") || "Lozinka je obavezna",
+      (v) => !!v || "Лозинка је обавезна",
+      (v) => (v && v.trim() !== "") || "Лозинка је обавезна",
       (v) =>
-        (v && v.length >= 6) || "Lozinka mora sadržati 6 ili više karaktera",
+        (v && v.length >= 8) || "Лозинка мора садржати 8 или више карактера",
     ],
-    confirmPasswordRules: [(v) => !!v || "Morate potvrditi lozinku"],
+    confirmPasswordRules: [(v) => !!v || "Морате потврдити лозинку"],
   }),
 
   methods: {
@@ -125,21 +126,21 @@ export default {
       let response = AuthenticationService.register(registrationRequest);
       response
         .then(() => {
-          that.text = "Uspešna registracija.";
+          that.text = "Успешна регистрација";
           that.snackbar = true;
         })
         .catch((err) => {
           if (err.message.includes("500")) {
-            that.text = "Korisnik sa tim email-om već postoji.";
+            that.text = "Корисник са том адресом електронске поште већ постоји";
           } else {
-            that.text = "Morate popuniti sva polja.";
+            that.text = "Морате попунити сва поља";
           }
           that.snackbar = true;
         });
     },
     checkMatching(value) {
       if (value !== this.password) {
-        return "Lozinke se ne podudaraju";
+        return "Лозинке се не подударају";
       }
       return true;
     },
