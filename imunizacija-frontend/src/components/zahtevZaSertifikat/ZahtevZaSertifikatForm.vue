@@ -4,21 +4,21 @@
       <v-col lg="8" md="12">
         <v-form ref="form" v-model="valid">
           <p class="text-justify">
-            U skladu sa odredbom Republike Srbije o izdavanju digitalnog zelenog
-            sertifikata kao potvrde o izvršenoj vakcinaciji protiv COVID-19,
-            rezultatima testiranja na zaraznu bolest SARS-CoV-2 ili oporavku od
-            bolesti COVID-19, podnosim zahtev za izdavanje digitalnog zelenog
-            sertifikata.
+            У складу са одредбом Републике Србије о издавању дигиталног зеленог
+            сертификата као потврде о извршеној вакцинацији против COVID-19,
+            резултатима тестирања на заразну болест SARS-CoV-2 или опоравку од
+            болести COVID-19, подносим захтев за издавање дигиталног зеленог
+            сертификата.
           </p>
-          <p class="text-justify">Podnosilac zahteva:</p>
+          <p class="text-justify">Подносилац захтева:</p>
           <v-row>
-            <v-text-field v-model="ime" label="Ime"></v-text-field>
-            <v-text-field v-model="prezime" label="Prezime"></v-text-field>
+            <v-text-field v-model="ime" label="Име"></v-text-field>
+            <v-text-field v-model="prezime" label="Презиме"></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="datum_rodjenja"
-              label="Datum rođenja"
+              label="Датум рођења"
               single-line
             >
               <template v-slot:append-outer>
@@ -27,25 +27,31 @@
             </v-text-field>
           </v-row>
           <v-row>
-            <v-select v-model="pol" :items="pol_items" label="Pol"></v-select>
+            <v-select
+              v-model="pol"
+              :items="pol_items"
+              item-text="text"
+              item-value="value"
+              label="Пол"
+            ></v-select>
           </v-row>
           <v-row>
             <v-text-field
               v-model="jmbg"
-              label="Jedinstveni matični broj građanina"
+              label="Јединствени матични број грађанина"
               :counter="13"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="broj_pasosa"
-              label="Broj pasoša"
+              label="Број пасоша"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="razlog"
-              label="Razlog za podnošenje zahteva"
+              label="Разлог за подношење захтева"
             ></v-text-field>
           </v-row>
         </v-form>
@@ -59,7 +65,10 @@ import DatePicker from "../shared/DatePicker.vue";
 export default {
   components: { DatePicker },
   data: () => ({
-    pol_items: ["MUSKI", "ZENSKI"],
+    pol_items: [
+      { value: "MUSKI", text: "Мушки" },
+      { value: "ZENSKI", text: "Женски" },
+    ],
   }),
 };
 </script>

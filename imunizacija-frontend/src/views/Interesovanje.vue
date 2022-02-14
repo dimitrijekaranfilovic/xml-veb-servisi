@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-flex class="text-center">
-      <h1>Iskazivanje interesovanja za vakcinisanje protiv COVID-19</h1>
+      <h1>Исказивање интересовања за вакцинисање против КОВИД-19</h1>
     </v-flex>
     <interesovanje-form></interesovanje-form>
   </v-container>

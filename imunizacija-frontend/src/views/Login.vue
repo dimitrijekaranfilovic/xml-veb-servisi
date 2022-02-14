@@ -6,7 +6,7 @@
           <v-text-field
             v-model="email"
             :rules="emailRules"
-            label="E-mail"
+            label="Имејл"
             required
           ></v-text-field>
           <v-text-field
@@ -15,7 +15,7 @@
             :rules="passwordRules"
             :type="show ? 'text' : 'password'"
             name="input-10-1"
-            label="Unesite vašu lozinku"
+            label="Унесите вашу лозинку"
             counter
             @click:append="show = !show"
           ></v-text-field>
@@ -26,7 +26,7 @@
               class="align-center"
               @click="login"
             >
-              Prijava na sistem
+              Пријава на систем
             </v-btn>
           </v-flex>
         </v-form>
@@ -52,17 +52,18 @@ export default Vue.extend({
   name: "Login",
   data: () => ({
     snackbar: false,
-    text: "Pogrešan username/password",
+    text: "Погрешна адреса електронске поште/лозинка",
     timeout: 2000,
     valid: true,
     show: false,
     email: "",
     emailRules: [
-      (v) => !!v || "E-mail je obavezan",
-      (v) => /.+@.+\..+/.test(v) || "E-mail mora biti validan",
+      (v) => !!v || "Адреса електронске поште је обавезна",
+      (v) =>
+        /.+@.+\..+/.test(v) || "Адреса електронске поште мора бити валидна",
     ],
     password: "",
-    passwordRules: [(p) => !!p || "Lozinka je obavezna"],
+    passwordRules: [(p) => !!p || "Лозинка је обавезна"],
   }),
   mounted: function () {
     if (AuthenticationService.userLoggedIn()) {
