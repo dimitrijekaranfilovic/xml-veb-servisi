@@ -5,12 +5,12 @@
     </v-flex>
     <br />
     <br />
-    <h3>Обрасци сагласности</h3>
-    <saglasnost-table></saglasnost-table>
-    <br />
-    <br />
     <h3>Интересовања</h3>
     <interesovanje-table></interesovanje-table>
+    <br />
+    <br />
+    <h3>Обрасци сагласности</h3>
+    <saglasnost-table></saglasnost-table>
   </v-container>
 </template>
 

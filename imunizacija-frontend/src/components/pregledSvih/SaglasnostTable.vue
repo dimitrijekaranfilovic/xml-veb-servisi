@@ -42,16 +42,24 @@ export default {
   },
   mounted() {
     let that = this;
-    SaglasnostService.getAllForUser().then((data) => {
-      for (let doc of data.data.saglasnosti) {
-        let dateToekns = new Date(doc.datum.value).toString().split(" ");
-        doc.pacijent.saglasnost.izjava.value =
-          doc.pacijent.saglasnost.izjava.value === true ? "Да" : "Не";
-        doc.datum.value =
-          dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
-      }
-      that.saglasnosti = data.data.saglasnosti;
+    this.$root.$on("interesovanjeFetched", function () {
+      that.fetchData();
     });
+  },
+  methods: {
+    fetchData() {
+      let that = this;
+      SaglasnostService.getAllForUser().then((data) => {
+        for (let doc of data.data.saglasnosti) {
+          let dateToekns = new Date(doc.datum.value).toString().split(" ");
+          doc.pacijent.saglasnost.izjava.value =
+            doc.pacijent.saglasnost.izjava.value === true ? "Да" : "Не";
+          doc.datum.value =
+            dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
+        }
+        that.saglasnosti = data.data.saglasnosti;
+      });
+    },
   },
 };
 </script>

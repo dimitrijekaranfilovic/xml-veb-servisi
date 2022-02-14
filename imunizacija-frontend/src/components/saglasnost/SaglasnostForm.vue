@@ -4,10 +4,9 @@
       <v-col lg="8" md="12">
         <v-form ref="form" v-model="valid">
           <v-row>
-            <h3 class="mr-5 mt-5">Држављанин републике Србије:</h3>
-            <v-divider vertical> </v-divider>
+            <h3 class="mt-5">Држављанин републике Србије:</h3>
+            <v-divider class="mx-5" vertical> </v-divider>
             <v-text-field
-              class="ml-5"
               v-model="jmbg"
               :rules="jmbgRules"
               label="ЈМБГ"
@@ -17,15 +16,13 @@
           </v-row>
           <v-row>
             <v-text-field
-              class="mr-5"
               v-model="nazivStranogDrzavljanstva"
               label="Назив страног држављанства"
               required
               :disabled="jmbg !== ''"
             ></v-text-field>
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
             <v-text-field
-              class="ml-5"
               v-model="brojPasosa"
               label="Број пасоша или ЕБС"
               required
@@ -34,23 +31,20 @@
           </v-row>
           <v-row>
             <v-text-field
-              class="mr-5"
               v-model="name"
               label="Име"
               required
               disabled
             ></v-text-field>
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
             <v-text-field
-              class="mx-5"
               v-model="surname"
               label="Презиме"
               required
               disabled
             ></v-text-field>
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
             <v-text-field
-              class="ml-5"
               v-model="imeRoditelja"
               :rules="imeRoditeljaRules"
               label="Име родитеља"
@@ -59,7 +53,6 @@
           </v-row>
           <v-row>
             <v-select
-              class="mr-5"
               v-model="pol"
               :items="polovi"
               :rules="polRules"
@@ -69,12 +62,12 @@
               data-vv-name="pol"
               required
             ></v-select>
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
 
             <v-text-field
-              class="mx-5"
               :rules="datumRodjenjaRules"
               v-model="datumRodjenja"
+              label="Датум рођења"
               single-line
             >
               <template v-slot:append-outer>
@@ -82,10 +75,9 @@
               </template>
             </v-text-field>
 
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
 
             <v-text-field
-              class="ml-5"
               v-model="mestoRodjenja"
               :rules="mestoRodjenjaRules"
               label="Место рођења"
@@ -94,27 +86,24 @@
           </v-row>
           <v-row>
             <v-text-field
-              class="mr-5"
               v-model="ulica"
               :rules="ulicaRules"
               label="Улица"
               required
             ></v-text-field>
 
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
 
             <v-text-field
-              class="mx-5"
               v-model="brojZgrade"
               :rules="brojZgradeRules"
               label="Број"
               required
             ></v-text-field>
 
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
 
             <v-text-field
-              class="ml-5"
               v-model="mesto"
               :rules="mestoRules"
               label="Место"
@@ -123,15 +112,13 @@
           </v-row>
           <v-row>
             <v-text-field
-              class="mr-5"
               v-model="opstina"
               :rules="opstinaRules"
               label="Општина"
               required
             ></v-text-field>
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
             <v-text-field
-              class="ml-5"
               v-model="fiksni"
               :rules="fiksniRules"
               label="Тел. фиксни"
@@ -140,66 +127,62 @@
           </v-row>
           <v-row>
             <v-text-field
-              class="mr-5"
               v-model="mobilni"
               :rules="mobilniRules"
               label="Тел. мобилни"
               required
             ></v-text-field>
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
             <v-text-field
-              class="ml-5"
               v-model="email"
               label="Имејл"
               required
               disabled
             ></v-text-field>
           </v-row>
-
-          <v-select
-            v-model="radniStatus"
-            :items="radniStatusi"
-            :rules="radniStatusRules"
-            item-text="text"
-            item-value="value"
-            label="Радни статус"
-            data-vv-name="radniStatus"
-            required
-            @change="clearZanimanje"
-          ></v-select>
-
-          <v-select
-            v-model="zanimanjeZaposlenog"
-            :items="zanimanja"
-            item-text="text"
-            item-value="value"
-            label="Занимање запосленог"
-            data-vv-name="zanimanjeZaposlenog"
-            :disabled="radniStatus !== 'ZAPOSLEN'"
-          ></v-select>
-
+          <v-row>
+            <v-select
+              v-model="radniStatus"
+              :items="radniStatusi"
+              :rules="radniStatusRules"
+              item-text="text"
+              item-value="value"
+              label="Радни статус"
+              data-vv-name="radniStatus"
+              required
+              @change="clearZanimanje"
+            ></v-select>
+          </v-row>
+          <v-row>
+            <v-select
+              v-model="zanimanjeZaposlenog"
+              :items="zanimanja"
+              item-text="text"
+              item-value="value"
+              label="Занимање запосленог"
+              data-vv-name="zanimanjeZaposlenog"
+              :disabled="radniStatus !== 'ZAPOSLEN'"
+            ></v-select>
+          </v-row>
           <v-row>
             <v-checkbox
-              class="mr-5"
               v-model="korisnikUstanoveSocZastite"
               label="Корисник установе социјалне заштите?"
               @change="clearNazivIOpstinaSedista"
             ></v-checkbox>
 
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
 
             <v-text-field
-              class="mx-5"
               v-model="nazivSedista"
               :rules="[checkNazivSedista]"
               label="Назив седишта"
               :disabled="!korisnikUstanoveSocZastite"
             ></v-text-field>
 
-            <v-divider vertical> </v-divider>
+            <v-divider class="mx-5" vertical> </v-divider>
 
             <v-text-field
-              class="ml-5"
               v-model="opstinaSedista"
               :rules="[checkOpstinaSedista]"
               label="Општина седишта"
@@ -211,10 +194,9 @@
             <v-checkbox
               class="mr-5"
               v-model="izjava"
-              label="Сагласан сам"
+              label="Сагласан сам са спровођењем активне/пасивне имунизације"
               @change="clearVakcina"
             ></v-checkbox>
-            <v-divider vertical> </v-divider>
             <v-text-field
               class="ml-5"
               v-model="vakcina"
@@ -224,7 +206,16 @@
             ></v-text-field>
           </v-row>
 
-          <v-flex class="text-center">
+          <v-row>
+            <p class="justify-text">
+              <b
+                >Лекар ми је објаснио предности и ризике од спровођења
+                активне/пасивне имунизације наведеним имунолошким леком.</b
+              >
+            </p>
+          </v-row>
+
+          <v-flex class="text-center mt-5">
             <v-btn :disabled="!valid" color="success" @click="submit">
               Поднеси документ
             </v-btn>

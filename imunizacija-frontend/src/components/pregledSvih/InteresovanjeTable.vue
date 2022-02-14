@@ -51,8 +51,8 @@ export default {
           doc.licneInformacije.davalacKrvi.value === true ? "Да" : "Не";
       }
       that.interesovanja = data.data.interesovanja;
+      that.$root.$emit("interesovanjeFetched");
     });
-    console.log(this.saglasnosti);
   },
 };
 </script>
