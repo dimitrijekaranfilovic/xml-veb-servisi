@@ -88,7 +88,7 @@ export default {
       "Sinopharm",
       "AstraZeneca",
       "Moderna",
-      "Bilo koja",
+      "Било која",
     ],
     davalac_krvi: false,
   }),
