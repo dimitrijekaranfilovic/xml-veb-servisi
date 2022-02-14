@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.Odbijenica;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
+import rs.vakcinacija.imunizacija.zahtevzasertifikat.repository.ZahtevZaSertifikatExistRepository;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.RDFDate;
@@ -11,6 +12,7 @@ import rs.vakcinacija.zajednicko.model.RDFString;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -40,6 +42,10 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
                           .configure();
         zahtevZaSertifikat.getStatus().setValue("PRIHVACEN");
         update(zahtevZaSertifikat);
+    }
+
+    public List<ZahtevZaSertifikat> readPending() throws Exception {
+        return ((ZahtevZaSertifikatExistRepository) existRepository).readPending();
     }
 
     protected void insertRDFMetadata(ZahtevZaSertifikat zahtevZaSertifikat) {

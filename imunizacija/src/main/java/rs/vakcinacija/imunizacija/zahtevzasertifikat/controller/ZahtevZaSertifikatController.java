@@ -42,6 +42,11 @@ public class ZahtevZaSertifikatController {
         return KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.read());
     }
 
+    @GetMapping(value = "/za-odobrenje")
+    public KolekcijaZahtevaZaSertifikat readPending() throws Exception {
+        return KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.readPending());
+    }
+
     @RabbitListener(queues = "DigitalniSertifikatOdobrenEvent")
     public void onRequestApproved(DigitalniSertifikatOdobrenEvent event) throws Exception {
         log.info(String.format("Odobren zahtev za digitalni sertifikat: '%s', napravljen Digitalni sertifikat: '%s'!", event.getRequestId(), event.getDigitalCertificateId()));

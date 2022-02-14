@@ -22,7 +22,7 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/DigitalCertificateRequestsView.vue"),
   },
   {
-    path: "/zahtevi-za-digitalni-sertifikat/:id",
+    path: "/detalji-o-zahtevu/:id",
     name: "SingleDigitalCertificateRequestView",
     component: () => import("../views/SingleDigitalCertificateRequestView.vue"),
   },
