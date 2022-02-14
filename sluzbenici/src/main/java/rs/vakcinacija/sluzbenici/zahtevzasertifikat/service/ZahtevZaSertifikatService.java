@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.ZahtevZaSertifikatOdbijenEvent;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.ZahtevZaSertifikatAlreadyProcessed;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.KolekcijaZahtevaZaSertifikat;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
@@ -43,7 +44,7 @@ public class ZahtevZaSertifikatService {
 
     public void approve(UUID id) throws Exception {
         // Issue digital certificate and store it
-        var request = client.read(id);
+        var request = readForResponse(id);
         var digitalCertificate = digitalniSertifikatIssueService.issueFor(request);
         // Notify user via email that his request has been approved
         emailService.sendEmail(
@@ -56,7 +57,7 @@ public class ZahtevZaSertifikatService {
     }
 
     public void reject(UUID id, String reason) {
-        var request = client.read(id);
+        var request = readForResponse(id);
         emailService.sendEmail(
                 new SendEmailRequest("dusanerdeljan99@gmail.com", "Odbijanje zahteva za izdavanje Digitalnog sertifikata", "Odbijen Vam je zahtev zbog: " + reason)
         );
@@ -64,5 +65,13 @@ public class ZahtevZaSertifikatService {
         serviceBus.publish(
                 new ZahtevZaSertifikatOdbijenEvent(request.getId(), reason, new Date())
         );
+    }
+
+    private ZahtevZaSertifikat readForResponse(UUID id) {
+        var zahtevZaSertifikat = client.read(id);
+        if (!zahtevZaSertifikat.getStatus().getValue().equals("KREIRAN")) {
+            throw new ZahtevZaSertifikatAlreadyProcessed(String.format("Захтев за сертификат са идентификатором: %s је већ обрађен.", id));
+        }
+        return zahtevZaSertifikat;
     }
 }
