@@ -1,10 +1,11 @@
 import { BaseService } from "@/services/BaseService";
+import axios from "axios";
 
 class InteresovanjeService extends BaseService {
-  private basePath: string = "interesovanje";
+  private interesovanjePath: string = "interesovanje";
 
-  async sendRequest(interesovanje: any): Promise<any> {
-    super.sendRequest(interesovanje, this.basePath);
+  async postInteresovanje(interesovanje: any): Promise<any> {
+    super.sendRequest(axios.post, interesovanje, this.interesovanjePath);
   }
 }
 
