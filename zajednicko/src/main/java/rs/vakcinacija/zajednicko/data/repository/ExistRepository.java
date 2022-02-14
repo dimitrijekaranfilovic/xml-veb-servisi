@@ -12,6 +12,7 @@ import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
 import rs.vakcinacija.zajednicko.data.context.JAXBEntityManager;
 import rs.vakcinacija.zajednicko.data.context.ManagedCollectionAdapter;
 import rs.vakcinacija.zajednicko.data.context.ManagedXMLResourceAdapter;
+import rs.vakcinacija.zajednicko.data.query.FieldLevelQueryPredicate;
 import rs.vakcinacija.zajednicko.model.BaseDocument;
 
 import javax.xml.transform.OutputKeys;
@@ -48,6 +49,10 @@ public abstract class ExistRepository<T extends BaseDocument> {
         return result;
     }
 
+    public List<T> read(String query) throws Exception {
+        return read(FieldLevelQueryPredicate.forDocument(entityClazz, query));
+    }
+
     public List<T> read(Predicate<T> criteria) throws Exception {
         registerDatabase();
         List<T> result = new ArrayList<>();
@@ -79,7 +84,7 @@ public abstract class ExistRepository<T extends BaseDocument> {
             xmlResource.get().setContent(outputStream);
             collection.get().storeResource(xmlResource.get());
         }
-        return id;
+        return entity.getId();
     }
 
     public ResourceSet runXPathQuery(String query) throws Exception {

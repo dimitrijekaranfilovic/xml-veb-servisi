@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.xmldb.api.base.XMLDBException;
 import rs.vakcinacija.sluzbenici.config.exception.BusinessException;
 import rs.vakcinacija.sluzbenici.config.exception.ValidationException;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.PunktExistsException;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineDoesntExistException;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineExistsException;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.exception.SchemaValidationException;
 

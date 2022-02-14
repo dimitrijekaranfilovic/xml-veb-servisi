@@ -2,7 +2,6 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.KolekcijaDigitalnihSertifikata;
@@ -26,14 +25,19 @@ public class DigitalniSertifikatController {
         return digitalniSertifikatService.create(digitalniSertifikat);
     }
 
-    @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
-    public DigitalniSertifikat read(@PathVariable UUID id) throws Exception {
-        return digitalniSertifikatService.read(id);
-    }
-
     @GetMapping
     public KolekcijaDigitalnihSertifikata read() throws Exception {
         return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read());
+    }
+
+    @GetMapping(value = "/za-gradjanina")
+    public KolekcijaDigitalnihSertifikata readForCitizen(@RequestParam(defaultValue = "") String query) throws Exception {
+        return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read(query));
+    }
+
+    @GetMapping(value = "/{id}")
+    public DigitalniSertifikat read(@PathVariable UUID id) throws Exception {
+        return digitalniSertifikatService.read(id);
     }
 
 }

@@ -3,11 +3,10 @@ package rs.vakcinacija.imunizacija.saglasnost.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
+import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.imunizacija.saglasnost.service.SaglasnostService;
 import rs.vakcinacija.imunizacija.saglasnost.support.SaglasnostCreateRequestToSaglasnost;
@@ -33,21 +32,21 @@ public class SaglasnostController {
         this.saglasnostCreateRequestToSaglasnost = saglasnostCreateRequestToSaglasnost;
     }
 
-    @PostMapping("/test")
-    public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testWrite(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
-        var savedSaglasnost = saglasnostService.create(saglasnost);
-        return new ResponseEntity<>(savedSaglasnost, HttpStatus.CREATED);
-    }
-
     @PostMapping
-    public ResponseEntity<SaglasnostCreateRequest> create(@RequestBody SaglasnostCreateRequest saglasnost) throws Exception {
+    @ResponseStatus(HttpStatus.CREATED)
+    public SaglasnostCreateRequest create(@RequestBody SaglasnostCreateRequest saglasnost) throws Exception {
         var savedSaglasnost = saglasnostService.createFirstHalfOfDocument(saglasnostCreateRequestToSaglasnost.convert(saglasnost));
-        return new ResponseEntity<>(saglasnostToSaglasnostCreateRequest.convert(savedSaglasnost), HttpStatus.CREATED);
+        return saglasnostToSaglasnostCreateRequest.convert(savedSaglasnost);
     }
 
-    @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRead(@PathVariable UUID id) throws Exception {
-        return new ResponseEntity<>(saglasnostService.read(id), HttpStatus.OK);
+    @GetMapping(value = "/{id}")
+    public SaglasnostZaSprovodjenjeImunizacije read(@PathVariable UUID id) throws Exception {
+        return saglasnostService.read(id);
+    }
+
+    @GetMapping(value = "/za-gradjanina")
+    public KolekcijaSaglasnosti readForCitizen(@RequestParam(defaultValue = "") String query) throws Exception {
+        return KolekcijaSaglasnosti.of(saglasnostService.read(query));
     }
 
     @GetMapping(value = "all/{email}")
