@@ -34,6 +34,10 @@ public abstract class DocumentService<T extends BaseDocument> {
                 .orElseThrow(() -> new DocumentNotFoundException(String.format("Cannot find document with id: '%s'.", id)));
     }
 
+    public List<T> read(String query) throws Exception {
+        return existRepository.read(query);
+    }
+
     public List<T> read() throws Exception {
         return existRepository.read();
     }
