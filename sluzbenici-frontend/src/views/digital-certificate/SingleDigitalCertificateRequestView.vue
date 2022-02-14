@@ -80,11 +80,10 @@
 </template>
 
 <script>
-import DigitalCertificateRequestDetails from "@/components/DigitalCertificateRequestDetails.vue";
+import DigitalCertificateRequestDetails from "@/components/digital-certificate/DigitalCertificateRequestDetails.vue";
 import digitalCertificateRequestService from "@/services/DigitalCertificateRequestService";
-import Vue from "vue";
 
-export default Vue.extend({
+export default {
   components: { DigitalCertificateRequestDetails },
   name: "SingleDigitalCertificateRequestView",
   data: () => ({
@@ -134,5 +133,5 @@ export default Vue.extend({
       this.snackbar = true;
     },
   },
-});
+};
 </script>

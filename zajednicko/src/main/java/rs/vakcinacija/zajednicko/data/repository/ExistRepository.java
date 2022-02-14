@@ -84,7 +84,7 @@ public abstract class ExistRepository<T extends BaseDocument> {
             xmlResource.get().setContent(outputStream);
             collection.get().storeResource(xmlResource.get());
         }
-        return id;
+        return entity.getId();
     }
 
     public ResourceSet runXPathQuery(String query) throws Exception {

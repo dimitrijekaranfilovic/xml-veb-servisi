@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.xmldb.api.base.XMLDBException;
 import rs.vakcinacija.sluzbenici.config.exception.BusinessException;
 import rs.vakcinacija.sluzbenici.config.exception.ValidationException;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.PunktExistsException;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineDoesntExistException;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineExistsException;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.exception.SchemaValidationException;
 
@@ -21,6 +24,26 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     ErrorObject handleSchemaValidationException(HttpServletRequest request, SchemaValidationException e) {
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
+    }
+
+    @ExceptionHandler(PunktExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ErrorObject handlePunktExistsException(HttpServletRequest request, PunktExistsException e){
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
+    }
+    @ExceptionHandler(VaccineExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ErrorObject handleVaccineExistsException(HttpServletRequest request, VaccineExistsException e){
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
+    }
+
+    @ExceptionHandler(VaccineDoesntExistException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ErrorObject handleVaccineDoesntExistException(HttpServletRequest request, VaccineDoesntExistException e){
         return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
     }
 

@@ -31,7 +31,7 @@ public abstract class DocumentService<T extends BaseDocument> {
 
     public T read(UUID id) throws Exception {
         return existRepository.read(id)
-                .orElseThrow(() -> new DocumentNotFoundException(String.format("Cannot find document with id: '%s'.", id)));
+                .orElseThrow(() -> new DocumentNotFoundException(String.format("Ne postoji dokument sa id-ijem: '%s'.", id)));
     }
 
     public List<T> read(String query) throws Exception {
