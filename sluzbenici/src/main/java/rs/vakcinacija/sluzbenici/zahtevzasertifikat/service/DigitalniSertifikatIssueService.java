@@ -4,28 +4,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.*;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.service.DigitalniSertifikatService;
+import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
+import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.service.PotvrdaOVakcinacijiService;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.CitizenHasNoVaccinationCertificateException;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.model.RDFInteger;
 import rs.vakcinacija.zajednicko.model.RDFString;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DigitalniSertifikatIssueService {
     private final DigitalniSertifikatService digitalniSertifikatService;
+    private final PotvrdaOVakcinacijiService potvrdaOVakcinacijiService;
 
     @Autowired
-    public DigitalniSertifikatIssueService(DigitalniSertifikatService digitalniSertifikatService) {
+    public DigitalniSertifikatIssueService(DigitalniSertifikatService digitalniSertifikatService, PotvrdaOVakcinacijiService potvrdaOVakcinacijiService) {
         this.digitalniSertifikatService = digitalniSertifikatService;
+        this.potvrdaOVakcinacijiService = potvrdaOVakcinacijiService;
     }
 
     public DigitalniSertifikat issueFor(ZahtevZaSertifikat zahtevZaSertifikat) throws Exception {
         var brojSertifikata = RDFString.of(UUID.randomUUID().toString());
         var datumVremeIzdavanja = RDFDate.of(new Date());
         var licneInformacije = buildLicneInformacije(zahtevZaSertifikat);
-        var vakcinacija = buildVakcinacija();
+
+        var jmbg = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getJmbg().getValue();
+        var potvrdaOVakcinaciji = potvrdaOVakcinacijiService
+                .readForCitizen(jmbg)
+                .orElseThrow(() -> new CitizenHasNoVaccinationCertificateException("Грађанин нема ни једну потврду о вакцинацији која је непоходна за идавање Дигиталног сертификата."));
+        var vakcinacija = buildVakcinacija(potvrdaOVakcinaciji);
+
         var testovi = buildDefaultTestovi();
         var informacijeOSertifikatu = buildDefaultInformacijeOSertifikatu();
 
@@ -34,13 +47,26 @@ public class DigitalniSertifikatIssueService {
                   .entity(zahtevZaSertifikat)
                   .type(ZahtevZaSertifikat.class)
                   .configure();
+        sertifikat.ref("pred:na_osnovu_potvrde")
+                  .entity(potvrdaOVakcinaciji)
+                  .type(PotvrdaOVakcinaciji.class)
+                  .configure();
 
         return digitalniSertifikatService.create(sertifikat);
     }
 
-    private Vakcinacija buildVakcinacija() {
-        // TODO: Ovo dobavi iz servisa za potvrde o vakcinaciji
-        return null;
+    private Vakcinacija buildVakcinacija(PotvrdaOVakcinaciji potvrdaOVakcinaciji) {
+        var nazivVakcine = potvrdaOVakcinaciji.getVakcinacija().getNazivVakcine().getValue();
+        var ustanova = potvrdaOVakcinaciji.getVakcinacija().getUstanova().getValue();
+        var dozeVakcina = potvrdaOVakcinaciji.getVakcinacija().getDoze().getDoze().stream().map(doza -> {
+            return new DozaVakcine(RDFInteger.of(doza.getBrojDoze().getValue()),
+                                   RDFDate.of(doza.getDatumDavanja().getValue()),
+                                   RDFString.of(doza.getBrojSerije().getValue()),
+                                   RDFString.of(nazivVakcine),
+                                   RDFString.of(nazivVakcine),
+                                   RDFString.of(ustanova));
+        }).collect(Collectors.toList());
+        return new Vakcinacija(dozeVakcina);
     }
 
     private LicneInformacije buildLicneInformacije(ZahtevZaSertifikat zahtevZaSertifikat) {

@@ -9,6 +9,8 @@ import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinac
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,6 +20,10 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
     public PotvrdaOVakcinacijiService(PotvrdaOVakcinacijiExistRepository potvrdaOVakcinacijiExistRepository,
                                       PotvrdaOVakcinacijiFusekiRepository potvrdaOVakcinacijiFusekiRepository){
         super(potvrdaOVakcinacijiExistRepository, potvrdaOVakcinacijiFusekiRepository);
+    }
+
+    public Optional<PotvrdaOVakcinaciji> readForCitizen(String jmbg) throws Exception {
+        return existRepository.read(p -> p.getLicneInformacije().getJmbg().getValue().equals(jmbg)).stream().findFirst();
     }
 
     protected void insertRDFMetadata(PotvrdaOVakcinaciji potvrdaOVakcinaciji) {

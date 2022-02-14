@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.ZahtevZaSertifikatOdbijenEvent;
-import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.ZahtevZaSertifikatAlreadyProcessed;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.ZahtevZaSertifikatAlreadyProcessedException;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.KolekcijaZahtevaZaSertifikat;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
@@ -71,7 +71,7 @@ public class ZahtevZaSertifikatService {
     private ZahtevZaSertifikat readForResponse(UUID id) {
         var zahtevZaSertifikat = client.read(id);
         if (!zahtevZaSertifikat.getStatus().getValue().equals("KREIRAN")) {
-            throw new ZahtevZaSertifikatAlreadyProcessed(String.format("Захтев за сертификат са идентификатором: %s је већ обрађен.", id));
+            throw new ZahtevZaSertifikatAlreadyProcessedException(String.format("Захтев за сертификат са идентификатором: %s је већ обрађен.", id));
         }
         return zahtevZaSertifikat;
     }
