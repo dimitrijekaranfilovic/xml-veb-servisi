@@ -32,6 +32,11 @@ public class ReferenceBuilder {
         return this;
     }
 
+    public ReferenceBuilder type(String type) {
+        rdfuuid.setTypeof(type);
+        return this;
+    }
+
     public void configure() {
         reference.getReference().add(rdfuuid);
     }

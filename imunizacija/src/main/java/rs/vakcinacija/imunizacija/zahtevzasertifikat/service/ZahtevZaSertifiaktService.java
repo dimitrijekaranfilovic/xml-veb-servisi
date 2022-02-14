@@ -2,10 +2,16 @@ package rs.vakcinacija.imunizacija.zahtevzasertifikat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.Odbijenica;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
+import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.model.RDFString;
 import rs.vakcinacija.zajednicko.service.DocumentService;
+
+import java.util.Date;
+import java.util.UUID;
 
 @Service
 public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifikat> {
@@ -14,6 +20,26 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
     public ZahtevZaSertifiaktService(ExistRepository<ZahtevZaSertifikat> existRepository,
                                      FusekiRepository<ZahtevZaSertifikat> fusekiRepository) {
         super(existRepository, fusekiRepository);
+    }
+
+    public void reject(UUID id, String reason, Date rejectionDate) throws Exception {
+        var zahtevZaSertifikat = read(id);
+        var odbijenica = new Odbijenica(RDFString.of(reason), RDFDate.of(rejectionDate));
+        odbijenica.getRazlog().rdf().property("pred:razlog_odbijanja").datatype(T_STRING);
+        odbijenica.getDatumOdbijanja().rdf().property("pred:datum_odbijanja").datatype(T_DATE);
+        zahtevZaSertifikat.setOdbijenica(odbijenica);
+        zahtevZaSertifikat.getStatus().setValue("ODBIJEN");
+        update(zahtevZaSertifikat);
+    }
+
+    public void approve(UUID requestId, UUID certificateId) throws Exception {
+        var zahtevZaSertifikat = read(requestId);
+        zahtevZaSertifikat.ref("pred:kreirao")
+                          .uuid(certificateId)
+                          .type("DigitalniSertifikat")
+                          .configure();
+        zahtevZaSertifikat.getStatus().setValue("PRIHVACEN");
+        update(zahtevZaSertifikat);
     }
 
     protected void insertRDFMetadata(ZahtevZaSertifikat zahtevZaSertifikat) {
@@ -36,6 +62,9 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
         podnosilacZahteva.setVocab(VOCAB);
         podnosilacZahteva.setAbout(podnosilacUrl);
 
+        zahtevZaSertifikat.getStatus().rdf().property("pred:status").datatype(T_STRING);
+        zahtevZaSertifikat.getPodnosilacZahteva().getDatumRodjenja().rdf().property("pred:datum_rodjenja").datatype(T_DATE);
+
         var brojPasosa = zahtevZaSertifikat.getPodnosilacZahteva().getBrojPasosa();
         brojPasosa.setProperty(PROP_BROJ_PASOSA);
         brojPasosa.setDatatype(T_STRING);
@@ -52,5 +81,4 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
         prezime.setProperty(PROP_PREZIME);
         prezime.setDatatype(T_STRING);
     }
-
 }

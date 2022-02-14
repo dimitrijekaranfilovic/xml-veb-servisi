@@ -25,6 +25,10 @@ public abstract class DocumentService<T extends BaseDocument> {
         return entity;
     }
 
+    public T update(T entity) throws Exception {
+        return create(entity);
+    }
+
     public T read(UUID id) throws Exception {
         return existRepository.read(id)
                 .orElseThrow(() -> new DocumentNotFoundException(String.format("Cannot find document with id: '%s'.", id)));

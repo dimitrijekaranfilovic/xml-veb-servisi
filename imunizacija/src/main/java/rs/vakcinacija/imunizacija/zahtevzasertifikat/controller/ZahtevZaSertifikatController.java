@@ -43,17 +43,15 @@ public class ZahtevZaSertifikatController {
     }
 
     @RabbitListener(queues = "DigitalniSertifikatOdobrenEvent")
-    public void onRequestApproved(DigitalniSertifikatOdobrenEvent event) {
-        // TODO: Add reference to the created digital certrificate document
-        // TODO: Updated status of the request to mark it as approved
+    public void onRequestApproved(DigitalniSertifikatOdobrenEvent event) throws Exception {
         log.info(String.format("Odobren zahtev za digitalni sertifikat: '%s', napravljen Digitalni sertifikat: '%s'!", event.getRequestId(), event.getDigitalCertificateId()));
+        zahtevZaSertifiaktService.approve(event.getRequestId(), event.getDigitalCertificateId());
     }
 
     @RabbitListener(queues = "ZahtevZaSertifikatOdbijenEvent")
-    public void onRequestRejected(ZahtevZaSertifikatOdbijenEvent event) {
-        // TODO: Store rejection reason in the request
-        // TODO: Update status of the request to mark it as rejected
+    public void onRequestRejected(ZahtevZaSertifikatOdbijenEvent event) throws Exception {
         log.info(String.format("Zahtev za sertifikat '%s' odbijen zbog: '%s'!", event.getId(), event.getReason()));
+        zahtevZaSertifiaktService.reject(event.getId(), event.getReason(), event.getRejectionDate());
     }
 
 }

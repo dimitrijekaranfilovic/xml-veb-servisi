@@ -45,7 +45,7 @@ public class DigitalniSertifikatIssueService {
 
     private LicneInformacije buildLicneInformacije(ZahtevZaSertifikat zahtevZaSertifikat) {
         // TODO: Izmeni da se ovo dobavlja iz zahteva za sertifikat kad se doda
-        var datumRodjenja = RDFDate.of(new Date());
+        var datumRodjenja = RDFDate.of(zahtevZaSertifikat.getPodnosilacZahteva().getDatumRodjenja().getValue());
         var brojPasosa = RDFString.of(zahtevZaSertifikat.getPodnosilacZahteva().getBrojPasosa().getValue());
         var jmbg = RDFString.of(zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getJmbg().getValue());
         var pol = RDFString.of(zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPol().getValue());

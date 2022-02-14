@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.model.BaseDocument;
 import rs.vakcinacija.zajednicko.model.RDFDate;
-import rs.vakcinacija.zajednicko.model.RDFField;
 import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -30,15 +29,23 @@ public class ZahtevZaSertifikat extends BaseDocument {
     @XmlElement(name = "razlog_za_podnosenje_zahteva", required = true)
     private RDFString razlogZaPodnosenjeZahteva;
 
+    @XmlElement(name = "status", required = true)
+    private RDFString status = RDFString.of("KREIRAN");
+
+    @XmlElement(name = "odbijenica")
+    private Odbijenica odbijenica;
+
 
     public ZahtevZaSertifikat() {
     }
 
     public ZahtevZaSertifikat(RDFString mesto, RDFDate datum,
-                              PodnosilacZahteva podnosilacZahteva, RDFString razlogZaPodnosenjeZahteva) {
+                              PodnosilacZahteva podnosilacZahteva, RDFString razlogZaPodnosenjeZahteva, RDFString status, Odbijenica odbijenica) {
         this.mesto = mesto;
         this.datum = datum;
         this.podnosilacZahteva = podnosilacZahteva;
         this.razlogZaPodnosenjeZahteva = razlogZaPodnosenjeZahteva;
+        this.status = status;
+        this.odbijenica = odbijenica;
     }
 }

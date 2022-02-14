@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.rabbitmq.event.AbstractMessageEvent;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -15,4 +16,5 @@ import java.util.UUID;
 public class ZahtevZaSertifikatOdbijenEvent extends AbstractMessageEvent {
     private UUID id;
     private String reason;
+    private Date rejectionDate;
 }

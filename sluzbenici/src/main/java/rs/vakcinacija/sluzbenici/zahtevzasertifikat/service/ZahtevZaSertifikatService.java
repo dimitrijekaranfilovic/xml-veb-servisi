@@ -10,6 +10,7 @@ import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
 import rs.vakcinacija.zajednicko.email.service.EmailService;
 import rs.vakcinacija.zajednicko.rabbitmq.ServiceBus;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -61,7 +62,7 @@ public class ZahtevZaSertifikatService {
         );
         // Maybe notify imunizacija service to update some metadata on the original document?
         serviceBus.publish(
-                new ZahtevZaSertifikatOdbijenEvent(request.getId(), reason)
+                new ZahtevZaSertifikatOdbijenEvent(request.getId(), reason, new Date())
         );
     }
 }
