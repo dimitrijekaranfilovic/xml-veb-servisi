@@ -31,6 +31,12 @@ public class IzvestajOImunizacijiController {
        return this.izvestajOImunizacijiService.generateIzvestaj(zahtevZaKreiranjeIzvestajaDTO.getPeriodOd(), zahtevZaKreiranjeIzvestajaDTO.getPeriodDo());
     }
 
+    @PostMapping(value = "/potpun")
+    @ResponseStatus(HttpStatus.CREATED)
+    public IzvestajOImunizaciji createFull(@RequestBody IzvestajOImunizaciji izvestajOImunizaciji) throws Exception {
+        return this.izvestajOImunizacijiService.create(izvestajOImunizaciji);
+    }
+
     @GetMapping
     public KolekcijaIzvestajaOImunizaciji read() throws Exception {
         return KolekcijaIzvestajaOImunizaciji.of(this.izvestajOImunizacijiService.read());
