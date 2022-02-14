@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-flex class="text-center">
-      <h1>ZAHTEV</h1>
-      <h2>za izdavanje digitalnog zelenog sertifikata</h2>
+      <h1>ЗАХТЕВ</h1>
+      <h2>за издавање зеленог дигиталног сертификата</h2>
     </v-flex>
     <zahtev-za-sertifikat-form></zahtev-za-sertifikat-form>
   </v-container>

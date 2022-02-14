@@ -6,7 +6,7 @@
           <v-text-field
             v-model="email"
             :rules="emailRules"
-            label="E-mail"
+            label="Имејл"
             required
           ></v-text-field>
           <v-text-field
@@ -15,7 +15,7 @@
             :rules="passwordRules"
             :type="show ? 'text' : 'password'"
             name="input-10-1"
-            label="Unesite vašu lozinku"
+            label="Унесите вашу лозинку"
             counter
             @click:append="show = !show"
           ></v-text-field>

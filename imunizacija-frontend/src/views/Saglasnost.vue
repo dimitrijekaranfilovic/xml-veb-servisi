@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-flex class="text-center">
-      <h1>Obrazac saglasnosti</h1>
+      <h1>Образац сагласности</h1>
     </v-flex>
     <saglasnost-form></saglasnost-form>
   </v-container>
