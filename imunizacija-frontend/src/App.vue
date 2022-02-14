@@ -12,20 +12,20 @@
           height="70"
         />
 
-        <h1>Imunizacija</h1>
+        <h1>Имунизација</h1>
       </div>
 
       <v-spacer></v-spacer>
 
-      <v-btn v-if="!loggedIn" href="#/register" text> Registracija </v-btn>
-      <v-btn v-if="!loggedIn" href="#/" text> Prijava </v-btn>
-      <v-btn v-if="loggedIn" href="#/saglasnost" text> Saglasnost </v-btn>
-      <v-btn v-if="loggedIn" href="#/interesovanje" text> Interesovanje </v-btn>
+      <v-btn v-if="!loggedIn" href="#/register" text> Регистрација </v-btn>
+      <v-btn v-if="!loggedIn" href="#/" text> Пријава </v-btn>
+      <v-btn v-if="loggedIn" href="#/saglasnost" text> Сагласност </v-btn>
+      <v-btn v-if="loggedIn" href="#/interesovanje" text> Интересовање </v-btn>
       <v-btn v-if="loggedIn" href="#/zahtev-za-sertifikat" text>
-        Zahtev za sertifikat
+        Захтев за сертификат
       </v-btn>
 
-      <v-btn v-if="loggedIn" v-on:click="logout" text>Odjava</v-btn>
+      <v-btn v-if="loggedIn" v-on:click="logout" text>Одјава</v-btn>
     </v-app-bar>
 
     <v-main>
