@@ -15,7 +15,6 @@ export class BaseService {
     let config = {
       headers: { "Content-Type": "application/xml" },
     };
-    console.log(xmlRequest);
     let response = await restMethod(this.basePath + path, xmlRequest, config);
     return response;
   }
