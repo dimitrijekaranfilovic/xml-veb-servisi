@@ -67,6 +67,17 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row align="center" justify="center">
+      <v-col>
+        <h4>Dodatne informacije o gradjaninu</h4>
+      </v-col>
+    </v-row>
+    <v-row align="center" justify="center">
+      <v-col>
+        <citizen-documents-tabs></citizen-documents-tabs>
+      </v-col>
+    </v-row>
+
     <v-snackbar v-model="snackbar" :timeout="5000">
       {{ errorMessage }}
 
@@ -81,10 +92,11 @@
 
 <script>
 import DigitalCertificateRequestDetails from "@/components/digital-certificate/DigitalCertificateRequestDetails.vue";
+import CitizenDocumentsTabs from "@/components/citizen-data/CitizenDocumentsTabs.vue";
 import digitalCertificateRequestService from "@/services/DigitalCertificateRequestService";
 
 export default {
-  components: { DigitalCertificateRequestDetails },
+  components: { DigitalCertificateRequestDetails, CitizenDocumentsTabs },
   name: "SingleDigitalCertificateRequestView",
   data: () => ({
     request: {},
