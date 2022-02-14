@@ -56,6 +56,15 @@ const routes: Array<RouteConfig> = [
       authorities: [roles.gradjanin],
     },
   },
+  {
+    path: "/pregled-svih",
+    name: "PregledSvih",
+    component: () => import("../views/PregledSvih.vue"),
+    meta: {
+      authenticated: true,
+      authorities: [roles.gradjanin],
+    },
+  },
 ];
 
 const router = new VueRouter({

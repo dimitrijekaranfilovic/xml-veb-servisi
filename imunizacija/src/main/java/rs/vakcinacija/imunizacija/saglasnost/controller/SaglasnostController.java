@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
+import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.imunizacija.saglasnost.service.SaglasnostService;
 import rs.vakcinacija.imunizacija.saglasnost.support.SaglasnostCreateRequestToSaglasnost;
@@ -47,5 +48,10 @@ public class SaglasnostController {
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public ResponseEntity<SaglasnostZaSprovodjenjeImunizacije> testRead(@PathVariable UUID id) throws Exception {
         return new ResponseEntity<>(saglasnostService.read(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "all/{email}")
+    public KolekcijaObrazacaSaglasnosti getAllForUser(@PathVariable String email) throws Exception {
+        return KolekcijaObrazacaSaglasnosti.of(saglasnostService.getAllForUser(email));
     }
 }

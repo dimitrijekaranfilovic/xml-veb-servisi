@@ -7,12 +7,18 @@ import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.util.List;
+
 @Service
 public class InteresovanjeService extends DocumentService<Interesovanje> {
     @Autowired
     public InteresovanjeService(ExistRepository<Interesovanje> existRepository,
                                 FusekiRepository<Interesovanje> fusekiRepository) {
         super(existRepository, fusekiRepository);
+    }
+
+    public List<Interesovanje> getAllForUser(String email) throws Exception {
+        return existRepository.read((doc) -> doc.getLicneInformacije().getKontakt().getEmail().getValue().equals(email));
     }
 
     protected void insertRDFMetadata(Interesovanje interesovanje) {
