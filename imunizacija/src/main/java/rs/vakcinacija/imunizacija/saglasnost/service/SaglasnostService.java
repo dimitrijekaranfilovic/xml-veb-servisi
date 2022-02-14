@@ -4,22 +4,28 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
+import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostExistRepository;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 @Slf4j
 public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeImunizacije> {
 
+    private final SaglasnostExistRepository saglasnostExistRepository;
+
     @Autowired
     public SaglasnostService(ExistRepository<SaglasnostZaSprovodjenjeImunizacije> existRepository,
-                                FusekiRepository<SaglasnostZaSprovodjenjeImunizacije> fusekiRepository) {
+                             FusekiRepository<SaglasnostZaSprovodjenjeImunizacije> fusekiRepository,
+                             SaglasnostExistRepository saglasnostExistRepository) {
         super(existRepository, fusekiRepository);
+        this.saglasnostExistRepository = saglasnostExistRepository;
     }
 
     public SaglasnostZaSprovodjenjeImunizacije createFirstHalfOfDocument(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
@@ -28,6 +34,10 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         var id = existRepository.save(saglasnost);
         fusekiRepository.save(id, saglasnost);
         return saglasnost;
+    }
+
+    public List<SaglasnostZaSprovodjenjeImunizacije> getAllForUser(String email) throws Exception {
+        return existRepository.read((doc) -> doc.getPacijent().getLicneInformacije().getKontakt().getEmail().getValue().equals(email));
     }
 
     protected void insertRDFMetadata(SaglasnostZaSprovodjenjeImunizacije saglasnost) {

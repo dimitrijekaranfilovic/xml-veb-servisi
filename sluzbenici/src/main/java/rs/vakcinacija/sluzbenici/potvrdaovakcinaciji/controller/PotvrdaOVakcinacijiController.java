@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.KolekcijaPotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.service.PotvrdaOVakcinacijiService;
 
@@ -28,8 +29,13 @@ public class PotvrdaOVakcinacijiController {
         return potvrdaOVakcinaciji;
     }
 
-    @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
+    @GetMapping(value = "/{id}")
     public PotvrdaOVakcinaciji read(@PathVariable UUID id) throws Exception {
         return this.potvrdaOVakcinacijiService.read(id);
+    }
+
+    @GetMapping(value = "/za-gradjanina")
+    public KolekcijaPotvrdaOVakcinaciji readForCitizen(@RequestParam(defaultValue = "") String query) throws Exception {
+        return KolekcijaPotvrdaOVakcinaciji.of(potvrdaOVakcinacijiService.read(query));
     }
 }

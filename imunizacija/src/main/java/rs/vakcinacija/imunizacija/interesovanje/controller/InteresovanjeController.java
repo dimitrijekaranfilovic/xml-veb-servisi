@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
+import rs.vakcinacija.imunizacija.interesovanje.model.KolekcijaInteresovanja;
 import rs.vakcinacija.imunizacija.interesovanje.service.InteresovanjeService;
 
 import java.util.UUID;
@@ -30,6 +31,11 @@ public class InteresovanjeController {
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public Interesovanje read(@PathVariable UUID id) throws Exception {
         return interesovanjeService.read(id);
+    }
+
+    @GetMapping(value = "/all/{email}")
+    public KolekcijaInteresovanja getAllForUser(@PathVariable String email) throws Exception {
+        return KolekcijaInteresovanja.of(interesovanjeService.getAllForUser(email));
     }
 
 }

@@ -26,7 +26,12 @@ public class DigitalniSertifikatController {
     }
 
     @GetMapping
-    public KolekcijaDigitalnihSertifikata read(@RequestParam String query) throws Exception {
+    public KolekcijaDigitalnihSertifikata read() throws Exception {
+        return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read());
+    }
+
+    @GetMapping(value = "/za-gradjanina")
+    public KolekcijaDigitalnihSertifikata readForCitizen(@RequestParam(defaultValue = "") String query) throws Exception {
         return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read(query));
     }
 

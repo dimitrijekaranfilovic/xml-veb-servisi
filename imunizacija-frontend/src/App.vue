@@ -19,6 +19,9 @@
 
       <v-btn v-if="!loggedIn" href="#/register" text> Регистрација </v-btn>
       <v-btn v-if="!loggedIn" href="#/" text> Пријава </v-btn>
+      <v-btn v-if="loggedIn" href="#/pregled-svih" text>
+        Преглед свих докумената
+      </v-btn>
       <v-btn v-if="loggedIn" href="#/saglasnost" text> Сагласност </v-btn>
       <v-btn v-if="loggedIn" href="#/interesovanje" text> Интересовање </v-btn>
       <v-btn v-if="loggedIn" href="#/zahtev-za-sertifikat" text>

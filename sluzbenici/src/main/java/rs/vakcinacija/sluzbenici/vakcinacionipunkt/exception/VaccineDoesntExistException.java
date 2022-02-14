@@ -1,6 +1,8 @@
 package rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception;
 
-public class VaccineDoesntExistException extends RuntimeException{
+import rs.vakcinacija.sluzbenici.config.exception.BusinessException;
+
+public class VaccineDoesntExistException extends BusinessException {
     public VaccineDoesntExistException(String message) {
         super(message);
     }
