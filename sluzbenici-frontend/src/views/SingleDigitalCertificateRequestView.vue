@@ -3,12 +3,12 @@
     <v-row align="center" justify="center">
       <v-col>
         <v-card elevation="2" v-if="request.id">
-          <v-card-title>Detalji o zahtevu za digitalni sertifikat</v-card-title>
+          <v-card-title>Детаљи о захтеву за дигитални сертификат</v-card-title>
           <v-card-subtitle
-            >Identifikator zahteva: {{ request.id }}. <br />
-            Podneto u {{ request.mesto | deRdf }}, dana
+            >Идентификатор захтева: {{ request.id }}. <br />
+            Поднето у {{ request.mesto | deRdf }}, дана
             {{ request.datum | deRdf | moment("DD.MM.YYYY.") }}
-            godine.</v-card-subtitle
+            године.</v-card-subtitle
           >
           <v-card-text>
             <digital-certificate-request-details
@@ -17,7 +17,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn color="primary" text @click="issueDigitalCertificate"
-              >Izdaj sertifikat</v-btn
+              >Издај сертификат</v-btn
             >
             <v-dialog
               v-model="dialog"
@@ -26,12 +26,12 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn text color="error" v-bind="attrs" v-on="on">
-                  Odbij zahtev
+                  Одбиј захтев
                 </v-btn>
               </template>
               <v-card>
                 <v-card-title>
-                  <span class="text-h5">Razlog za odbijanje zahteva</span>
+                  <span class="text-h5">Разлог за одбијање захтева</span>
                 </v-card-title>
                 <v-card-text>
                   <v-form ref="form" v-model="valid">
@@ -39,9 +39,9 @@
                       <v-textarea
                         v-model="reason.model"
                         :rules="reason.rules"
-                        label="Razlog za odbijanje zahteva"
+                        label="Разлог за одбијање захтева"
                         auto-grow
-                        hint="Detaljno obrazložite zašto odbijate zahtev za izdavanje Digitalnog sertifikata."
+                        hint="Детаљно образложите разлог за одбијање захтева за дигитални сертификат."
                         required
                       ></v-textarea>
                     </v-container>
@@ -50,7 +50,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="primary" text @click="toggleDialog(false)">
-                    Odustani
+                    Одустани
                   </v-btn>
                   <v-btn
                     :disabled="!valid"
@@ -58,7 +58,7 @@
                     text
                     @click="rejectRequest"
                   >
-                    Odbij zahtev
+                    Одбиј захтев
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -83,7 +83,7 @@ export default Vue.extend({
     valid: true,
     reason: {
       model: "",
-      rules: [(v) => !!v || "Razlog odbijanja zazhteva je obavezno polje."],
+      rules: [(v) => !!v || "Разлог одбијања захтева је обавезно поље."],
     },
     dialog: false,
   }),

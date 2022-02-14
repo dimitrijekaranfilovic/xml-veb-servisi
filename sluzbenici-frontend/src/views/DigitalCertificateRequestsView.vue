@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row align="center" justify="center">
-      <h1>Zahtevi za digitalni sertifikat</h1>
+      <h1>Захтеви за дигитални сертификат</h1>
     </v-row>
     <v-row align="center" justify="center">
       <v-col>

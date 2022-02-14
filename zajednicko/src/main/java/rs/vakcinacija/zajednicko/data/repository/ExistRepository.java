@@ -17,6 +17,7 @@ import rs.vakcinacija.zajednicko.model.BaseDocument;
 import javax.xml.transform.OutputKeys;
 import java.io.ByteArrayOutputStream;
 import java.util.*;
+import java.util.function.Predicate;
 
 public abstract class ExistRepository<T extends BaseDocument> {
     protected final JAXBEntityManager<T> entityManager;
@@ -40,6 +41,25 @@ public abstract class ExistRepository<T extends BaseDocument> {
                 try (var xmlResource = new ManagedXMLResourceAdapter((XMLResource) collection.get().getResource(resourceId))) {
                     if (xmlResource.hasResource()) {
                         result.add(entityManager.unmarshall(xmlResource.get().getContentAsDOM()));
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<T> read(Predicate<T> criteria) throws Exception {
+        registerDatabase();
+        List<T> result = new ArrayList<>();
+        try (var collection = new ManagedCollectionAdapter(getOrCreateCollection(collectionId))) {
+            collection.get().setProperty(OutputKeys.INDENT, "yes");
+            for (var resourceId: collection.get().listResources()) {
+                try (var xmlResource = new ManagedXMLResourceAdapter((XMLResource) collection.get().getResource(resourceId))) {
+                    if (xmlResource.hasResource()) {
+                        var entity = entityManager.unmarshall(xmlResource.get().getContentAsDOM());
+                        if (criteria.test(entity)) {
+                            result.add(entity);
+                        }
                     }
                 }
             }

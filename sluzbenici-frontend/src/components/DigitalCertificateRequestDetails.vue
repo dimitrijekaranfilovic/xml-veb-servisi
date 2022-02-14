@@ -3,7 +3,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title
-          >Ime i prezime:
+          >Име и презиме:
           {{ request.podnosilacZahteva.licniPodaci.ime | deRdf }}
           {{ request.podnosilacZahteva.licniPodaci.prezime | deRdf }}
         </v-list-item-title>
@@ -13,7 +13,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title
-          >Pol:
+          >Пол:
           {{
             request.podnosilacZahteva.licniPodaci.pol | deRdf
           }}</v-list-item-title
@@ -24,7 +24,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title
-          >Jedinstveni matični broj građanina:
+          >Јединствени матични број грађанина:
           {{
             request.podnosilacZahteva.licniPodaci.jmbg | deRdf
           }}</v-list-item-title
@@ -35,7 +35,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title
-          >Broj pasoša:
+          >Број пасоша:
           {{ request.podnosilacZahteva.brojPasosa | deRdf }}</v-list-item-title
         >
       </v-list-item-content>
@@ -43,7 +43,7 @@
 
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title>Razlog za podnošenje zahteva:</v-list-item-title>
+        <v-list-item-title>Разлог за подношење захтева:</v-list-item-title>
         {{ request.razlogZaPodnosenjeZahteva | deRdf }}
       </v-list-item-content>
     </v-list-item>

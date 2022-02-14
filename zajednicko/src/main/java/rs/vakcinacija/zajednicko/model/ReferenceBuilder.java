@@ -28,12 +28,16 @@ public class ReferenceBuilder {
     }
 
     public <T extends BaseDocument> ReferenceBuilder type(Class<T> clazz) {
-        rdfuuid.setTypeof(clazz.getSimpleName());
+        rdfuuid.setTypeof("pred:"+clazz.getSimpleName());
         return this;
     }
 
     public ReferenceBuilder type(String type) {
-        rdfuuid.setTypeof(type);
+        var configuredType = type;
+        if (!type.startsWith("pred:")) {
+            configuredType = "pred:"+type;
+        }
+        rdfuuid.setTypeof(configuredType);
         return this;
     }
 

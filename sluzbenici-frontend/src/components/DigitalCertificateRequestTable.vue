@@ -3,14 +3,15 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left">Ime</th>
-          <th class="text-left">Prezime</th>
-          <th class="text-left">JMBG</th>
-          <th class="text-left">Pol</th>
-          <th class="text-left">Datum podnošenja</th>
-          <th class="text-left">Mesto</th>
-          <th class="text-left">Razlog</th>
-          <th class="text-left">Detalji</th>
+          <th class="text-left">Име</th>
+          <th class="text-left">Презиме</th>
+          <th class="text-left">ЈМБГ</th>
+          <th class="text-left">Пол</th>
+          <th class="text-left">Датум рођења</th>
+          <th class="text-left">Датум подношења</th>
+          <th class="text-left">Место</th>
+          <th class="text-left">Разлог</th>
+          <th class="text-left">Детаљи</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,13 @@
             {{ request.podnosilacZahteva.licniPodaci.jmbg | deRdf }}
           </td>
           <td>{{ request.podnosilacZahteva.licniPodaci.pol | deRdf }}</td>
+          <td>
+            {{
+              request.podnosilacZahteva.datumRodjenja
+                | deRdf
+                | moment("DD.MM.YYYY.")
+            }}
+          </td>
           <td>{{ request.datum | deRdf | moment("DD.MM.YYYY.") }}</td>
           <td>{{ request.mesto | deRdf }}</td>
           <td>{{ request.razlogZaPodnosenjeZahteva | deRdf }}</td>
@@ -35,7 +43,7 @@
                 name: 'SingleDigitalCertificateRequestView',
                 params: { id: request.id },
               }"
-              >Prikaži detalje</v-btn
+              >Прикажи детаље</v-btn
             >
           </td>
         </tr>
