@@ -6,66 +6,66 @@
           <v-row>
             <v-select
               :items="drzavljanstvo_items"
-              label="Državljanstvo"
+              label="Држављанство"
             ></v-select>
           </v-row>
           <v-row>
             <v-text-field
               v-model="jmbg"
-              label="JMBG"
+              label="ЈМБГ"
               :counter="13"
             ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="ime" label="Ime"></v-text-field>
+            <v-text-field v-model="ime" label="Име"></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="prezime" label="Prezime"></v-text-field>
+            <v-text-field v-model="prezime" label="Презиме"></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="email"
-              label="Adresa elektronske pošte"
+              label="Адреса електронске поште"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="broj_mobilnog"
-              label="Broj mobilnog telefona (navesti broj u formatu 06X..... bez razmaka i crtica)"
+              label="Број мобилног телефона (навести број у формату 06Х..... без размака и цртица)"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="broj_fiksnog"
-              label="Broj fiksnog telefona (navesti broj u formatu npr. 011..... bez razmaka i crtica)"
+              label="Број фиксног телефона (навести број у формату нпр. 011..... без размака и цртица)"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="odabrana_lokacija_primanja_vakcine"
-              label="Odaberite lokaciju gde želite da primite vakcinu (unesite opštinu)"
+              label="Одаберите локацију где желите да примите вакцину (унесите општину)"
             ></v-text-field>
           </v-row>
           <v-row>
             <p class="text-justify">
-              Iskazujem interesovanje da primim isključivo vakcinu sledećih
-              proizvođača za koji Agencija za lekove i medicinska sredstva
-              potvrdi bezbednost, efikasnost i kvalitet i izda dozvolu za
-              upotrebu leka
+              Исказујем интересовање да примим искључиво вакцину следећих
+              произвођача за који Агенција за лекове и медицинска средства
+              потврди безбедност, ефикасност и квалитет и изда дозволу за
+              употребу лека.
             </p>
             <v-select
               v-model="odabrani_proizvodjaci"
               :items="proizvodjaci_items"
               attach
               chips
-              label="Odaberite proizvodjače"
+              label="Одаберите произвођаче"
               multiple
             ></v-select>
           </v-row>
           <v-row>
             <v-checkbox
               v-model="davalac_krvi"
-              label="Da li ste dobrovoljni davalac krvi?"
+              label="Да ли сте добровољни давалац крви?"
             ></v-checkbox>
           </v-row>
         </v-form>
