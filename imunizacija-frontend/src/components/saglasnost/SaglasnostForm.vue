@@ -4,7 +4,7 @@
       <v-col lg="8" md="12">
         <v-form ref="form" v-model="valid">
           <v-row>
-            <h3 class="mr-5 mt-5">Državljanin republike Srbije:</h3>
+            <h3 class="mr-5 mt-5">Држављанин републике Србије:</h3>
             <v-divider vertical> </v-divider>
             <v-text-field
               class="ml-5"

@@ -6,6 +6,8 @@
           <v-row>
             <v-select
               :items="drzavljanstvo_items"
+              item-text="text"
+              item-value="value"
               label="Држављанство"
             ></v-select>
           </v-row>
@@ -78,13 +80,22 @@
 export default {
   data: () => ({
     drzavljanstvo_items: [
-      "Državljanin Republike Srbije",
-      "Strani državljanin sa boravkom u RS",
-      "Strani državljanin bez boravka u RS",
+      {
+        value: "DRZAVLJANIN_REPUBLIKE_SRBIJE",
+        text: "Држављанин Републике Србије",
+      },
+      {
+        value: "STRANI_DRZAVLJANIN_SA_BORAVKOM_U_RS",
+        text: "Страни држављанин са боравком у РС",
+      },
+      {
+        value: "STRANI_DRZAVLJANIN_BEZ_BORAVKA_U_RS",
+        text: "Страни држављанин без боравка у РС",
+      },
     ],
     proizvodjaci_items: [
       "Pfizer-BioNTech",
-      "Sputnik V (Gamaleya istraživački centar)",
+      "Sputnik V (Gamaleya истраживачки центар)",
       "Sinopharm",
       "AstraZeneca",
       "Moderna",
