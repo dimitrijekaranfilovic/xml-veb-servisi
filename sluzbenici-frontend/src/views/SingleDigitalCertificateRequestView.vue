@@ -67,13 +67,22 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar v-model="snackbar" :timeout="5000">
+      {{ errorMessage }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          Затвори
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
-import Vue from "vue";
 import DigitalCertificateRequestDetails from "@/components/DigitalCertificateRequestDetails.vue";
 import digitalCertificateRequestService from "@/services/DigitalCertificateRequestService";
+import Vue from "vue";
 
 export default Vue.extend({
   components: { DigitalCertificateRequestDetails },
@@ -86,6 +95,8 @@ export default Vue.extend({
       rules: [(v) => !!v || "Разлог одбијања захтева је обавезно поље."],
     },
     dialog: false,
+    snackbar: false,
+    errorMessage: "",
   }),
   async mounted() {
     const response = await digitalCertificateRequestService.readOne(
@@ -99,13 +110,17 @@ export default Vue.extend({
       this.navigateAllRequests();
     },
     async rejectRequest() {
-      await digitalCertificateRequestService.reject(this.request.id, {
-        OdbijZahtevZaSertifikatRequest: {
-          razlog: this.reason.model,
-        },
-      });
+      try {
+        await digitalCertificateRequestService.reject(this.request.id, {
+          OdbijZahtevZaSertifikatRequest: {
+            razlog: this.reason.model,
+          },
+        });
+        this.navigateAllRequests();
+      } catch (error) {
+        this.handleError(error);
+      }
       this.toggleDialog(false);
-      this.navigateAllRequests();
     },
     navigateAllRequests() {
       this.$router.push({ name: "DigitalCertifikateRequestsView" });
@@ -113,6 +128,10 @@ export default Vue.extend({
     toggleDialog(state) {
       this.dialog = state;
       this.$refs.form.resetValidation();
+    },
+    handleError(error) {
+      this.errorMessage = error.response.data.message;
+      this.snackbar = true;
     },
   },
 });
