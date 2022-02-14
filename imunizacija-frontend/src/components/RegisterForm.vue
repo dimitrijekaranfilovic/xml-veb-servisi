@@ -6,21 +6,21 @@
           <v-text-field
             v-model="name"
             :rules="nameRules"
-            label="Ime"
+            label="Име"
             required
           ></v-text-field>
 
           <v-text-field
             v-model="surname"
             :rules="surnameRules"
-            label="Prezime"
+            label="Презиме"
             required
           ></v-text-field>
 
           <v-text-field
             v-model="email"
             :rules="emailRules"
-            label="E-mail"
+            label="Адреса електронске поште"
             required
           ></v-text-field>
 
@@ -29,7 +29,7 @@
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show ? 'text' : 'password'"
             :rules="passwordRules"
-            label="Lozinka"
+            label="Лозинка"
             @click:append="show = !show"
             counter
             required
@@ -40,7 +40,7 @@
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show ? 'text' : 'password'"
             :rules="[checkMatching]"
-            label="Potvrdi lozinku"
+            label="Потврди лозинку"
             @click:append="show = !show"
             counter
             required
@@ -53,7 +53,7 @@
               class="mr-4"
               @click="register"
             >
-              Registruj se
+              Региструј се
             </v-btn>
           </v-flex>
         </v-form>
@@ -64,7 +64,7 @@
 
       <template v-slot:action="{ attrs }">
         <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
-          Zatvori
+          Затвори
         </v-btn>
       </template>
     </v-snackbar>
