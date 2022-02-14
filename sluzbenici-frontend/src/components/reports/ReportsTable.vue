@@ -15,7 +15,13 @@
           <td>{{ item.periodDo | deRdf | moment("DD.MM.YYYY.") }}</td>
           <td>{{ item.datumIzdavanja | deRdf | moment("DD.MM.YYYY.") }}</td>
           <td>
-            <v-btn text color="primary" plain>Прикажи детаље</v-btn>
+            <v-btn
+              text
+              color="primary"
+              plain
+              :to="{ name: 'SingleReportView', params: { id: item.id } }"
+              >Прикажи детаље</v-btn
+            >
           </td>
         </tr>
       </tbody>

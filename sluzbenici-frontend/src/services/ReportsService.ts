@@ -10,6 +10,10 @@ class ReportsService {
   generateReport(payload: any): Promise<any> {
     return this.http.post("/izvestaj-o-imunizaciji", payload);
   }
+
+  getReport(id: string): Promise<any> {
+    return this.http.get(`/izvestaj-o-imunizaciji/${id}`);
+  }
 }
 
 export default new ReportsService(httpClient);

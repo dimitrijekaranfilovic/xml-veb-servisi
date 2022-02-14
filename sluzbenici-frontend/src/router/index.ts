@@ -40,6 +40,11 @@ const routes: Array<RouteConfig> = [
     name: "ReportsView",
     component: () => import("../views/reports/ReportsView.vue"),
   },
+  {
+    path: "/izvestaj/:id",
+    name: "SingleReportView",
+    component: () => import("../views/reports/SingleReportView.vue"),
+  },
 ];
 
 const router = new VueRouter({
