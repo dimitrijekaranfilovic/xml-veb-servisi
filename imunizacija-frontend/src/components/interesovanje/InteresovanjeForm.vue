@@ -5,7 +5,7 @@
         <v-form ref="form" v-model="valid">
           <v-row>
             <v-select
-              v-model="formData.drzavljanstvno"
+              v-model="formData.drzavljanstvo"
               :items="drzavljanstvoItems"
               item-text="text"
               item-value="value"
@@ -61,7 +61,7 @@
             </p>
             <v-select
               v-model="formData.odabraniProizvodjaci"
-              :items="proizvodjaci_items"
+              :items="proizvodjaciItems"
               attach
               chips
               label="Одаберите произвођаче"
@@ -69,10 +69,17 @@
             ></v-select>
           </v-row>
           <v-row>
-            <v-checkbox
+            <v-radio-group
               v-model="formData.davalacKrvi"
               label="Да ли сте добровољни давалац крви?"
-            ></v-checkbox>
+            >
+              <v-radio
+                v-for="(item, index) in davalacKrviItems"
+                :key="index"
+                :value="item.value"
+                :label="item.text"
+              ></v-radio>
+            </v-radio-group>
           </v-row>
           <v-flex class="text-center">
             <v-btn :disabled="!valid" color="success" @click="submit">
@@ -105,7 +112,11 @@ export default {
         text: "Страни држављанин без боравка у РС",
       },
     ],
-    proizvodjaci_items: [
+    davalacKrviItems: [
+      { value: true, text: "Да" },
+      { value: false, text: "Не" },
+    ],
+    proizvodjaciItems: [
       "Pfizer-BioNTech",
       "Sputnik V (Gamaleya истраживачки центар)",
       "Sinopharm",
@@ -163,7 +174,9 @@ export default {
           },
           odabrana_lokacija_primanja_vakcine:
             this.formData.odabranaLokacijaPrimanjaVakcine,
-          odabrani_proizvodjaci: { proizvodjac: this.formData.odabraniProizvodjaci},
+          odabrani_proizvodjaci: {
+            proizvodjac: this.formData.odabraniProizvodjaci,
+          },
         },
       };
 

@@ -34,7 +34,7 @@
           <v-row>
             <v-select
               v-model="formData.pol"
-              :items="pol_items"
+              :items="polItems"
               item-text="text"
               item-value="value"
               label="Пол"
@@ -93,7 +93,7 @@ import "quill/dist/quill.snow.css";
 export default {
   components: { DatePicker, quillEditor },
   data: () => ({
-    pol_items: [
+    polItems: [
       { value: "MUSKI", text: "Мушки" },
       { value: "ZENSKI", text: "Женски" },
     ],
@@ -140,7 +140,7 @@ export default {
     this.formData.ime = decoded.name;
     this.formData.prezime = decoded.surname;
     this.formData.email = decoded.sub;
-    this.formData.pol = this.pol_items[0].value;
+    this.formData.pol = this.polItems[0].value;
   },
   methods: {
     submit() {
