@@ -48,4 +48,9 @@ public class ZahtevZaSertifikat extends BaseDocument {
         this.status = status;
         this.odbijenica = odbijenica;
     }
+
+    @Override
+    public String provideEmail() {
+        return podnosilacZahteva.getEmail().getValue();
+    }
 }

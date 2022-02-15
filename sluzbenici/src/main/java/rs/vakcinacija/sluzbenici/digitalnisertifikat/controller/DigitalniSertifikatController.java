@@ -30,9 +30,9 @@ public class DigitalniSertifikatController {
         return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read());
     }
 
-    @GetMapping(value = "/za-gradjanina")
-    public KolekcijaDigitalnihSertifikata readForCitizen(@RequestParam(defaultValue = "") String query) throws Exception {
-        return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read(query));
+    @GetMapping(value = "/za-gradjanina/{email}")
+    public KolekcijaDigitalnihSertifikata readForCitizen(@PathVariable String email, @RequestParam(defaultValue = "") String query) throws Exception {
+        return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.readForCitizen(email, query));
     }
 
     @GetMapping(value = "/{id}")

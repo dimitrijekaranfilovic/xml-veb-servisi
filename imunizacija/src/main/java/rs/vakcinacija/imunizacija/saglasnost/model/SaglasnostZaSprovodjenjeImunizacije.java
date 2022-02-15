@@ -33,4 +33,9 @@ public class SaglasnostZaSprovodjenjeImunizacije extends BaseDocument {
         this.pacijent = pacijent;
         this.vakcinacija = vakcinacija;
     }
+
+    @Override
+    public String provideEmail() {
+        return pacijent.getLicneInformacije().getKontakt().getEmail().getValue();
+    }
 }

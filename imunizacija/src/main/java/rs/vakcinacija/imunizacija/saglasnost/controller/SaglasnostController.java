@@ -45,9 +45,9 @@ public class SaglasnostController {
         return saglasnostService.getHTMLRepresentation(id);
     }
 
-    @GetMapping(value = "/za-gradjanina")
-    public KolekcijaSaglasnosti readForCitizen(@RequestParam(defaultValue = "") String query) throws Exception {
-        return KolekcijaSaglasnosti.of(saglasnostService.read(query));
+    @GetMapping(value = "/za-gradjanina/{email}")
+    public KolekcijaSaglasnosti readForCitizen(@PathVariable String email, @RequestParam(defaultValue = "") String query) throws Exception {
+        return KolekcijaSaglasnosti.of(saglasnostService.readForCitizen(email, query));
     }
 
     @GetMapping(value = "all/{email}")

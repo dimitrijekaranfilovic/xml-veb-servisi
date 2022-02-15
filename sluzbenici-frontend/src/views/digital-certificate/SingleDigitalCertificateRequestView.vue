@@ -74,7 +74,10 @@
     </v-row>
     <v-row align="center" justify="center">
       <v-col>
-        <citizen-documents-tabs></citizen-documents-tabs>
+        <citizen-documents-tabs
+          v-if="request.id"
+          :email="request.podnosilacZahteva.email.value"
+        ></citizen-documents-tabs>
       </v-col>
     </v-row>
 
@@ -117,8 +120,12 @@ export default {
   },
   methods: {
     async issueDigitalCertificate() {
-      await digitalCertificateRequestService.approve(this.request.id);
-      this.navigateAllRequests();
+      try {
+        await digitalCertificateRequestService.approve(this.request.id);
+        this.navigateAllRequests();
+      } catch (error) {
+        this.handleError(error);
+      }
     },
     async rejectRequest() {
       try {

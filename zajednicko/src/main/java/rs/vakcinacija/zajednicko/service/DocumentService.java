@@ -53,6 +53,10 @@ public abstract class DocumentService<T extends BaseDocument> {
                 .orElseThrow(() -> new DocumentNotFoundException(String.format("Ne postoji dokument sa id-ijem: '%s'.", id)));
     }
 
+    public List<T> readForCitizen(String email, String query) throws Exception {
+        return existRepository.read(email, query);
+    }
+
     public List<T> read(String query) throws Exception {
         return existRepository.read(query);
     }

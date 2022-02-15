@@ -80,6 +80,7 @@ import Vue from "vue";
 import citizenDataService from "@/services/CitizenDataService.ts";
 
 export default Vue.extend({
+  props: ["email"],
   data: () => ({
     consents: [],
     query: "",
@@ -107,6 +108,7 @@ export default Vue.extend({
   methods: {
     async fetchData() {
       const response = await citizenDataService.readVaccinationConsents(
+        this.email,
         this.query
       );
       this.consents = response.data.saglasnosti || [];

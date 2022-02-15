@@ -34,8 +34,8 @@ public class PotvrdaOVakcinacijiController {
         return this.potvrdaOVakcinacijiService.read(id);
     }
 
-    @GetMapping(value = "/za-gradjanina")
-    public KolekcijaPotvrdaOVakcinaciji readForCitizen(@RequestParam(defaultValue = "") String query) throws Exception {
-        return KolekcijaPotvrdaOVakcinaciji.of(potvrdaOVakcinacijiService.read(query));
+    @GetMapping(value = "/za-gradjanina/{email}")
+    public KolekcijaPotvrdaOVakcinaciji readForCitizen(@PathVariable String email, @RequestParam(defaultValue = "") String query) throws Exception {
+        return KolekcijaPotvrdaOVakcinaciji.of(potvrdaOVakcinacijiService.readForCitizen(email, query));
     }
 }

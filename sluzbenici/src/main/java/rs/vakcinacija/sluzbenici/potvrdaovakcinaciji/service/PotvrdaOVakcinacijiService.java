@@ -25,8 +25,8 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         super(potvrdaOVakcinacijiExistRepository, potvrdaOVakcinacijiFusekiRepository);
     }
 
-    public Optional<PotvrdaOVakcinaciji> readForCitizen(String jmbg) throws Exception {
-        return existRepository.read(p -> p.getLicneInformacije().getJmbg().getValue().equals(jmbg)).stream().findFirst();
+    public Optional<PotvrdaOVakcinaciji> readByCitizenEmail(String email) throws Exception {
+        return existRepository.read(p -> p.provideEmail().equals(email)).stream().findFirst();
     }
 
     public void onIssueCertificate(PotvrdaOVakcinaciji potvrdaOVakcinaciji, DigitalniSertifikat sertifikat) throws Exception {

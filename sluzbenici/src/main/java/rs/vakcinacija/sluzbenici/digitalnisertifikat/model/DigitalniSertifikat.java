@@ -49,4 +49,9 @@ public class DigitalniSertifikat extends BaseDocument {
         this.testovi = testovi;
         this.informacijeOSertifikatu = informacijeOSertifikatu;
     }
+
+    @Override
+    public String provideEmail() {
+        return licneInformacije.getEmail().getValue();
+    }
 }

@@ -77,6 +77,7 @@ import Vue from "vue";
 import citizenDataService from "@/services/CitizenDataService.ts";
 
 export default Vue.extend({
+  props: ["email"],
   data: () => ({
     query: "",
     certificates: [],
@@ -103,6 +104,7 @@ export default Vue.extend({
   methods: {
     async fetchData() {
       const response = await citizenDataService.readDigitalCertificates(
+        this.email,
         this.query
       );
       this.certificates = response.data.digitalniSertifikati || [];
