@@ -12,23 +12,26 @@
           </p>
           <p class="text-justify">Подносилац захтева:</p>
           <v-row>
-            <v-text-field v-model="ime" label="Име"></v-text-field>
-            <v-text-field v-model="prezime" label="Презиме"></v-text-field>
+            <v-text-field v-model="formData.ime" label="Име"></v-text-field>
+            <v-text-field
+              v-model="formData.prezime"
+              label="Презиме"
+            ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
-              v-model="datum_rodjenja"
+              v-model="formData.datum_rodjenja"
               label="Датум рођења"
               single-line
             >
               <template v-slot:append-outer>
-                <date-picker v-model="datumRodjenja" />
+                <date-picker v-model="formData.datumRodjenja" />
               </template>
             </v-text-field>
           </v-row>
           <v-row>
             <v-select
-              v-model="pol"
+              v-model="formData.pol"
               :items="pol_items"
               item-text="text"
               item-value="value"
@@ -37,20 +40,20 @@
           </v-row>
           <v-row>
             <v-text-field
-              v-model="jmbg"
+              v-model="formData.jmbg"
               label="Јединствени матични број грађанина"
               :counter="13"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
-              v-model="broj_pasosa"
+              v-model="formData.broj_pasosa"
               label="Број пасоша"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
-              v-model="razlog"
+              v-model="formData.razlogZaPodnosenjeZahteva"
               label="Разлог за подношење захтева"
             ></v-text-field>
           </v-row>
@@ -69,7 +72,51 @@ export default {
       { value: "MUSKI", text: "Мушки" },
       { value: "ZENSKI", text: "Женски" },
     ],
+    formData: {
+      mesto: "",
+      ime: "",
+      prezime: "",
+      datumRodjenja: "",
+      jmbg: "",
+      pol: "",
+      brojPasosa: "",
+      razlogZaPodnosenjeZahteva: "",
+    },
   }),
+  mounter() {
+    let jwt = localStorage.getItem("jwt");
+    let decoded = jwt_decode(jwt);
+
+    this.formData.ime = decoded.name;
+    this.formData.prezime = decoded.surname;
+  },
+  methods: {
+    submit() {
+      let currentDate = new Date().toJSON().slice(0, 10);
+      let zahtevZaSertifikatJSON = {
+        zahtev_za_sertifikat: {
+          _attributes: {
+            xmlns: "https://www.vakcinacija.rs/zahtev_za_sertifikat",
+            "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+            "xmlns:za": "https://www.vakcinacija.rs/zajednicko",
+          },
+          mesto: this.mesto,
+          datum: currentDate,
+          podnosilac_zahteva: {
+            licni_podaci: {
+              "za:ime": this.formData.ime,
+              "za:prezime": this.formData.prezime,
+              "za:jmbg": this.formData.jmbg,
+              "za:pol": this.formData.pol,
+            },
+            datum_rodjenja: this.datumRodjenja,
+            broj_pasosa: this.brojPasosa,
+          },
+          razlog_za_podnosenje_zahteva: this.razlogZaPodnosenjeZahteva,
+        },
+      };
+    },
+  },
 };
 </script>
 
