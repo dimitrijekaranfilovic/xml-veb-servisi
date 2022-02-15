@@ -29,7 +29,8 @@ public class DigitalniSertifikatIssueService {
     }
 
     public DigitalniSertifikat issueFor(ZahtevZaSertifikat zahtevZaSertifikat) throws Exception {
-        var brojSertifikata = RDFString.of(UUID.randomUUID().toString());
+        var id = UUID.randomUUID();
+        var brojSertifikata = RDFString.of(id.toString());
         var datumVremeIzdavanja = RDFDate.of(new Date());
         var licneInformacije = buildLicneInformacije(zahtevZaSertifikat);
 
@@ -40,9 +41,10 @@ public class DigitalniSertifikatIssueService {
         var vakcinacija = buildVakcinacija(potvrdaOVakcinaciji);
 
         var testovi = buildDefaultTestovi();
-        var informacijeOSertifikatu = buildDefaultInformacijeOSertifikatu();
+        var informacijeOSertifikatu = buildDefaultInformacijeOSertifikatu(id);
 
         var sertifikat = new DigitalniSertifikat(brojSertifikata, datumVremeIzdavanja, licneInformacije, vakcinacija, testovi, informacijeOSertifikatu);
+        sertifikat.setId(id);
         sertifikat.ref("pred:na_zahtev")
                   .entity(zahtevZaSertifikat)
                   .type(ZahtevZaSertifikat.class)
@@ -82,8 +84,8 @@ public class DigitalniSertifikatIssueService {
         return new LicneInformacije(ime, prezime, jmbg, pol, datumRodjenja, brojPasosa, email);
     }
 
-    private InformacijeOSertifikatu buildDefaultInformacijeOSertifikatu() {
-        var qrKod = RDFString.of("http://localhost:3001/digitalni-sertifikat/neki-id");
+    private InformacijeOSertifikatu buildDefaultInformacijeOSertifikatu(UUID id) {
+        var qrKod = RDFString.of("http://localhost:3001/digitalni-sertifikat/" + id);
         var digitalniPotipis = buildDefaultDigitalniPotpis();
         return new InformacijeOSertifikatu(qrKod, digitalniPotipis);
     }

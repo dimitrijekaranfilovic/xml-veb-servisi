@@ -6,6 +6,16 @@
         label="Унесите критеријум за претрагу..."
       ></v-text-field>
     </v-form>
+    <v-form>
+      <v-combobox
+        @input="onChipInput()"
+        v-model="select"
+        :items="items"
+        label="Напредна претрага (крените да куцате филтере...)"
+        multiple
+        chips
+      ></v-combobox>
+    </v-form>
     <v-dialog v-model="dialog" max-width="1000px">
       <v-card>
         <v-card-title>
@@ -97,6 +107,9 @@ export default Vue.extend({
       "pred:ZahtevZaSertifikat": "Захтев за сертификат",
       "pred:Interesovanje": "Документ интересовања",
     },
+    select: [],
+    items: ["Ime:", "Prezime:", "Jmbg:", "Broj pasosa:"],
+    shouldMerge: false,
   }),
   async mounted() {
     await this.fetchData();
@@ -108,6 +121,17 @@ export default Vue.extend({
         this.query
       );
       this.certificates = response.data.digitalniSertifikati || [];
+    },
+    onChipInput() {
+      // probaj da spajas samo ako se poslednji element nalazi u toj listi (items), ako se dodati element ne nalazi u toj listi spoji ga sa poslednjim elementom ako postoji
+      // ako se prvo dodaje element koji ne postoji u listu resetuj select
+      console.log(this.items);
+      if (this.shouldMerge) {
+        const value = this.select.pop();
+        const pred = this.select.pop();
+        this.select.push(pred + value);
+      }
+      this.shouldMerge = !this.shouldMerge;
     },
     showReferences(item) {
       this.selectedItem = item;

@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.jena.vocabulary.RDF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
@@ -23,19 +24,22 @@ public class DigitalniSertifikatService extends DocumentService<DigitalniSertifi
         var datumIzdavanja = digitalniSertifikat.getDatumVremeIzdavanja();
         datumIzdavanja.rdf().property(PROP_DATUM_IZDAVANJA).datatype(T_DATE);
         var licneInformacije = digitalniSertifikat.getLicneInformacije();
-        String podnosilacUrl;
         if (licneInformacije.getJmbg() != null) {
-            var jmbg = licneInformacije.getJmbg();
-            podnosilacUrl = RDF_PACIJENT_BASE + jmbg.getValue();
-            jmbg.rdf().property(PROP_JMBG).datatype(T_STRING);
+            licneInformacije.getJmbg().rdf().property(PROP_JMBG).datatype(T_STRING);
         } else {
-            var brojPasosa = licneInformacije.getBrojPasosa();
-            podnosilacUrl = RDF_PACIJENT_BASE + brojPasosa.getValue();
-            brojPasosa.rdf().property(PROP_BROJ_PASOSA).datatype(T_STRING);
+            licneInformacije.getBrojPasosa().rdf().property(PROP_BROJ_PASOSA).datatype(T_STRING);
         }
-        licneInformacije.rdf().vocab(VOCAB).about(podnosilacUrl);
+        digitalniSertifikat.getVakcinacija().getVakcine().forEach(vakcina -> {
+            var redniBroj = vakcina.getBrojDoze().getValue();
+            vakcina.getTip().rdf().property(String.format("pred:doza_%d_tip", redniBroj)).datatype(T_STRING);
+            vakcina.getBrojSerije().rdf().property(String.format("pred:doza_%d_broj_serije", redniBroj)).datatype(T_STRING);
+            vakcina.getZdravstvenaUstanova().rdf().property(String.format("pred:doza_%d_ustanova", redniBroj)).datatype(T_STRING);
+            vakcina.getDatumDavanja().rdf().property(String.format("pred:doza_%d_datum", redniBroj)).datatype(T_DATE);
+        });
         licneInformacije.getIme().rdf().property(PROP_IME).datatype(T_STRING);
         licneInformacije.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
+        licneInformacije.getDatumRodjenja().rdf().property(PROP_DATUM_RODJENJA).datatype(T_DATE);
+        licneInformacije.getEmail().rdf().property(PROP_EMAIL).datatype(T_STRING);
         var informacijeOSertifikatu = digitalniSertifikat.getInformacijeOSertifikatu();
         informacijeOSertifikatu.getQrKod().rdf().property(PROP_QR_KOD).datatype(T_STRING);
     }
