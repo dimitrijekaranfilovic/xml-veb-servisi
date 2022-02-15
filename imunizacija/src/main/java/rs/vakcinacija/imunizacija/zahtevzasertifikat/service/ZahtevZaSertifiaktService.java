@@ -37,9 +37,9 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
     public void approve(UUID requestId, UUID certificateId) throws Exception {
         var zahtevZaSertifikat = read(requestId);
         zahtevZaSertifikat.ref("pred:kreirao")
-                          .uuid(certificateId)
-                          .type("DigitalniSertifikat")
-                          .configure();
+                .uuid(certificateId)
+                .type("DigitalniSertifikat")
+                .configure();
         zahtevZaSertifikat.getStatus().setValue("PRIHVACEN");
         update(zahtevZaSertifikat);
     }
@@ -55,21 +55,23 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
 
         var podnosilacZahteva = zahtevZaSertifikat.getPodnosilacZahteva();
 
-        String podnosilacUrl;
-        if (podnosilacZahteva.getLicniPodaci().getJmbg() != null) {
-            podnosilacUrl = RDF_PACIJENT_BASE + podnosilacZahteva.getLicniPodaci().getJmbg().getValue();
-            var jmbg = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getJmbg();
-            jmbg.setProperty(PROP_JMBG);
-            jmbg.setDatatype(T_STRING);
-        } else {
-            podnosilacUrl = RDF_PACIJENT_BASE + podnosilacZahteva.getBrojPasosa();
-        }
+        String podnosilacUrl = RDF_PACIJENT_BASE + zahtevZaSertifikat.getPodnosilacZahteva()
+                .getEmail().getValue();
+
+        var jmbg = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getJmbg();
+        jmbg.setProperty(PROP_JMBG);
+        jmbg.setDatatype(T_STRING);
 
         podnosilacZahteva.setVocab(VOCAB);
         podnosilacZahteva.setAbout(podnosilacUrl);
 
-        zahtevZaSertifikat.getStatus().rdf().property("pred:status").datatype(T_STRING);
-        zahtevZaSertifikat.getPodnosilacZahteva().getDatumRodjenja().rdf().property("pred:datum_rodjenja").datatype(T_DATE);
+        var datumRodjenja = zahtevZaSertifikat.getPodnosilacZahteva().getDatumRodjenja();
+        datumRodjenja.setProperty(PROP_DATUM_RODJENJA);
+        datumRodjenja.setDatatype(T_DATE);
+
+        var status = zahtevZaSertifikat.getStatus();
+        status.setProperty(PROP_STATUS);
+        status.setDatatype(T_STRING);
 
         var brojPasosa = zahtevZaSertifikat.getPodnosilacZahteva().getBrojPasosa();
         brojPasosa.setProperty(PROP_BROJ_PASOSA);

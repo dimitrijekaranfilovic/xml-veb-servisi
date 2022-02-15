@@ -8,7 +8,6 @@ import rs.vakcinacija.zajednicko.model.RDFField;
 import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
-import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "podnosilac_zahteva")
@@ -26,13 +25,16 @@ public class PodnosilacZahteva extends RDFField {
     @XmlElement(name = "broj_pasosa", required = true)
     private RDFString brojPasosa;
 
+    @XmlElement(name = "email", required = true)
+    private RDFString email;
 
     public PodnosilacZahteva() {
     }
 
-    public PodnosilacZahteva(LicniPodaci licniPodaci, RDFDate datumRodjenja, RDFString brojPasosa) {
+    public PodnosilacZahteva(LicniPodaci licniPodaci, RDFDate datumRodjenja, RDFString brojPasosa, RDFString email) {
         this.licniPodaci = licniPodaci;
         this.datumRodjenja = datumRodjenja;
         this.brojPasosa = brojPasosa;
+        this.email = email;
     }
 }

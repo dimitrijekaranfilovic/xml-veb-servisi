@@ -92,6 +92,7 @@ export default {
       pol: "",
       brojPasosa: "",
       razlogZaPodnosenjeZahteva: "",
+      email: "",
     },
     valid: false,
   }),
@@ -101,6 +102,7 @@ export default {
 
     this.formData.ime = decoded.name;
     this.formData.prezime = decoded.surname;
+    this.formData.email = decoded.sub;
   },
   methods: {
     submit() {
@@ -123,6 +125,7 @@ export default {
             },
             datum_rodjenja: this.formData.datumRodjenja,
             broj_pasosa: this.formData.brojPasosa,
+            email: this.formData.email,
           },
           razlog_za_podnosenje_zahteva: this.formData.razlogZaPodnosenjeZahteva,
         },
