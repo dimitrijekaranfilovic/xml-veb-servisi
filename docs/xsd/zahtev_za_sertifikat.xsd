@@ -19,6 +19,7 @@
     <xs:complexType name="TPodnosilacZahteva">
         <xs:sequence>
             <xs:element name="licni_podaci" type="za:TLicni_podaci"/>
+            <xs:element name="datum_rodjenja" type="xs:date"/>
             <xs:element name="broj_pasosa" nillable="false" type="za:TOgraniceni_string"/>
         </xs:sequence>
     </xs:complexType>

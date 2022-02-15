@@ -54,19 +54,25 @@
             ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field
-              v-model="formData.razlogZaPodnosenjeZahteva"
-              label="Разлог за подношење захтева"
-            ></v-text-field>
-          </v-row>
-          <v-row>
             <v-text-field v-model="formData.mesto" label="Место"></v-text-field>
           </v-row>
-          <v-flex class="text-center">
-            <v-btn :disabled="!valid" color="success" @click="submit">
-              Поднеси документ
-            </v-btn>
-          </v-flex>
+          <v-row class="rich-text-component">
+            <div>Разлог за подношење захтева</div>
+            <quill-editor
+              class="editor"
+              ref="myTextEditor"
+              v-model="formData.razlogZaPodnosenjeZahteva"
+              :options="editorOption"
+              @change="onEditorChange"
+            />
+          </v-row>
+          <v-row>
+            <v-flex class="text-center">
+              <v-btn :disabled="!valid" color="success" @click="submit">
+                Поднеси документ
+              </v-btn>
+            </v-flex>
+          </v-row>
         </v-form>
       </v-col>
     </v-row>
@@ -75,11 +81,17 @@
 
 <script>
 import ZahtevZaSertifikatService from "@/services/ZahtevZaSertifikatService";
+import hljs from "highlight.js";
+import debounce from "lodash/debounce";
 import DatePicker from "../shared/DatePicker.vue";
 import jwt_decode from "jwt-decode";
+import { quillEditor } from "vue-quill-editor";
+// import theme style
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
 
 export default {
-  components: { DatePicker },
+  components: { DatePicker, quillEditor },
   data: () => ({
     pol_items: [
       { value: "MUSKI", text: "Мушки" },
@@ -96,6 +108,29 @@ export default {
       razlogZaPodnosenjeZahteva: "",
       email: "",
     },
+    editorOption: {
+      placeholder: "Унесите разлог за подношење захтева овде...",
+      modules: {
+        toolbar: [
+          ["bold", "italic", "underline", "strike"],
+          ["blockquote", "code-block"],
+          [{ header: 1 }, { header: 2 }],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ script: "sub" }, { script: "super" }],
+          [{ indent: "-1" }, { indent: "+1" }],
+          [{ direction: "rtl" }],
+          [{ size: ["small", false, "large", "huge"] }],
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          [{ font: [] }],
+          [{ color: [] }, { background: [] }],
+          [{ align: [] }],
+          ["clean"],
+        ],
+        syntax: {
+          highlight: (text) => hljs.highlightAuto(text).value,
+        },
+      },
+    },
     valid: false,
   }),
   mounted() {
@@ -105,6 +140,7 @@ export default {
     this.formData.ime = decoded.name;
     this.formData.prezime = decoded.surname;
     this.formData.email = decoded.sub;
+    this.formData.pol = this.pol_items[0].value;
   },
   methods: {
     submit() {
@@ -136,8 +172,48 @@ export default {
         zahtevZaSertifikatJSON
       );
     },
+    onEditorChange: debounce(function (value) {
+      this.formData.razlogZaPodnosenjeZahteva = value.html;
+    }, 466),
+  },
+  computed: {
+    editor() {
+      return this.$refs.myTextEditor.quill;
+    },
+    contentCode() {
+      return hljs.highlightAuto(this.formData.razlogZaPodnosenjeZahteva).value;
+    },
   },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.rich-text-component {
+  display: flex;
+  flex-direction: column;
+
+  .editor {
+    height: 10rem;
+    margin-bottom: 5rem;
+  }
+
+  .output {
+    width: 100%;
+    height: 20rem;
+    margin: 0;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    resize: vertical;
+
+    &.code {
+      padding: 1rem;
+      height: 16rem;
+    }
+
+    &.ql-snow {
+      border-top: none;
+      height: 24rem;
+    }
+  }
+}
+</style>
