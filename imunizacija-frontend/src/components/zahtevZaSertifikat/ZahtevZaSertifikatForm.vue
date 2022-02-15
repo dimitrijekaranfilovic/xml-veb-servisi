@@ -13,6 +13,8 @@
           <p class="text-justify">Подносилац захтева:</p>
           <v-row>
             <v-text-field v-model="formData.ime" label="Име"></v-text-field>
+          </v-row>
+          <v-row>
             <v-text-field
               v-model="formData.prezime"
               label="Презиме"
