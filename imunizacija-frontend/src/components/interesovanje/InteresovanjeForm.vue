@@ -20,18 +20,24 @@
             ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field v-model="formData.ime" label="Име"></v-text-field>
+            <v-text-field
+              v-model="formData.ime"
+              label="Име"
+              disabled
+            ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.prezime"
               label="Презиме"
+              disabled
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.email"
               label="Адреса електронске поште"
+              disabled
             ></v-text-field>
           </v-row>
           <v-row>
@@ -66,6 +72,7 @@
               chips
               label="Одаберите произвођаче"
               multiple
+              :deletable-chips="true"
             ></v-select>
           </v-row>
           <v-row>
@@ -113,8 +120,8 @@ export default {
       },
     ],
     davalacKrviItems: [
-      { value: true, text: "Да" },
       { value: false, text: "Не" },
+      { value: true, text: "Да" },
     ],
     proizvodjaciItems: [
       "Pfizer-BioNTech",
