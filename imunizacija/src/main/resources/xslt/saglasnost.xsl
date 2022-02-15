@@ -13,6 +13,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 		
 		      b {
 		        font-size: 25px;
+				margin-left: 10px;
 		      }
 		      
 		      p {
@@ -20,15 +21,11 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 		      	font-size: 23px;
 		      }
 		
-		      u{
-		        font-size: 23px;
-		      }
-		
 		      .vl {
+				display: inline;
 		        border-left: 2px solid black;
-		        height: 11px;
-		        margin-left: 10px;
-		        margin-right: 10px;
+		        height: 30px;
+				margin: 5px 10px 0px 10px;
 		      }
 		
 		      table.borderless {
@@ -44,24 +41,14 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 		        padding: 10px 0;
 		      }
 		
-		      div {
+		      .linija {
 		        margin-top: 15px;
 		      }
 		      
-		      span {
+		      .podvuceno {
 		      	border-bottom: 2px solid black;
 				padding-bottom: 2px;
 				font-size: 23px;
-		      }
-		      
-		      .container {
-		      	margin-left: 20%;
-		      	margin-right: 20%;
-		      }
-		      
-		      .justified {
-		      	display: grid;
-  				justify-items: stretch;
 		      }
 		      
 		      #content {
@@ -74,13 +61,18 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 			    right: 0px;
 			  }
 			  
-			  img {
+			  img.batut-logo {
 			  	height: 150px;
 			  	width: 300px;
+				margin-top: -15px
 			  }
 			  
 			  hr {
 			  	border-top: 1px dashed;
+			  }
+
+			  input[type="checkbox"] {
+				margin-left: 10px;
 			  }
 		      
 		    </style>
@@ -88,7 +80,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 		  <body>
 			  <div class="container">
 			  	<div id="content">
-				    <img src="C:/Users/User/Desktop/logo.png"/>
+				    <img class="batut-logo" src="https://files.fm/thumb_show.php?i=wfacsrkxg"/>
 				</div>
 			    <h1>САГЛАСНОСТ ЗА СПРОВОЂЕЊЕ ПРЕПОРУЧЕНЕ ИМУНИЗАЦИЈЕ</h1>
 			    <h2 style="margin-top: -15px;" >(попуњава пацијент)</h2>
@@ -97,74 +89,74 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 			        <td><b>Држављанство</b></td>
 			        <td><b>1) Република Србија</b></td>
 			        <td><b class="vl"></b></td>
-			        <td><b>ЈМБГ:</b> <span><xsl:value-of select="//b:jmbg"/></span></td>
+			        <td><b>ЈМБГ:</b> <span class="podvuceno"><xsl:value-of select="//b:jmbg"/></span></td>
 			      </tr>
 			      <tr>
 			        <td></td>
-			        <td><b>2) <span><xsl:value-of select="//b:naziv_drzavljanstva"/></span></b></td>
+			        <td><b>2) <span class="podvuceno"><xsl:value-of select="//b:naziv_drzavljanstva"/></span></b></td>
 			        <td><b class="vl"></b></td>
-			        <td><span><xsl:value-of select="//b:broj_pasosa"/></span></td>
+			        <td><span class="podvuceno"><xsl:value-of select="//b:broj_pasosa"/></span></td>
 			      </tr>
 			    </table>
 				<div class="justified">
-				    <div>
+				    <div class="linija">
 				      <b>Презиме:</b>
-				      <span><xsl:value-of select="//za:prezime"/></span>
-				      <b class="vl"></b>
+				      <span class="podvuceno"><xsl:value-of select="//za:prezime"/></span>
+				      <span class="vl"></span>
 				      <b>Име:</b>
-				      <span><xsl:value-of select="//za:ime"/></span>
-				      <b class="vl"></b>
+				      <span class="podvuceno"><xsl:value-of select="//za:ime"/></span>
+				      <span class="vl"></span>
 				      <b>Име родитеља:</b>
-				      <span><xsl:value-of select="//b:ime_roditelja"/></span>
+				      <span class="podvuceno"><xsl:value-of select="//b:ime_roditelja"/></span>
 				    </div>
-				    <div>
+				    <div class="linija">
 				      <b>Пол:</b>
 				      <xsl:variable name="x" select="//b:pol"/>
 				      <input type="checkbox" disabled="true">
 				      	<xsl:choose>
-					      	<xsl:when test="$x = 'MUSKO'">
-		                      <xsl:attribute name="checked">true</xsl:attribute>
+					      	<xsl:when test="$x = 'MUSKI'">
+		                      <xsl:attribute name="checked">checked</xsl:attribute>
 		                    </xsl:when>	
 		                </xsl:choose>
 				      	<p>М</p>
 				      </input>
 				      <input type="checkbox" disabled="true">
 				      	<xsl:choose>
-					      	<xsl:when test="$x = 'ZENSKO'">
-		                      <xsl:attribute name="checked">true</xsl:attribute>
+					      	<xsl:when test="$x = 'ZENSKI'">
+		                      <xsl:attribute name="checked">checked</xsl:attribute>
 		                    </xsl:when>	
 		                </xsl:choose>
 				      	<p>Ж</p>
 				      </input>
-				      <b class="vl"></b>
+				      <span class="vl"></span>
 				      <b>Датум рођења: </b>
-				      <span><xsl:value-of select="//b:datum_rodjenja"/></span>
-				      <b class="vl"></b>
+				      <span class="podvuceno"><xsl:value-of select="//b:datum_rodjenja"/></span>
+				      <span class="vl"></span>
 				      <b>Место рођења: </b>
-				      <span><xsl:value-of select="//b:mesto_rodjenja"/></span>
+				      <span class="podvuceno"><xsl:value-of select="//b:mesto_rodjenja"/></span>
 				    </div>
-				    <div>
+				    <div class="linija">
 				      <b>Адреса(улица и број):</b>
-				      <span><xsl:value-of select="//b:ulica"/>, <xsl:value-of select="//b:broj_zgrade"/></span>
-				      <b class="vl"></b>
+				      <span class="podvuceno"><xsl:value-of select="//b:ulica"/>, <xsl:value-of select="//b:broj_zgrade"/></span>
+				      <span class="vl"></span>
 				      <b>Место/Насеље:</b>
-				      <span><xsl:value-of select="//b:mesto"/></span>
+				      <span class="podvuceno"><xsl:value-of select="//b:mesto"/></span>
 				    </div>
-				    <div>
+				    <div class="linija">
 				      <b>Општина/Град:</b>
-				      <span><xsl:value-of select="//b:opstina"/></span>
-				      <b class="vl"></b>
+				      <span class="podvuceno"><xsl:value-of select="//b:opstina"/></span>
+				      <span class="vl"></span>
 				      <b>Тел. фиксни:</b>
-				      <span><xsl:value-of select="//za:broj_fiksnog"/></span>
+				      <span class="podvuceno"><xsl:value-of select="//za:broj_fiksnog"/></span>
 				    </div>
-				    <div>
+				    <div class="linija">
 				      <b>Тел. мобилни:</b>
-				      <span><xsl:value-of select="//za:broj_mobilnog"/></span>
-				      <b class="vl"></b>
+				      <span class="podvuceno"><xsl:value-of select="//za:broj_mobilnog"/></span>
+				      <span class="vl"></span>
 				      <b>Имејл:</b>
-				      <span><xsl:value-of select="//za:email"/></span>
+				      <span class="podvuceno"><xsl:value-of select="//za:email"/></span>
 				    </div>
-				    <div>
+				    <div class="linija">
 				      <b>Радни статус:</b>
 				      <xsl:variable name="x" select="//b:radni_status"/>
 				      <input type="checkbox" disabled="true">
@@ -216,7 +208,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 				      	<p>дете</p>
 				      </input>
 				    </div>
-				    <div>
+				    <div class="linija">
 				      <b>Занимање запосленог:</b>
 				      <xsl:variable name="x" select="//b:zanimanje_zaposlenog"/>
 				      <input type="checkbox" disabled="true">
@@ -268,7 +260,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 				      	<p>друго</p>
 				      </input>
 				    </div>
-				    <div>
+				    <div class="linija">
 				      <b>Корисник установе социјалне заштите:</b>
 				      <xsl:variable name="x" select="//b:korisnik_ustanove_socijalne_zastite"/>
 				      <input type="checkbox" disabled="true">
@@ -287,11 +279,11 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 		                  </xsl:choose>
 				      </input>
 					  НЕ
-				      <b class="vl"></b>
+				      <span class="vl"></span>
 				      <b>Назив и општина седишта: </b>
-				      <span><xsl:value-of select="//b:naziv_sedista"/><xsl:value-of select="//b:opstina_sedista"/></span>
+				      <span class="podvuceno"><xsl:value-of select="//b:naziv_sedista"/><xsl:value-of select="//b:opstina_sedista"/></span>
 				    </div>
-				    <div>
+				    <div class="linija">
 				      <b>Изјављујем да:</b>
 				      <xsl:variable name="x" select="//b:izjava"/>
 				      <input type="checkbox" disabled="true">
@@ -311,25 +303,25 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 				      </input>
 					  НИСАМ САГЛАСАН
 				      <p>(означити) са спровођењем активне/пасивне имунизације (уписати назив имунолошког лека):</p>
-				      <span><xsl:value-of select="//b:naziv_imunoloskog_leka"/></span>
+				      <span class="podvuceno"><xsl:value-of select="//b:naziv_imunoloskog_leka"/></span>
 				    </div>
-				    <div><b>Лекар ми је објаснио предности и ризике од спровођења активне/пасивне имунизације наведеним имунолошким леком.</b></div>
-				    <div><hr/></div>
+				    <div class="linija"><b>Лекар ми је објаснио предности и ризике од спровођења активне/пасивне имунизације наведеним имунолошким леком.</b></div>
+				    <div class="linija"><hr/></div>
 			    </div>
 			    <h2 align="center">ЕВИДЕНЦИЈА О ВАКЦИНАЦИЈИ ПРОТИВ COVID-19</h2>
-			    <h3 align="center" style="margin-top: -15px;">(попуњава здравствени радник)</h3>
-			    <div>
+			    <h3 align="center" style="margin-top: -5px;">(попуњава здравствени радник)</h3>
+			    <div class="linija">
 			      <b>Здравствена установа:</b>
-			      <span><xsl:value-of select="//b:naziv"/></span>
-			      <b class="vl"></b>
+			      <span class="podvuceno"><xsl:value-of select="//b:naziv"/></span>
+			      <span class="vl"></span>
 			      <b>Вакцинацијски пункт:</b>
-			      <span><xsl:value-of select="//b:punkt"/></span>
+			      <span class="podvuceno"><xsl:value-of select="//b:punkt"/></span>
 			    </div>
-			    <div>
+			    <div class="linija">
 			      <b>Име, презиме, факсимил и број телефона лекара</b>
-			      <span><xsl:value-of select="//b:lekar/za:ime"/>, <xsl:value-of select="//b:lekar/za:prezime"/>, <xsl:value-of select="//b:broj_mobilnog"/></span>
+			      <span class="podvuceno"><xsl:value-of select="//b:lekar/za:ime"/>, <xsl:value-of select="//b:lekar/za:prezime"/>, <xsl:value-of select="//b:broj_mobilnog"/></span>
 			    </div>
-			    <div><p>Пре давања вакцинe прегледати особу и упознати је са користима и о могућим нежељеним реакцијама после вакцинације. Обавезно уписати сваку дату вакцину и све тражене податке у овај образац и податке унети у лични картон о извршеним имунизацијама и здравствени картон.</p></div>
+			    <div class="linija"><p>Пре давања вакцинe прегледати особу и упознати је са користима и о могућим нежељеним реакцијама после вакцинације. Обавезно уписати сваку дату вакцину и све тражене податке у овај образац и податке унети у лични картон о извршеним имунизацијама и здравствени картон.</p></div>
 			    <table border="1">
 			        <tr>
 			            <th>Назив вакцине</th>
@@ -362,7 +354,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 			            </td>
 			        </tr>
 			    </table>
-			    <div>
+			    <div class="linija">
 			        <b>Напомена: </b> <p>образац се чува као део медицинске документације пацијента.</p>
 			    </div>
 		    </div>

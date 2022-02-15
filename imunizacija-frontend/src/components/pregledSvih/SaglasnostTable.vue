@@ -12,7 +12,26 @@
       prevIcon: 'mdi-minus',
       nextIcon: 'mdi-plus',
     }"
-  ></v-data-table>
+  >
+    <template v-slot:item="row">
+      <tr>
+        <td>{{ row.item.datum.value }}</td>
+        <td>{{ row.item.pacijent.saglasnost.izjava.value }}</td>
+        <td>{{ row.item.pacijent.saglasnost.nazivImunoloskogLeka.value }}</td>
+        <td>
+          <v-btn
+            class="mx-2"
+            dark
+            small
+            color="pink"
+            @click="detaljnijiPrikaz(row.item)"
+          >
+            Детаљније
+          </v-btn>
+        </td>
+      </tr>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
@@ -35,6 +54,9 @@ export default {
         {
           text: "Одабрана вакцина",
           value: "pacijent.saglasnost.nazivImunoloskogLeka.value",
+        },
+        {
+          text: "Акција",
         },
       ],
       saglasnosti: [],
@@ -59,6 +81,9 @@ export default {
         }
         that.saglasnosti = data.data.saglasnosti;
       });
+    },
+    detaljnijiPrikaz(document) {
+      this.$router.push("dokument/" + document.id);
     },
   },
 };

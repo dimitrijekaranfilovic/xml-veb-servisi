@@ -36,6 +36,35 @@ class SaglasnostService {
 
     return response;
   }
+
+  async getXHTMLRepresentation(id: string): Promise<any> {
+    let config = {
+      headers: { "Content-Type": "application/xml" },
+    };
+
+    let response = await axios.get(
+      "http://localhost:8081/saglasnost/" + id,
+      config
+    );
+
+    return response;
+  }
+
+  downloadXHTML(id: string): void {
+    axios
+      .get("http://localhost:8081/saglasnost/" + id, {
+        responseType: "blob",
+      })
+      .then((response) => {
+        const blob = new Blob([response.data], { type: "application/html" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "Saglasnost.xhtml";
+        link.click();
+        URL.revokeObjectURL(link.href);
+      })
+      .catch(console.error);
+  }
 }
 
 export default new SaglasnostService();
