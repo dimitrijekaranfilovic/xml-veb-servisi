@@ -1,8 +1,8 @@
 <template>
   <v-tabs>
-    <v-tab> Obrasci saglasnosti </v-tab>
-    <v-tab>Potvrde o vakcinaciji</v-tab>
-    <v-tab>Digitalni sertifikati</v-tab>
+    <v-tab>Обрасци сагласности</v-tab>
+    <v-tab>Потврде о вакцинацији</v-tab>
+    <v-tab>Дигитални сертификати</v-tab>
 
     <v-tab-item>
       <vaccination-consent-table></vaccination-consent-table>

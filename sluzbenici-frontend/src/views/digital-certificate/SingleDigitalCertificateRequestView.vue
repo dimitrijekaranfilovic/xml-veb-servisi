@@ -69,7 +69,7 @@
     </v-row>
     <v-row align="center" justify="center">
       <v-col>
-        <h4>Dodatne informacije o gradjaninu</h4>
+        <h4>Додатне информације о грађанину</h4>
       </v-col>
     </v-row>
     <v-row align="center" justify="center">
