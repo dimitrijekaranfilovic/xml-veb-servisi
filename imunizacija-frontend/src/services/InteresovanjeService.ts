@@ -6,7 +6,7 @@ class InteresovanjeService extends BaseService {
   private interesovanjePath: string = "interesovanje";
 
   async postInteresovanje(interesovanje: any): Promise<any> {
-    super.sendRequest(axios.post, interesovanje, this.interesovanjePath);
+    return super.sendRequest(axios.post, interesovanje, this.interesovanjePath);
   }
 
   async getAllForUser(): Promise<any> {
