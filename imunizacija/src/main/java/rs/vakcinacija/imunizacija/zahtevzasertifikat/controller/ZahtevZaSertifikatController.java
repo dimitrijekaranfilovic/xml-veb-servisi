@@ -39,7 +39,9 @@ public class ZahtevZaSertifikatController {
 
     @GetMapping
     public KolekcijaZahtevaZaSertifikat read() throws Exception {
-        return KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.read());
+        var kolekcija = KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.read());
+        log.info("Lista je null: " + (kolekcija.getZahteviZaSertifikat() == null));
+        return kolekcija;
     }
 
     @GetMapping(value = "/za-odobrenje")

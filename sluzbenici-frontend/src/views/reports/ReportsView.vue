@@ -119,7 +119,17 @@
               <v-btn color="primary" text @click="dialog = false">
                 Одустани
               </v-btn>
-              <v-btn color="primary" text @click="generateReport()">
+              <v-btn
+                color="primary"
+                text
+                @click="generateReport()"
+                :loading="reportBeingGenerated"
+                :disabled="
+                  newReportObj.zahtev_za_kreiranje_izvestaja.period_od ===
+                    null ||
+                  newReportObj.zahtev_za_kreiranje_izvestaja.period_do === null
+                "
+              >
                 Потврди
               </v-btn>
             </v-card-actions>
@@ -128,6 +138,15 @@
       </v-col>
     </v-row>
     <reports-table :reports="reports" />
+    <v-snackbar v-model="snackbar" :timeout="5000">
+      {{ message }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="primary" text v-bind="attrs" @click="snackbar = false">
+          Затвори
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -139,6 +158,9 @@ export default {
   name: "ReportsView",
   data() {
     return {
+      reportBeingGenerated: false,
+      message: "",
+      snackbar: false,
       date1: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -167,10 +189,14 @@ export default {
   },
   methods: {
     generateReport() {
+      this.reportBeingGenerated = true;
       reportsService.generateReport(this.newReportObj).then((response) => {
         const izvestaj = response.data;
         this.reports.push(izvestaj);
         this.dialog = false;
+        this.reportBeingGenerated = false;
+        this.message = "Report successfully generated.";
+        this.snackbar = true;
       });
     },
   },
