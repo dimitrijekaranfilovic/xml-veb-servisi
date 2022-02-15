@@ -153,5 +153,9 @@ public abstract class ExistRepository<T extends BaseDocument> {
         }
         return getOrCreateCollection(collectionUri, ++pathSegmentOffset);
     }
+
+    public JAXBEntityManager<T> getEntityManager() {
+        return entityManager;
+    }
 }
 

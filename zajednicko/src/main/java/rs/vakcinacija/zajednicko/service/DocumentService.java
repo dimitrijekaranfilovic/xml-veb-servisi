@@ -6,16 +6,35 @@ import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.BaseDocument;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.*;
 import java.util.List;
 import java.util.UUID;
+import org.w3c.dom.Document;
 
 public abstract class DocumentService<T extends BaseDocument> {
     protected final ExistRepository<T> existRepository;
     protected final FusekiRepository<T> fusekiRepository;
 
+    private DocumentBuilderFactory documentFactory;
+    private TransformerFactory transformerFactory;
+
     protected DocumentService(ExistRepository<T> existRepository, FusekiRepository<T> fusekiRepository) {
         this.existRepository = existRepository;
         this.fusekiRepository = fusekiRepository;
+
+        documentFactory = DocumentBuilderFactory.newInstance();
+        documentFactory.setNamespaceAware(true);
+        documentFactory.setIgnoringComments(true);
+        documentFactory.setIgnoringElementContentWhitespace(true);
+
+        transformerFactory = TransformerFactory.newInstance();
     }
 
     public T create(T entity) throws Exception {
@@ -73,4 +92,50 @@ public abstract class DocumentService<T extends BaseDocument> {
     protected static final String T_DATE = "xs:date";
     protected static final String T_BOOLEAN = "xs:boolean";
     protected static final String T_INTERESOVANJE = "pred:Interesovanje";
+
+    public Document buildDocument(T entity) throws IOException, JAXBException {
+        ByteArrayOutputStream documentOutputStream = new ByteArrayOutputStream();
+        existRepository.getEntityManager().marshall(entity, documentOutputStream);
+        InputStream documentInputStream = new ByteArrayInputStream(documentOutputStream.toByteArray());
+        Document document = null;
+        try {
+            DocumentBuilder builder = documentFactory.newDocumentBuilder();
+            document = builder.parse(documentInputStream);
+
+            if (document != null)
+                System.out.println("[INFO] File parsed with no errors.");
+            else
+                System.out.println("[WARN] Document is null.");
+
+        } catch (Exception e) {
+            return null;
+        }
+        return document;
+    }
+
+    public String generateHTML(T xmlDocument, String xslPath) throws FileNotFoundException {
+
+        try {
+            // Initialize Transformer instance
+            StreamSource transformSource = new StreamSource(new File(xslPath));
+            Transformer transformer = transformerFactory.newTransformer(transformSource);
+            transformer.setOutputProperty("{http://xml.apache.org/xalan}indent-amount", "2");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            // Generate XHTML
+            transformer.setOutputProperty(OutputKeys.METHOD, "xhtml");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+
+            // Transform DOM to HTML
+            DOMSource source = new DOMSource(buildDocument(xmlDocument));
+            StringWriter writer = new StringWriter();
+            StreamResult result = new StreamResult(writer);
+            transformer.transform(source, result);
+            return writer.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

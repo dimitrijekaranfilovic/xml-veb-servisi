@@ -10,6 +10,7 @@ import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +39,11 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
     public List<SaglasnostZaSprovodjenjeImunizacije> getAllForUser(String email) throws Exception {
         return existRepository.read((doc) -> doc.getPacijent().getLicneInformacije().getKontakt().getEmail().getValue().equals(email));
+    }
+
+    public String getHTMLRepresentation(UUID id) throws Exception {
+        SaglasnostZaSprovodjenjeImunizacije saglasnost = read(id);
+        return generateHTML(saglasnost, "src/main/resources/xslt/saglasnost.xsl");
     }
 
     protected void insertRDFMetadata(SaglasnostZaSprovodjenjeImunizacije saglasnost) {

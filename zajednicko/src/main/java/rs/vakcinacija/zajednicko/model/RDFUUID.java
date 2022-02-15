@@ -8,6 +8,7 @@ import rs.vakcinacija.zajednicko.metadata.RDFMetadataField;
 import rs.vakcinacija.zajednicko.metadata.builder.RDFMetadataBuilder;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RDFUUID implements RDFMetadataField {
+public class RDFUUID implements RDFMetadataField, Serializable {
     @XmlValue
     private UUID value;
 

@@ -6,12 +6,13 @@ import rs.vakcinacija.zajednicko.metadata.RDFMetadataField;
 import rs.vakcinacija.zajednicko.metadata.builder.RDFMetadataBuilder;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType
 @Getter
 @Setter
-public class RDFField implements RDFMetadataField {
+public class RDFField implements RDFMetadataField, Serializable {
 
     @XmlAttribute(name = "property")
     protected String property;

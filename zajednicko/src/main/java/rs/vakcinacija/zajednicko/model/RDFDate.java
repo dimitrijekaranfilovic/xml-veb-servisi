@@ -8,6 +8,7 @@ import rs.vakcinacija.zajednicko.metadata.RDFMetadataField;
 import rs.vakcinacija.zajednicko.metadata.builder.RDFMetadataBuilder;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -16,7 +17,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RDFDate implements RDFMetadataField {
+public class RDFDate implements RDFMetadataField, Serializable {
     @XmlValue
     @XmlSchemaType(name = "date")
     private Date value;
