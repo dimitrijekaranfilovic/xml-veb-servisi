@@ -3,6 +3,7 @@ package rs.vakcinacija.sluzbenici.digitalnisertifikat.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.sluzbenici.digitalnisertifikat.dto.NaprednaPretragaRequest;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.KolekcijaDigitalnihSertifikata;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.service.DigitalniSertifikatService;
@@ -26,7 +27,8 @@ public class DigitalniSertifikatController {
     }
 
     @GetMapping
-    public KolekcijaDigitalnihSertifikata read() throws Exception {
+    public KolekcijaDigitalnihSertifikata read(NaprednaPretragaRequest request) throws Exception {
+        digitalniSertifikatService.test(request);
         return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read());
     }
 

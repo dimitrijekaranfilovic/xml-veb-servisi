@@ -2,6 +2,7 @@ package rs.vakcinacija.zajednicko.data.query;
 
 import lombok.NonNull;
 import rs.vakcinacija.zajednicko.model.*;
+import rs.vakcinacija.zajednicko.util.ReflectionUtils;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
@@ -35,43 +36,43 @@ public class FieldLevelQueryPredicate<T extends BaseDocument> implements Predica
             return false;
         }
         if (field.getType().isAssignableFrom(String.class)) {
-            var string = getFieldValue(entity, field, String.class);
+            var string = ReflectionUtils.getFieldValue(entity, field, String.class);
             return string != null && string.toLowerCase().contains(query);
         }
         if (field.getType().isAssignableFrom(Integer.class)) {
-            var integer = getFieldValue(entity, field, Integer.class);
+            var integer = ReflectionUtils.getFieldValue(entity, field, Integer.class);
             return integer != null && integer.toString().contains(query);
         }
         if (field.getType().isAssignableFrom(Boolean.class)) {
-            var b = getFieldValue(entity, field, Boolean.class);
+            var b = ReflectionUtils.getFieldValue(entity, field, Boolean.class);
             return b != null && b.toString().toLowerCase().contains(query);
         }
         if (field.getType().isAssignableFrom(UUID.class)) {
-            var uuid = getFieldValue(entity, field, UUID.class);
+            var uuid = ReflectionUtils.getFieldValue(entity, field, UUID.class);
             return uuid != null && uuid.toString().contains(query);
         }
         if (field.getType().isAssignableFrom(RDFString.class)) {
-            var rdfString = getFieldValue(entity, field, RDFString.class);
+            var rdfString = ReflectionUtils.getFieldValue(entity, field, RDFString.class);
             return rdfString != null && rdfString.getValue() != null && rdfString.getValue().toLowerCase().contains(query);
         }
         if (field.getType().isAssignableFrom(RDFDate.class)) {
-            var rdfDate = getFieldValue(entity, field, RDFDate.class);
+            var rdfDate = ReflectionUtils.getFieldValue(entity, field, RDFDate.class);
             Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             return rdfDate != null && rdfDate.getValue() != null && formatter.format(rdfDate.getValue()).contains(query);
         }
         if (field.getType().isAssignableFrom(RDFInteger.class)) {
-            var rdfInteger = getFieldValue(entity, field, RDFInteger.class);
+            var rdfInteger = ReflectionUtils.getFieldValue(entity, field, RDFInteger.class);
             return rdfInteger != null && rdfInteger.getValue() != null && rdfInteger.getValue().toString().toLowerCase().contains(query);
         }
         if (field.getType().isAssignableFrom(RDFUUID.class)) {
-            var rdfUuid = getFieldValue(entity, field, RDFUUID.class);
+            var rdfUuid = ReflectionUtils.getFieldValue(entity, field, RDFUUID.class);
             return rdfUuid != null && rdfUuid.getValue() != null && rdfUuid.getValue().toString().contains(query);
         }
         if (field.getType().isAssignableFrom(RDFBoolean.class)) {
-            var rdfBoolean = getFieldValue(entity, field, RDFBoolean.class);
+            var rdfBoolean = ReflectionUtils.getFieldValue(entity, field, RDFBoolean.class);
             return rdfBoolean != null && rdfBoolean.getValue() != null && rdfBoolean.getValue().toString().toLowerCase().contains(query);
         }
-        var subEntity = getFieldValue(entity, field, field.getType());
+        var subEntity = ReflectionUtils.getFieldValue(entity, field, field.getType());
         return getFields(field.getType()).anyMatch(subField -> matches(subEntity, subField));
     }
 
@@ -83,26 +84,6 @@ public class FieldLevelQueryPredicate<T extends BaseDocument> implements Predica
         var ownFields = Arrays.stream(c.getDeclaredFields());
         return Stream.concat(superClassFields, ownFields);
     }
-
-    @SuppressWarnings({"unchecked", "unused"})
-    private <S> S getFieldValue(Object entity, Field field, Class<S> fieldType) {
-        var methodName = "get" + capitalize(field);
-        try {
-            var method = field.getDeclaringClass().getDeclaredMethod(methodName);
-            return (S) method.invoke(entity);
-        } catch (Exception exception) {
-            System.out.println("GOT ERROR ON FIELD: " + field.getName());
-            System.out.println(exception.getMessage());
-            exception.printStackTrace();
-            return null;
-        }
-    }
-
-    private String capitalize(Field field) {
-        var str = field.getName();
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
-    }
-
 
     @Override
     public Predicate<T> and(@NonNull Predicate<? super T> other) {

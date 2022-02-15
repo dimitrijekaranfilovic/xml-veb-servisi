@@ -1,6 +1,8 @@
 package rs.vakcinacija.zajednicko.metadata.repository;
 
+import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import rs.vakcinacija.zajednicko.data.context.JAXBEntityManager;
@@ -12,6 +14,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class FusekiRepository<T> {
@@ -40,8 +46,31 @@ public abstract class FusekiRepository<T> {
         processor.execute();
     }
 
+    public List<SparqlQueryResult<String>> sparql(String sparqlQuery) {
+        QueryExecution query = QueryExecutionFactory.sparqlService(connectionProvider.getQueryEndpoint(), sparqlQuery);
+        ResultSet results = query.execSelect();
+        String varName;
+        RDFNode varValue;
+        var resultList = new ArrayList<SparqlQueryResult<String>>();
+        while (results.hasNext()) {
+            QuerySolution querySolution = results.next();
+            Iterator<String> variableBindings = querySolution.varNames();
+            while (variableBindings.hasNext()) {
+                varName = variableBindings.next();
+                varValue = querySolution.get(varName);
+                resultList.add(new SparqlQueryResult<>(varName, varValue.toString()));
+            }
+        }
+        query.close();
+        return resultList;
+    }
+
     protected String buildSparqlUrl() {
         return String.format("%s/vakcinacija/%s/metadata", connectionProvider.getDataEndpoint(), collectionName);
+    }
+
+    protected String buildSparqlQueryUrl() {
+        return String.format("%s/vakcinacija/%s/metadata", connectionProvider.getQueryEndpoint(), collectionName);
     }
 
     protected String buildModelDataUrl(UUID id) {
