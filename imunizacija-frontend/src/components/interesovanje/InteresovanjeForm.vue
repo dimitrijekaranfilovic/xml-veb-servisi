@@ -15,47 +15,51 @@
           <v-row>
             <v-text-field
               v-model="formData.jmbg"
-              label="ЈМБГ"
+              label="ЈМБГ*"
               :counter="13"
+              :rules="jmbgRules"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.ime"
-              label="Име"
+              label="Име*"
               disabled
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.prezime"
-              label="Презиме"
+              label="Презиме*"
               disabled
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.email"
-              label="Адреса електронске поште"
+              label="Адреса електронске поште*"
               disabled
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.brojMobilnog"
-              label="Број мобилног телефона (навести број у формату 06Х..... без размака и цртица)"
+              label="Број мобилног телефона (навести број у формату 06Х..... без размака и цртица)*"
+              :rules="brojMobilnogRules"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.brojFiksnog"
-              label="Број фиксног телефона (навести број у формату нпр. 011..... без размака и цртица)"
+              label="Број фиксног телефона (навести број у формату нпр. 011..... без размака и цртица)*"
+              :rules="brojFiksnogRules"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.odabranaLokacijaPrimanjaVakcine"
-              label="Одаберите локацију где желите да примите вакцину (унесите општину)"
+              label="Одаберите локацију где желите да примите вакцину (унесите општину)*"
+              :rules="odabranaLokacijaPrimanjaVakcineRules"
             ></v-text-field>
           </v-row>
           <v-row>
@@ -70,9 +74,11 @@
               :items="proizvodjaciItems"
               attach
               chips
-              label="Одаберите произвођаче"
+              label="Одаберите произвођаче*"
               multiple
               :deletable-chips="true"
+              :rules="odabraniProizvodjaciRules"
+              required
             ></v-select>
           </v-row>
           <v-row>
@@ -144,6 +150,28 @@ export default {
       odabraniProizvodjaci: [],
     },
     valid: false,
+    brojMobilnogRules: [
+      (v) => (!!v && v && v.trim() !== "") || "Број мобилног је обавезан",
+      (v) =>
+        (v && /^06\d{7,8}$/.test(v)) ||
+        "Број мобилног мора бити у формату 06Х... без размака и цртица и са 9 до 10 цифара",
+    ],
+    brojFiksnogRules: [
+      (v) => (!!v && v && v.trim() !== "") || "Број мобилног је обавезан",
+      (v) =>
+        (v && /^\d{9,10}$/.test(v)) ||
+        "Број фиксног мора бити у формату нпр. 011... без размака и цртица и са 9 до 10 цифара",
+    ],
+    odabranaLokacijaPrimanjaVakcineRules: [
+      (v) => (!!v && v && v.trim() !== "") || "Локација је обавезна",
+    ],
+    odabraniProizvodjaciRules: [
+      (v) => (!!v && v.length > 0) || "Морате изабрати бар једног произвођача",
+    ],
+    jmbgRules: [
+      (v) => (!!v && v && v.trim() !== "") || "Морате унети ЈМБГ",
+      (v) => (v && /^\d{13}$/.test(v)) || "ЈМБГ мора имати тачно 13 цифара",
+    ],
   }),
   mounted() {
     let jwt = localStorage.getItem("jwt");
