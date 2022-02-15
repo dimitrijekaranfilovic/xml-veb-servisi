@@ -3,6 +3,7 @@ package rs.vakcinacija.imunizacija.saglasnost.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostExistRepository;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
@@ -14,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -27,6 +29,13 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
                              SaglasnostExistRepository saglasnostExistRepository) {
         super(existRepository, fusekiRepository);
         this.saglasnostExistRepository = saglasnostExistRepository;
+    }
+
+    public List<SaglasnostZaSprovodjenjeImunizacije> readFiltered(String email) throws Exception {
+        var lista = this.read();
+        return lista.stream().filter(saglasnost ->
+            saglasnost.getPacijent().getLicneInformacije().getKontakt().getEmail().getValue().equals(email)
+        ).collect(Collectors.toList());
     }
 
     public SaglasnostZaSprovodjenjeImunizacije createFirstHalfOfDocument(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {

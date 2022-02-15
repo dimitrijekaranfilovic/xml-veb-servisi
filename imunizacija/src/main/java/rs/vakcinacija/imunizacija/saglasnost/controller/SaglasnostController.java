@@ -54,4 +54,11 @@ public class SaglasnostController {
     public KolekcijaObrazacaSaglasnosti getAllForUser(@PathVariable String email) throws Exception {
         return KolekcijaObrazacaSaglasnosti.of(saglasnostService.getAllForUser(email));
     }
+
+    @GetMapping(value = "/za-sluzbenika")
+    public KolekcijaSaglasnosti readFilteredByEmail(@RequestParam(defaultValue = "") String email) throws Exception {
+        log.info("Trazim po: " + email);
+        return KolekcijaSaglasnosti.of(saglasnostService.readFiltered(email));
+    }
+
 }

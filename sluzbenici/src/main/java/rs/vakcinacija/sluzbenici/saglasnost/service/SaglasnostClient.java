@@ -11,4 +11,8 @@ public interface SaglasnostClient {
 
     @GetMapping(value = "/za-gradjanina/{email}", produces = "application/xml")
     KolekcijaSaglasnosti readForCitizen(@PathVariable String email, @RequestParam String query);
+
+    @GetMapping(value = "/za-sluzbenika", produces = "application/xml")
+    KolekcijaSaglasnosti readFilteredByEmail(@RequestParam("email") String email);
+
 }
