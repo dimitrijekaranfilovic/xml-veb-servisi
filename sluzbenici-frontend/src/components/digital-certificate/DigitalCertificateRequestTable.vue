@@ -9,6 +9,7 @@
         <td>
           {{ item.podnosilacZahteva.licniPodaci.jmbg | deRdf }}
         </td>
+        <td>{{ item.podnosilacZahteva.email | deRdf }}</td>
         <td>{{ item.podnosilacZahteva.licniPodaci.pol | deRdf }}</td>
         <td>
           {{
@@ -17,7 +18,6 @@
         </td>
         <td>{{ item.datum | deRdf | moment("DD.MM.YYYY.") }}</td>
         <td>{{ item.mesto | deRdf }}</td>
-        <td>{{ item.razlogZaPodnosenjeZahteva | deRdf }}</td>
         <td>
           <v-btn
             plain
@@ -49,11 +49,11 @@ export default Vue.extend({
       { text: "Име" },
       { text: "Презиме" },
       { text: "ЈМБГ" },
+      { text: "Имејл" },
       { text: "Пол" },
       { text: "Датум рођења" },
       { text: "Датум подношења захтева" },
       { text: "Место" },
-      { text: "Разлог подношења захтева" },
       { text: "Детаљи" },
     ],
   }),

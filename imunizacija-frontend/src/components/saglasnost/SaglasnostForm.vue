@@ -8,7 +8,7 @@
             <v-divider class="mx-5" vertical> </v-divider>
             <v-text-field
               v-model="jmbg"
-              :rules="jmbgRules"
+              :rules="[checkJMBG]"
               label="ЈМБГ"
               required
               :disabled="brojPasosa !== '' || nazivStranogDrzavljanstva !== ''"
@@ -253,13 +253,6 @@ export default {
     name: "",
     surname: "",
     jmbg: "",
-    jmbgRules: [
-      (v) => !!v || "ЈМБГ је обавезан",
-      (v) =>
-        ((v.length == 13 || v.length == 0) &&
-          /[0-9]{13} || [0-9]{0}/.test(v)) ||
-        "ЈМБГ мора имати тачно 13 цифара",
-    ],
     email: "",
     nazivStranogDrzavljanstva: "",
     brojPasosa: "",
@@ -363,6 +356,15 @@ export default {
       }
       if (this.radniStatus === "ZAPOSLEN" && this.zanimanjeZaposlenog === "") {
         this.text = "Морате унети занимање";
+        this.snackbar = true;
+        return;
+      }
+      if (
+        this.jmbg.trim() === "" &&
+        (this.nazivStranogDrzavljanstva.trim() === "" ||
+          this.brojPasosa.trim() === "")
+      ) {
+        this.text = "Морате унети идентификационе информације";
         this.snackbar = true;
         return;
       }
@@ -471,6 +473,22 @@ export default {
     checkVakcina(value) {
       if (this.izjava && value.trim() === "") {
         return "Назив имунолошког лека је обавезан";
+      }
+      return true;
+    },
+    checkJMBG(value) {
+      if (
+        this.nazivStranogDrzavljanstva.trim() === "" &&
+        this.brojPasosa.trim() === ""
+      ) {
+        if (
+          (value.length === 13 && /[0-9]{13} || [0-9]{0}/.test(value)) ||
+          value.length === 0
+        ) {
+          return true;
+        } else {
+          return "Јмбг мора имати тачно 13 цифара.";
+        }
       }
       return true;
     },

@@ -3,6 +3,7 @@ package rs.vakcinacija.imunizacija.saglasnost.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
@@ -40,13 +41,13 @@ public class SaglasnostController {
     }
 
     @GetMapping(value = "/{id}")
-    public SaglasnostZaSprovodjenjeImunizacije read(@PathVariable UUID id) throws Exception {
-        return saglasnostService.read(id);
+    public String read(@PathVariable UUID id) throws Exception {
+        return saglasnostService.getHTMLRepresentation(id);
     }
 
-    @GetMapping(value = "/za-gradjanina")
-    public KolekcijaSaglasnosti readForCitizen(@RequestParam(defaultValue = "") String query) throws Exception {
-        return KolekcijaSaglasnosti.of(saglasnostService.read(query));
+    @GetMapping(value = "/za-gradjanina/{email}")
+    public KolekcijaSaglasnosti readForCitizen(@PathVariable String email, @RequestParam(defaultValue = "") String query) throws Exception {
+        return KolekcijaSaglasnosti.of(saglasnostService.readForCitizen(email, query));
     }
 
     @GetMapping(value = "all/{email}")

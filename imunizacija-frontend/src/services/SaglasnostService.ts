@@ -1,40 +1,48 @@
 import axios from "axios";
 import { json2xml } from "xml-js";
 import jwt_decode from "jwt-decode";
+import { BaseService } from "./BaseService";
 
-class SaglasnostService {
+class SaglasnostService extends BaseService {
   async submitSaglasnost(saglasnost: any): Promise<any> {
-    const xmlSaglasnost = json2xml(saglasnost, {
-      compact: true,
-    });
+    let response = axios.post(
+      this.basePath + "saglasnost",
+      this.toXML(saglasnost),
+      this.getXMLConfig()
+    );
+    return response;
+  }
 
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
+  async getAllForUser(): Promise<any> {
+    let jwt = localStorage.getItem("jwt");
+    let decoded: any = jwt_decode(jwt as string);
 
-    let response = await axios.post(
-      "http://localhost:8081/saglasnost",
-      xmlSaglasnost,
-      config
+    let response = axios.get(
+      this.basePath + "saglasnost/all/" + decoded.sub,
+      this.getXMLConfig()
     );
 
     return response;
   }
 
-  async getAllForUser(): Promise<any> {
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
-
-    let jwt = localStorage.getItem("jwt");
-    let decoded: any = jwt_decode(jwt as string);
-
-    let response = await axios.get(
-      "http://localhost:8081/saglasnost/all/" + decoded.sub,
-      config
+  async getXHTMLRepresentation(id: string): Promise<any> {
+    let response = axios.get(
+      this.basePath + "saglasnost/" + id,
+      this.getXMLConfig()
     );
 
     return response;
+  }
+
+  downloadXHTML(id: string): void {
+    axios
+      .get(this.basePath + "saglasnost/" + id, {
+        responseType: "blob",
+      })
+      .then((response) => {
+        this.initialteXHTMLDownload(response, "saglasnost");
+      })
+      .catch(console.error);
   }
 }
 

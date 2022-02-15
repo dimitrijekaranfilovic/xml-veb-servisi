@@ -9,6 +9,7 @@ import rs.vakcinacija.zajednicko.metadata.RDFMetadataField;
 import rs.vakcinacija.zajednicko.metadata.builder.RDFMetadataBuilder;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = {"value"})
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RDFBoolean implements RDFMetadataField {
+public class RDFBoolean implements RDFMetadataField, Serializable {
     @XmlValue
     private Boolean value;
 

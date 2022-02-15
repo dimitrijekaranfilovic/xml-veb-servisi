@@ -12,6 +12,7 @@ import rs.vakcinacija.zajednicko.data.connection.ExistConnectionProvider;
 import rs.vakcinacija.zajednicko.data.context.JAXBEntityManager;
 import rs.vakcinacija.zajednicko.data.context.ManagedCollectionAdapter;
 import rs.vakcinacija.zajednicko.data.context.ManagedXMLResourceAdapter;
+import rs.vakcinacija.zajednicko.data.query.CitizenSpecificDocumentQueryPredidcate;
 import rs.vakcinacija.zajednicko.data.query.FieldLevelQueryPredicate;
 import rs.vakcinacija.zajednicko.model.BaseDocument;
 
@@ -47,6 +48,12 @@ public abstract class ExistRepository<T extends BaseDocument> {
             }
         }
         return result;
+    }
+
+    public List<T> read(String email, String query) throws Exception {
+        var citizenSpecificPredicate = CitizenSpecificDocumentQueryPredidcate.forDocument(entityClazz, email);
+        var searchPredicate = FieldLevelQueryPredicate.forDocument(entityClazz, query);
+        return read(citizenSpecificPredicate.and(searchPredicate));
     }
 
     public List<T> read(String query) throws Exception {
@@ -152,6 +159,10 @@ public abstract class ExistRepository<T extends BaseDocument> {
             }
         }
         return getOrCreateCollection(collectionUri, ++pathSegmentOffset);
+    }
+
+    public JAXBEntityManager<T> getEntityManager() {
+        return entityManager;
     }
 }
 

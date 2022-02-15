@@ -65,6 +65,15 @@ const routes: Array<RouteConfig> = [
       authorities: [roles.gradjanin],
     },
   },
+  {
+    path: "/dokument/:id",
+    name: "PregledPojedinacnog",
+    component: () => import("../views/PregledPojedinacnog.vue"),
+    meta: {
+      authenticated: false,
+      authorities: [],
+    },
+  },
 ];
 
 const router = new VueRouter({

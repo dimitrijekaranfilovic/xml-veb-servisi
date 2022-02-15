@@ -29,20 +29,22 @@ public class DigitalniSertifikatIssueService {
     }
 
     public DigitalniSertifikat issueFor(ZahtevZaSertifikat zahtevZaSertifikat) throws Exception {
-        var brojSertifikata = RDFString.of(UUID.randomUUID().toString());
+        var id = UUID.randomUUID();
+        var brojSertifikata = RDFString.of(id.toString());
         var datumVremeIzdavanja = RDFDate.of(new Date());
         var licneInformacije = buildLicneInformacije(zahtevZaSertifikat);
 
-        var jmbg = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getJmbg().getValue();
+        var email = zahtevZaSertifikat.provideEmail();
         var potvrdaOVakcinaciji = potvrdaOVakcinacijiService
-                .readForCitizen(jmbg)
+                .readByCitizenEmail(email)
                 .orElseThrow(() -> new CitizenHasNoVaccinationCertificateException("Грађанин нема ни једну потврду о вакцинацији која је непоходна за идавање Дигиталног сертификата."));
         var vakcinacija = buildVakcinacija(potvrdaOVakcinaciji);
 
         var testovi = buildDefaultTestovi();
-        var informacijeOSertifikatu = buildDefaultInformacijeOSertifikatu();
+        var informacijeOSertifikatu = buildDefaultInformacijeOSertifikatu(id);
 
         var sertifikat = new DigitalniSertifikat(brojSertifikata, datumVremeIzdavanja, licneInformacije, vakcinacija, testovi, informacijeOSertifikatu);
+        sertifikat.setId(id);
         sertifikat.ref("pred:na_zahtev")
                   .entity(zahtevZaSertifikat)
                   .type(ZahtevZaSertifikat.class)
@@ -78,11 +80,12 @@ public class DigitalniSertifikatIssueService {
         var pol = RDFString.of(zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPol().getValue());
         var ime = RDFString.of(zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getIme().getValue());
         var prezime = RDFString.of(zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPrezime().getValue());
-        return new LicneInformacije(ime, prezime, jmbg, pol, datumRodjenja, brojPasosa);
+        var email = RDFString.of(zahtevZaSertifikat.getPodnosilacZahteva().getEmail().getValue());
+        return new LicneInformacije(ime, prezime, jmbg, pol, datumRodjenja, brojPasosa, email);
     }
 
-    private InformacijeOSertifikatu buildDefaultInformacijeOSertifikatu() {
-        var qrKod = RDFString.of("http://localhost:3001/digitalni-sertifikat/neki-id");
+    private InformacijeOSertifikatu buildDefaultInformacijeOSertifikatu(UUID id) {
+        var qrKod = RDFString.of("http://localhost:3001/digitalni-sertifikat/" + id);
         var digitalniPotipis = buildDefaultDigitalniPotpis();
         return new InformacijeOSertifikatu(qrKod, digitalniPotipis);
     }

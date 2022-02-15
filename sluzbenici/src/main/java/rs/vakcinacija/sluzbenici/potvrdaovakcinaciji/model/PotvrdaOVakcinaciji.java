@@ -29,6 +29,9 @@ public class PotvrdaOVakcinaciji extends BaseDocument {
     @XmlElement(name = "licne_informacije", required = true)
     private LicniPodaci licneInformacije;
 
+    @XmlElement(name = "email", required = true)
+    private RDFString email;
+
     @XmlElement(name = "vakcinacija", required = true)
     private Vakcinacija vakcinacija;
 
@@ -46,5 +49,13 @@ public class PotvrdaOVakcinaciji extends BaseDocument {
         this.qrKod = qrKod;
         this.licneInformacije = licneInformacije;
         this.vakcinacija = vakcinacija;
+    }
+
+    @Override
+    public String provideEmail() {
+        if (email == null) {
+            return "";
+        }
+        return email.getValue();
     }
 }

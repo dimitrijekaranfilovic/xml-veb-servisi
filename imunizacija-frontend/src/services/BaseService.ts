@@ -2,7 +2,28 @@ import axios from "axios";
 import { json2xml } from "xml-js";
 
 export class BaseService {
-  private basePath: string = "http://localhost:8081/";
+  basePath: string = "http://localhost:8081/";
+
+  getXMLConfig(): any {
+    return {
+      headers: { "Content-Type": "application/xml" },
+    };
+  }
+
+  toXML(entity: any): any {
+    return json2xml(entity, {
+      compact: true,
+    });
+  }
+
+  initialteXHTMLDownload(response: any, documentType: string) {
+    const blob = new Blob([response.data], { type: "application/html" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = documentType + ".xhtml";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
 
   async sendRequest(
     restMethod: any = axios.get,

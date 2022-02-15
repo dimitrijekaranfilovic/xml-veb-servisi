@@ -69,12 +69,15 @@
     </v-row>
     <v-row align="center" justify="center">
       <v-col>
-        <h4>Dodatne informacije o gradjaninu</h4>
+        <h4>Додатне информације о грађанину</h4>
       </v-col>
     </v-row>
     <v-row align="center" justify="center">
       <v-col>
-        <citizen-documents-tabs></citizen-documents-tabs>
+        <citizen-documents-tabs
+          v-if="request.id"
+          :email="request.podnosilacZahteva.email.value"
+        ></citizen-documents-tabs>
       </v-col>
     </v-row>
 
@@ -117,8 +120,12 @@ export default {
   },
   methods: {
     async issueDigitalCertificate() {
-      await digitalCertificateRequestService.approve(this.request.id);
-      this.navigateAllRequests();
+      try {
+        await digitalCertificateRequestService.approve(this.request.id);
+        this.navigateAllRequests();
+      } catch (error) {
+        this.handleError(error);
+      }
     },
     async rejectRequest() {
       try {

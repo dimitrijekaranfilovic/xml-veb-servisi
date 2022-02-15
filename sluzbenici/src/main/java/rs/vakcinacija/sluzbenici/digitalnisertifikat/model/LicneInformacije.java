@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "licne_informacije")
-@XmlType(name = "TLicne_informacije", propOrder = {"datumRodjenja", "brojPasosa"})
+@XmlType(name = "TLicne_informacije", propOrder = {"datumRodjenja", "brojPasosa", "email"})
 @Getter
 @Setter
 public class LicneInformacije extends LicniPodaci {
@@ -22,13 +22,17 @@ public class LicneInformacije extends LicniPodaci {
     @XmlElement(name = "broj_pasosa", required = true)
     private RDFString brojPasosa;
 
+    @XmlElement(name = "email", required = true)
+    private RDFString email;
+
     public LicneInformacije() {
     }
 
     public LicneInformacije(RDFString ime, RDFString prezime, RDFString jmbg, RDFString pol,
-                            RDFDate datumRodjenja, RDFString brojPasosa) {
+                            RDFDate datumRodjenja, RDFString brojPasosa, RDFString email) {
         super(ime, prezime, jmbg, pol);
         this.datumRodjenja = datumRodjenja;
         this.brojPasosa = brojPasosa;
+        this.email = email;
     }
 }

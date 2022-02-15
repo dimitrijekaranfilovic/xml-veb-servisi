@@ -23,4 +23,8 @@ public class BaseDocument extends RDFField {
     public ReferenceBuilder ref(String name) {
         return ReferenceBuilder.of(this.reference, name);
     }
+
+    public String provideEmail() {
+        return "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    }
 }

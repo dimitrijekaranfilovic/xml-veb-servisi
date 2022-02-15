@@ -43,6 +43,15 @@
 
     <v-list-item>
       <v-list-item-content>
+        <v-list-item-title
+          >Адреса електронске поште:
+          {{ request.podnosilacZahteva.email | deRdf }}</v-list-item-title
+        >
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-list-item>
+      <v-list-item-content>
         <v-list-item-title>Разлог за подношење захтева:</v-list-item-title>
         {{ request.razlogZaPodnosenjeZahteva | deRdf }}
       </v-list-item-content>

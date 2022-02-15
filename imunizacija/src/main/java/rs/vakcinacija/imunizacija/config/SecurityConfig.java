@@ -55,7 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage())).and();
 
         http.authorizeRequests()
-                .antMatchers("/saglasnost/za-gradjanina").permitAll()
+                .antMatchers(HttpMethod.POST, "/saglasnost").permitAll()
+                .antMatchers("/saglasnost/za-gradjanina/**").permitAll()
                 .antMatchers("/zahtev-za-sertifikat/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/zahtev-za-sertifikat").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()

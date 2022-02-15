@@ -41,15 +41,13 @@ public class ZahtevZaSertifikatService {
         return client.read();
     }
 
-    // TODO: Actually fetch the email of the request issuer
-
     public void approve(UUID id) throws Exception {
         // Issue digital certificate and store it
         var request = readForResponse(id);
         var digitalCertificate = digitalniSertifikatIssueService.issueFor(request);
         // Notify user via email that his request has been approved
         emailService.sendEmail(
-                new SendEmailRequest("dusanerdeljan99@gmail.com", "Издавање Дигиталног сертификата", buildApproveMessage(request, digitalCertificate))
+                new SendEmailRequest(request.provideEmail(), "Издавање Дигиталног сертификата", buildApproveMessage(request, digitalCertificate))
         );
         // Notify imunizacija service to update link to newly created digital certificate
         serviceBus.publish(
@@ -60,7 +58,7 @@ public class ZahtevZaSertifikatService {
     public void reject(UUID id, String reason) {
         var request = readForResponse(id);
         emailService.sendEmail(
-                new SendEmailRequest("dusanerdeljan99@gmail.com", "Одбијање захтева за издавање Дигиталног сертификата",  buildRejectMessage(request, reason))
+                new SendEmailRequest(request.provideEmail(), "Одбијање захтева за издавање Дигиталног сертификата",  buildRejectMessage(request, reason))
         );
         // Maybe notify imunizacija service to update some metadata on the original document?
         serviceBus.publish(
