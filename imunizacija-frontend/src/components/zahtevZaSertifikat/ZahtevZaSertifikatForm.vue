@@ -20,7 +20,7 @@
           </v-row>
           <v-row>
             <v-text-field
-              v-model="formData.datum_rodjenja"
+              v-model="formData.datumRodjenja"
               label="Датум рођења"
               single-line
             >
@@ -47,7 +47,7 @@
           </v-row>
           <v-row>
             <v-text-field
-              v-model="formData.broj_pasosa"
+              v-model="formData.brojPasosa"
               label="Број пасоша"
             ></v-text-field>
           </v-row>
@@ -57,6 +57,14 @@
               label="Разлог за подношење захтева"
             ></v-text-field>
           </v-row>
+          <v-row>
+            <v-text-field v-model="formData.mesto" label="Место"></v-text-field>
+          </v-row>
+          <v-flex class="text-center">
+            <v-btn :disabled="!valid" color="success" @click="submit">
+              Поднеси документ
+            </v-btn>
+          </v-flex>
         </v-form>
       </v-col>
     </v-row>
@@ -64,7 +72,10 @@
 </template>
 
 <script>
+import ZahtevZaSertifikatService from "@/services/ZahtevZaSertifikatService";
 import DatePicker from "../shared/DatePicker.vue";
+import jwt_decode from "jwt-decode";
+
 export default {
   components: { DatePicker },
   data: () => ({
@@ -82,8 +93,9 @@ export default {
       brojPasosa: "",
       razlogZaPodnosenjeZahteva: "",
     },
+    valid: false,
   }),
-  mounter() {
+  mounted() {
     let jwt = localStorage.getItem("jwt");
     let decoded = jwt_decode(jwt);
 
@@ -100,7 +112,7 @@ export default {
             "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
             "xmlns:za": "https://www.vakcinacija.rs/zajednicko",
           },
-          mesto: this.mesto,
+          mesto: this.formData.mesto,
           datum: currentDate,
           podnosilac_zahteva: {
             licni_podaci: {
@@ -109,12 +121,15 @@ export default {
               "za:jmbg": this.formData.jmbg,
               "za:pol": this.formData.pol,
             },
-            datum_rodjenja: this.datumRodjenja,
-            broj_pasosa: this.brojPasosa,
+            datum_rodjenja: this.formData.datumRodjenja,
+            broj_pasosa: this.formData.brojPasosa,
           },
-          razlog_za_podnosenje_zahteva: this.razlogZaPodnosenjeZahteva,
+          razlog_za_podnosenje_zahteva: this.formData.razlogZaPodnosenjeZahteva,
         },
       };
+      let response = ZahtevZaSertifikatService.postZahtevZaSertifikat(
+        zahtevZaSertifikatJSON
+      );
     },
   },
 };
