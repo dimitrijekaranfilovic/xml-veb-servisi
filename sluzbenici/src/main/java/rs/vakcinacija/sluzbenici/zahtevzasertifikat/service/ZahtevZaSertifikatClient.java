@@ -11,6 +11,9 @@ import java.util.UUID;
 @FeignClient(value = "zahtevZaSertifikatClient", url = "http://localhost:8081/zahtev-za-sertifikat")
 public interface ZahtevZaSertifikatClient {
 
+    @GetMapping(produces = "application/xml")
+    KolekcijaZahtevaZaSertifikat readTotal();
+
     @GetMapping(value = "/za-odobrenje", produces = "application/xml")
     KolekcijaZahtevaZaSertifikat read();
 
