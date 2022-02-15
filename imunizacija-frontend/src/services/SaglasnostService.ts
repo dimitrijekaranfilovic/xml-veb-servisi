@@ -1,50 +1,34 @@
 import axios from "axios";
 import { json2xml } from "xml-js";
 import jwt_decode from "jwt-decode";
+import { BaseService } from "./BaseService";
 
-class SaglasnostService {
+class SaglasnostService extends BaseService {
   async submitSaglasnost(saglasnost: any): Promise<any> {
-    const xmlSaglasnost = json2xml(saglasnost, {
-      compact: true,
-    });
-
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
-
-    let response = await axios.post(
-      "http://localhost:8081/saglasnost",
-      xmlSaglasnost,
-      config
+    let response = axios.post(
+      this.basePath + "saglasnost",
+      this.toXML(saglasnost),
+      this.getXMLConfig()
     );
-
     return response;
   }
 
   async getAllForUser(): Promise<any> {
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
-
     let jwt = localStorage.getItem("jwt");
     let decoded: any = jwt_decode(jwt as string);
 
-    let response = await axios.get(
-      "http://localhost:8081/saglasnost/all/" + decoded.sub,
-      config
+    let response = axios.get(
+      this.basePath + "saglasnost/all/" + decoded.sub,
+      this.getXMLConfig()
     );
 
     return response;
   }
 
   async getXHTMLRepresentation(id: string): Promise<any> {
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
-
-    let response = await axios.get(
-      "http://localhost:8081/saglasnost/" + id,
-      config
+    let response = axios.get(
+      this.basePath + "saglasnost/" + id,
+      this.getXMLConfig()
     );
 
     return response;
@@ -52,16 +36,11 @@ class SaglasnostService {
 
   downloadXHTML(id: string): void {
     axios
-      .get("http://localhost:8081/saglasnost/" + id, {
+      .get(this.basePath + "saglasnost/" + id, {
         responseType: "blob",
       })
       .then((response) => {
-        const blob = new Blob([response.data], { type: "application/html" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "Saglasnost.xhtml";
-        link.click();
-        URL.revokeObjectURL(link.href);
+        this.initialteXHTMLDownload(response, "saglasnost");
       })
       .catch(console.error);
   }
