@@ -57,7 +57,6 @@ public class SaglasnostController {
 
     @GetMapping(value = "/za-sluzbenika")
     public KolekcijaSaglasnosti readFilteredByEmail(@RequestParam(defaultValue = "") String email) throws Exception {
-        log.info("Trazim po: " + email);
         return KolekcijaSaglasnosti.of(saglasnostService.readFiltered(email));
     }
 

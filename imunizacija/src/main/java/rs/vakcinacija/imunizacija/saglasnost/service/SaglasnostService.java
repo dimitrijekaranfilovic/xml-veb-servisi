@@ -34,7 +34,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
     public List<SaglasnostZaSprovodjenjeImunizacije> readFiltered(String email) throws Exception {
         var lista = this.read();
         return lista.stream().filter(saglasnost ->
-            saglasnost.getPacijent().getLicneInformacije().getKontakt().getEmail().getValue().equals(email)
+            saglasnost.getPacijent().getLicneInformacije().getKontakt().getEmail().getValue().contains(email)
         ).collect(Collectors.toList());
     }
 
