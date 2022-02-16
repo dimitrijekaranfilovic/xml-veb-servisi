@@ -1,17 +1,20 @@
 package rs.vakcinacija.imunizacija.saglasnost.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.jena.dboe.migrate.L;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaSaglasnosti;
-import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
+import rs.vakcinacija.imunizacija.saglasnost.model.*;
 import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostExistRepository;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
+import rs.vakcinacija.zajednicko.model.RDFBoolean;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -40,6 +43,16 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
     public SaglasnostZaSprovodjenjeImunizacije createFirstHalfOfDocument(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
         saglasnost.setDatum(new RDFDate(new Date(), "", "", null, null, null, null, null));
+
+        saglasnost.setVakcinacija(new Vakcinacija());
+        saglasnost.getVakcinacija().setZdravstvenaUstanova(new ZdravstvenaUstanova());
+        saglasnost.getVakcinacija().setLekar(new Lekar());
+        saglasnost.getVakcinacija().setVakcine(new Vakcine());
+        saglasnost.getVakcinacija().setOdlukaKomisije(RDFBoolean.of(false));
+        saglasnost.getVakcinacija().setPrivremeneKontraindikacije(new PrivremeneKontraindikacije());
+
+        saglasnost.getVakcinacija().getVakcine().setVakcine(new ArrayList<>());
+
         insertRDFMetadataForFirstHalf(saglasnost);
         var id = existRepository.save(saglasnost);
         fusekiRepository.save(id, saglasnost);

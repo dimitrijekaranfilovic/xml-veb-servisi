@@ -1,41 +1,46 @@
 <template>
   <v-container>
     <v-row align="center" justify="start" class="btn-row">
-      <v-col cols="12" md="4">
-        <v-btn color="primary" @click="addDoctorDialog = true"
-          >Унеси податке о лекару и установи</v-btn
-        >
-      </v-col>
-      <v-col cols="12" md="4">
-        <v-btn color="primary" @click="addVaccineDialog = true"
-          >Унеси нову дозу</v-btn
-        >
+      <v-col cols="12">
+        <v-card elevation="0">
+          <v-card-actions>
+            <v-btn color="primary" @click="addDoctorDialog = true"
+              >Унеси податке о лекару и установи</v-btn
+            >
+            <v-btn color="primary" @click="addVaccineDialog = true"
+              >Унеси нову дозу</v-btn
+            >
+            <v-btn color="primary" @click="sideEffectsDialog = true">
+              Унеси привремену контраиндикацију
+            </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
-    <v-row v-if="vakcinacija">
-      <v-row v-if="vakcinacija.zdravstvenaUstanova">
-        <v-col cols="12" md="6">
-          <v-subheader>Назив</v-subheader>
+    <v-row>
+      <v-row>
+        <v-col cols="12" md="4" v-if="vakcinacija.zdravstvenaUstanova">
+          <v-subheader>Назив установе</v-subheader>
           <span>{{ vakcinacija.zdravstvenaUstanova.naziv }}</span>
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="4" v-if="vakcinacija.zdravstvenaUstanova">
           <v-subheader>Пункт</v-subheader>
           <span>{{ vakcinacija.zdravstvenaUstanova.punkt }}</span>
         </v-col>
-      </v-row>
-      <v-row v-if="vakcinacija.lekar">
-        <v-col cols="12">
-          <v-subheader>Име, презиме и бр.телефона лекара</v-subheader>
-          <span
-            >{{ vakcinacija.lekar.ime }} {{ vakcinacija.lekar.prezime }},
-            {{ vakcinacija.lekar.telefon.brojFiksnog }}
-            {{ vakcinacija.lekar.telefon.brojMobilnog }}</span
-          >
+        <v-col cols="12" md="4" v-if="vakcinacija.lekar">
+          <v-subheader>Лекар</v-subheader>
+          <span>
+            {{ vakcinacija.lekar.ime }} {{ vakcinacija.lekar.prezime }}
+            <span v-if="vakcinacija.lekar.telefon">
+              ,{{ vakcinacija.lekar.telefon.brojFiksnog }}
+              {{ vakcinacija.lekar.telefon.brojMobilnog }}
+            </span>
+          </span>
         </v-col>
       </v-row>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col cols="12">
         <h3>Вакцине</h3>
         <v-simple-table>
           <template v-slot:default>
@@ -50,28 +55,60 @@
                 <th class="text-left">Нуспојава</th>
               </tr>
             </thead>
-            <tbody v-if="vakcinacija">
-              <!-- <tr v-for="(item, i) in vaccinationPlaces" :key="i">
-          <td>
-            {{ item.nazivPunkta }}
-          </td>
-          <td>
-            <v-btn
-              text
-              color="primary"
-              plain
-              :to="{
-                name: 'SingleVaccinationPlaceView',
-                params: { id: item.id },
-              }"
-              >Прикажи детаље</v-btn
-            >
-          </td>
-        </tr> -->
+            <tbody v-if="vakcinacija.vakcine.vakcine">
+              <tr v-for="(item, i) in vakcinacija.vakcine.vakcine" :key="i">
+                <td>{{ item.brojDoze | deRdf }}</td>
+                <td>{{ item.datumDavanja | deRdf | moment("DD.MM.YYYY.") }}</td>
+                <td>{{ item.brojSerije | deRdf }}</td>
+                <td>{{ item.tip | deRdf }}</td>
+                <td>{{ item.proizvodjac | deRdf }}</td>
+                <td>{{ item.ekstremitet | deRdf }}</td>
+                <td>{{ item.nuspojava | deRdf }}</td>
+              </tr>
             </tbody>
           </template>
         </v-simple-table>
       </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <h3>Привремене контраиндикације</h3>
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">Датум утврђивања</th>
+                <th class="text-left">Дијагноза</th>
+              </tr>
+            </thead>
+            <tbody
+              v-if="vakcinacija.privremeneKontraindikacije.kontraindikacije"
+            >
+              <tr
+                v-for="(item, i) in vakcinacija.privremeneKontraindikacije
+                  .kontraindikacije"
+                :key="i"
+              >
+                <td>
+                  {{ item.datumUtvrdjivanja | deRdf | moment("DD.MM.YYYY.") }}
+                </td>
+                <td>{{ item.dijagnoza | deRdf }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <h4>Одлука комисије за трајне контраиндикације</h4>
+      <v-card-text>
+        <p v-if="vakcinacija.odlukaKomisije.value">Одлука донешена</p>
+        <p v-else>Нема одлуке</p>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary">Промени одлуку</v-btn>
+      </v-card-actions>
     </v-row>
     <div id="dialogs">
       <v-dialog v-model="addDoctorDialog" max-width="600px">
@@ -85,13 +122,13 @@
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Назив установе"
-                    v-model="buildingObj.zdravstvena_ustanova.naziv"
+                    v-model="firstSetupObj.kreiranje.zdravstvena_ustanova.naziv"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Пункт"
-                    v-model="buildingObj.zdravstvena_ustanova.punkt"
+                    v-model="firstSetupObj.kreiranje.zdravstvena_ustanova.punkt"
                   />
                 </v-col>
               </v-row>
@@ -99,13 +136,13 @@
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Име лекара"
-                    v-model="newDoctorObj.lekar.ime"
+                    v-model="firstSetupObj.kreiranje.lekar.ime"
                   />
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Презиме лекара"
-                    v-model="newDoctorObj.lekar.prezime"
+                    v-model="firstSetupObj.kreiranje.lekar.prezime"
                   />
                 </v-col>
               </v-row>
@@ -113,13 +150,15 @@
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Број мобилног"
-                    v-model="newDoctorObj.lekar.telefon.broj_mobilnog"
+                    v-model="
+                      firstSetupObj.kreiranje.lekar.telefon.broj_mobilnog
+                    "
                   />
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Број фискног"
-                    v-model="newDoctorObj.lekar.telefon.broj_fiksnog"
+                    v-model="firstSetupObj.kreiranje.lekar.telefon.broj_fiksnog"
                   />
                 </v-col>
               </v-row>
@@ -141,10 +180,6 @@
           </v-card-title>
           <v-card-text>
             <v-container fluid>
-              <!-- 
-                <th class="text-left">Датум давања</th>
-                <th class="text-left">Екстремитет</th>
-                <th class="text-left">Нуспојава</th> -->
               <v-row>
                 <v-col cols="12" md="6">
                   <v-text-field
@@ -202,11 +237,40 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <v-dialog v-model="sideEffectsDialog" max-width="600px">
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Унеси привремену контраиндикацију</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container fluid>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field label="Датум утврђивања" />
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field label="Дијагноза" />
+                </v-col>
+              </v-row>
+            </v-container>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="sideEffectsDialog = false"
+                >Одустани</v-btn
+              >
+              <v-btn color="primary">Додај</v-btn>
+            </v-card-actions>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </div>
   </v-container>
 </template>
 
 <script>
+//TODO: dodaj privremene kontraindikacije
 export default {
   name: "HealthWorkerVaccinationPart",
   props: ["vakcinacija"],
@@ -214,22 +278,24 @@ export default {
     return {
       addDoctorDialog: false,
       addVaccineDialog: false,
-      newDoctorObj: {
-        lekar: {
-          telefon: {
-            broj_fiksnog: "",
-            broj_mobilnog: "",
+      sideEffectsDialog: false,
+      firstSetupObj: {
+        kreiranje: {
+          lekar: {
+            telefon: {
+              broj_fiksnog: "",
+              broj_mobilnog: "",
+            },
+            ime: "",
+            prezime: "",
           },
-          ime: "",
-          prezime: "",
+          zdravstvena_ustanova: {
+            naziv: "",
+            punkt: "",
+          },
         },
       },
-      buildingObj: {
-        zdravstvena_ustanova: {
-          naziv: "",
-          punkt: "",
-        },
-      },
+
       newVaccineObj: {
         vakcina: {
           ekstremitet: "",
@@ -240,17 +306,24 @@ export default {
           broj_serije: "",
         },
       },
+
+      sideEffectObj: {
+        kontraindikacija: {
+          datum_utvrdjivanja: null,
+          dijagnoza: "",
+        },
+      },
     };
   },
   computed: {
     formValid() {
       return (
-        this.newDoctorObj.lekar.telefon.broj_fiksnog !== "" &&
-        this.newDoctorObj.lekar.telefon.broj_mobilnog !== "" &&
-        this.newDoctorObj.lekar.ime !== "" &&
-        this.newDoctorObj.lekar.prezime !== "" &&
-        this.buildingObj.zdravstvena_ustanova.naziv !== "" &&
-        this.buildingObj.zdravstvena_ustanova.punkt !== ""
+        this.firstSetupObj.kreiranje.lekar.telefon.broj_fiksnog !== "" &&
+        this.firstSetupObj.kreiranje.lekar.telefon.broj_mobilnog !== "" &&
+        this.firstSetupObj.kreiranje.lekar.ime !== "" &&
+        this.firstSetupObj.kreiranje.lekar.prezime !== "" &&
+        this.firstSetupObj.kreiranje.zdravstvena_ustanova.naziv !== "" &&
+        this.firstSetupObj.kreiranje.zdravstvena_ustanova.punkt !== ""
       );
     },
     formValid2() {

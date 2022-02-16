@@ -24,7 +24,7 @@ public class Vakcinacija extends RDFField {
     @XmlElement(name = "vakcine", required = true)
     private Vakcine vakcine;
 
-    @XmlElement(name = "privremene_kontraindikacije", required = false)
+    @XmlElement(name = "privremene_kontraindikacije")
     private PrivremeneKontraindikacije privremeneKontraindikacije;
 
     @XmlElement(name = "odluka_komisije_za_trajne_kontraindikacije", required = true)
