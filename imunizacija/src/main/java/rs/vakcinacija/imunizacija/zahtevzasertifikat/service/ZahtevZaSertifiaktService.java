@@ -48,6 +48,10 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
         return ((ZahtevZaSertifikatExistRepository) existRepository).readPending();
     }
 
+    public List<ZahtevZaSertifikat> allForUser(String email) throws Exception {
+        return existRepository.read((zahtev) -> zahtev.provideEmail().equals(email));
+    }
+
     protected void insertRDFMetadata(ZahtevZaSertifikat zahtevZaSertifikat) {
         var datum = zahtevZaSertifikat.getDatum();
         datum.setProperty(PROP_DATUM);

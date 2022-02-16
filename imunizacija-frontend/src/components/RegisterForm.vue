@@ -130,10 +130,9 @@ export default {
           that.snackbar = true;
         })
         .catch((err) => {
-          if (err.message.includes("500")) {
-            that.text = "Корисник са том адресом електронске поште већ постоји";
-          } else {
-            that.text = "Морате попунити сва поља";
+          if (err.message.includes("400")) {
+            that.text =
+              "Корисник са том адресом електронске поште већ постоји или нисте попунили сва поља";
           }
           that.snackbar = true;
         });

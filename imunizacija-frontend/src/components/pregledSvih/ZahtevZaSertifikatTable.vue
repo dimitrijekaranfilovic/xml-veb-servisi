@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="saglasnosti"
+    :items="zahtevi"
     :items-per-page="5"
     item-key="id"
     class="elevation-1"
@@ -16,16 +16,10 @@
     <template v-slot:item="row">
       <tr>
         <td>{{ row.item.datum.value }}</td>
-        <td>{{ row.item.pacijent.saglasnost.izjava.value }}</td>
-        <td>{{ row.item.pacijent.saglasnost.nazivImunoloskogLeka.value }}</td>
+        <td>{{ row.item.mesto.value }}</td>
+        <td>{{ row.item.status.value }}</td>
         <td align="right">
-          <v-btn
-            class="mx-2"
-            dark
-            small
-            color="pink"
-            @click="detaljnijiPrikaz(row.item)"
-          >
+          <v-btn class="mx-2" dark small color="pink">
             Детаљнији преглед
           </v-btn>
         </td>
@@ -35,7 +29,7 @@
 </template>
 
 <script>
-import SaglasnostService from "../../services/SaglasnostService";
+import ZahtevZaSertifikatService from "../../services/ZahtevZaSertifikatService";
 
 export default {
   name: "SaglasnostTable",
@@ -48,19 +42,19 @@ export default {
           value: "datum.value",
         },
         {
-          text: "Пристанак",
-          value: "pacijent.saglasnost.izjava.value",
+          text: "Место подношења",
+          value: "mesto.value",
         },
         {
-          text: "Одабрана вакцина",
-          value: "pacijent.saglasnost.nazivImunoloskogLeka.value",
+          text: "Статус",
+          value: "status.value",
         },
         {
           text: "Акција",
           align: "right",
         },
       ],
-      saglasnosti: [],
+      zahtevi: [],
     };
   },
   mounted() {
@@ -69,20 +63,15 @@ export default {
   methods: {
     fetchData() {
       let that = this;
-      SaglasnostService.getAllForUser().then((data) => {
-        for (let doc of data.data.saglasnosti) {
+      ZahtevZaSertifikatService.getAllForUser().then((data) => {
+        for (let doc of data.data.zahteviZaSertifikat) {
           let dateToekns = new Date(doc.datum.value).toString().split(" ");
-          doc.pacijent.saglasnost.izjava.value =
-            doc.pacijent.saglasnost.izjava.value === true ? "Да" : "Не";
           doc.datum.value =
             dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
         }
-        that.saglasnosti = data.data.saglasnosti;
-        that.$root.$emit("saglasnostiFetched");
+        that.zahtevi = data.data.zahteviZaSertifikat;
+        that.$root.$emit("zahteviFetched");
       });
-    },
-    detaljnijiPrikaz(document) {
-      this.$router.push("dokument/" + document.id);
     },
   },
 };

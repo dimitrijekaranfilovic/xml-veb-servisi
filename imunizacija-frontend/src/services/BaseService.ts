@@ -17,6 +17,12 @@ export class BaseService {
     });
   }
 
+  provideUserEmail(): string {
+    let jwt = localStorage.getItem("jwt");
+    let decoded: any = jwt_decode(jwt as string);
+    return decoded.sub;
+  }
+
   getLocalStorageJwt(): any {
     let jwt = localStorage.getItem("jwt");
     return jwt_decode(jwt as string);
