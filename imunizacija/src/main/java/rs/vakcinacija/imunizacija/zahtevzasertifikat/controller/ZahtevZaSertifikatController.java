@@ -25,7 +25,7 @@ public class ZahtevZaSertifikatController {
     public ZahtevZaSertifikatController(ZahtevZaSertifiaktService zahtevZaSertifiaktService) {
         this.zahtevZaSertifiaktService = zahtevZaSertifiaktService;
     }
-    
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ZahtevZaSertifikat write(@RequestBody ZahtevZaSertifikat zahtevZaSertifikat)

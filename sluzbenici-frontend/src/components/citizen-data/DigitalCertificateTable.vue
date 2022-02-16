@@ -1,20 +1,25 @@
 <template>
   <div>
     <v-form @submit="fetchData">
-      <v-text-field
-        v-model="query"
-        label="Унесите критеријум за претрагу..."
-      ></v-text-field>
-    </v-form>
-    <v-form>
-      <v-combobox
-        @input="onChipInput()"
-        v-model="select"
-        :items="items"
-        label="Напредна претрага (крените да куцате филтере...)"
-        multiple
-        chips
-      ></v-combobox>
+      <v-row>
+        <v-col lg="10" md="12" sm="12" xs="12">
+          <v-combobox
+            @input="onChipInput()"
+            v-model="select"
+            :items="items"
+            label="Напредна претрага (крените да куцате филтере...)"
+            :clearable="true"
+            :deletable-chips="true"
+            multiple
+            chips
+          ></v-combobox>
+        </v-col>
+        <v-col lg="2" md="12" sm="12" xs="12">
+          <v-btn block color="primary" @click="fetchData"
+            >Примени филтере</v-btn
+          >
+        </v-col>
+      </v-row>
     </v-form>
     <v-dialog v-model="dialog" max-width="1000px">
       <v-card>
@@ -108,30 +113,59 @@ export default Vue.extend({
       "pred:Interesovanje": "Документ интересовања",
     },
     select: [],
-    items: ["Ime:", "Prezime:", "Jmbg:", "Broj pasosa:"],
-    shouldMerge: false,
+    items: [
+      "Текст:",
+      "Датум издавања:",
+      "Тип прве дозе:",
+      "Тип друге дозе:",
+      "Датум прве дозе:",
+      "Датум друге дозе:",
+      "Установа прве дозе:",
+      "Установа друге дозе:",
+      "Број серије прве дозе:",
+      "Број серије друге дозе:",
+    ],
+    itemToQuery: {
+      Текст: "query",
+      "Датум издавања": "issueDate",
+      "Тип прве дозе": "doseOneType",
+      "Тип друге дозе": "doseTwoType",
+      "Датум прве дозе": "doseOneDate",
+      "Датум друге дозе": "doseTwoDate",
+      "Установа прве дозе": "doseOnePlace",
+      "Установа друге дозе": "doseTwoPlace",
+      "Број серије прве дозе": "doseOneSeriesNumber",
+      "Број серије друге дозе": "doseTwoSeriesNumber",
+    },
   }),
   async mounted() {
     await this.fetchData();
   },
   methods: {
     async fetchData() {
-      const response = await citizenDataService.readDigitalCertificates({
-        query: this.query,
-        email: this.email,
-      });
+      const params = this.processQuery();
+      const response = await citizenDataService.readDigitalCertificates(params);
       this.certificates = response.data.digitalniSertifikati || [];
     },
     onChipInput() {
-      // probaj da spajas samo ako se poslednji element nalazi u toj listi (items), ako se dodati element ne nalazi u toj listi spoji ga sa poslednjim elementom ako postoji
-      // ako se prvo dodaje element koji ne postoji u listu resetuj select
-      console.log(this.items);
-      if (this.shouldMerge) {
-        const value = this.select.pop();
-        const pred = this.select.pop();
-        this.select.push(pred + value);
+      const last = this.select.pop();
+      if (this.items.includes(last)) {
+        this.select.push(last);
+      } else if (this.select.length > 0) {
+        const preLast = this.select.pop();
+        this.select.push(preLast + last);
       }
-      this.shouldMerge = !this.shouldMerge;
+    },
+    processQuery() {
+      const params = {};
+      params["email"] = this.email;
+      this.select.forEach((selection) => {
+        const tokens = selection.split(":");
+        if (tokens.length == 2 && tokens[1].trim() !== "") {
+          params[this.itemToQuery[tokens[0].trim()]] = tokens[1].trim();
+        }
+      });
+      return params;
     },
     showReferences(item) {
       this.selectedItem = item;
