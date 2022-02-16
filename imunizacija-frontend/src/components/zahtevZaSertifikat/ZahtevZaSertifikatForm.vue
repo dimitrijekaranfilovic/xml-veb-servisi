@@ -88,6 +88,15 @@
         </v-form>
       </v-col>
     </v-row>
+    <v-snackbar v-model="snackbar" :timeout="timeout">
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+          Затвори
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -146,6 +155,9 @@ export default {
       },
     },
     valid: false,
+    snackbar: false,
+    timeout: 2000,
+    text: "Документ је успешно поднет",
     jmbgRules: (v) =>
       (v && /^\d{13}$/.test(v)) ||
       v.length === 0 ||
@@ -191,6 +203,21 @@ export default {
       let response = ZahtevZaSertifikatService.postZahtevZaSertifikat(
         zahtevZaSertifikatJSON
       );
+      let that = this;
+      response
+        .then((res) => {
+          if (res.status === 201) {
+            that.text = "Документ успешно поднешен";
+            that.snackbar = true;
+          } else {
+            that.text = "Подношење документа није успело";
+            that.snackbar = true;
+          }
+        })
+        .catch((err) => {
+          that.text = "Подношење документа није успело";
+          that.snackbar = true;
+        });
     },
     onEditorChange: debounce(function (value) {
       this.formData.razlogZaPodnosenjeZahteva = value.html;

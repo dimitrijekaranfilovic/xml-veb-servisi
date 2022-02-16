@@ -3,6 +3,7 @@ package rs.vakcinacija.imunizacija.zahtevzasertifikat.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
@@ -24,9 +25,9 @@ public class ZahtevZaSertifikatController {
     public ZahtevZaSertifikatController(ZahtevZaSertifiaktService zahtevZaSertifiaktService) {
         this.zahtevZaSertifiaktService = zahtevZaSertifiaktService;
     }
-
-
+    
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ZahtevZaSertifikat write(@RequestBody ZahtevZaSertifikat zahtevZaSertifikat)
             throws Exception {
         return zahtevZaSertifiaktService.create(zahtevZaSertifikat);
