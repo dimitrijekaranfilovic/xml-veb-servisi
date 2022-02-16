@@ -41,4 +41,17 @@ public class LicneInformacije extends RDFField {
         this.imePrezime = imePrezime;
         this.davalacKrvi = davalacKrvi;
     }
+
+
+    public String getCyrilicDrzavljanstvo() {
+        var val = drzavljanstvo.getValue();
+        if (val.equals("DRZAVLJANIN_REPUBLIKE_SRBIJE")) {
+            return "Држављанин Републике Србије";
+        } else if (val.equals("STRANI_DRZAVLJANIN_SA_BORAVKOM_U_RS")) {
+            return "Страни држављанин са боравком у РС";
+        } else if (val.equals("STRANI_DRZAVLJANIN_BEZ_BORAVKA_U_RS")) {
+            return "Страни држављанин без боравка у РС";
+        }
+        return "";
+    }
 }
