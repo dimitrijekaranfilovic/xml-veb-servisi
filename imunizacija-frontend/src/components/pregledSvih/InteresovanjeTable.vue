@@ -12,14 +12,27 @@
       prevIcon: 'mdi-minus',
       nextIcon: 'mdi-plus',
     }"
-  ></v-data-table>
+  >
+    <template v-slot:item="row">
+      <tr>
+        <td>{{ row.item.datum.value }}</td>
+        <td>{{ row.item.licneInformacije.davalacKrvi.value }}</td>
+        <td>{{ row.item.odabranaLokacijaPrimanjaVakcine.value }}</td>
+        <td align="right">
+          <v-btn class="mx-2" dark small color="pink">
+            Детаљнији преглед
+          </v-btn>
+        </td>
+      </tr>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
 import InteresovanjeService from "../../services/InteresovanjeService";
 
 export default {
-  name: "SaglasnostTable",
+  name: "InteresovanjeTable",
   data() {
     return {
       headers: [
@@ -35,6 +48,10 @@ export default {
         {
           text: "Одабрана локација примања вакцине",
           value: "odabranaLokacijaPrimanjaVakcine.value",
+        },
+        {
+          text: "Акција",
+          align: "right",
         },
       ],
       interesovanja: [],

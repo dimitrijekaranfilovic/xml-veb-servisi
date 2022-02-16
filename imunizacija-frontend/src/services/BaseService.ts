@@ -1,5 +1,6 @@
 import axios from "axios";
 import { json2xml } from "xml-js";
+import jwt_decode from "jwt-decode";
 
 export class BaseService {
   basePath: string = "http://localhost:8081/";
@@ -14,6 +15,12 @@ export class BaseService {
     return json2xml(entity, {
       compact: true,
     });
+  }
+
+  provideUserEmail(): string {
+    let jwt = localStorage.getItem("jwt");
+    let decoded: any = jwt_decode(jwt as string);
+    return decoded.sub;
   }
 
   initialteDownload(response: any, documentType: string, extension: string) {

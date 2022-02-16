@@ -5,21 +5,36 @@
     </v-flex>
     <br />
     <br />
-    <h3>Интересовања</h3>
-    <interesovanje-table></interesovanje-table>
-    <br />
-    <br />
-    <h3>Обрасци сагласности</h3>
-    <saglasnost-table></saglasnost-table>
+    <v-tabs color="primary accent-4">
+      <v-tab>Интересовања</v-tab>
+      <v-tab>Обрасци сагласности</v-tab>
+      <v-tab>Захтеви за сертификат</v-tab>
+      <v-tab-item>
+        <br />
+        <br />
+        <interesovanje-table></interesovanje-table>
+      </v-tab-item>
+      <v-tab-item>
+        <br />
+        <br />
+        <saglasnost-table></saglasnost-table>
+      </v-tab-item>
+      <v-tab-item>
+        <br />
+        <br />
+        <zahtev-za-sertifikat-table></zahtev-za-sertifikat-table>
+      </v-tab-item>
+    </v-tabs>
   </v-container>
 </template>
 
 <script>
 import InteresovanjeTable from "@/components/pregledSvih/InteresovanjeTable.vue";
 import SaglasnostTable from "../components/pregledSvih/SaglasnostTable.vue";
+import ZahtevZaSertifikatTable from "@/components/pregledSvih/ZahtevZaSertifikatTable.vue";
 
 export default {
-  components: { SaglasnostTable, InteresovanjeTable },
+  components: { SaglasnostTable, InteresovanjeTable, ZahtevZaSertifikatTable },
   data: () => ({}),
 };
 </script>

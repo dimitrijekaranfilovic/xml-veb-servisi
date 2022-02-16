@@ -12,6 +12,7 @@ import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.KolekcijaZahtevaZaSer
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.service.ZahtevZaSertifiaktService;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -38,6 +39,11 @@ public class ZahtevZaSertifikatController {
         return zahtevZaSertifiaktService.read(id);
     }
 
+    @GetMapping(value = "all/{email}")
+    public KolekcijaZahtevaZaSertifikat readAllForUser(@PathVariable String email) throws Exception {
+        return KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.allForUser(email));
+    }
+
     @GetMapping
     public KolekcijaZahtevaZaSertifikat read() throws Exception {
         var kolekcija = KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.read());
@@ -61,5 +67,4 @@ public class ZahtevZaSertifikatController {
         log.info(String.format("Zahtev za sertifikat '%s' odbijen zbog: '%s'!", event.getId(), event.getReason()));
         zahtevZaSertifiaktService.reject(event.getId(), event.getReason(), event.getRejectionDate());
     }
-
 }

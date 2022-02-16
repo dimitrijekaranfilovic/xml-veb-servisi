@@ -1,6 +1,5 @@
 import { BaseService } from "@/services/BaseService";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 class InteresovanjeService extends BaseService {
   private interesovanjePath: string = "interesovanje";
@@ -10,16 +9,9 @@ class InteresovanjeService extends BaseService {
   }
 
   async getAllForUser(): Promise<any> {
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
-
-    let jwt = localStorage.getItem("jwt");
-    let decoded: any = jwt_decode(jwt as string);
-
     let response = await axios.get(
-      "http://localhost:8081/interesovanje/all/" + decoded.sub,
-      config
+      this.basePath + "interesovanje/all/" + this.provideUserEmail(),
+      this.getXMLConfig()
     );
 
     return response;
