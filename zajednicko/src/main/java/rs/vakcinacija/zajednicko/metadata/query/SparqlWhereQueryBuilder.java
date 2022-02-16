@@ -17,7 +17,7 @@ public class SparqlWhereQueryBuilder {
             if (fieldValue == null) {
                 return;
             }
-            stringBuilder.append(String.format("pred:%s \"%s\"^^xsd:%s", annotation.name(), fieldValue, annotation.type()));
+            stringBuilder.append(String.format("pred:%s \"%s\"^^xsd:%s; ", annotation.name(), fieldValue, annotation.type()));
         });
         return stringBuilder.toString();
     }

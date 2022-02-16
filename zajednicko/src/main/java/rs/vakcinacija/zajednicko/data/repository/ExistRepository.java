@@ -117,6 +117,10 @@ public abstract class ExistRepository<T extends BaseDocument> {
         }
     }
 
+    public FieldLevelQueryPredicate<T> getSearchFilter(String query) {
+        return FieldLevelQueryPredicate.forDocument(entityClazz, query);
+    }
+
     protected String buildDocumentId(UUID id) {
         return String.format("%s.xml", id);
     }
