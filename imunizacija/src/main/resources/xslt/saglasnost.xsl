@@ -130,7 +130,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 				      </input>
 				      <span class="vl"></span>
 				      <b>Датум рођења: </b>
-				      <span class="podvuceno"><xsl:value-of select="//b:datum_rodjenja"/></span>
+				      <span class="podvuceno"><xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/></span>
 				      <span class="vl"></span>
 				      <b>Место рођења: </b>
 				      <span class="podvuceno"><xsl:value-of select="//b:mesto_rodjenja"/></span>
@@ -353,6 +353,20 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 							</xsl:for-each>
 			            </td>
 			        </tr>
+					<tr>
+						<td>Одлука комисије за трајне контраиндикације (ако постоји, уписати Да):</td>
+						<td colspan="8">
+							<xsl:variable name="x" select="//b:odluka_komisije_za_trajne_kontraindikacije"/>
+							<xsl:choose>
+								<xsl:when test="$x = 'true'">
+									ДА
+								</xsl:when>
+								<xsl:when test="$x = 'false'">
+									НЕ
+								</xsl:when>
+							</xsl:choose>
+						</td>
+					</tr>
 			    </table>
 			    <div class="linija">
 			        <b>Напомена: </b> <p>образац се чува као део медицинске документације пацијента.</p>

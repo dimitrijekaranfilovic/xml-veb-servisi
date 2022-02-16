@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @Service
 public class InteresovanjeService extends DocumentService<Interesovanje> {
+
     @Autowired
     public InteresovanjeService(ExistRepository<Interesovanje> existRepository,
                                 FusekiRepository<Interesovanje> fusekiRepository) {
