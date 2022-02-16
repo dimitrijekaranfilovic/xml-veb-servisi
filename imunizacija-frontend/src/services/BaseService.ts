@@ -32,8 +32,8 @@ export class BaseService {
 
   async sendRequest(
     restMethod: any = axios.get,
-    requestBody: any = {},
-    path: string = ""
+    path: string = "",
+    requestBody: any = {}
   ): Promise<any> {
     const xmlRequest = json2xml(requestBody, {
       compact: true,

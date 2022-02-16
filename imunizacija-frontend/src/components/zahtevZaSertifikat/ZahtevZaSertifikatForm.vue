@@ -31,6 +31,7 @@
               label="Датум рођења*"
               single-line
               :rules="datumRodjenjaRules"
+              readonly
             >
               <template v-slot:append-outer>
                 <date-picker v-model="formData.datumRodjenja" />
@@ -164,7 +165,8 @@ export default {
       "ЈМБГ мора имати тачно 13 цифара",
     mestoRules: [(v) => (!!v && v && v.trim() !== "") || "Место је обавезно"],
     datumRodjenjaRules: [
-      (v) => (!!v && v && v.trim() !== "") || "Датум рођења је обавезан",
+      (v) => !!v || "Морате изабрати датум рођења",
+      (v) => (v && v.trim() !== "") || "Морате изабрати датум рођења",
     ],
   }),
   mounted() {
@@ -210,7 +212,7 @@ export default {
       response
         .then((res) => {
           if (res.status === 201) {
-            that.text = "Документ успешно поднешен";
+            that.text = "Документ успешно поднесен";
             that.snackbar = true;
           } else {
             that.text = "Подношење документа није успело";

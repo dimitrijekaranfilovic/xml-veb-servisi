@@ -6,23 +6,16 @@ class InteresovanjeService extends BaseService {
   private interesovanjePath: string = "interesovanje";
 
   async postInteresovanje(interesovanje: any): Promise<any> {
-    return super.sendRequest(axios.post, interesovanje, this.interesovanjePath);
+    return super.sendRequest(axios.post, this.interesovanjePath, interesovanje);
   }
 
   async getAllForUser(): Promise<any> {
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
-
     let jwt = localStorage.getItem("jwt");
     let decoded: any = jwt_decode(jwt as string);
-
-    let response = await axios.get(
-      "http://localhost:8081/interesovanje/all/" + decoded.sub,
-      config
+    return super.sendRequest(
+      axios.get,
+      this.interesovanjePath + "/all/" + decoded.sub
     );
-
-    return response;
   }
 }
 export default new InteresovanjeService();
