@@ -26,10 +26,10 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
 
     public void reject(UUID id, String reason, Date rejectionDate) throws Exception {
         var zahtevZaSertifikat = read(id);
-        var odbijenica = new Odbijenica(RDFString.of(reason), RDFDate.of(rejectionDate));
-        odbijenica.getRazlog().rdf().property("pred:razlog_odbijanja").datatype(T_STRING);
-        odbijenica.getDatumOdbijanja().rdf().property("pred:datum_odbijanja").datatype(T_DATE);
-        zahtevZaSertifikat.setOdbijenica(odbijenica);
+//        var odbijenica = new Odbijenica(RDFString.of(reason), RDFDate.of(rejectionDate));
+//        odbijenica.getRazlog().rdf().property("pred:razlog_odbijanja").datatype(T_STRING);
+//        odbijenica.getDatumOdbijanja().rdf().property("pred:datum_odbijanja").datatype(T_DATE);
+//        zahtevZaSertifikat.setOdbijenica(odbijenica);
         zahtevZaSertifikat.getStatus().setValue("ODBIJEN");
         update(zahtevZaSertifikat);
     }

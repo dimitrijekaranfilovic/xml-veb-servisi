@@ -32,21 +32,17 @@ public class ZahtevZaSertifikat extends BaseDocument {
     @XmlElement(name = "status", required = true)
     private RDFString status = RDFString.of("KREIRAN");
 
-    @XmlElement(name = "odbijenica")
-    private Odbijenica odbijenica;
-
 
     public ZahtevZaSertifikat() {
     }
 
     public ZahtevZaSertifikat(RDFString mesto, RDFDate datum,
-                              PodnosilacZahteva podnosilacZahteva, RDFString razlogZaPodnosenjeZahteva, RDFString status, Odbijenica odbijenica) {
+                              PodnosilacZahteva podnosilacZahteva, RDFString razlogZaPodnosenjeZahteva, RDFString status) {
         this.mesto = mesto;
         this.datum = datum;
         this.podnosilacZahteva = podnosilacZahteva;
         this.razlogZaPodnosenjeZahteva = razlogZaPodnosenjeZahteva;
         this.status = status;
-        this.odbijenica = odbijenica;
     }
 
     @Override

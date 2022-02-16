@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import rs.vakcinacija.sluzbenici.config.email.EmailClient;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineDoesntExistException;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineExistsException;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.DostupnaVakcina;
@@ -26,10 +27,10 @@ import java.util.UUID;
 @Component
 public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt> {
 
-    private final EmailService emailService;
+    private final EmailClient emailService;
 
     @Autowired
-    public VakcinacioniPunktService(VakcinacioniPunktExistRepository vakcinacioniPunktExistRepository, VakcinacioniPunktFusekiRepository vakcinacioniPunktFusekiRepository, EmailService emailService) {
+    public VakcinacioniPunktService(VakcinacioniPunktExistRepository vakcinacioniPunktExistRepository, VakcinacioniPunktFusekiRepository vakcinacioniPunktFusekiRepository, EmailClient emailService) {
         super(vakcinacioniPunktExistRepository, vakcinacioniPunktFusekiRepository);
         this.emailService = emailService;
     }

@@ -2,7 +2,6 @@ package rs.vakcinacija.sluzbenici.vakcinacionipunkt.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -60,8 +59,8 @@ public class VakcinacioniPunktController {
         return KolekcijaVakcinacionihPunktova.of(this.vakcinacioniPunktService.read());
     }
 
-    @RabbitListener(queues = "InteresovanjePodnetoEvent")
-    public void onRequestApproved(InteresovanjePodnetoEvent event) throws Exception {
+    @PostMapping(value = "/podneto-interesoavnje")
+    public void onRequestApproved(@RequestBody InteresovanjePodnetoEvent event) throws Exception {
         log.info(String.format("Podneto interesovanje: '%s' '%s'", event.getMesto(), event.getEmail()));
         this.vakcinacioniPunktService.processArrivingInteresovanje(event.getMesto(), event.getOdabraneVakcine(),
                 event.getEmail(), event.getInteresovanjeId());

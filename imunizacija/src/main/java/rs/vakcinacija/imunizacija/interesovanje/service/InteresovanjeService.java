@@ -3,6 +3,7 @@ package rs.vakcinacija.imunizacija.interesovanje.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.imunizacija.config.email.EmailClient;
 import rs.vakcinacija.imunizacija.interesovanje.event.InteresovanjePodnetoEvent;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
@@ -10,7 +11,6 @@ import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
 import rs.vakcinacija.zajednicko.email.service.EmailService;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.RDFDate;
-import rs.vakcinacija.zajednicko.rabbitmq.ServiceBus;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.Date;
@@ -20,16 +20,17 @@ import java.util.UUID;
 @Service
 public class InteresovanjeService extends DocumentService<Interesovanje> {
 
-    private final EmailService emailService;
-    private final ServiceBus serviceBus;
+    private final EmailClient emailService;
+    private final VakcinacioniPunktClient vakcinacioniPunktClient;
 
     @Autowired
     public InteresovanjeService(ExistRepository<Interesovanje> existRepository,
                                 FusekiRepository<Interesovanje> fusekiRepository,
-                                EmailService emailService, ServiceBus serviceBus) {
+                                EmailClient emailService,
+                                VakcinacioniPunktClient vakcinacioniPunktClient) {
         super(existRepository, fusekiRepository);
         this.emailService = emailService;
-        this.serviceBus = serviceBus;
+        this.vakcinacioniPunktClient = vakcinacioniPunktClient;
     }
 
     public List<Interesovanje> getAllForUser(String email) throws Exception {
@@ -41,7 +42,7 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
         interesovanje.setDatum(RDFDate.of(new Date()));
         sendInteresovanjeRecievedMessage(interesovanje);
         var retVal = this.create(interesovanje);
-        this.serviceBus.publish(
+        this.vakcinacioniPunktClient.onInteresetSubmitted(
                 new InteresovanjePodnetoEvent(interesovanje.getOdabranaLokacijaPrimanjaVakcine().getValue(),
                         interesovanje.getOdabraniProizvodjaci().getProizvodjaci(),
                         interesovanje.getLicneInformacije().getKontakt().getEmail().getValue(),

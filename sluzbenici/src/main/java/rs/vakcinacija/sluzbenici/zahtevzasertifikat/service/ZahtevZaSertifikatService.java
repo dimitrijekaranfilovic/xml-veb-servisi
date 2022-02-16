@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.zahtevzasertifikat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.sluzbenici.config.email.EmailClient;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.ZahtevZaSertifikatOdbijenEvent;
@@ -9,8 +10,6 @@ import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.ZahtevZaSertifikat
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.KolekcijaZahtevaZaSertifikat;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
-import rs.vakcinacija.zajednicko.email.service.EmailService;
-import rs.vakcinacija.zajednicko.rabbitmq.ServiceBus;
 
 import java.util.Date;
 import java.util.UUID;
@@ -19,18 +18,15 @@ import java.util.UUID;
 public class ZahtevZaSertifikatService {
     private final ZahtevZaSertifikatClient client;
     private final DigitalniSertifikatIssueService digitalniSertifikatIssueService;
-    private final EmailService emailService;
-    private final ServiceBus serviceBus;
+    private final EmailClient emailService;
 
     @Autowired
     public ZahtevZaSertifikatService(ZahtevZaSertifikatClient client,
                                      DigitalniSertifikatIssueService digitalniSertifikatIssueService,
-                                     EmailService emailService,
-                                     ServiceBus serviceBus) {
+                                     EmailClient emailService) {
         this.client = client;
         this.digitalniSertifikatIssueService = digitalniSertifikatIssueService;
         this.emailService = emailService;
-        this.serviceBus = serviceBus;
     }
 
     public ZahtevZaSertifikat read(UUID id) {
@@ -50,8 +46,9 @@ public class ZahtevZaSertifikatService {
                 new SendEmailRequest(request.provideEmail(), "Издавање Дигиталног сертификата", buildApproveMessage(request, digitalCertificate))
         );
         // Notify imunizacija service to update link to newly created digital certificate
-        serviceBus.publish(
-                new DigitalniSertifikatOdobrenEvent(request.getId(), digitalCertificate.getId())
+        client.approve(
+                id,
+                new DigitalniSertifikatOdobrenEvent(digitalCertificate.getId())
         );
     }
 
@@ -61,8 +58,9 @@ public class ZahtevZaSertifikatService {
                 new SendEmailRequest(request.provideEmail(), "Одбијање захтева за издавање Дигиталног сертификата",  buildRejectMessage(request, reason))
         );
         // Maybe notify imunizacija service to update some metadata on the original document?
-        serviceBus.publish(
-                new ZahtevZaSertifikatOdbijenEvent(request.getId(), reason, new Date())
+        client.reject(
+                id,
+                new ZahtevZaSertifikatOdbijenEvent(reason, new Date())
         );
     }
 
@@ -88,7 +86,7 @@ public class ZahtevZaSertifikatService {
         return String.format("Поштовани %s %s,\n\n", ime, prezime) +
                 String.format("Ваш захтев за издавање Дигиталног сертификата са идентификатором %s је одбијен из следећих разлога:\n\n", zahtevZaSertifikat.getId()) +
                 razlog +
-                "Срдачан поздрав,\nВаш портал за имунизацију\n\n";
+                "\n\nСрдачан поздрав,\nВаш портал за имунизацију\n\n";
 
     }
 }

@@ -1,7 +1,6 @@
 package rs.vakcinacija.imunizacija.zahtevzasertifikat.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +11,6 @@ import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.KolekcijaZahtevaZaSer
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.service.ZahtevZaSertifiaktService;
 
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -56,15 +54,15 @@ public class ZahtevZaSertifikatController {
         return KolekcijaZahtevaZaSertifikat.of(zahtevZaSertifiaktService.readPending());
     }
 
-    @RabbitListener(queues = "DigitalniSertifikatOdobrenEvent")
-    public void onRequestApproved(DigitalniSertifikatOdobrenEvent event) throws Exception {
-        log.info(String.format("Odobren zahtev za digitalni sertifikat: '%s', napravljen Digitalni sertifikat: '%s'!", event.getRequestId(), event.getDigitalCertificateId()));
-        zahtevZaSertifiaktService.approve(event.getRequestId(), event.getDigitalCertificateId());
+    @PostMapping("/{id}/odobri")
+    public void onRequestApproved(@PathVariable UUID id, @RequestBody DigitalniSertifikatOdobrenEvent event) throws Exception {
+        log.info(String.format("Odobren zahtev za digitalni sertifikat: '%s', napravljen Digitalni sertifikat: '%s'!", id, event.getDigitalCertificateId()));
+        zahtevZaSertifiaktService.approve(id, event.getDigitalCertificateId());
     }
 
-    @RabbitListener(queues = "ZahtevZaSertifikatOdbijenEvent")
-    public void onRequestRejected(ZahtevZaSertifikatOdbijenEvent event) throws Exception {
-        log.info(String.format("Zahtev za sertifikat '%s' odbijen zbog: '%s'!", event.getId(), event.getReason()));
-        zahtevZaSertifiaktService.reject(event.getId(), event.getReason(), event.getRejectionDate());
+    @PostMapping("/{id}/odbij")
+    public void onRequestRejected(@PathVariable UUID id, @RequestBody ZahtevZaSertifikatOdbijenEvent event) throws Exception {
+        log.info(String.format("Zahtev za sertifikat '%s' odbijen zbog: '%s'!", id, event.getReason()));
+        zahtevZaSertifiaktService.reject(id, event.getReason(), event.getRejectionDate());
     }
 }

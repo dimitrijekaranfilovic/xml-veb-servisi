@@ -59,7 +59,7 @@ export default Vue.extend({
   }),
   async mounted() {
     const response = await digitalCertificateRequestService.read();
-    this.requests = response.data.zahteviZaSertifikat;
+    this.requests = response.data.zahteviZaSertifikat || [];
   },
 });
 </script>

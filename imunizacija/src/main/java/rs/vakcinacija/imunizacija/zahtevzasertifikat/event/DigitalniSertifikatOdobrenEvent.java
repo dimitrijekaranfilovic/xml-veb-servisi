@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.rabbitmq.event.AbstractMessageEvent;
 
 import java.util.UUID;
 
@@ -12,7 +11,6 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DigitalniSertifikatOdobrenEvent extends AbstractMessageEvent {
-    private UUID requestId;
+public class DigitalniSertifikatOdobrenEvent {
     private UUID digitalCertificateId;
 }

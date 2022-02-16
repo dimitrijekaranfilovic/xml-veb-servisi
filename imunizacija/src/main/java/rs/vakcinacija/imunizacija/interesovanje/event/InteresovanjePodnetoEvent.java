@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import rs.vakcinacija.zajednicko.rabbitmq.event.AbstractMessageEvent;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -13,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class InteresovanjePodnetoEvent extends AbstractMessageEvent {
+public class InteresovanjePodnetoEvent {
     private String mesto;
     private Collection<String> odabraneVakcine;
     private String email;
