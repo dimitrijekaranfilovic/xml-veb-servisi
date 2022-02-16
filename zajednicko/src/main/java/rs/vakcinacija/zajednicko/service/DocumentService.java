@@ -1,29 +1,33 @@
 package rs.vakcinacija.zajednicko.service;
 
 
+import org.w3c.dom.Document;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
+import rs.vakcinacija.zajednicko.metadata.repository.SparqlQueryResult;
 import rs.vakcinacija.zajednicko.model.BaseDocument;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.w3c.dom.Document;
 
 public abstract class DocumentService<T extends BaseDocument> {
     protected final ExistRepository<T> existRepository;
     protected final FusekiRepository<T> fusekiRepository;
 
-    private DocumentBuilderFactory documentFactory;
-    private TransformerFactory transformerFactory;
+    private final DocumentBuilderFactory documentFactory;
+    private final TransformerFactory transformerFactory;
 
     protected DocumentService(ExistRepository<T> existRepository, FusekiRepository<T> fusekiRepository) {
         this.existRepository = existRepository;
@@ -57,12 +61,36 @@ public abstract class DocumentService<T extends BaseDocument> {
         return existRepository.read(email, query);
     }
 
+    public <S> List<T> readForCitizen(String query, S request) {
+        var sparqlResult = fusekiRepository.sparql(request);
+        List<T> results = new ArrayList<>();
+        var queryPredicate = existRepository.getSearchFilter(query);
+        sparqlResult.stream()
+                    .map(SparqlQueryResult::getValue)
+                    .map(this::extractUUID)
+                    .forEach(uuid -> {
+                        try {
+                            var entity = read(uuid);
+                            if (queryPredicate.test(entity)) {
+                                results.add(entity);
+                            }
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                        }
+                    });
+        return results;
+    }
+
     public List<T> read(String query) throws Exception {
         return existRepository.read(query);
     }
 
     public List<T> read() throws Exception {
         return existRepository.read();
+    }
+
+    private UUID extractUUID(String identifier) {
+        return UUID.fromString(identifier.substring(identifier.lastIndexOf("/") + 1));
     }
 
     protected abstract void insertRDFMetadata(T entity);
