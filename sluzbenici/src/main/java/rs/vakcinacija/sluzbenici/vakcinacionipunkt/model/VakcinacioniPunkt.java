@@ -37,6 +37,9 @@ public class VakcinacioniPunkt extends BaseDocument {
 
     public VakcinacioniPunkt() {
         super();
+        this.dostupneVakcine = new DostupneVakcine();
+        this.termini = new Termini();
+        this.zainteresovaniPacijenti = new ZainteresovaniPacijenti();
     }
 
     public void addTermin(Date date) {

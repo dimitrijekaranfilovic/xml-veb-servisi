@@ -143,7 +143,7 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
                         interesovanje.getLicneInformacije().getDavalacKrvi().getValue()) ? "Да" : "Не")
                 .append("\n");
         sb.append("\n\n\nСрдачан поздрав,\n");
-        sb.append("Информациони систем за вакцинацију грађана\n");
+        sb.append("Ваш портал за имунизацију\n");
 
         emailService.sendEmail(new SendEmailRequest(to, subject, sb.toString()));
     }

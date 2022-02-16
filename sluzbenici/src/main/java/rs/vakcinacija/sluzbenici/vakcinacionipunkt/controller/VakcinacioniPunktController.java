@@ -63,7 +63,7 @@ public class VakcinacioniPunktController {
     @RabbitListener(queues = "InteresovanjePodnetoEvent")
     public void onRequestApproved(InteresovanjePodnetoEvent event) throws Exception {
         log.info(String.format("Podneto interesovanje: '%s' '%s'", event.getMesto(), event.getEmail()));
-        this.vakcinacioniPunktService.assignAppointment(event.getMesto(), event.getOdabraneVakcine(),
+        this.vakcinacioniPunktService.processArrivingInteresovanje(event.getMesto(), event.getOdabraneVakcine(),
                 event.getEmail(), event.getInteresovanjeId());
     }
 

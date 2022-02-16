@@ -9,6 +9,7 @@ import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineDoesntExistE
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineExistsException;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.DostupnaVakcina;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.VakcinacioniPunkt;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.ZainteresovaniPacijent;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.repository.VakcinacioniPunktExistRepository;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.repository.VakcinacioniPunktFusekiRepository;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
@@ -88,13 +89,23 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
         return punkt;
     }
 
-    public void assignAppointment(String mesto, Collection<String> odabraneVakcine, String email,
-                                  UUID interesovanjeId) throws Exception {
-        var punkt = this.existRepository.read((p) -> p.getNazivPunkta().equals(mesto))
+    public void processArrivingInteresovanje(String mesto, Collection<String> odabraneVakcine, String email,
+                                             UUID interesovanjeId) throws Exception {
+        var punkt = this.existRepository.read(p -> p.getNazivPunkta().equals(mesto))
                 .stream().findFirst().orElseThrow();
-        var dostupneVakcine = punkt.getDostupneVakcine().getDostupneVakcine();
 
+        if (!assignAppointment(punkt, odabraneVakcine, email, interesovanjeId)) {
+            punkt.getZainteresovaniPacijenti().getZainteresovaniPacijenti()
+                    .add(new ZainteresovaniPacijent(odabraneVakcine, email, interesovanjeId));
+        }
+    }
+
+    public boolean assignAppointment(VakcinacioniPunkt punkt, Collection<String> odabraneVakcine, String email,
+                                     UUID interesovanjeId) {
+        var dostupneVakcine = punkt.getDostupneVakcine().getDostupneVakcine();
+        var mesto = punkt.getNazivPunkta();
         var hasVaccines = false;
+        var izabranaVakcina = "";
         for (var odabranaVakcina :
                 odabraneVakcine) {
             for (var dostupnaVakcina :
@@ -102,6 +113,7 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
                 if (dostupnaVakcina.getNazivVakcine().equals(odabranaVakcina)
                         && dostupnaVakcina.getStanjeVakcine() > 0) {
                     hasVaccines = true;
+                    izabranaVakcina = dostupnaVakcina.getNazivVakcine();
                     break;
                 }
             }
@@ -112,11 +124,15 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
             if (!termini.isEmpty()) {
                 var dodeljeniTermin = termini.stream().findFirst();
                 dodeljeniTermin.ifPresent(termini::remove);
-                dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto));
+                String finalIzabranaVakcina = izabranaVakcina;
+                dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto, finalIzabranaVakcina));
+                // TODO: Send event that contains InteresovanjeID and date of appointment so it can be added
+                //  to the Interesovanje document in Imunizacija project
+                return true;
             }
         }
+        return false;
     }
-
 
     @Override
     protected void insertRDFMetadata(VakcinacioniPunkt vakcinacioniPunkt) {
@@ -124,18 +140,18 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
     }
 
     @Async
-    public void sendInteresovanjeRecievedMessage(String email, Date datum, String mesto) {
-//        var to = email;
-        var to = "njmarko1991@gmail.com";
+    public void sendInteresovanjeRecievedMessage(String email, Date datum, String mesto, String izabranaVakcina) {
+        var to = email;
         var subject = "Обавештење о додељеном термину за вакцинацију";
         var sb = new StringBuilder();
         sb.append("Поштовани, \n");
-        sb.append("\nНа основу вашег исказаног интересовања додељен вам је термин за вакцинацију:\n");
+        sb.append("\nНа основу Вашег исказаног интересовања додељен Вам је термин за вакцинацију:\n");
         sb.append("\n\tМесто: ").append(mesto).append("\n");
         sb.append("\n\tВреме: ").append(datum).append("\n");
+        sb.append("\n\tИзабрана вакцина: ").append(izabranaVakcina).append("\n");
 
         sb.append("\n\n\nСрдачан поздрав,\n");
-        sb.append("Информациони систем за вакцинацију грађана\n");
+        sb.append("Ваш портал за имунизацију\n");
 
         emailService.sendEmail(new SendEmailRequest(to, subject, sb.toString()));
     }
