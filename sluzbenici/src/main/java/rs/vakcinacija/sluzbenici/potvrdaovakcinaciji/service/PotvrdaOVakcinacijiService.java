@@ -68,12 +68,5 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
 
         qrKod.rdf().property(PROP_QR_KOD).datatype(T_STRING);
         potvrdaOVakcinaciji.getEmail().rdf().property(PROP_EMAIL).datatype(T_STRING);
-
-        vakcinacija.rdf()
-                .vocab(VOCAB)
-                .about(vakcinaUrl)
-                .rel("pred:upotrebljeno_na")
-                .href(pacijentUrl)
-                .typeof("pred:Vakcinacija");
     }
 }
