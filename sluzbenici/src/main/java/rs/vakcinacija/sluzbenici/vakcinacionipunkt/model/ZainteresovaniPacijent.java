@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.*;
-import java.util.Collection;
 import java.util.UUID;
 
 @XmlRootElement(name = "zainteresovani_pacijent")
@@ -14,8 +13,8 @@ import java.util.UUID;
 @Setter
 public class ZainteresovaniPacijent {
 
-    @XmlElement(name = "odabrana_vakcina")
-    private Collection<String> odabraneVakcine;
+    @XmlElement(name = "odabrane_vakcine")
+    private OdabraneVakcine odabraneVakcine;
 
     @XmlElement(name = "email")
     private String email;
@@ -24,9 +23,10 @@ public class ZainteresovaniPacijent {
     private UUID interesovanjeId;
 
     public ZainteresovaniPacijent() {
+        this.odabraneVakcine = new OdabraneVakcine();
     }
 
-    public ZainteresovaniPacijent(Collection<String> odabraneVakcine, String email, UUID interesovanjeId) {
+    public ZainteresovaniPacijent(OdabraneVakcine odabraneVakcine, String email, UUID interesovanjeId) {
         this.odabraneVakcine = odabraneVakcine;
         this.email = email;
         this.interesovanjeId = interesovanjeId;

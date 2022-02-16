@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineDoesntExistException;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineExistsException;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.DostupnaVakcina;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.OdabraneVakcine;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.VakcinacioniPunkt;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.ZainteresovaniPacijent;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.repository.VakcinacioniPunktExistRepository;
@@ -96,12 +97,13 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
 
         if (!assignAppointment(punkt, odabraneVakcine, email, interesovanjeId)) {
             punkt.getZainteresovaniPacijenti().getZainteresovaniPacijenti()
-                    .add(new ZainteresovaniPacijent(odabraneVakcine, email, interesovanjeId));
+                    .add(new ZainteresovaniPacijent(new OdabraneVakcine(odabraneVakcine), email, interesovanjeId));
+            this.existRepository.save(punkt);
         }
     }
 
     public boolean assignAppointment(VakcinacioniPunkt punkt, Collection<String> odabraneVakcine, String email,
-                                     UUID interesovanjeId) {
+                                     UUID interesovanjeId) throws Exception {
         var dostupneVakcine = punkt.getDostupneVakcine().getDostupneVakcine();
         var mesto = punkt.getNazivPunkta();
         var hasVaccines = false;
@@ -110,7 +112,7 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
                 odabraneVakcine) {
             for (var dostupnaVakcina :
                     dostupneVakcine) {
-                if (dostupnaVakcina.getNazivVakcine().equals(odabranaVakcina)
+                if ((dostupnaVakcina.getNazivVakcine().equals(odabranaVakcina) || odabranaVakcina.equals("Било која"))
                         && dostupnaVakcina.getStanjeVakcine() > 0) {
                     hasVaccines = true;
                     izabranaVakcina = dostupnaVakcina.getNazivVakcine();
@@ -126,6 +128,7 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
                 dodeljeniTermin.ifPresent(termini::remove);
                 String finalIzabranaVakcina = izabranaVakcina;
                 dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto, finalIzabranaVakcina));
+                this.existRepository.save(punkt);
                 // TODO: Send event that contains InteresovanjeID and date of appointment so it can be added
                 //  to the Interesovanje document in Imunizacija project
                 return true;
