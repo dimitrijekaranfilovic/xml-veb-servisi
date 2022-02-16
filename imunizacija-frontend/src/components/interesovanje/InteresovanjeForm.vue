@@ -56,11 +56,12 @@
             ></v-text-field>
           </v-row>
           <v-row>
-            <v-text-field
+            <v-select
               v-model="formData.odabranaLokacijaPrimanjaVakcine"
               label="Одаберите локацију где желите да примите вакцину (унесите општину)*"
               :rules="odabranaLokacijaPrimanjaVakcineRules"
-            ></v-text-field>
+              :items="mestoItems"
+            ></v-select>
           </v-row>
           <v-row>
             <p class="text-justify">
@@ -117,6 +118,7 @@
 <script>
 import InteresovanjeService from "@/services/InteresovanjeService";
 import jwt_decode from "jwt-decode";
+import Opstine from "@/utility/Places";
 
 export default {
   data: () => ({
@@ -146,6 +148,7 @@ export default {
       "Moderna",
       "Било која",
     ],
+    mestoItems: Opstine.listaOpstina,
     formData: {
       drzavljanstvo: "",
       jmbg: "",
@@ -193,6 +196,7 @@ export default {
     this.formData.ime = decoded.name;
     this.formData.prezime = decoded.surname;
     this.formData.drzavljanstvo = this.drzavljanstvoItems[0].value;
+    this.formData.odabranaLokacijaPrimanjaVakcine = this.mestoItems[0];
   },
   methods: {
     submit() {
