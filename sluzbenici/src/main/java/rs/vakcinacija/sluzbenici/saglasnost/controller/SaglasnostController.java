@@ -41,4 +41,9 @@ public class SaglasnostController {
     public PodaciOLekaruUstanoviDTO createDoctorBuilding(@RequestBody PodaciOLekaruUstanoviDTO podaciOLekaruUstanoviDTO, @PathVariable UUID id) {
         return saglasnostClient.createDoctorBuilding(podaciOLekaruUstanoviDTO, id);
     }
+
+    @GetMapping(value = "/{id}/odluka-komisije")
+    public void changeCommissionDecision(@PathVariable UUID id){
+        saglasnostClient.changeCommissionDecision(id);
+    }
 }

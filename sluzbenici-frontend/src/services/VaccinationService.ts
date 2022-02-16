@@ -17,6 +17,10 @@ class VaccinationService {
       payload
     );
   }
+
+  changeDecision(id: string): Promise<any> {
+    return this.http.get(`/saglasnost/${id}/odluka-komisije`);
+  }
 }
 
 export default new VaccinationService(httpClient);

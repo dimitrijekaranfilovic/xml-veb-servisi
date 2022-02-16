@@ -40,8 +40,8 @@
           <v-subheader>Лекар</v-subheader>
           <span class="data-span">
             {{ vakcinacija.lekar.ime | deRdf }}
-            {{ vakcinacija.lekar.prezime | deRdf }}
-            ,{{ vakcinacija.lekar.telefon.brojFiksnog | deRdf }}
+            {{ vakcinacija.lekar.prezime | deRdf }},
+            {{ vakcinacija.lekar.telefon.brojFiksnog | deRdf }}
             {{ vakcinacija.lekar.telefon.brojMobilnog | deRdf }}
           </span>
         </v-col>
@@ -115,7 +115,7 @@
         <p v-else>Нема одлуке</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="primary">Промени одлуку</v-btn>
+        <v-btn color="primary" @click="changeDecision()">Промени одлуку</v-btn>
       </v-card-actions>
     </v-row>
     <div id="dialogs">
@@ -353,6 +353,11 @@ export default {
           //TODO: vidi ovo malo bolje
           this.$router.go(0);
         });
+    },
+    changeDecision() {
+      vaccinationService.changeDecision(this.$route.params.id).then((_) => {
+        this.$router.go(0);
+      });
     },
   },
   computed: {

@@ -23,4 +23,6 @@ public interface SaglasnostClient {
     @PostMapping(value = "/{id}/podaci-o-lekaru-ustanovi")
     PodaciOLekaruUstanoviDTO createDoctorBuilding(@RequestBody PodaciOLekaruUstanoviDTO podaciOLekaruUstanoviDTO, @PathVariable UUID id);
 
+    @GetMapping(value = "/{id}/odluka-komisije")
+    void changeCommissionDecision(@PathVariable UUID id);
 }

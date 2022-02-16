@@ -73,4 +73,9 @@ public class SaglasnostController {
         return podaciOLekaruUstanoviDTO;
     }
 
+    @GetMapping(value = "/{id}/odluka-komisije")
+    public void changeCommissionDecision(@PathVariable UUID id) throws Exception {
+        this.saglasnostService.changeCommissionDecision(id);
+    }
+
 }

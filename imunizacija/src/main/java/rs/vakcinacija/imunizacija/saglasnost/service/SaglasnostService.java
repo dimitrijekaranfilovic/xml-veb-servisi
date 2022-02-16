@@ -45,6 +45,15 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         ).collect(Collectors.toList());
     }
 
+    public void changeCommissionDecision(UUID id) throws Exception {
+        var saglasnost = this.read(id);
+        var odlukaKomisije = saglasnost.getVakcinacija().getOdlukaKomisije().getValue();
+        saglasnost.getVakcinacija().setOdlukaKomisije(RDFBoolean.of(!odlukaKomisije));
+        this.saglasnostExistRepository.save(saglasnost);
+
+    }
+
+
     public SaglasnostZaSprovodjenjeImunizacije createDoctorBuilding(UUID id, LekarDTO lekarDTO, ZdravstvenaUstanovaDTO zdravstvenaUstanovaDTO) throws Exception {
         var saglasnost = this.read(id);
         var vakcinacija = saglasnost.getVakcinacija();
