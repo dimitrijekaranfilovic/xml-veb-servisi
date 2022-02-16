@@ -50,13 +50,14 @@
               v-model="formData.jmbg"
               label="Јединствени матични број грађанина"
               :counter="13"
-              :rules="jmbgRules"
+              :rules="[validJMBGOrBrojPasosa, jmbgRules]"
             ></v-text-field>
           </v-row>
           <v-row>
             <v-text-field
               v-model="formData.brojPasosa"
               label="Број пасоша"
+              :rules="[validJMBGOrBrojPasosa]"
             ></v-text-field>
           </v-row>
           <v-row>
@@ -138,13 +139,10 @@ export default {
       },
     },
     valid: false,
-    brojPasosarules: [
-      (v) => (!!v && v && v.trim() !== "") || "Локација је обавезна",
-    ],
-    jmbgRules: [
-      (v) => validJMBGOrBrojPasosa(),
-      (v) => (v && /^\d{13}$/.test(v)) || "ЈМБГ мора имати тачно 13 цифара",
-    ],
+    jmbgRules: (v) =>
+      (v && /^\d{13}$/.test(v)) ||
+      v.length === 0 ||
+      "ЈМБГ мора имати тачно 13 цифара",
   }),
   mounted() {
     let jwt = localStorage.getItem("jwt");
@@ -190,12 +188,8 @@ export default {
     }, 466),
     validJMBGOrBrojPasosa() {
       if (
-        !!this.formData.jmbg &&
-        this.formData.jmbg &&
-        this.formData.jmbg.trim() !== "" &&
-        !!this.formData.brojPasosa &&
-        this.formData.brojPasosa &&
-        this.formData.brojPasosa.trim() !== ""
+        this.formData.jmbg.trim() === "" &&
+        this.formData.brojPasosa.trim() === ""
       ) {
         return "Морате унети или ЈМБГ или број пасоша";
       }
