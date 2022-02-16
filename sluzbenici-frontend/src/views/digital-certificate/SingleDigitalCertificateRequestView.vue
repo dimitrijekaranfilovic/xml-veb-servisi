@@ -16,7 +16,7 @@
             ></digital-certificate-request-details>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" text @click="issueDigitalCertificate"
+            <v-btn color="primary" @click="issueDigitalCertificate"
               >Издај сертификат</v-btn
             >
             <v-dialog
@@ -25,7 +25,7 @@
               @click:outside="$refs.form.resetValidation()"
             >
               <template v-slot:activator="{ on, attrs }">
-                <v-btn text color="error" v-bind="attrs" v-on="on">
+                <v-btn class="ml-2" color="error" v-bind="attrs" v-on="on">
                   Одбиј захтев
                 </v-btn>
               </template>
@@ -49,13 +49,12 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary" text @click="toggleDialog(false)">
+                  <v-btn color="primary" @click="toggleDialog(false)">
                     Одустани
                   </v-btn>
                   <v-btn
                     :disabled="!valid"
                     color="error"
-                    text
                     @click="rejectRequest"
                   >
                     Одбиј захтев

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form @submit="fetchData">
-      <v-row>
+      <v-row justify="center" align="center">
         <v-col lg="10" md="12" sm="12" xs="12">
           <v-combobox
             @input="onChipInput()"
@@ -116,7 +116,7 @@ export default Vue.extend({
       "pred:ZahtevZaSertifikat": "Захтев за сертификат",
       "pred:Interesovanje": "Документ интересовања",
     },
-    select: [],
+    select: ["Текст:"],
     items: ["Текст:", "Датум издавања:", "Установа:", "Шифра документа:"],
     itemToQuery: {
       Текст: "query",
