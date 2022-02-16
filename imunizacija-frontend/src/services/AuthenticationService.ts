@@ -1,41 +1,13 @@
 import axios from "axios";
-import { json2xml } from "xml-js";
+import { BaseService } from "@/services/BaseService";
 
-class AuthenticationService {
+class AuthenticationService extends BaseService {
   async login(loginRequest: any): Promise<any> {
-    const xmlLoginRequest = json2xml(loginRequest, {
-      compact: true,
-    });
-
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
-
-    let response = await axios.post(
-      "http://localhost:8081/auth/login",
-      xmlLoginRequest,
-      config
-    );
-
-    return response;
+    return super.sendRequest(axios.post, "auth/login", loginRequest);
   }
 
   async register(registrationRequest: any): Promise<any> {
-    const xmlRegistrationRequest = json2xml(registrationRequest, {
-      compact: true,
-    });
-
-    let config = {
-      headers: { "Content-Type": "application/xml" },
-    };
-
-    let response = await axios.post(
-      "http://localhost:8081/auth",
-      xmlRegistrationRequest,
-      config
-    );
-
-    return response;
+    return super.sendRequest(axios.post, "auth", registrationRequest);
   }
 
   userLoggedIn() {
