@@ -9,6 +9,7 @@ import rs.vakcinacija.zajednicko.data.context.JAXBEntityManager;
 import rs.vakcinacija.zajednicko.metadata.MetadataExtractor;
 import rs.vakcinacija.zajednicko.metadata.SparqlUtil;
 import rs.vakcinacija.zajednicko.metadata.connection.FusekiConnectionProvider;
+import rs.vakcinacija.zajednicko.metadata.query.SparqlWhereQueryBuilder;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
@@ -46,7 +47,18 @@ public abstract class FusekiRepository<T> {
         processor.execute();
     }
 
-    public List<SparqlQueryResult<String>> sparql(String sparqlQuery) {
+    public <S> List<SparqlQueryResult<String>> sparql(S request) {
+        String sparqlQuery =
+                "PREFIX pred: <https://www.vakcinacija.rs/rdf/predicate/>\n" +
+                "PREFIX xsd: <http://www.w3.org/2001/XMLSchema>\n" +
+                "\n" +
+                "SELECT ?id\n" +
+                String.format("FROM <%s>\n", buildSparqlUrl()) +
+                "\n" +
+                "WHERE {\n" +
+                " ?id " + SparqlWhereQueryBuilder.whereQueryForRequest(request) + "\n" +
+                "}";
+        System.out.println("Executing query: \n" + sparqlQuery);
         QueryExecution query = QueryExecutionFactory.sparqlService(connectionProvider.getQueryEndpoint(), sparqlQuery);
         ResultSet results = query.execSelect();
         String varName;
@@ -67,10 +79,6 @@ public abstract class FusekiRepository<T> {
 
     protected String buildSparqlUrl() {
         return String.format("%s/vakcinacija/%s/metadata", connectionProvider.getDataEndpoint(), collectionName);
-    }
-
-    protected String buildSparqlQueryUrl() {
-        return String.format("%s/vakcinacija/%s/metadata", connectionProvider.getQueryEndpoint(), collectionName);
     }
 
     protected String buildModelDataUrl(UUID id) {

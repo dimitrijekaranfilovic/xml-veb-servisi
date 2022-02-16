@@ -7,7 +7,7 @@ public class ReflectionUtils {
     public static <S> S getFieldValue(Object entity, Field field, Class<S> fieldType) {
         var methodName = "get" + capitalize(field);
         try {
-            var method = entity.getClass().getDeclaredMethod(methodName);
+            var method = field.getDeclaringClass().getDeclaredMethod(methodName);
             return (S) method.invoke(entity);
         } catch (Exception exception) {
             System.out.println("GOT ERROR ON FIELD: " + field.getName());
