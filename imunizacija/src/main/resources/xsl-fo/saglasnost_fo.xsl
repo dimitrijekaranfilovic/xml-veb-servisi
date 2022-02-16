@@ -16,7 +16,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
             		<fo:block>
             			<fo:float float="end">
 		                    <fo:block top="0mm" left="0mm" padding="0mm" margin="0mm" line-height="0mm" font-size="0pt">
-							    <fo:external-graphic font-size="0pt" padding="0mm" margin="0mm" content-width="90mm" height="150mm" src="url(file:///C:/Users/User/Desktop/logo.png)" />
+							    <fo:external-graphic font-size="0pt" padding="0mm" margin="0mm" content-width="90mm" height="150mm" src="url(https://files.fm/thumb_show.php?i=wfacsrkxg)" />
 							</fo:block>
 						</fo:float>
             			
@@ -36,9 +36,9 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             <fo:table-column column-width="40%"/>
                             <fo:table-body>
                             	<fo:table-row>
-                            		<fo:table-cell><fo:block>Drzavljanstvo</fo:block></fo:table-cell>
-                            		<fo:table-cell><fo:block>1) Republika Srbija</fo:block></fo:table-cell>
-                            		<fo:table-cell><fo:block>JMBG: <xsl:value-of select="//b:jmbg"/></fo:block></fo:table-cell>
+                            		<fo:table-cell><fo:block>Држављанство</fo:block></fo:table-cell>
+                            		<fo:table-cell><fo:block>1) Република Србија</fo:block></fo:table-cell>
+                            		<fo:table-cell><fo:block>ЈМБГ: <xsl:value-of select="//b:jmbg"/></fo:block></fo:table-cell>
                             	</fo:table-row>
                             	<fo:table-row>
                             		<fo:table-cell><fo:block></fo:block></fo:table-cell>
@@ -57,11 +57,11 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             <fo:table-column column-width="30%"/>
                             <fo:table-body>
                             	<fo:table-row>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Prezime: <xsl:value-of select="//b:puno_ime/za:prezime"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Презиме: <xsl:value-of select="//b:puno_ime/za:prezime"/></fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Ime: <xsl:value-of select="//b:puno_ime/za:ime"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Име: <xsl:value-of select="//b:puno_ime/za:ime"/></fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Ime roditelja: <xsl:value-of select="//b:puno_ime/b:ime_roditelja"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Име родитеља: <xsl:value-of select="//b:puno_ime/b:ime_roditelja"/></fo:block></fo:table-cell>
                             	</fo:table-row>
                             </fo:table-body>
 						</fo:table>
@@ -87,9 +87,9 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 						                </xsl:choose>
                             		</fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Godina rodjenja: <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Година рођења: <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/></fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Mesto rodjenja: <xsl:value-of select="//b:mesto_rodjenja"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Место рођења: <xsl:value-of select="//b:mesto_rodjenja"/></fo:block></fo:table-cell>
                             	</fo:table-row>
                             </fo:table-body>
 						</fo:table>
@@ -101,9 +101,9 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             <fo:table-column column-width="50%"/>
                             <fo:table-body>
                             	<fo:table-row>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Adresa(ulica i broj): <xsl:value-of select="//b:ulica"/>, <xsl:value-of select="//b:broj_zgrade"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Адреса(улица и број): <xsl:value-of select="//b:ulica"/>, <xsl:value-of select="//b:broj_zgrade"/></fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Mesto/Naselje: <xsl:value-of select="//b:mesto"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Место/Насеље: <xsl:value-of select="//b:mesto"/></fo:block></fo:table-cell>
                             	</fo:table-row>
                             </fo:table-body>
 						</fo:table>
@@ -115,9 +115,9 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             <fo:table-column column-width="30%"/>
                             <fo:table-body>
                             	<fo:table-row>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Opstina/grad: <xsl:value-of select="//b:opstina"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Општина/град: <xsl:value-of select="//b:opstina"/></fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Tel. fiksni: <xsl:value-of select="//za:broj_fiksnog"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Тел. фиксни: <xsl:value-of select="//za:broj_fiksnog"/></fo:block></fo:table-cell>
                             	</fo:table-row>
                             </fo:table-body>
 						</fo:table>
@@ -129,9 +129,9 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             <fo:table-column column-width="40%"/>
                             <fo:table-body>
                             	<fo:table-row>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Tel. mobilni: <xsl:value-of select="//za:broj_mobilnog"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Тел. мобилни: <xsl:value-of select="//za:broj_mobilnog"/></fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Imejl: <xsl:value-of select="//za:email"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Имејл: <xsl:value-of select="//za:email"/></fo:block></fo:table-cell>
                             	</fo:table-row>
                             </fo:table-body>
 						</fo:table>
@@ -192,7 +192,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             <fo:table-body>
                             	<fo:table-row>
                             		<xsl:variable name="x" select="//b:korisnik_ustanove_socijalne_zastite"/>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Korisnik ustanove soc. zastite: 
+                            		<fo:table-cell vertical-align="middle"><fo:block>Корисник установе соц. заштите:
                             			<xsl:choose>
 									      	<xsl:when test="$x = 'true'">
 						                      <fo:inline>ДА</fo:inline>
@@ -203,7 +203,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 		                    			</xsl:choose>
                             		</fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Naziv i opstina sedista: <xsl:value-of select="//b:naziv_sedista"/> <xsl:value-of select="//b:opstina_sedista"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Назив и општина седишта: <xsl:value-of select="//b:naziv_sedista"/> <xsl:value-of select="//b:opstina_sedista"/></fo:block></fo:table-cell>
                             	</fo:table-row>
                             </fo:table-body>
 						</fo:table>
@@ -245,10 +245,10 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 					<fo:block>
 						<fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="2pt"/>  
 					</fo:block>
-					<fo:block linefeed-treatment="preserve" font-family="Arial" font-size="15px" font-weight="bold" padding="1px">
+					<fo:block linefeed-treatment="preserve" font-family="Arial" font-size="15px" font-weight="bold" padding="1px" text-align="center">
 	                        ЕВИДЕНЦИЈА О ВАКЦИНАЦИЈИ ПРОТИВ COVID-19
 	                </fo:block>
-	                <fo:block font-family="Arial" font-size="11px" font-weight="bold">
+	                <fo:block font-family="Arial" font-size="11px" font-weight="bold" text-align="center">
 						(попуњава здравствени радник)
 					</fo:block>
 					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="5mm">
