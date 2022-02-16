@@ -19,6 +19,7 @@ import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.UUID;
 
 @Slf4j
@@ -60,6 +61,7 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
         var punkt = this.read(id);
         punkt.addTermin(termin);
         this.existRepository.save(punkt);
+        this.assignAppointmentsToQueuedInteresovanja(punkt);
         return punkt;
     }
 
@@ -69,6 +71,7 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
             throw new VaccineExistsException(String.format("Vakcina %s je vec definisana za punkt %s.", nazivVakcine, punkt.getNazivPunkta()));
         punkt.addDostupnaVakcina(new DostupnaVakcina(nazivVakcine, stanjeVakcine));
         this.existRepository.save(punkt);
+        this.assignAppointmentsToQueuedInteresovanja(punkt);
         return punkt;
     }
 
@@ -86,7 +89,7 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
         dostupnaVakcina.setNazivVakcine(nazivVakcine);
         dostupnaVakcina.setStanjeVakcine(novoStanje);
         this.existRepository.save(punkt);
-
+        this.assignAppointmentsToQueuedInteresovanja(punkt);
         return punkt;
     }
 
@@ -102,36 +105,49 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
         }
     }
 
+    public void assignAppointmentsToQueuedInteresovanja(VakcinacioniPunkt punkt) throws Exception {
+        var assigned = new HashSet<ZainteresovaniPacijent>();
+        punkt.getZainteresovaniPacijenti().getZainteresovaniPacijenti()
+                .forEach(p ->
+                        {
+                            try {
+                                if (assignAppointment(punkt, p.getOdabraneVakcine().getOdabraneVakcine(),
+                                        p.getEmail(), p.getInteresovanjeId())) {
+                                    assigned.add(p);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                );
+        punkt.getZainteresovaniPacijenti().getZainteresovaniPacijenti().removeAll(assigned);
+        this.existRepository.save(punkt);
+    }
+
     public boolean assignAppointment(VakcinacioniPunkt punkt, Collection<String> odabraneVakcine, String email,
                                      UUID interesovanjeId) throws Exception {
         var dostupneVakcine = punkt.getDostupneVakcine().getDostupneVakcine();
         var mesto = punkt.getNazivPunkta();
-        var hasVaccines = false;
-        var izabranaVakcina = "";
+
         for (var odabranaVakcina :
                 odabraneVakcine) {
             for (var dostupnaVakcina :
                     dostupneVakcine) {
                 if ((dostupnaVakcina.getNazivVakcine().equals(odabranaVakcina) || odabranaVakcina.equals("Било која"))
                         && dostupnaVakcina.getStanjeVakcine() > 0) {
-                    hasVaccines = true;
-                    izabranaVakcina = dostupnaVakcina.getNazivVakcine();
-                    break;
-                }
-            }
-        }
 
-        if (hasVaccines) {
-            var termini = punkt.getTermini().getTermini();
-            if (!termini.isEmpty()) {
-                var dodeljeniTermin = termini.stream().findFirst();
-                dodeljeniTermin.ifPresent(termini::remove);
-                String finalIzabranaVakcina = izabranaVakcina;
-                dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto, finalIzabranaVakcina));
-                this.existRepository.save(punkt);
-                // TODO: Send event that contains InteresovanjeID and date of appointment so it can be added
-                //  to the Interesovanje document in Imunizacija project
-                return true;
+                    var termini = punkt.getTermini().getTermini();
+                    if (!termini.isEmpty()) {
+                        var dodeljeniTermin = termini.stream().findFirst();
+                        dodeljeniTermin.ifPresent(termini::remove);
+                        dostupnaVakcina.setStanjeVakcine(dostupnaVakcina.getStanjeVakcine() - 1);
+                        dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto, dostupnaVakcina.getNazivVakcine()));
+                        this.existRepository.save(punkt);
+                        // TODO: Send event that contains InteresovanjeID and date of appointment so it can be added
+                        //  to the Interesovanje document in Imunizacija project
+                        return true;
+                    }
+                }
             }
         }
         return false;
