@@ -57,7 +57,6 @@
             <v-text-field
               v-model="formData.brojPasosa"
               label="Број пасоша"
-              :rules="[validJMBGOrBrojPasosa]"
             ></v-text-field>
           </v-row>
           <v-row>
