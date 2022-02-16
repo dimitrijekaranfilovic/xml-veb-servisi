@@ -3,6 +3,7 @@ package rs.vakcinacija.sluzbenici.saglasnost.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.sluzbenici.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.sluzbenici.saglasnost.model.Saglasnost;
@@ -45,5 +46,11 @@ public class SaglasnostController {
     @GetMapping(value = "/{id}/odluka-komisije")
     public void changeCommissionDecision(@PathVariable UUID id){
         saglasnostClient.changeCommissionDecision(id);
+    }
+
+    @PostMapping(value = "/{id}/kontraindikacije")
+    public KontraindikacijaDTO addSideEffect(@PathVariable UUID id, @RequestBody KontraindikacijaDTO kontraindikacijaDTO) {
+        saglasnostClient.addSideEffect(id, kontraindikacijaDTO);
+        return kontraindikacijaDTO;
     }
 }

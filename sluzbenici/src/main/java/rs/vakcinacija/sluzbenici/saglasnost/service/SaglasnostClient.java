@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.saglasnost.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.sluzbenici.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
@@ -25,4 +26,7 @@ public interface SaglasnostClient {
 
     @GetMapping(value = "/{id}/odluka-komisije")
     void changeCommissionDecision(@PathVariable UUID id);
+
+    @PostMapping(value = "/{id}/kontraindikacije")
+    KontraindikacijaDTO addSideEffect(@PathVariable UUID id, @RequestBody KontraindikacijaDTO kontraindikacijaDTO);
 }

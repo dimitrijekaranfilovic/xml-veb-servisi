@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.imunizacija.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
@@ -76,6 +77,12 @@ public class SaglasnostController {
     @GetMapping(value = "/{id}/odluka-komisije")
     public void changeCommissionDecision(@PathVariable UUID id) throws Exception {
         this.saglasnostService.changeCommissionDecision(id);
+    }
+
+    @PostMapping(value = "/{id}/kontraindikacije")
+    public KontraindikacijaDTO addSideEffect(@PathVariable UUID id, @RequestBody KontraindikacijaDTO kontraindikacijaDTO) throws Exception {
+        this.saglasnostService.addSideEffect(id, kontraindikacijaDTO);
+        return kontraindikacijaDTO;
     }
 
 }

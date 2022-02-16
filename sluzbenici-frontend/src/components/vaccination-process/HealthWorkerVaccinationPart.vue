@@ -47,67 +47,12 @@
         </v-col>
       </v-row>
     </v-row>
-    <v-row>
-      <v-col cols="12">
-        <h3>Вакцине</h3>
-        <v-simple-table>
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left">Број дозе</th>
-                <th class="text-left">Датум давања</th>
-                <th class="text-left">Број серије</th>
-                <th class="text-left">Тип</th>
-                <th class="text-left">Произвођач</th>
-                <th class="text-left">Екстремитет</th>
-                <th class="text-left">Нуспојава</th>
-              </tr>
-            </thead>
-            <tbody v-if="vakcinacija.vakcine.vakcine">
-              <tr v-for="(item, i) in vakcinacija.vakcine.vakcine" :key="i">
-                <td>{{ item.brojDoze | deRdf }}</td>
-                <td>{{ item.datumDavanja | deRdf | moment("DD.MM.YYYY.") }}</td>
-                <td>{{ item.brojSerije | deRdf }}</td>
-                <td>{{ item.tip | deRdf }}</td>
-                <td>{{ item.proizvodjac | deRdf }}</td>
-                <td>{{ item.ekstremitet | deRdf }}</td>
-                <td>{{ item.nuspojava | deRdf }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <h3>Привремене контраиндикације</h3>
-        <v-simple-table>
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left">Датум утврђивања</th>
-                <th class="text-left">Дијагноза</th>
-              </tr>
-            </thead>
-            <tbody
-              v-if="vakcinacija.privremeneKontraindikacije.kontraindikacije"
-            >
-              <tr
-                v-for="(item, i) in vakcinacija.privremeneKontraindikacije
-                  .kontraindikacije"
-                :key="i"
-              >
-                <td>
-                  {{ item.datumUtvrdjivanja | deRdf | moment("DD.MM.YYYY.") }}
-                </td>
-                <td>{{ item.dijagnoza | deRdf }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-      </v-col>
-    </v-row>
-
+    <given-vaccines-table :vakcine="vakcinacija.vakcine.vakcine" />
+    <side-effects-table
+      :kontraindikacije="
+        vakcinacija.privremeneKontraindikacije.kontraindikacije
+      "
+    />
     <v-row>
       <h4>Одлука комисије за трајне контраиндикације</h4>
       <v-card-text>
@@ -275,12 +220,59 @@
             <v-container fluid>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field label="Датум утврђивања" />
+                  <v-menu
+                    ref="menu1"
+                    v-model="menuDate1"
+                    :close-on-content-click="false"
+                    :return-value.sync="date1"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                        label="Датум утврђивања"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                        v-model="
+                          sideEffectObj.kontraindikacija.datum_utvrdjivanja
+                        "
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      no-title
+                      scrollable
+                      v-model="
+                        sideEffectObj.kontraindikacija.datum_utvrdjivanja
+                      "
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn text color="primary" @click="menuDate1 = false">
+                        Откажи
+                      </v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="
+                          $refs.menu1.save(
+                            sideEffectObj.kontraindikacija.datum_utvrdjivanja
+                          )
+                        "
+                      >
+                        Потврди
+                      </v-btn>
+                    </v-date-picker>
+                  </v-menu>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field label="Дијагноза" />
+                  <v-text-field
+                    label="Дијагноза"
+                    v-model="sideEffectObj.kontraindikacija.dijagnoza"
+                  />
                 </v-col>
               </v-row>
             </v-container>
@@ -289,7 +281,15 @@
               <v-btn color="primary" text @click="sideEffectsDialog = false"
                 >Одустани</v-btn
               >
-              <v-btn color="primary">Додај</v-btn>
+              <v-btn
+                color="primary"
+                :disabled="
+                  sideEffectObj.kontraindikacija.dijagnoza === '' ||
+                  sideEffectObj.kontraindikacija.datum_utvrdjivanja === null
+                "
+                @click="addSideEffect()"
+                >Додај</v-btn
+              >
             </v-card-actions>
           </v-card-text>
         </v-card>
@@ -300,12 +300,22 @@
 
 <script>
 import vaccinationService from "@/services/VaccinationService";
+import GivenVaccinesTable from "@/components/vaccination-process/GivenVaccinesTable.vue";
+import SideEffectsTable from "@/components/vaccination-process/SideEffectsTable.vue";
 
 export default {
   name: "HealthWorkerVaccinationPart",
+  components: {
+    GivenVaccinesTable,
+    SideEffectsTable,
+  },
   props: ["vakcinacija"],
   data() {
     return {
+      menuDate1: false,
+      date1: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
       addDoctorDialog: false,
       addVaccineDialog: false,
       sideEffectsDialog: false,
@@ -350,7 +360,7 @@ export default {
       vaccinationService
         .createDoctorAndBuilding(this.$route.params.id, this.firstSetupObj)
         .then((_) => {
-          //TODO: vidi ovo malo bolje
+          //TODO: vidi ovo malo bolje i ovo dvoje ispod
           this.$router.go(0);
         });
     },
@@ -358,6 +368,13 @@ export default {
       vaccinationService.changeDecision(this.$route.params.id).then((_) => {
         this.$router.go(0);
       });
+    },
+    addSideEffect() {
+      vaccinationService
+        .addSideEffect(this.$route.params.id, this.sideEffectObj)
+        .then((_) => {
+          this.$router.go(0);
+        });
     },
   },
   computed: {

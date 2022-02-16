@@ -21,6 +21,10 @@ class VaccinationService {
   changeDecision(id: string): Promise<any> {
     return this.http.get(`/saglasnost/${id}/odluka-komisije`);
   }
+
+  addSideEffect(id: string, payload: any): Promise<any> {
+    return this.http.post(`/saglasnost/${id}/kontraindikacije`, payload);
+  }
 }
 
 export default new VaccinationService(httpClient);

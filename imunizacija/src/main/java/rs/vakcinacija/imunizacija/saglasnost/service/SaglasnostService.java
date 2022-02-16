@@ -5,6 +5,7 @@ import org.apache.jena.dboe.migrate.L;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.imunizacija.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.LekarDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.ZdravstvenaUstanovaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.model.*;
@@ -50,7 +51,16 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         var odlukaKomisije = saglasnost.getVakcinacija().getOdlukaKomisije().getValue();
         saglasnost.getVakcinacija().setOdlukaKomisije(RDFBoolean.of(!odlukaKomisije));
         this.saglasnostExistRepository.save(saglasnost);
+    }
 
+    public void addSideEffect(UUID id, KontraindikacijaDTO dto) throws Exception {
+        var saglasnost = this.read(id);
+        var kontraindikacije = saglasnost.getVakcinacija().getPrivremeneKontraindikacije();
+        var listaKontraindikacija = kontraindikacije.getKontraindikacije();
+        if (listaKontraindikacija == null)
+            kontraindikacije.setKontraindikacije(new ArrayList<>());
+        kontraindikacije.getKontraindikacije().add(new Kontraindikacija(RDFDate.of(dto.getDatumUtvrdjivanja()), RDFString.of(dto.getDijagnoza())));
+        this.saglasnostExistRepository.save(saglasnost);
     }
 
 
@@ -85,7 +95,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         saglasnost.getVakcinacija().setVakcine(new Vakcine());
         saglasnost.getVakcinacija().setOdlukaKomisije(RDFBoolean.of(false));
         saglasnost.getVakcinacija().setPrivremeneKontraindikacije(new PrivremeneKontraindikacije());
-
+        saglasnost.getVakcinacija().getPrivremeneKontraindikacije().setKontraindikacije(new ArrayList<>());
         saglasnost.getVakcinacija().getVakcine().setVakcine(new ArrayList<>());
 
         insertRDFMetadataForFirstHalf(saglasnost);
