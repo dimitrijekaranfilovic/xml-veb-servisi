@@ -11,6 +11,7 @@ import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFInteger;
 import rs.vakcinacija.zajednicko.model.RDFString;
+import rs.vakcinacija.zajednicko.service.QRCodeService;
 
 import java.util.Date;
 import java.util.List;
@@ -21,11 +22,13 @@ import java.util.stream.Collectors;
 public class DigitalniSertifikatIssueService {
     private final DigitalniSertifikatService digitalniSertifikatService;
     private final PotvrdaOVakcinacijiService potvrdaOVakcinacijiService;
+    private final QRCodeService qrCodeService;
 
     @Autowired
-    public DigitalniSertifikatIssueService(DigitalniSertifikatService digitalniSertifikatService, PotvrdaOVakcinacijiService potvrdaOVakcinacijiService) {
+    public DigitalniSertifikatIssueService(DigitalniSertifikatService digitalniSertifikatService, PotvrdaOVakcinacijiService potvrdaOVakcinacijiService, QRCodeService qrCodeService) {
         this.digitalniSertifikatService = digitalniSertifikatService;
         this.potvrdaOVakcinacijiService = potvrdaOVakcinacijiService;
+        this.qrCodeService = qrCodeService;
     }
 
     public DigitalniSertifikat issueFor(ZahtevZaSertifikat zahtevZaSertifikat) throws Exception {
@@ -84,8 +87,9 @@ public class DigitalniSertifikatIssueService {
         return new LicneInformacije(ime, prezime, jmbg, pol, datumRodjenja, brojPasosa, email);
     }
 
-    private InformacijeOSertifikatu buildDefaultInformacijeOSertifikatu(UUID id) {
-        var qrKod = RDFString.of("http://localhost:3001/digitalni-sertifikat/" + id);
+    private InformacijeOSertifikatu buildDefaultInformacijeOSertifikatu(UUID id) throws Exception {
+        var qrKodUrl = "http://localhost:3001/pregled/digitalni-sertifikat/" + id;
+        var qrKod = RDFString.of(qrCodeService.generateQRCodeBase64String(qrKodUrl));
         var digitalniPotipis = buildDefaultDigitalniPotpis();
         return new InformacijeOSertifikatu(qrKod, digitalniPotipis);
     }

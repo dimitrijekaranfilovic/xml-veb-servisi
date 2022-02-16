@@ -74,7 +74,16 @@
             {{ item.informacijeOSertifikatu.digitalniPotpis.drzava | deRdf }}
           </td>
           <td>
-            <v-btn plain text color="primary">Прегледај документ</v-btn>
+            <v-btn
+              plain
+              text
+              color="primary"
+              :to="{
+                name: 'DigitalCertificateDocumentView',
+                params: { id: item.id },
+              }"
+              >Прегледај документ</v-btn
+            >
           </td>
           <td>
             <v-btn plain text color="primary" @click="showReferences(item)"
