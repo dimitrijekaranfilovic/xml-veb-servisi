@@ -2,8 +2,6 @@ package rs.vakcinacija.imunizacija.saglasnost.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.imunizacija.saglasnost.model.LicneInformacije;
-import rs.vakcinacija.imunizacija.saglasnost.model.Saglasnost;
 
 import javax.xml.bind.annotation.*;
 

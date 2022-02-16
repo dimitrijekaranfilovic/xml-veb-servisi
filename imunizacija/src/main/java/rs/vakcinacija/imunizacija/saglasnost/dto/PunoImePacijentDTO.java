@@ -2,7 +2,6 @@ package rs.vakcinacija.imunizacija.saglasnost.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.model.ImePrezime;
 import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;

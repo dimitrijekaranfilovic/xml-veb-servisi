@@ -1,7 +1,6 @@
 package rs.vakcinacija.imunizacija.authentication.support;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 import rs.vakcinacija.imunizacija.authentication.dto.GradjaninCreateRequest;
 import rs.vakcinacija.imunizacija.authentication.model.Gradjanin;

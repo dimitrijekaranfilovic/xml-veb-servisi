@@ -1,6 +1,5 @@
 package rs.vakcinacija.imunizacija.authentication.controller;
 
-import org.exist.http.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
