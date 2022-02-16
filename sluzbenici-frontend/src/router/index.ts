@@ -24,6 +24,11 @@ const routes: Array<RouteConfig> = [
       ),
   },
   {
+    path: "/pregled/digitalni-sertifikat/:id",
+    name: "DigitalCertificateDocumentView",
+    component: () => import("../views/digital-certificate/DigitalCertificateDocumentView.vue"),
+  },
+  {
     path: "/punktovi",
     name: "VaccinationPlaceManagementView",
     component: () =>

@@ -36,6 +36,11 @@ public class DigitalniSertifikatController {
         return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.readForCitizen(request.getQuery(), request));
     }
 
+    @GetMapping(value = "/html/{id}")
+    public String html(@PathVariable UUID id) throws Exception {
+        return digitalniSertifikatService.generateHTML(digitalniSertifikatService.read(id), "src/main/resources/xslt/digitalni_sertifikat.xsl");
+    }
+
     @GetMapping(value = "/{id}")
     public DigitalniSertifikat read(@PathVariable UUID id) throws Exception {
         return digitalniSertifikatService.read(id);

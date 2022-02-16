@@ -15,7 +15,7 @@ class DigitalCertificateRequestsService {
     return this.http.post(`/zahtev-za-sertifikat/${id}/odobri`, {});
   }
 
-  reject(id: string, reason: any) {
+  reject(id: string, reason: any): Promise<any> {
     return this.http.post(`/zahtev-za-sertifikat/${id}/odbij`, reason);
   }
 }
