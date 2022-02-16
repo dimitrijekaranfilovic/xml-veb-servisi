@@ -17,7 +17,13 @@
           <td>{{ item.pacijent.licneInformacije.punoIme.prezime | deRdf }}</td>
           <td>{{ item.pacijent.licneInformacije.kontakt.email | deRdf }}</td>
           <td>
-            <v-btn text color="primary" plain>Прикажи детаље</v-btn>
+            <v-btn
+              text
+              color="primary"
+              plain
+              :to="{ name: 'SingleVaccinationView', params: { id: item.id } }"
+              >Прикажи детаље</v-btn
+            >
           </td>
         </tr>
       </tbody>

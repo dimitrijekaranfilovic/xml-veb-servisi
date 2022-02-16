@@ -4,7 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
+import rs.vakcinacija.sluzbenici.saglasnost.model.Saglasnost;
+import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.sluzbenici.saglasnost.service.SaglasnostClient;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "saglasnost")
@@ -24,7 +28,11 @@ public class SaglasnostController {
 
     @GetMapping(value = "/za-sluzbenika")
     public KolekcijaSaglasnosti readForBureaucrat(@RequestParam(defaultValue = "") String email){
-        log.info("Trazim po: " + email);
         return saglasnostClient.readFilteredByEmail(email);
+    }
+
+    @GetMapping(value = "/jedan-za-sluzbenika/{id}")
+    public SaglasnostZaSprovodjenjeImunizacije readOne(@PathVariable UUID id) {
+        return saglasnostClient.read(id);
     }
 }

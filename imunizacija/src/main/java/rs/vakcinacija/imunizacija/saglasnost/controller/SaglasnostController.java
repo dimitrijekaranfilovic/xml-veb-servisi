@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaSaglasnosti;
+import rs.vakcinacija.imunizacija.saglasnost.model.Saglasnost;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.imunizacija.saglasnost.service.SaglasnostService;
 import rs.vakcinacija.imunizacija.saglasnost.support.SaglasnostCreateRequestToSaglasnost;
@@ -40,9 +41,14 @@ public class SaglasnostController {
         return saglasnostToSaglasnostCreateRequest.convert(savedSaglasnost);
     }
 
-    @GetMapping(value = "/{id}")
-    public String read(@PathVariable UUID id) throws Exception {
+    @GetMapping(value = "/html/{id}")
+    public String generateHtml(@PathVariable UUID id) throws Exception {
         return saglasnostService.getHTMLRepresentation(id);
+    }
+
+    @GetMapping(value = "/{id}")
+    public SaglasnostZaSprovodjenjeImunizacije read(@PathVariable UUID id) throws Exception {
+        return saglasnostService.read(id);
     }
 
     @GetMapping(value = "/za-gradjanina/{email}")

@@ -46,9 +46,15 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/reports/SingleReportView.vue"),
   },
   {
-    path: "/vakcinacija",
+    path: "/vakcinacije",
     name: "VaccinationView",
     component: () => import("../views/vaccination-process/VaccinationView.vue"),
+  },
+  {
+    path: "/vakcinacija/:id",
+    name: "SingleVaccinationView",
+    component: () =>
+      import("../views/vaccination-process/SingleVaccinationView.vue"),
   },
 ];
 
