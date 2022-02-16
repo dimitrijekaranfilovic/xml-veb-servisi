@@ -78,16 +78,16 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             		<xsl:variable name="x" select="//b:pol"/>
                             		<fo:table-cell vertical-align="middle"><fo:block>Pol: 
                             			<xsl:choose>
-									      	<xsl:when test="$x = 'MUSKO'">
+									      	<xsl:when test="$x = 'MUSKI'">
 						                      М
 						                    </xsl:when>	
-						                    <xsl:when test="$x = 'ZENSKO'">
+						                    <xsl:when test="$x = 'ZENSKI'">
 						                      Ж
 						                    </xsl:when>	
 						                </xsl:choose>
                             		</fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
-                            		<fo:table-cell vertical-align="middle"><fo:block>Godina rodjenja: <xsl:value-of select="//b:datum_rodjenja"/></fo:block></fo:table-cell>
+                            		<fo:table-cell vertical-align="middle"><fo:block>Godina rodjenja: <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/></fo:block></fo:table-cell>
                             		<fo:table-cell><fo:block>|</fo:block></fo:table-cell>
                             		<fo:table-cell vertical-align="middle"><fo:block>Mesto rodjenja: <xsl:value-of select="//b:mesto_rodjenja"/></fo:block></fo:table-cell>
                             	</fo:table-row>

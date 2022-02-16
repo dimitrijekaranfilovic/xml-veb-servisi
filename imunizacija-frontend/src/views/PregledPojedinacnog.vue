@@ -15,7 +15,6 @@
 
 <script>
 import SaglasnostService from "../services/SaglasnostService";
-import axios from "axios";
 
 export default {
   data() {

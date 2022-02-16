@@ -3,6 +3,8 @@ package rs.vakcinacija.imunizacija.saglasnost.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.imunizacija.interesovanje.service.InteresovanjeService;
+import rs.vakcinacija.imunizacija.saglasnost.exception.InteresovanjeNotSubmittedException;
 import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostExistRepository;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
@@ -11,7 +13,6 @@ import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -21,18 +22,26 @@ import java.util.UUID;
 public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeImunizacije> {
 
     private final SaglasnostExistRepository saglasnostExistRepository;
+    private final InteresovanjeService interesovanjeService;
 
     @Autowired
     public SaglasnostService(ExistRepository<SaglasnostZaSprovodjenjeImunizacije> existRepository,
                              FusekiRepository<SaglasnostZaSprovodjenjeImunizacije> fusekiRepository,
-                             SaglasnostExistRepository saglasnostExistRepository) {
+                             SaglasnostExistRepository saglasnostExistRepository,
+                             InteresovanjeService interesovanjeService) {
         super(existRepository, fusekiRepository);
         this.saglasnostExistRepository = saglasnostExistRepository;
+        this.interesovanjeService = interesovanjeService;
     }
 
     public SaglasnostZaSprovodjenjeImunizacije createFirstHalfOfDocument(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
         saglasnost.setDatum(new RDFDate(new Date(), "", "", null, null, null, null, null));
         insertRDFMetadataForFirstHalf(saglasnost);
+
+        if(interesovanjeService.getAllForUser(saglasnost.provideEmail()).size() == 0) {
+            throw new InteresovanjeNotSubmittedException("Морате поднети интересовање.");
+        }
+
         var id = existRepository.save(saglasnost);
         fusekiRepository.save(id, saglasnost);
         return saglasnost;
