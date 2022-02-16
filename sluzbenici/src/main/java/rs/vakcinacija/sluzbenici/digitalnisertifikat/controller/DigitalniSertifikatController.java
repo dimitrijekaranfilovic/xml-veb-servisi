@@ -27,14 +27,13 @@ public class DigitalniSertifikatController {
     }
 
     @GetMapping
-    public KolekcijaDigitalnihSertifikata read(NaprednaPretragaRequest request) throws Exception {
-        digitalniSertifikatService.test(request);
+    public KolekcijaDigitalnihSertifikata read() throws Exception {
         return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.read());
     }
 
-    @GetMapping(value = "/za-gradjanina/{email}")
-    public KolekcijaDigitalnihSertifikata readForCitizen(@PathVariable String email, @RequestParam(defaultValue = "") String query) throws Exception {
-        return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.readForCitizen(email, query));
+    @GetMapping(value = "/za-gradjanina")
+    public KolekcijaDigitalnihSertifikata read(NaprednaPretragaRequest request) {
+        return KolekcijaDigitalnihSertifikata.of(digitalniSertifikatService.readForCitizen(request.getQuery(), request));
     }
 
     @GetMapping(value = "/{id}")

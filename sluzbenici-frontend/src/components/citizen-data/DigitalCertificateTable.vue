@@ -116,10 +116,10 @@ export default Vue.extend({
   },
   methods: {
     async fetchData() {
-      const response = await citizenDataService.readDigitalCertificates(
-        this.email,
-        this.query
-      );
+      const response = await citizenDataService.readDigitalCertificates({
+        query: this.query,
+        email: this.email,
+      });
       this.certificates = response.data.digitalniSertifikati || [];
     },
     onChipInput() {

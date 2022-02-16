@@ -67,6 +67,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         var vakcinaUrl = RDF_VAKCINA_BASE +  vakcinacija.getNazivVakcine().getValue();
 
         qrKod.rdf().property(PROP_QR_KOD).datatype(T_STRING);
+        potvrdaOVakcinaciji.getEmail().rdf().property(PROP_EMAIL).datatype(T_STRING);
 
         vakcinacija.rdf()
                 .vocab(VOCAB)

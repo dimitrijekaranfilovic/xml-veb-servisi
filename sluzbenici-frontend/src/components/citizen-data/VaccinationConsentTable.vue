@@ -56,7 +56,7 @@
             {{ item.datum | deRdf | moment("DD.MM.YYYY.") }}
           </td>
           <td>
-            {{ item.pacijent.saglasnost.izjava | deRdf }}
+            {{ item.pacijent.saglasnost.izjava.value ? "Да" : "Не" }}
           </td>
           <td>
             {{ item.pacijent.saglasnost.nazivImunoloskogLeka | deRdf }}
@@ -89,7 +89,7 @@ export default Vue.extend({
     headers: [
       { text: "Идентификатор Потврде" },
       { text: "Датум издавања" },
-      { text: "Изјава" },
+      { text: "Сагласан" },
       { text: "Назив имунолошког лека" },
       { text: "Преглед документа" },
       { text: "Преглед референци" },
@@ -107,10 +107,10 @@ export default Vue.extend({
   },
   methods: {
     async fetchData() {
-      const response = await citizenDataService.readVaccinationConsents(
-        this.email,
-        this.query
-      );
+      const response = await citizenDataService.readVaccinationConsents({
+        email: this.email,
+        query: this.query,
+      });
       this.consents = response.data.saglasnosti || [];
     },
     showReferences(item) {

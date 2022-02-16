@@ -3,16 +3,16 @@ import httpClient, { HttpClient } from "./HttpClient";
 class CitizenDataService {
   constructor(private http: HttpClient) { }
 
-  readVaccinationConsents(email: string, query: string): Promise<any> {
-    return this.http.get(`/saglasnost/za-gradjanina/${email}?query=${query}`);
+  readVaccinationConsents(params: any): Promise<any> {
+    return this.http.getParams(`/saglasnost/za-gradjanina`, params);
   }
 
-  readVaccinationCertificates(email: string, query: string): Promise<any> {
-    return this.http.get(`/potvrda-o-vakcinaciji/za-gradjanina/${email}?query=${query}`);
+  readVaccinationCertificates(params: any): Promise<any> {
+    return this.http.getParams(`/potvrda-o-vakcinaciji/za-gradjanina`, params);
   }
 
-  readDigitalCertificates(email: string, query: string): Promise<any> {
-    return this.http.get(`/digitalni-sertifikat/za-gradjanina/${email}?query=${query}`);
+  readDigitalCertificates(params: any): Promise<any> {
+    return this.http.getParams(`/digitalni-sertifikat/za-gradjanina`, params);
   }
 }
 

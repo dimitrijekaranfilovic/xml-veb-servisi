@@ -18,11 +18,6 @@ public class DigitalniSertifikatService extends DocumentService<DigitalniSertifi
         super(digitalniSertifikatExistRepository, digitalniSertifikatFusekiRepository);
     }
 
-    public void test(NaprednaPretragaRequest request) {
-        var results = readForCitizen("", request);
-        results.forEach(digitalniSertifikat -> log.info(String.valueOf(digitalniSertifikat.getId())));
-    }
-
     protected void insertRDFMetadata(DigitalniSertifikat digitalniSertifikat) {
         var brojSertifikata = digitalniSertifikat.getBrojSertifikata();
         brojSertifikata.rdf().property(PROP_SIFRA_DOKUMENTA).datatype(T_STRING);

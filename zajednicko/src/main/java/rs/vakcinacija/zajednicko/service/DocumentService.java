@@ -1,6 +1,10 @@
 package rs.vakcinacija.zajednicko.service;
 
 
+import net.sf.saxon.TransformerFactoryImpl;
+import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.MimeConstants;
 import org.w3c.dom.Document;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
@@ -12,22 +16,28 @@ import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.apache.fop.apps.FopFactory;
+
 
 public abstract class DocumentService<T extends BaseDocument> {
     protected final ExistRepository<T> existRepository;
     protected final FusekiRepository<T> fusekiRepository;
 
-    private final DocumentBuilderFactory documentFactory;
-    private final TransformerFactory transformerFactory;
+    private DocumentBuilderFactory documentFactory;
+    private TransformerFactory transformerFactory;
+    private TransformerFactory transformerFopFactory;
+    private FopFactory fopFactory;
 
     protected DocumentService(ExistRepository<T> existRepository, FusekiRepository<T> fusekiRepository) {
         this.existRepository = existRepository;
@@ -39,6 +49,12 @@ public abstract class DocumentService<T extends BaseDocument> {
         documentFactory.setIgnoringElementContentWhitespace(true);
 
         transformerFactory = TransformerFactory.newInstance();
+        try {
+            fopFactory = FopFactory.newInstance(new File("src/main/resources/fop.xconf"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        transformerFopFactory = new TransformerFactoryImpl();
     }
 
     public T create(T entity) throws Exception {
@@ -169,5 +185,37 @@ public abstract class DocumentService<T extends BaseDocument> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ByteArrayInputStream generatePDF(T entity, String xslfoPath) throws Exception {
+        File xslFile = new File(xslfoPath);
+
+        // Create transformation source
+        StreamSource transformSource = new StreamSource(xslFile);
+
+        // Initialize the transformation subject
+        ByteArrayOutputStream documentOutputStream = new ByteArrayOutputStream();
+        existRepository.getEntityManager().marshall(entity, documentOutputStream);
+        StreamSource source = new StreamSource(new StringReader(String.valueOf(documentOutputStream)));
+
+        // Initialize user agent needed for the transformation
+        FOUserAgent userAgent = fopFactory.newFOUserAgent();
+
+        // Create the output stream to store the results
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+
+        // Initialize the XSL-FO transformer object
+        Transformer xslFoTransformer = transformerFopFactory.newTransformer(transformSource);
+
+        // Construct FOP instance with desired output format
+        Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, userAgent, outStream);
+
+        // Resulting SAX events
+        Result res = new SAXResult(fop.getDefaultHandler());
+
+        // Start XSLT transformation and FOP processing
+        xslFoTransformer.transform(source, res);
+
+        return new ByteArrayInputStream(outStream.toByteArray());
     }
 }

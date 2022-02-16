@@ -3,7 +3,11 @@
     <div class="top-level-container" v-html="legacySystemHTML"></div>
     <v-flex class="text-center">
       <v-btn class="my-10" dark color="pink" @click.prevent="downloadItem()"
-        >Преузми као xhtml</v-btn
+        >Преузми као .xhtml</v-btn
+      >
+      <span class="mx-5" />
+      <v-btn class="my-10" dark color="pink" @click.prevent="downloadPDFItem()"
+        >Преузми као .pdf</v-btn
       >
     </v-flex>
   </div>
@@ -28,6 +32,9 @@ export default {
   methods: {
     downloadItem() {
       SaglasnostService.downloadXHTML(this.$route.params.id);
+    },
+    downloadPDFItem() {
+      SaglasnostService.downloadPDF(this.$route.params.id);
     },
   },
 };

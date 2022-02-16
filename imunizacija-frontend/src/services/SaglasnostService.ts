@@ -40,7 +40,18 @@ class SaglasnostService extends BaseService {
         responseType: "blob",
       })
       .then((response) => {
-        this.initialteXHTMLDownload(response, "saglasnost");
+        this.initialteDownload(response, "saglasnost", "html");
+      })
+      .catch(console.error);
+  }
+
+  downloadPDF(id: string): void {
+    axios
+      .get(this.basePath + "saglasnost/pdf/" + id, {
+        responseType: "blob",
+      })
+      .then((response) => {
+        this.initialteDownload(response, "saglasnost", "pdf");
       })
       .catch(console.error);
   }

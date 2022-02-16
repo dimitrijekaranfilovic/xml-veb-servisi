@@ -29,4 +29,6 @@ public class NaprednaPretragaRequest {
     private String issueDate;
     @SparqlParameter(name = "email", type = "string")
     private String email;
+
+    private String query = "";
 }
