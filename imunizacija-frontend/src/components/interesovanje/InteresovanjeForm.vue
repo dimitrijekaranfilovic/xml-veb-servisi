@@ -236,7 +236,7 @@ export default {
       response
         .then((res) => {
           if (res.status === 201) {
-            that.text = "Документ успешно поднешен";
+            that.text = "Документ успешно поднесен";
             that.snackbar = true;
           } else {
             that.text = "Подношење документа није успело";

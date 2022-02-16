@@ -1,27 +1,42 @@
 package rs.vakcinacija.imunizacija.interesovanje.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
+import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
+import rs.vakcinacija.zajednicko.email.service.EmailService;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
+import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class InteresovanjeService extends DocumentService<Interesovanje> {
 
+    private final EmailService emailService;
+
     @Autowired
     public InteresovanjeService(ExistRepository<Interesovanje> existRepository,
-                                FusekiRepository<Interesovanje> fusekiRepository) {
+                                FusekiRepository<Interesovanje> fusekiRepository,
+                                EmailService emailService) {
         super(existRepository, fusekiRepository);
+        this.emailService = emailService;
     }
 
     public List<Interesovanje> getAllForUser(String email) throws Exception {
         return existRepository.read((doc) -> doc.getLicneInformacije().getKontakt()
                 .getEmail().getValue().equals(email));
+    }
+
+    public Interesovanje submitInteresovanjeAndSendEmail(Interesovanje interesovanje) throws Exception {
+        interesovanje.setDatum(RDFDate.of(new Date()));
+        sendInteresovanjeRecievedMessage(interesovanje);
+        return this.create(interesovanje);
     }
 
     protected void insertRDFMetadata(Interesovanje interesovanje) {
@@ -77,5 +92,49 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
         var email = interesovanje.getLicneInformacije().getKontakt().getEmail();
         email.setProperty(PROP_EMAIL);
         email.setDatatype(T_STRING);
+    }
+
+
+    @Async
+    public void sendInteresovanjeRecievedMessage(Interesovanje interesovanje) {
+        var to = interesovanje.getLicneInformacije().getKontakt().getEmail().getValue();
+        var subject = "Обавештење о интересовању за вакцинацију";
+        var sb = new StringBuilder();
+        sb.append("Поштовани, \n");
+        sb.append("\nВаше интересовање је успешно исказано.\n");
+        sb.append("Добићете обавештење о тачном датуму вакцинације чим вам доделимо први слободан термин.\n");
+        sb.append("У наставку се налазе ваши подаци које сте унели приликом исказивања интересовања: \n");
+        sb.append("\n\tДржављанство: ")
+                .append(interesovanje.getLicneInformacije().getCyrilicDrzavljanstvo()).append("\n");
+        sb.append("\n\tЈМБГ: ")
+                .append(interesovanje.getLicneInformacije().getJmbg().getValue())
+                .append("\n");
+        sb.append("\n\tИме: ").append(interesovanje.getLicneInformacije().getImePrezime().getIme().getValue())
+                .append("\n");
+        sb.append("\n\tПрезиме: ").append(interesovanje.getLicneInformacije().getImePrezime().getPrezime().getValue())
+                .append("\n");
+        sb.append("\n\tАдреса електронске поште: ").append(
+                        interesovanje.getLicneInformacije().getKontakt().getEmail().getValue())
+                .append("\n");
+        sb.append("\n\tБрој мобилног телефона: ")
+                .append(interesovanje.getLicneInformacije().getKontakt().getBrojMobilnog().getValue())
+                .append("\n");
+        sb.append("\n\tБрој фиксног телефона: ")
+                .append(interesovanje.getLicneInformacije().getKontakt().getBrojFiksnog().getValue())
+                .append("\n");
+        sb.append("\n\tЛокација где желите да примите вакцину: ")
+                .append(interesovanje.getOdabranaLokacijaPrimanjaVakcine().getValue())
+                .append("\n");
+        sb.append("\n\tОдабрани произвођачи: \n");
+        interesovanje.getOdabraniProizvodjaci().getProizvodjaci().forEach(p -> sb.append("\n\t\t")
+                .append(p).append("\n"));
+        sb.append("\n\tДа ли сте добровољни давалац крви: ")
+                .append(Boolean.TRUE.equals(
+                        interesovanje.getLicneInformacije().getDavalacKrvi().getValue()) ? "Да" : "Не")
+                .append("\n");
+        sb.append("\n\n\nСрдачан поздрав,\n");
+        sb.append("Информациони систем за вакцинацију грађана\n");
+
+        emailService.sendEmail(new SendEmailRequest(to, subject, sb.toString()));
     }
 }

@@ -1,6 +1,4 @@
 import axios from "axios";
-import { json2xml } from "xml-js";
-import jwt_decode from "jwt-decode";
 import { BaseService } from "./BaseService";
 
 class SaglasnostService extends BaseService {
@@ -14,11 +12,8 @@ class SaglasnostService extends BaseService {
   }
 
   async getAllForUser(): Promise<any> {
-    let jwt = localStorage.getItem("jwt");
-    let decoded: any = jwt_decode(jwt as string);
-
     let response = axios.get(
-      this.basePath + "saglasnost/all/" + decoded.sub,
+      this.basePath + "saglasnost/all/" + this.getLocalStorageJwt().sub,
       this.getXMLConfig()
     );
 

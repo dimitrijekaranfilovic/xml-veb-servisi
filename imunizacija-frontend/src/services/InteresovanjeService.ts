@@ -5,16 +5,14 @@ class InteresovanjeService extends BaseService {
   private interesovanjePath: string = "interesovanje";
 
   async postInteresovanje(interesovanje: any): Promise<any> {
-    return super.sendRequest(axios.post, interesovanje, this.interesovanjePath);
+    return super.sendRequest(axios.post, this.interesovanjePath, interesovanje);
   }
 
   async getAllForUser(): Promise<any> {
-    let response = await axios.get(
-      this.basePath + "interesovanje/all/" + this.provideUserEmail(),
-      this.getXMLConfig()
+    return super.sendRequest(
+      axios.get,
+      this.interesovanjePath + "/all/" + this.getLocalStorageJwt().sub
     );
-
-    return response;
   }
 }
 export default new InteresovanjeService();

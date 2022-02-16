@@ -23,6 +23,11 @@ export class BaseService {
     return decoded.sub;
   }
 
+  getLocalStorageJwt(): any {
+    let jwt = localStorage.getItem("jwt");
+    return jwt_decode(jwt as string);
+  }
+
   initialteDownload(response: any, documentType: string, extension: string) {
     const blob = new Blob([response.data], {
       type: "application/" + extension,
@@ -39,8 +44,8 @@ export class BaseService {
 
   async sendRequest(
     restMethod: any = axios.get,
-    requestBody: any = {},
-    path: string = ""
+    path: string = "",
+    requestBody: any = {}
   ): Promise<any> {
     const xmlRequest = json2xml(requestBody, {
       compact: true,

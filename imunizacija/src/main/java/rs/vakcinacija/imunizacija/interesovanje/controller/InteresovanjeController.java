@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
 import rs.vakcinacija.imunizacija.interesovanje.model.KolekcijaInteresovanja;
 import rs.vakcinacija.imunizacija.interesovanje.service.InteresovanjeService;
-import rs.vakcinacija.zajednicko.model.RDFDate;
 
-import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
@@ -25,12 +23,10 @@ public class InteresovanjeController {
         this.interesovanjeService = interesovanjeService;
     }
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Interesovanje write(@RequestBody Interesovanje interesovanje) throws Exception {
-        interesovanje.setDatum(RDFDate.of(new Date()));
-        return interesovanjeService.create(interesovanje);
+        return interesovanjeService.submitInteresovanjeAndSendEmail(interesovanje);
     }
 
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)

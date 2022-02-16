@@ -1,25 +1,13 @@
 import axios from "axios";
-import { BaseService } from "./BaseService";
+import { BaseService } from "@/services/BaseService";
 
 class AuthenticationService extends BaseService {
   async login(loginRequest: any): Promise<any> {
-    let response = await axios.post(
-      this.basePath + "auth/login",
-      this.toXML(loginRequest),
-      this.getXMLConfig()
-    );
-
-    return response;
+    return super.sendRequest(axios.post, "auth/login", loginRequest);
   }
 
   async register(registrationRequest: any): Promise<any> {
-    let response = await axios.post(
-      this.basePath + "auth",
-      this.toXML(registrationRequest),
-      this.getXMLConfig()
-    );
-
-    return response;
+    return super.sendRequest(axios.post, "auth", registrationRequest);
   }
 
   userLoggedIn() {
