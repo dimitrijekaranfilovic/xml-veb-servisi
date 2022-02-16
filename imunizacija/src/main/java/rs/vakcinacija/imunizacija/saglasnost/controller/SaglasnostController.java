@@ -1,8 +1,11 @@
 package rs.vakcinacija.imunizacija.saglasnost.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
@@ -11,6 +14,8 @@ import rs.vakcinacija.imunizacija.saglasnost.service.SaglasnostService;
 import rs.vakcinacija.imunizacija.saglasnost.support.SaglasnostCreateRequestToSaglasnost;
 import rs.vakcinacija.imunizacija.saglasnost.support.SaglasnostToSaglasnostCreateRequest;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 @Slf4j
@@ -39,8 +44,13 @@ public class SaglasnostController {
     }
 
     @GetMapping(value = "/{id}")
-    public String read(@PathVariable UUID id) throws Exception {
+    public String readHTML(@PathVariable UUID id) throws Exception {
         return saglasnostService.getHTMLRepresentation(id);
+    }
+
+    @GetMapping(value = "pdf/{id}")
+    public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
+        return new ResponseEntity<>(new InputStreamResource(saglasnostService.getPDFRepresentation(id)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/za-gradjanina/{email}")

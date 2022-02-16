@@ -16,11 +16,16 @@ export class BaseService {
     });
   }
 
-  initialteXHTMLDownload(response: any, documentType: string) {
-    const blob = new Blob([response.data], { type: "application/html" });
+  initialteDownload(response: any, documentType: string, extension: string) {
+    const blob = new Blob([response.data], {
+      type: "application/" + extension,
+    });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = documentType + ".xhtml";
+    if (extension === "html") {
+      extension = "x" + extension;
+    }
+    link.download = documentType + "." + extension;
     link.click();
     URL.revokeObjectURL(link.href);
   }
