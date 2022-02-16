@@ -39,7 +39,7 @@
             v-model="confirmPassword"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show ? 'text' : 'password'"
-            :rules="[checkMatching]"
+            :rules="[checkMatching, ...confirmPasswordRules]"
             label="Потврди лозинку"
             @click:append="show = !show"
             counter
