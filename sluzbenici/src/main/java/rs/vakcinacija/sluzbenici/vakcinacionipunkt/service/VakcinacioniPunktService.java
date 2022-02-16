@@ -3,6 +3,7 @@ package rs.vakcinacija.sluzbenici.vakcinacionipunkt.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineDoesntExistException;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineExistsException;
@@ -10,8 +11,11 @@ import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.DostupnaVakcina;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.VakcinacioniPunkt;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.repository.VakcinacioniPunktExistRepository;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.repository.VakcinacioniPunktFusekiRepository;
+import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
+import rs.vakcinacija.zajednicko.email.service.EmailService;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,10 +23,12 @@ import java.util.UUID;
 @Component
 public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt> {
 
+    private final EmailService emailService;
 
     @Autowired
-    public VakcinacioniPunktService(VakcinacioniPunktExistRepository vakcinacioniPunktExistRepository, VakcinacioniPunktFusekiRepository vakcinacioniPunktFusekiRepository) {
+    public VakcinacioniPunktService(VakcinacioniPunktExistRepository vakcinacioniPunktExistRepository, VakcinacioniPunktFusekiRepository vakcinacioniPunktFusekiRepository, EmailService emailService) {
         super(vakcinacioniPunktExistRepository, vakcinacioniPunktFusekiRepository);
+        this.emailService = emailService;
     }
 
 
@@ -65,7 +71,7 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
     }
 
     public VakcinacioniPunkt updateDostupnaVakcina(UUID id, String nazivVakcine, Integer novoStanje) throws Exception {
-        var punkt  = this.read(id);
+        var punkt = this.read(id);
 
         var dostupnaVakcinaOptional = punkt.getDostupneVakcine().getDostupneVakcine()
                 .stream()
@@ -82,9 +88,55 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
         return punkt;
     }
 
+    public void assignAppointment(String mesto, Collection<String> odabraneVakcine, String email,
+                                  UUID interesovanjeId) throws Exception {
+        var punkt = this.existRepository.read((p) -> p.getNazivPunkta().equals(mesto))
+                .stream().findFirst().orElseThrow();
+        var dostupneVakcine = punkt.getDostupneVakcine().getDostupneVakcine();
+
+        var hasVaccines = false;
+        for (var odabranaVakcina :
+                odabraneVakcine) {
+            for (var dostupnaVakcina :
+                    dostupneVakcine) {
+                if (dostupnaVakcina.getNazivVakcine().equals(odabranaVakcina)
+                        && dostupnaVakcina.getStanjeVakcine() > 0) {
+                    hasVaccines = true;
+                    break;
+                }
+            }
+        }
+
+        if (hasVaccines) {
+            var termini = punkt.getTermini().getTermini();
+            if (!termini.isEmpty()) {
+                var dodeljeniTermin = termini.stream().findFirst();
+                dodeljeniTermin.ifPresent(termini::remove);
+                dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto));
+            }
+        }
+    }
+
 
     @Override
     protected void insertRDFMetadata(VakcinacioniPunkt vakcinacioniPunkt) {
 
+    }
+
+    @Async
+    public void sendInteresovanjeRecievedMessage(String email, Date datum, String mesto) {
+//        var to = email;
+        var to = "njmarko1991@gmail.com";
+        var subject = "Обавештење о додељеном термину за вакцинацију";
+        var sb = new StringBuilder();
+        sb.append("Поштовани, \n");
+        sb.append("\nНа основу вашег исказаног интересовања додељен вам је термин за вакцинацију:\n");
+        sb.append("\n\tМесто: ").append(mesto).append("\n");
+        sb.append("\n\tВреме: ").append(datum).append("\n");
+
+        sb.append("\n\n\nСрдачан поздрав,\n");
+        sb.append("Информациони систем за вакцинацију грађана\n");
+
+        emailService.sendEmail(new SendEmailRequest(to, subject, sb.toString()));
     }
 }

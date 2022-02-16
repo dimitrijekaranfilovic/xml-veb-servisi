@@ -17,7 +17,6 @@ import java.util.Date;
 @Setter
 public class VakcinacioniPunkt extends BaseDocument {
 
-
     @XmlElement(name = "naziv_punkta", required = true)
     private String nazivPunkta;
 
@@ -26,6 +25,9 @@ public class VakcinacioniPunkt extends BaseDocument {
 
     @XmlElement(name = "dostupne_vakcine")
     private DostupneVakcine dostupneVakcine;
+
+    @XmlElement(name = "zainteresovani_pacijenti")
+    private ZainteresovaniPacijenti zainteresovaniPacijenti;
 
     public VakcinacioniPunkt(String nazivPunkta, Termini termini, DostupneVakcine dostupneVakcine) {
         this.nazivPunkta = nazivPunkta;

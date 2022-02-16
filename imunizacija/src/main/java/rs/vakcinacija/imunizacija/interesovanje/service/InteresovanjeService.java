@@ -3,12 +3,14 @@ package rs.vakcinacija.imunizacija.interesovanje.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.imunizacija.interesovanje.event.InteresovanjePodnetoEvent;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
 import rs.vakcinacija.zajednicko.email.service.EmailService;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.rabbitmq.ServiceBus;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.Date;
@@ -19,13 +21,15 @@ import java.util.UUID;
 public class InteresovanjeService extends DocumentService<Interesovanje> {
 
     private final EmailService emailService;
+    private final ServiceBus serviceBus;
 
     @Autowired
     public InteresovanjeService(ExistRepository<Interesovanje> existRepository,
                                 FusekiRepository<Interesovanje> fusekiRepository,
-                                EmailService emailService) {
+                                EmailService emailService, ServiceBus serviceBus) {
         super(existRepository, fusekiRepository);
         this.emailService = emailService;
+        this.serviceBus = serviceBus;
     }
 
     public List<Interesovanje> getAllForUser(String email) throws Exception {
@@ -36,7 +40,13 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
     public Interesovanje submitInteresovanjeAndSendEmail(Interesovanje interesovanje) throws Exception {
         interesovanje.setDatum(RDFDate.of(new Date()));
         sendInteresovanjeRecievedMessage(interesovanje);
-        return this.create(interesovanje);
+        var retVal = this.create(interesovanje);
+        this.serviceBus.publish(
+                new InteresovanjePodnetoEvent(interesovanje.getOdabranaLokacijaPrimanjaVakcine().getValue(),
+                        interesovanje.getOdabraniProizvodjaci().getProizvodjaci(),
+                        interesovanje.getLicneInformacije().getKontakt().getEmail().getValue(),
+                        interesovanje.getId()));
+        return retVal;
     }
 
     protected void insertRDFMetadata(Interesovanje interesovanje) {

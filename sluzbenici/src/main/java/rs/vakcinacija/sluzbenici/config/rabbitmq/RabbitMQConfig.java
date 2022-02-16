@@ -7,6 +7,8 @@ import org.springframework.amqp.support.converter.Jackson2XmlMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.event.InteresovanjeDodeljenTerminEvent;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.event.InteresovanjePodnetoEvent;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.event.ZahtevZaSertifikatOdbijenEvent;
 import rs.vakcinacija.zajednicko.rabbitmq.event.MessageEvent;
@@ -41,6 +43,16 @@ public class RabbitMQConfig {
     @Bean
     public Queue zahtevZaSertifikatOdbijenEventQueue() {
         return buildQueue(ZahtevZaSertifikatOdbijenEvent.class);
+    }
+
+    @Bean
+    public Queue interesovanjePodnetoEventQueue() {
+        return buildQueue(InteresovanjePodnetoEvent.class);
+    }
+
+    @Bean
+    public Queue interesovanjeDodeljenTerminEventQueue() {
+        return buildQueue(InteresovanjeDodeljenTerminEvent.class);
     }
 
 }

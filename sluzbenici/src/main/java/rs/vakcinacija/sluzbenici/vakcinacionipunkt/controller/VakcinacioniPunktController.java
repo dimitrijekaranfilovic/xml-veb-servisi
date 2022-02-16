@@ -2,11 +2,13 @@ package rs.vakcinacija.sluzbenici.vakcinacionipunkt.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.dto.NovaVakcinaDTO;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.dto.TerminDTO;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.event.InteresovanjePodnetoEvent;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.KolekcijaVakcinacionihPunktova;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.VakcinacioniPunkt;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.service.VakcinacioniPunktService;
@@ -28,7 +30,7 @@ public class VakcinacioniPunktController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VakcinacioniPunkt createPunkt(@RequestBody  VakcinacioniPunkt vakcinacioniPunkt) throws Exception {
+    public VakcinacioniPunkt createPunkt(@RequestBody VakcinacioniPunkt vakcinacioniPunkt) throws Exception {
         return this.vakcinacioniPunktService.create(vakcinacioniPunkt);
     }
 
@@ -44,12 +46,12 @@ public class VakcinacioniPunktController {
     }
 
     @PostMapping(value = "/dostupna-vakcina/{id}")
-    public VakcinacioniPunkt createDostupnaVakcina(@PathVariable UUID id, @RequestBody NovaVakcinaDTO novaVakcinaDTO) throws Exception{
+    public VakcinacioniPunkt createDostupnaVakcina(@PathVariable UUID id, @RequestBody NovaVakcinaDTO novaVakcinaDTO) throws Exception {
         return this.vakcinacioniPunktService.createDostupnaVakcina(id, novaVakcinaDTO.getNazivVakcine(), novaVakcinaDTO.getStanjeVakcine());
     }
 
     @PutMapping("/dostupna-vakcina/{id}")
-    public VakcinacioniPunkt updateDostupnaVakcina(@PathVariable UUID id, @RequestBody NovaVakcinaDTO novaVakcinaDTO) throws Exception{
+    public VakcinacioniPunkt updateDostupnaVakcina(@PathVariable UUID id, @RequestBody NovaVakcinaDTO novaVakcinaDTO) throws Exception {
         return this.vakcinacioniPunktService.updateDostupnaVakcina(id, novaVakcinaDTO.getNazivVakcine(), novaVakcinaDTO.getStanjeVakcine());
     }
 
@@ -57,5 +59,13 @@ public class VakcinacioniPunktController {
     public KolekcijaVakcinacionihPunktova getPunktovi() throws Exception {
         return KolekcijaVakcinacionihPunktova.of(this.vakcinacioniPunktService.read());
     }
+
+    @RabbitListener(queues = "InteresovanjePodnetoEvent")
+    public void onRequestApproved(InteresovanjePodnetoEvent event) throws Exception {
+        log.info(String.format("Podneto interesovanje: '%s' '%s'", event.getMesto(), event.getEmail()));
+        this.vakcinacioniPunktService.assignAppointment(event.getMesto(), event.getOdabraneVakcine(),
+                event.getEmail(), event.getInteresovanjeId());
+    }
+
 
 }
