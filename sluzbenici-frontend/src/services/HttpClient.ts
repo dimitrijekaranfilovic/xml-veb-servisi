@@ -20,6 +20,13 @@ export class HttpClient {
     return axios.get(this.buildUrl(url), this.config);
   }
 
+  getParams(url: string, params: any): Promise<any> {
+    return axios.get(this.buildUrl(url), {
+      ...this.config.headers,
+      params: params
+    });
+  }
+
   put(url: string, payload: any): Promise<any> {
     return axios.put(this.buildUrl(url), this.toXml(payload), this.config);
   }

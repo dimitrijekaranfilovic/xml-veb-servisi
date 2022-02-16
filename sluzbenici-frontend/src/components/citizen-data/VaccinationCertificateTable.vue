@@ -107,10 +107,10 @@ export default Vue.extend({
   },
   methods: {
     async fetchData() {
-      const response = await citizenDataService.readVaccinationCertificates(
-        this.email,
-        this.query
-      );
+      const response = await citizenDataService.readVaccinationCertificates({
+        email: this.email,
+        query: this.query,
+      });
       this.certificates = response.data.potvrde || [];
     },
     showReferences(item) {

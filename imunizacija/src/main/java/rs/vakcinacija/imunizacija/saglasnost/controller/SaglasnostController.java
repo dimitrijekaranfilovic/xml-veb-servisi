@@ -7,6 +7,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.imunizacija.saglasnost.dto.NaprednaPretragaRequest;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaSaglasnosti;
@@ -36,6 +37,11 @@ public class SaglasnostController {
         this.saglasnostCreateRequestToSaglasnost = saglasnostCreateRequestToSaglasnost;
     }
 
+    @GetMapping(value = "/za-gradjanina")
+    public KolekcijaSaglasnosti readForCitizen(NaprednaPretragaRequest request) {
+        return KolekcijaSaglasnosti.of(saglasnostService.readForCitizen(request.getQuery(), request));
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public SaglasnostCreateRequest create(@RequestBody SaglasnostCreateRequest saglasnost) throws Exception {
@@ -51,11 +57,6 @@ public class SaglasnostController {
     @GetMapping(value = "pdf/{id}")
     public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
         return new ResponseEntity<>(new InputStreamResource(saglasnostService.getPDFRepresentation(id)), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/za-gradjanina/{email}")
-    public KolekcijaSaglasnosti readForCitizen(@PathVariable String email, @RequestParam(defaultValue = "") String query) throws Exception {
-        return KolekcijaSaglasnosti.of(saglasnostService.readForCitizen(email, query));
     }
 
     @GetMapping(value = "all/{email}")
