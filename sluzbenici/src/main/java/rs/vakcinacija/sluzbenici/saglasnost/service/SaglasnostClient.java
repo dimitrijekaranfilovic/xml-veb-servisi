@@ -1,9 +1,8 @@
 package rs.vakcinacija.sluzbenici.saglasnost.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 
@@ -20,5 +19,8 @@ public interface SaglasnostClient {
 
     @GetMapping(value = "/{id}", produces = "application/xml")
     SaglasnostZaSprovodjenjeImunizacije read(@PathVariable UUID id);
+
+    @PostMapping(value = "/{id}/podaci-o-lekaru-ustanovi")
+    PodaciOLekaruUstanoviDTO createDoctorBuilding(@RequestBody PodaciOLekaruUstanoviDTO podaciOLekaruUstanoviDTO, @PathVariable UUID id);
 
 }

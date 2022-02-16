@@ -3,6 +3,7 @@ package rs.vakcinacija.sluzbenici.saglasnost.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.sluzbenici.saglasnost.model.Saglasnost;
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
@@ -34,5 +35,10 @@ public class SaglasnostController {
     @GetMapping(value = "/jedan-za-sluzbenika/{id}")
     public SaglasnostZaSprovodjenjeImunizacije readOne(@PathVariable UUID id) {
         return saglasnostClient.read(id);
+    }
+
+    @PostMapping(value = "/{id}/podaci-o-lekaru-ustanovi")
+    public PodaciOLekaruUstanoviDTO createDoctorBuilding(@RequestBody PodaciOLekaruUstanoviDTO podaciOLekaruUstanoviDTO, @PathVariable UUID id) {
+        return saglasnostClient.createDoctorBuilding(podaciOLekaruUstanoviDTO, id);
     }
 }

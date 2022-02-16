@@ -5,12 +5,16 @@ import org.apache.jena.dboe.migrate.L;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.imunizacija.saglasnost.dto.LekarDTO;
+import rs.vakcinacija.imunizacija.saglasnost.dto.ZdravstvenaUstanovaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.model.*;
 import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostExistRepository;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.RDFBoolean;
 import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.model.RDFInteger;
+import rs.vakcinacija.zajednicko.model.RDFString;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.io.FileNotFoundException;
@@ -41,12 +45,34 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         ).collect(Collectors.toList());
     }
 
+    public SaglasnostZaSprovodjenjeImunizacije createDoctorBuilding(UUID id, LekarDTO lekarDTO, ZdravstvenaUstanovaDTO zdravstvenaUstanovaDTO) throws Exception {
+        var saglasnost = this.read(id);
+        var vakcinacija = saglasnost.getVakcinacija();
+        var lekar = vakcinacija.getLekar();
+        var telefon = lekar.getTelefon();
+        var telefonDTO = lekarDTO.getTelefonDTO();
+        var ustanova = vakcinacija.getZdravstvenaUstanova();
+
+        telefon.setBrojFiksnog(RDFString.of(telefonDTO.getBrojFiksnog()));
+        telefon.setBrojMobilnog(RDFString.of(telefonDTO.getBrojMobilnog()));
+
+        lekar.setIme(RDFString.of(lekarDTO.getIme()));
+        lekar.setPrezime(RDFString.of(lekarDTO.getPrezime()));
+
+        ustanova.setNaziv(RDFString.of(zdravstvenaUstanovaDTO.getNaziv()));
+        ustanova.setPunkt(RDFInteger.of(zdravstvenaUstanovaDTO.getPunkt()));
+
+        this.existRepository.save(saglasnost);
+        return saglasnost;
+    }
+
     public SaglasnostZaSprovodjenjeImunizacije createFirstHalfOfDocument(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
         saglasnost.setDatum(new RDFDate(new Date(), "", "", null, null, null, null, null));
 
         saglasnost.setVakcinacija(new Vakcinacija());
         saglasnost.getVakcinacija().setZdravstvenaUstanova(new ZdravstvenaUstanova());
         saglasnost.getVakcinacija().setLekar(new Lekar());
+        saglasnost.getVakcinacija().getLekar().setTelefon(new Telefon());
         saglasnost.getVakcinacija().setVakcine(new Vakcine());
         saglasnost.getVakcinacija().setOdlukaKomisije(RDFBoolean.of(false));
         saglasnost.getVakcinacija().setPrivremeneKontraindikacije(new PrivremeneKontraindikacije());

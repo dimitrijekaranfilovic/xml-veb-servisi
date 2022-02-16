@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.imunizacija.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaSaglasnosti;
@@ -64,6 +65,12 @@ public class SaglasnostController {
     @GetMapping(value = "/za-sluzbenika")
     public KolekcijaSaglasnosti readFilteredByEmail(@RequestParam(defaultValue = "") String email) throws Exception {
         return KolekcijaSaglasnosti.of(saglasnostService.readFiltered(email));
+    }
+
+    @PostMapping(value = "/{id}/podaci-o-lekaru-ustanovi")
+    public PodaciOLekaruUstanoviDTO createDoctorBuilding(@RequestBody PodaciOLekaruUstanoviDTO podaciOLekaruUstanoviDTO, @PathVariable UUID id) throws Exception {
+        this.saglasnostService.createDoctorBuilding(id, podaciOLekaruUstanoviDTO.getLekarDTO(), podaciOLekaruUstanoviDTO.getZdravstvenaUstanovaDTO());
+        return podaciOLekaruUstanoviDTO;
     }
 
 }

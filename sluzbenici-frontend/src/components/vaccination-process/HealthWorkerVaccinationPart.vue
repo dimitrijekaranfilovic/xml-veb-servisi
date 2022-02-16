@@ -4,7 +4,12 @@
       <v-col cols="12">
         <v-card elevation="0">
           <v-card-actions>
-            <v-btn color="primary" @click="addDoctorDialog = true"
+            <v-btn
+              color="primary"
+              @click="addDoctorDialog = true"
+              v-if="
+                !vakcinacija.zdravstvenaUstanova.naziv || !vakcinacija.lekar.ime
+              "
               >Унеси податке о лекару и установи</v-btn
             >
             <v-btn color="primary" @click="addVaccineDialog = true"
@@ -21,20 +26,23 @@
       <v-row>
         <v-col cols="12" md="4" v-if="vakcinacija.zdravstvenaUstanova">
           <v-subheader>Назив установе</v-subheader>
-          <span>{{ vakcinacija.zdravstvenaUstanova.naziv }}</span>
+          <span class="data-span">{{
+            vakcinacija.zdravstvenaUstanova.naziv | deRdf
+          }}</span>
         </v-col>
         <v-col cols="12" md="4" v-if="vakcinacija.zdravstvenaUstanova">
           <v-subheader>Пункт</v-subheader>
-          <span>{{ vakcinacija.zdravstvenaUstanova.punkt }}</span>
+          <span class="data-span">{{
+            vakcinacija.zdravstvenaUstanova.punkt | deRdf
+          }}</span>
         </v-col>
         <v-col cols="12" md="4" v-if="vakcinacija.lekar">
           <v-subheader>Лекар</v-subheader>
-          <span>
-            {{ vakcinacija.lekar.ime }} {{ vakcinacija.lekar.prezime }}
-            <span v-if="vakcinacija.lekar.telefon">
-              ,{{ vakcinacija.lekar.telefon.brojFiksnog }}
-              {{ vakcinacija.lekar.telefon.brojMobilnog }}
-            </span>
+          <span class="data-span">
+            {{ vakcinacija.lekar.ime | deRdf }}
+            {{ vakcinacija.lekar.prezime | deRdf }}
+            ,{{ vakcinacija.lekar.telefon.brojFiksnog | deRdf }}
+            {{ vakcinacija.lekar.telefon.brojMobilnog | deRdf }}
           </span>
         </v-col>
       </v-row>
@@ -122,13 +130,21 @@
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Назив установе"
-                    v-model="firstSetupObj.kreiranje.zdravstvena_ustanova.naziv"
+                    v-model="
+                      firstSetupObj.podaci_o_lekaru_ustanovi
+                        .zdravstvena_ustanova.naziv
+                    "
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Пункт"
-                    v-model="firstSetupObj.kreiranje.zdravstvena_ustanova.punkt"
+                    type="number"
+                    min="0"
+                    v-model="
+                      firstSetupObj.podaci_o_lekaru_ustanovi
+                        .zdravstvena_ustanova.punkt
+                    "
                   />
                 </v-col>
               </v-row>
@@ -136,13 +152,15 @@
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Име лекара"
-                    v-model="firstSetupObj.kreiranje.lekar.ime"
+                    v-model="firstSetupObj.podaci_o_lekaru_ustanovi.lekar.ime"
                   />
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
                     label="Презиме лекара"
-                    v-model="firstSetupObj.kreiranje.lekar.prezime"
+                    v-model="
+                      firstSetupObj.podaci_o_lekaru_ustanovi.lekar.prezime
+                    "
                   />
                 </v-col>
               </v-row>
@@ -151,14 +169,18 @@
                   <v-text-field
                     label="Број мобилног"
                     v-model="
-                      firstSetupObj.kreiranje.lekar.telefon.broj_mobilnog
+                      firstSetupObj.podaci_o_lekaru_ustanovi.lekar.telefon
+                        .broj_mobilnog
                     "
                   />
                 </v-col>
                 <v-col cols="12" md="6">
                   <v-text-field
-                    label="Број фискног"
-                    v-model="firstSetupObj.kreiranje.lekar.telefon.broj_fiksnog"
+                    label="Број фиксног"
+                    v-model="
+                      firstSetupObj.podaci_o_lekaru_ustanovi.lekar.telefon
+                        .broj_fiksnog
+                    "
                   />
                 </v-col>
               </v-row>
@@ -169,7 +191,14 @@
             <v-btn color="primary" text @click="addDoctorDialog = false">
               Одустани
             </v-btn>
-            <v-btn color="primary" text :disabled="!formValid"> Потврди </v-btn>
+            <v-btn
+              color="primary"
+              text
+              :disabled="!formValid"
+              @click="addDoctorBuilding()"
+            >
+              Потврди
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -270,7 +299,8 @@
 </template>
 
 <script>
-//TODO: dodaj privremene kontraindikacije
+import vaccinationService from "@/services/VaccinationService";
+
 export default {
   name: "HealthWorkerVaccinationPart",
   props: ["vakcinacija"],
@@ -280,7 +310,7 @@ export default {
       addVaccineDialog: false,
       sideEffectsDialog: false,
       firstSetupObj: {
-        kreiranje: {
+        podaci_o_lekaru_ustanovi: {
           lekar: {
             telefon: {
               broj_fiksnog: "",
@@ -291,7 +321,7 @@ export default {
           },
           zdravstvena_ustanova: {
             naziv: "",
-            punkt: "",
+            punkt: 0,
           },
         },
       },
@@ -315,15 +345,29 @@ export default {
       },
     };
   },
+  methods: {
+    addDoctorBuilding() {
+      vaccinationService
+        .createDoctorAndBuilding(this.$route.params.id, this.firstSetupObj)
+        .then((_) => {
+          //TODO: vidi ovo malo bolje
+          this.$router.go(0);
+        });
+    },
+  },
   computed: {
     formValid() {
       return (
-        this.firstSetupObj.kreiranje.lekar.telefon.broj_fiksnog !== "" &&
-        this.firstSetupObj.kreiranje.lekar.telefon.broj_mobilnog !== "" &&
-        this.firstSetupObj.kreiranje.lekar.ime !== "" &&
-        this.firstSetupObj.kreiranje.lekar.prezime !== "" &&
-        this.firstSetupObj.kreiranje.zdravstvena_ustanova.naziv !== "" &&
-        this.firstSetupObj.kreiranje.zdravstvena_ustanova.punkt !== ""
+        this.firstSetupObj.podaci_o_lekaru_ustanovi.lekar.telefon
+          .broj_fiksnog !== "" &&
+        this.firstSetupObj.podaci_o_lekaru_ustanovi.lekar.telefon
+          .broj_mobilnog !== "" &&
+        this.firstSetupObj.podaci_o_lekaru_ustanovi.lekar.ime !== "" &&
+        this.firstSetupObj.podaci_o_lekaru_ustanovi.lekar.prezime !== "" &&
+        this.firstSetupObj.podaci_o_lekaru_ustanovi.zdravstvena_ustanova
+          .naziv !== "" &&
+        this.firstSetupObj.podaci_o_lekaru_ustanovi.zdravstvena_ustanova
+          .punkt !== ""
       );
     },
     formValid2() {
@@ -342,5 +386,9 @@ export default {
 <style scoped>
 .btn-row {
   margin-top: 5px;
+}
+
+.data-span {
+  margin-left: 15px;
 }
 </style>
