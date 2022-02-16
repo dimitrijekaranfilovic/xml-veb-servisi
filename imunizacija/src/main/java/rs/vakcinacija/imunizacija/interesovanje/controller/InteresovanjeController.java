@@ -22,7 +22,7 @@ public class InteresovanjeController {
     public InteresovanjeController(InteresovanjeService interesovanjeService) {
         this.interesovanjeService = interesovanjeService;
     }
-    
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Interesovanje write(@RequestBody Interesovanje interesovanje) throws Exception {
