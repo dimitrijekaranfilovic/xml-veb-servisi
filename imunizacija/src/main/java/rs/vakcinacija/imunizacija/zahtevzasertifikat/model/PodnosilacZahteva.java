@@ -29,6 +29,7 @@ public class PodnosilacZahteva extends RDFField {
     private RDFString email;
 
     public PodnosilacZahteva() {
+        this.brojPasosa = RDFString.of("");
     }
 
     public PodnosilacZahteva(LicniPodaci licniPodaci, RDFDate datumRodjenja, RDFString brojPasosa, RDFString email) {

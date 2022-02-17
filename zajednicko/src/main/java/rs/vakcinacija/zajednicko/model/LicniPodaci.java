@@ -19,6 +19,7 @@ public class LicniPodaci extends ImePrezime {
     private RDFString pol;
 
     public LicniPodaci() {
+        this.jmbg = RDFString.of("");
     }
 
     public LicniPodaci(RDFString ime, RDFString prezime, RDFString jmbg, RDFString pol) {

@@ -59,6 +59,7 @@
             <v-text-field
               v-model="formData.brojPasosa"
               label="Број пасоша"
+              :rules="[validJMBGOrBrojPasosa]"
             ></v-text-field>
           </v-row>
           <v-row>
@@ -144,6 +145,7 @@ export default {
     valid: false,
     snackbar: false,
     timeout: 2000,
+    jmbgOrBrojPasosa: false,
     text: "Документ је успешно поднет",
     jmbgRules: (v) =>
       (v && /^\d{13}$/.test(v)) ||
@@ -218,8 +220,10 @@ export default {
         this.formData.jmbg.trim() === "" &&
         this.formData.brojPasosa.trim() === ""
       ) {
+        this.jmbgOrBrojPasosa = false;
         return "Морате унети или ЈМБГ или број пасоша";
       }
+      this.jmbgOrBrojPasosa = true;
       return true;
     },
   },
@@ -229,6 +233,14 @@ export default {
     },
     contentCode() {
       return hljs.highlightAuto(this.formData.razlogZaPodnosenjeZahteva).value;
+    },
+  },
+  watch: {
+    jmbgOrBrojPasosa: {
+      async handler() {
+        await this.$nextTick();
+        this.$refs.form.validate();
+      },
     },
   },
 };

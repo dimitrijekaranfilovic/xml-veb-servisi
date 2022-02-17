@@ -116,14 +116,35 @@
                     </div>
                 </div>
                 <div class="row">
+                    <xsl:variable name="x" select="//za:jmbg"/>
                     <div class="column-left">Јединствени матични број грађанина:</div>
                     <div class="column-rigth dotted">
-                        <xsl:value-of select="//za:jmbg"></xsl:value-of>
+                        <xsl:choose>
+                            <xsl:when test="$x = ''">
+                                Није унесен ЈМБГ
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="$x != ''">
+                                <xsl:value-of select="//za:jmbg"></xsl:value-of>
+                            </xsl:when>
+                        </xsl:choose>
                     </div>
                 </div>
                 <div class="row">
+                    <xsl:variable name="x" select="//b:broj_pasosa"/>
                     <div class="column-left">Број пасоша:</div>
                     <div class="column-rigth dotted">
+                        <xsl:choose>
+                            <xsl:when test="$x = ''">
+                                Није унесен број пасоша
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="$x != ''">
+                                <xsl:value-of select="//b:broj_pasosa"></xsl:value-of>
+                            </xsl:when>
+                        </xsl:choose>
                         <xsl:value-of select="//b:broj_pasosa"></xsl:value-of>
                     </div>
                 </div>
