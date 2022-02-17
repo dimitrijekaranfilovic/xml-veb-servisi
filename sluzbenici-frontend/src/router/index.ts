@@ -35,6 +35,14 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/reports/ReportDocumentView.vue"),
   },
   {
+    path: "/pregled/potvrda-o-vakcinaciji/:id",
+    name: "VaccinationConfirmationDocumentView",
+    component: () =>
+      import(
+        "../views/vaccination-confirmation/VaccinationConfirmationDocumentView.vue"
+      ),
+  },
+  {
     path: "/punktovi",
     name: "VaccinationPlaceManagementView",
     component: () =>
