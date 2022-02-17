@@ -2,14 +2,14 @@
   <document
     v-if="certificateHTML"
     :documentHTML="certificateHTML"
-    documentType="digitalni-sertifikat"
+    documentType="izvestaj-o-imunizaciji"
     :documentId="$route.params.id"
   ></document>
 </template>
 
 <script>
 import Document from "@/components/Document.vue";
-import digitalCertificateService from "@/services/DigitalCertificateService.ts";
+import reportService from "@/services/ReportsService";
 import Vue from "vue";
 
 export default Vue.extend({
@@ -17,11 +17,10 @@ export default Vue.extend({
   data: () => ({
     certificateHTML: null,
   }),
-  async mounted() {
-    const response = await digitalCertificateService.readHtml(
-      this.$route.params.id
-    );
-    this.certificateHTML = response.data;
+  mounted() {
+    reportService
+      .getReportAsHtml(this.$route.params.id)
+      .then((response) => (this.certificateHTML = response.data));
   },
 });
 </script>

@@ -14,14 +14,16 @@
 </template>
 
 <script>
+import httpClient from "@/services/HttpClient";
+
 export default {
-  props: ["documentHTML"],
+  props: ["documentHTML", "documentType", "documentId"],
   methods: {
     downloadXHTML() {
-      console.log("XHTML Download");
+      httpClient.downloadXHTML(this.documentId, this.documentType);
     },
     downloadPDF() {
-      console.log("PDF Download");
+      httpClient.downloadPDF(this.documentId, this.documentType);
     },
   },
 };
