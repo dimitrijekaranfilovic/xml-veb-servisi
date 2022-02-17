@@ -20,16 +20,16 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 							</fo:block>
 						</fo:float>
             			
-	            		<fo:block linefeed-treatment="preserve" font-family="Arial" font-size="20px" font-weight="bold" padding="1px">
+	            		<fo:block linefeed-treatment="preserve" font-family="SourceSansPro" font-size="20px" font-weight="normal" padding="1px">
 	                        САГЛАСНОСТ ЗА СПРОВОЂЕЊЕ
 	                        ПРЕПОРУЧЕНЕ ИМУНИЗАЦИЈЕ
 	                    </fo:block>  
 	                    
 					</fo:block>
-					<fo:block font-family="Arial" font-size="15px" font-weight="bold">
+					<fo:block font-family="SourceSansPro" font-size="15px" font-weight="normal">
 						(попуњава пацијент)
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="10mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="10mm">
 						<fo:table>
 							<fo:table-column column-width="20%"/>
                             <fo:table-column column-width="30%"/>
@@ -48,7 +48,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="30%"/>
 							<fo:table-column column-width="5%"/>
@@ -66,7 +66,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="20%"/>
 							<fo:table-column column-width="5%"/>
@@ -94,7 +94,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="70%"/>
 							<fo:table-column column-width="5%"/>
@@ -108,7 +108,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="35%"/>
 							<fo:table-column column-width="5%"/>
@@ -122,7 +122,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="35%"/>
 							<fo:table-column column-width="5%"/>
@@ -136,7 +136,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<xsl:variable name="x" select="//b:radni_status"/>
 						<fo:inline>Радни статус: </fo:inline>
 						<xsl:choose>
@@ -160,7 +160,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 		                    </xsl:when>	
 		                </xsl:choose>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<xsl:variable name="x" select="//b:zanimanje_zaposlenog"/>
 						<fo:inline>Занимање запосленог: </fo:inline>
 						<xsl:choose>
@@ -184,7 +184,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 		                    </xsl:when>		
 		                </xsl:choose>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="55%"/>
 							<fo:table-column column-width="5%"/>
@@ -208,7 +208,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="150%"/>
                             <fo:table-body>
@@ -230,7 +230,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="150%"/>
                             <fo:table-body>
@@ -244,30 +244,30 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 					</fo:block>
 					<fo:block margin-left="500px">
 						<fo:float float="end">
-							<fo:block font-family="Arial">
+							<fo:block font-family="SourceSansPro">
 								Датум:
 							</fo:block>
-							<fo:block font-family="Arial">
+							<fo:block font-family="SourceSansPro">
 								<xsl:value-of select="substring(//b:datum, 9, 2)"/>.<xsl:value-of select="substring(//b:datum, 6, 2)"/>.<xsl:value-of select="substring(//b:datum, 0, 4)"/>
 							</fo:block>
 						</fo:float>
 					</fo:block>
-					<fo:block font-family="Arial" margin-top="5px">
+					<fo:block font-family="SourceSansPro" margin-top="5px">
 						Потпис пацијента или законског заступника пацијента:
 					</fo:block>
-					<fo:block margin-top="15px" margin-right="350px" font-family="Arial" border-bottom="solid" border-bottom-width="0.2mm">
+					<fo:block margin-top="15px" margin-right="350px" font-family="SourceSansPro" border-bottom="solid" border-bottom-width="0.2mm">
 
 					</fo:block>
 					<fo:block>
 						<fo:leader leader-pattern="rule" leader-length="100%" rule-style="solid" rule-thickness="2pt"/>  
 					</fo:block>
-					<fo:block linefeed-treatment="preserve" font-family="Arial" font-size="15px" font-weight="bold" padding="1px" text-align="center">
+					<fo:block linefeed-treatment="preserve" font-family="SourceSansPro" font-size="15px" font-weight="normal" padding="1px" text-align="center">
 	                        ЕВИДЕНЦИЈА О ВАКЦИНАЦИЈИ ПРОТИВ COVID-19
 	                </fo:block>
-	                <fo:block font-family="Arial" font-size="11px" font-weight="bold" text-align="center">
+	                <fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" text-align="center">
 						(попуњава здравствени радник)
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="5mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="5mm">
 						<fo:table>
 							<fo:table-column column-width="65%"/>
 							<fo:table-column column-width="5%"/>
@@ -281,7 +281,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						<fo:table>
 							<fo:table-column column-width="150%"/>
                             <fo:table-body>
@@ -293,12 +293,12 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="2mm">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
 						Пре давања вакцине прегледати особу и упознати је са користима и о могућим нежељеним реакцијама после
 						вакцинације. Обавезно уписати сваку дату вакцину и све тражене податке у овај образац и податке унети у лични
 						картон о извршеним имунизацијама и здравствени картон.
 					</fo:block>
-					<fo:block font-family="Arial" font-size="10px" font-weight="bold" margin-top="2mm" border="1px">
+					<fo:block font-family="SourceSansPro" font-size="10px" font-weight="normal" margin-top="2mm" border="1px">
 						<fo:table>
 							<fo:table-column column-width="12%" border="1px solid darkgrey"/>
 							<fo:table-column column-width="12%" border="1px solid darkgrey"/>
@@ -356,7 +356,7 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
                             </fo:table-body>
 						</fo:table>
 					</fo:block>
-					<fo:block font-family="Arial" font-size="11px" font-weight="bold">
+					<fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal">
 						Напомена: Образац се чува као део медицинске документације пацијента.
 					</fo:block>
             	</fo:flow>
