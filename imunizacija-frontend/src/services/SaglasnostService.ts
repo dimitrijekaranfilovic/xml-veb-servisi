@@ -22,7 +22,7 @@ class SaglasnostService extends BaseService {
 
   async getXHTMLRepresentation(id: string): Promise<any> {
     let response = axios.get(
-      this.basePath + "saglasnost/" + id,
+      this.basePath + "saglasnost/html/" + id,
       this.getXMLConfig()
     );
 
@@ -31,7 +31,7 @@ class SaglasnostService extends BaseService {
 
   downloadXHTML(id: string): void {
     axios
-      .get(this.basePath + "saglasnost/" + id, {
+      .get(this.basePath + "saglasnost/html/" + id, {
         responseType: "blob",
       })
       .then((response) => {

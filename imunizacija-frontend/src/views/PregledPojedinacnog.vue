@@ -25,7 +25,10 @@ export default {
   mounted() {
     let that = this;
     SaglasnostService.getXHTMLRepresentation(this.$route.params.id).then(
-      (response) => (that.legacySystemHTML = response.data)
+      (response) => {
+        that.legacySystemHTML = response.data;
+        console.log(response);
+      }
     );
   },
   methods: {
