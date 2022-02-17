@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import PotvrdaOVakcinacijiService from "../../services/DigitalniSertifikatService";
+import PotvrdaOVakcinacijiService from "../../services/PotvrdaOVakcinacijiService";
 
 export default {
   name: "PotvrdaOVakcinacijiTable",
@@ -70,12 +70,12 @@ export default {
     fetchData() {
       let that = this;
       PotvrdaOVakcinacijiService.getAllForUser().then((data) => {
-        for (let doc of data.data.potvrdeOVakcinaciji) {
+        for (let doc of data.data.potvrde) {
           let dateToekns = new Date(doc.datum.value).toString().split(" ");
           doc.datum.value =
             dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
         }
-        that.zahtevi = data.data.potvrdeOVakcinaciji;
+        that.zahtevi = data.data.potvrde;
         that.$root.$emit("potvrdeOVakcinacijiFetched");
       });
     },

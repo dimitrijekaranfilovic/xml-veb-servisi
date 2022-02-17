@@ -1,0 +1,31 @@
+package rs.vakcinacija.imunizacija.potvrdaovakcinaciji.model;
+
+
+import lombok.Getter;
+import lombok.Setter;
+import rs.vakcinacija.zajednicko.model.Doza;
+import rs.vakcinacija.zajednicko.model.RDFField;
+
+import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.Collection;
+
+@XmlRootElement(name = "doze")
+@XmlType(name = "TDoze")
+@XmlAccessorType(XmlAccessType.FIELD)
+@Getter
+@Setter
+public class Doze extends RDFField {
+    @XmlElement(name = "doza")
+    private Collection<Doza> doze;
+
+
+    public Doze() {
+        super();
+        this.doze = new ArrayList<>();
+    }
+
+    public Doze(Collection<Doza> doze) {
+        this.doze = doze;
+    }
+}
