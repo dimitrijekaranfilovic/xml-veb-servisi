@@ -51,6 +51,11 @@ public class SaglasnostController {
         return saglasnostToSaglasnostCreateRequest.convert(savedSaglasnost);
     }
 
+    @PostMapping("/save")
+    public SaglasnostZaSprovodjenjeImunizacije save(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnostZaSprovodjenjeImunizacije) throws Exception {
+        return this.saglasnostService.save(saglasnostZaSprovodjenjeImunizacije);
+    }
+
     @GetMapping(value = "pdf/{id}")
     public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
         return new ResponseEntity<>(new InputStreamResource(saglasnostService.getPDFRepresentation(id)), HttpStatus.OK);
@@ -99,9 +104,9 @@ public class SaglasnostController {
     }
 
     @PostMapping(value = "/{id}/vakcine")
-    public VakcinaDTO addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO) throws Exception {
-        this.saglasnostService.addVaccine(id, vakcinaDTO);
-        return vakcinaDTO;
+    public SaglasnostZaSprovodjenjeImunizacije addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO) throws Exception {
+        return this.saglasnostService.addVaccine(id, vakcinaDTO);
+        //return vakcinaDTO;
     }
 
 }

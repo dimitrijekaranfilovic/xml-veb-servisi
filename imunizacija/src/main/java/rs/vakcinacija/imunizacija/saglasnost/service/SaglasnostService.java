@@ -100,7 +100,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         return saglasnost;
     }
 
-    public void addVaccine(UUID id, VakcinaDTO vakcinaDTO) throws Exception {
+    public SaglasnostZaSprovodjenjeImunizacije addVaccine(UUID id, VakcinaDTO vakcinaDTO) throws Exception {
         var saglasnost = this.read(id);
         var vakcine = saglasnost.getVakcinacija().getVakcine();
         if (vakcine.getVakcine() == null)
@@ -125,6 +125,8 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         this.saglasnostExistRepository.save(saglasnost);
         this.insertRDFMetadataForSecondHalf(saglasnost);
         this.fusekiRepository.save(saglasnost.getId(), saglasnost);
+
+        return saglasnost;
     }
 
 
@@ -190,9 +192,9 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         String lekarURL;
 
         if (lekar.getTelefon().getBrojFiksnog() != null) {
-            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojFiksnog().getValue();
+            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojFiksnog().getValue().strip();
         } else {
-            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojMobilnog().getValue();
+            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojMobilnog().getValue().strip();
         }
 
         if (drzavljanstvo.getStraniDrzavljanin() != null) {
@@ -217,6 +219,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         zdravstvenaUstanova.getNaziv().rdf().property("pred:ustanova").datatype(T_STRING);
         zdravstvenaUstanova.getPunkt().rdf().property("pred:punkt").datatype(T_STRING);
 
+
         lekar.rdf().vocab(VOCAB).about(lekarURL);
         lekar.getIme().rdf().property(PROP_IME).datatype(T_STRING);
         lekar.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
@@ -233,9 +236,9 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         zdravstvenaUstanova.getPunkt().rdf().property("pred:punkt").datatype(T_STRING);
         String lekarURL;
         if (lekar.getTelefon().getBrojFiksnog() != null) {
-            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojFiksnog().getValue();
+            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojFiksnog().getValue().strip();
         } else {
-            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojMobilnog().getValue();
+            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojMobilnog().getValue().strip();
         }
 
         lekar.rdf().vocab(VOCAB).about(lekarURL);
@@ -282,5 +285,11 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         pacijent.getLicneInformacije().getRadniStatus().rdf().property("pred:radni_status").datatype(T_STRING);
         pacijent.getLicneInformacije().getZanimanjeZaposlenog().rdf().property("pred:zanimanje").datatype(T_STRING);
         pacijent.getSaglasnost().getNazivImunoloskogLeka().rdf().property("pred:cip").datatype(T_STRING);
+    }
+
+    public SaglasnostZaSprovodjenjeImunizacije save(SaglasnostZaSprovodjenjeImunizacije saglasnostZaSprovodjenjeImunizacije) throws Exception {
+        this.existRepository.save(saglasnostZaSprovodjenjeImunizacije);
+        this.fusekiRepository.save(saglasnostZaSprovodjenjeImunizacije.getId(), saglasnostZaSprovodjenjeImunizacije);
+        return saglasnostZaSprovodjenjeImunizacije;
     }
 }
