@@ -28,8 +28,11 @@
   <renderers>
     <renderer mime="application/pdf">
       <fonts>
-        <font kerning="yes"  embed-url="file:///C:/windows/fonts/arial.ttf">
-          <font-triplet name="Arial" style="normal" weight="normal"/>
+        <font kerning="yes"  embed-url="fonts/Roboto-Regular.ttf">
+          <font-triplet name="Roboto" style="normal" weight="normal"/>
+        </font>
+        <font kerning="yes"  embed-url="fonts/Roboto-Bold.ttf">
+          <font-triplet name="Roboto" style="normal" weight="bold"/>
         </font>
       </fonts>
     </renderer>

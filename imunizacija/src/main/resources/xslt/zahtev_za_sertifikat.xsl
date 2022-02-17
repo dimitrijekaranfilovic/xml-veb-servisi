@@ -99,8 +99,8 @@
                         <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/>
                     </div>
                 </div>
-                <xsl:variable name="x" select="//za:pol"/>
                 <div class="row">
+                    <xsl:variable name="x" select="//za:pol"/>
                     <div class="column-left">Пол:</div>
                     <div class="column-rigth dotted">
                         <xsl:choose>
@@ -126,7 +126,7 @@
                         </xsl:choose>
                         <xsl:choose>
                             <xsl:when test="$x != ''">
-                                <xsl:value-of select="//za:jmbg"></xsl:value-of>
+                                <xsl:value-of select="//za:jmbg"/>
                             </xsl:when>
                         </xsl:choose>
                     </div>
@@ -142,10 +142,10 @@
                         </xsl:choose>
                         <xsl:choose>
                             <xsl:when test="$x != ''">
-                                <xsl:value-of select="//b:broj_pasosa"></xsl:value-of>
+                                <xsl:value-of select="//b:broj_pasosa"/>
                             </xsl:when>
                         </xsl:choose>
-                        <xsl:value-of select="//b:broj_pasosa"></xsl:value-of>
+                        <xsl:value-of select="//b:broj_pasosa"/>
                     </div>
                 </div>
                 <br/>
@@ -155,8 +155,7 @@
                 <div class="row">
                     <div class="column-rigth dotted">
                         <xsl:value-of select="//b:razlog_za_podnosenje_zahteva"
-                                      disable-output-escaping="yes"> </xsl:value-of>
-
+                                      disable-output-escaping="yes"/>
                     </div>
                 </div>
                 <div class="text-center">(навести што прецизнији разлог за подношење захтева за издавање дигиталног
