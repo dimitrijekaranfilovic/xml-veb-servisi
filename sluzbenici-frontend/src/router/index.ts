@@ -26,7 +26,13 @@ const routes: Array<RouteConfig> = [
   {
     path: "/pregled/digitalni-sertifikat/:id",
     name: "DigitalCertificateDocumentView",
-    component: () => import("../views/digital-certificate/DigitalCertificateDocumentView.vue"),
+    component: () =>
+      import("../views/digital-certificate/DigitalCertificateDocumentView.vue"),
+  },
+  {
+    path: "/pregled/izvestaj/:id",
+    name: "ReportDocumentView",
+    component: () => import("../views/reports/ReportDocumentView.vue"),
   },
   {
     path: "/punktovi",

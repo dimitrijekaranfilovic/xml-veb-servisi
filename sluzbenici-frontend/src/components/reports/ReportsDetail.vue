@@ -67,8 +67,14 @@
           </v-simple-table>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" text plain>Види пдф</v-btn>
-          <v-btn color="primary">Преузми извештај</v-btn>
+          <v-btn
+            color="primary"
+            :to="{
+              name: 'ReportDocumentView',
+              params: { id: $route.params.id },
+            }"
+            >Види</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-row>
