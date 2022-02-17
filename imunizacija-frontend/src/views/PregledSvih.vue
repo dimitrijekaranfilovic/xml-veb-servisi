@@ -10,6 +10,7 @@
       <v-tab>Обрасци сагласности</v-tab>
       <v-tab>Захтеви за сертификат</v-tab>
       <v-tab>Дигитални сертификати</v-tab>
+      <v-tab>Потврде о вакцинацији</v-tab>
       <v-tab-item>
         <br />
         <br />
@@ -30,6 +31,11 @@
         <br />
         <digitalni-sertifikat-table></digitalni-sertifikat-table>
       </v-tab-item>
+      <v-tab-item>
+        <br />
+        <br />
+        <potvrda-o-vakcinaciji-table></potvrda-o-vakcinaciji-table>
+      </v-tab-item>
     </v-tabs>
   </v-container>
 </template>
@@ -38,10 +44,17 @@
 import InteresovanjeTable from "@/components/pregledSvih/InteresovanjeTable.vue";
 import SaglasnostTable from "../components/pregledSvih/SaglasnostTable.vue";
 import ZahtevZaSertifikatTable from "@/components/pregledSvih/ZahtevZaSertifikatTable.vue";
-import DigitalniSertifikatTable from '@/components/pregledSvih/DigitalniSertifikatTable.vue';
+import DigitalniSertifikatTable from "@/components/pregledSvih/DigitalniSertifikatTable.vue";
+import PotvrdaOVakcinacijiTable from "@/components/pregledSvih/PotvrdaOVakcinacijiTable.vue";
 
 export default {
-  components: { SaglasnostTable, InteresovanjeTable, ZahtevZaSertifikatTable, DigitalniSertifikatTable },
+  components: {
+    SaglasnostTable,
+    InteresovanjeTable,
+    ZahtevZaSertifikatTable,
+    DigitalniSertifikatTable,
+    PotvrdaOVakcinacijiTable,
+  },
   data: () => ({}),
 };
 </script>

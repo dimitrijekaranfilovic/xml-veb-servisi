@@ -88,7 +88,7 @@
                 <div class="row">
                     <div class="column-left">Име и презиме:</div>
                     <div class="column-rigth dotted">
-                        <xsl:value-of select="//za:ime"> </xsl:value-of>
+                        <xsl:value-of select="//za:ime"/>
                         <xsl:text> </xsl:text>
                         <xsl:value-of select="//za:prezime"/>
                     </div>
