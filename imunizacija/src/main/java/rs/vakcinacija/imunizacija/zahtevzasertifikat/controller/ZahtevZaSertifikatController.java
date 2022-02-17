@@ -2,8 +2,10 @@ package rs.vakcinacija.imunizacija.zahtevzasertifikat.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.event.DigitalniSertifikatOdobrenEvent;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.event.ZahtevZaSertifikatOdbijenEvent;
@@ -63,5 +65,15 @@ public class ZahtevZaSertifikatController {
     public void onRequestRejected(@PathVariable UUID id, @RequestBody ZahtevZaSertifikatOdbijenEvent event) throws Exception {
         log.info(String.format("Zahtev za sertifikat '%s' odbijen zbog: '%s'!", id, event.getReason()));
         zahtevZaSertifiaktService.reject(id, event.getReason(), event.getRejectionDate());
+    }
+
+    @GetMapping(value = "pdf/{id}")
+    public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
+        return new ResponseEntity<>(new InputStreamResource(zahtevZaSertifiaktService.getPDFRepresentation(id)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/html/{id}")
+    public String generateHtml(@PathVariable UUID id) throws Exception {
+        return zahtevZaSertifiaktService.getHTMLRepresentation(id);
     }
 }

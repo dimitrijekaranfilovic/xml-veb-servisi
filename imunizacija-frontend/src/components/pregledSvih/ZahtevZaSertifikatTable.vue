@@ -19,7 +19,13 @@
         <td>{{ row.item.mesto.value }}</td>
         <td>{{ row.item.status.value }}</td>
         <td align="right">
-          <v-btn class="mx-2" dark small color="pink">
+          <v-btn
+            class="mx-2"
+            dark
+            small
+            color="pink"
+            @click="detaljnijiPrikaz(row.item)"
+          >
             Детаљнији преглед
           </v-btn>
         </td>
@@ -72,6 +78,9 @@ export default {
         that.zahtevi = data.data.zahteviZaSertifikat;
         that.$root.$emit("zahteviFetched");
       });
+    },
+    detaljnijiPrikaz(document) {
+      this.$router.push("dokument/zahtev-za-sertifikat/" + document.id);
     },
   },
 };
