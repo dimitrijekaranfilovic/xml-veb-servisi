@@ -1,7 +1,7 @@
 <template>
   <document
-    v-if="certificateHTML"
-    :documentHTML="certificateHTML"
+    v-if="reportHtml"
+    :documentHTML="reportHtml"
     documentType="izvestaj-o-imunizaciji"
     :documentId="$route.params.id"
   ></document>
@@ -15,12 +15,12 @@ import Vue from "vue";
 export default Vue.extend({
   components: { Document },
   data: () => ({
-    certificateHTML: null,
+    reportHtml: null,
   }),
   mounted() {
     reportService
       .getReportAsHtml(this.$route.params.id)
-      .then((response) => (this.certificateHTML = response.data));
+      .then((response) => (this.reportHtml = response.data));
   },
 });
 </script>

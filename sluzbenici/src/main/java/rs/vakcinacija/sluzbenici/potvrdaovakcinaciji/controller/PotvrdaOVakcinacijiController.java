@@ -30,6 +30,11 @@ public class PotvrdaOVakcinacijiController {
         return potvrdaOVakcinaciji;
     }
 
+    @GetMapping(value = "/html/{id}")
+    public String generateHtml(@PathVariable UUID id) throws Exception {
+        return this.potvrdaOVakcinacijiService.generateHTML(this.read(id), "src/main/resources/xslt/potvrda_o_vakcinaciji.xsl");
+    }
+
     @GetMapping(value = "/za-gradjanina")
     public KolekcijaPotvrdaOVakcinaciji readForCitizen(NaprednaPretragaRequest request) {
         return KolekcijaPotvrdaOVakcinaciji.of(potvrdaOVakcinacijiService.readForCitizen(request.getQuery(), request));
