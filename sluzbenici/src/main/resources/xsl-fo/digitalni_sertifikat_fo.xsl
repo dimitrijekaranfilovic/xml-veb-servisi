@@ -37,7 +37,11 @@
                                     </fo:table-cell>
                                     <fo:table-cell text-align="right">
                                         <fo:block top="0mm" left="0mm" padding="0mm" margin="0mm" line-height="0mm" font-size="0pt">
-                                            <fo:external-graphic content-height="scale-to-fit" height="2in"  content-width="2in" scaling="non-uniform" font-size="0pt" padding="0mm" margin="0mm" src="" />
+                                            <fo:external-graphic content-height="scale-to-fit" height="2in"  content-width="2in" scaling="non-uniform" font-size="0pt" padding="0mm" margin="0mm">
+                                                <xsl:attribute name="src">
+                                                    <xsl:value-of select="//b:qr_kod" />
+                                                </xsl:attribute>
+                                            </fo:external-graphic>
                                         </fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>

@@ -88,7 +88,7 @@ public class DigitalniSertifikatIssueService {
     }
 
     private InformacijeOSertifikatu buildDefaultInformacijeOSertifikatu(UUID id) throws Exception {
-        var qrKodUrl = "http://localhost:3001/pregled/digitalni-sertifikat/" + id;
+        var qrKodUrl = "http://localhost:3001/#/pregled/digitalni-sertifikat/" + id;
         var qrKod = RDFString.of(qrCodeService.generateQRCodeBase64String(qrKodUrl));
         var digitalniPotipis = buildDefaultDigitalniPotpis();
         return new InformacijeOSertifikatu(qrKod, digitalniPotipis);

@@ -192,7 +192,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
     }
 
     private RDFString createQrKod(UUID id) throws Exception {
-        var qrKodUrl = "http://localhost:3001/pregled/potvrda-o-vakcinaciji/" + id;
+        var qrKodUrl = "http://localhost:3001/#/pregled/potvrda-o-vakcinaciji/" + id;
         return RDFString.of(qrCodeService.generateQRCodeBase64String(qrKodUrl));
     }
 }
