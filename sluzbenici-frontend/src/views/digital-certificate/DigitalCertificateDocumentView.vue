@@ -1,5 +1,10 @@
 <template>
-  <document v-if="certificateHTML" :documentHTML="certificateHTML"></document>
+  <document
+    v-if="certificateHTML"
+    :documentHTML="certificateHTML"
+    documentType="digitalni-sertifikat"
+    :documentId="$route.params.id"
+  ></document>
 </template>
 
 <script>
