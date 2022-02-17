@@ -74,6 +74,26 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 			  input[type="checkbox"] {
 				margin-left: 10px;
 			  }
+
+			.potpis {
+				font-size: 23px;
+				margin-right: 100px;
+				margin-top: 10px;
+				}
+
+			.sig-line {
+				border-bottom: 2px solid black;
+				padding-right: 650px;
+				margin-left: 10px;
+			}
+
+			.datum {
+				float: right;
+				font-size: 23px;
+				margin-right: 50px;
+				margin-left: 10px;
+				margin-top: -40px;
+				}
 		      
 		    </style>
 		  </head>
@@ -306,9 +326,18 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 				      <span class="podvuceno"><xsl:value-of select="//b:naziv_imunoloskog_leka"/></span>
 				    </div>
 				    <div class="linija"><b>Лекар ми је објаснио предности и ризике од спровођења активне/пасивне имунизације наведеним имунолошким леком.</b></div>
+					<div style="margin-top:50px;">
+						<span class="potpis"> <b>Потпис пацијента или законског заступника пацијента:</b> <br/> <span class="sig-line"></span> </span>
+						<span class="datum"
+						><b>Датум:<br/> <span class="underlined"><xsl:value-of select="substring(//b:datum, 9, 2)"/>.<xsl:value-of select="substring(//b:datum, 6, 2)"/>.</span> 20<span class="underlined"
+							><xsl:value-of select="substring(//b:datum, 3, 2)"/>
+							</span>.
+						</b>
+						</span>
+					</div>
 				    <div class="linija"><hr/></div>
 			    </div>
-			    <h2 align="center">ЕВИДЕНЦИЈА О ВАКЦИНАЦИЈИ ПРОТИВ COVID-19</h2>
+			    <h2 align="center" style="margin-top: 10px;">ЕВИДЕНЦИЈА О ВАКЦИНАЦИЈИ ПРОТИВ COVID-19</h2>
 			    <h3 align="center" style="margin-top: -5px;">(попуњава здравствени радник)</h3>
 			    <div class="linija">
 			      <b>Здравствена установа:</b>
