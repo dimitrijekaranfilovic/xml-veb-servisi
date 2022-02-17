@@ -4,6 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;
+import rs.vakcinacija.sluzbenici.saglasnost.dto.VakcinaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 
@@ -29,4 +30,7 @@ public interface SaglasnostClient {
 
     @PostMapping(value = "/{id}/kontraindikacije")
     KontraindikacijaDTO addSideEffect(@PathVariable UUID id, @RequestBody KontraindikacijaDTO kontraindikacijaDTO);
+
+    @PostMapping(value = "/{id}/vakcine")
+    VakcinaDTO addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO);
 }

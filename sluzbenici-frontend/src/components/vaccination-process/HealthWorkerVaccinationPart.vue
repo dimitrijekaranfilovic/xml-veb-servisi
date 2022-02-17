@@ -205,7 +205,12 @@
             <v-btn color="primary" text @click="addVaccineDialog = false">
               Одустани
             </v-btn>
-            <v-btn color="primary" text :disabled="!formValid2">
+            <v-btn
+              color="primary"
+              text
+              :disabled="!formValid2"
+              @click="addVaccine()"
+            >
               Потврди
             </v-btn>
           </v-card-actions>
@@ -295,10 +300,21 @@
         </v-card>
       </v-dialog>
     </div>
+    <v-snackbar v-model="snackbar" :timeout="5000">
+      {{ errorMessage }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          Затвори
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
+import { xml2json } from "xml-js";
+
 import vaccinationService from "@/services/VaccinationService";
 import GivenVaccinesTable from "@/components/vaccination-process/GivenVaccinesTable.vue";
 import SideEffectsTable from "@/components/vaccination-process/SideEffectsTable.vue";
@@ -313,6 +329,8 @@ export default {
   data() {
     return {
       menuDate1: false,
+      errorMessage: "",
+      snackbar: false,
       date1: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -353,6 +371,7 @@ export default {
           dijagnoza: "",
         },
       },
+      errorObj: null,
     };
   },
   methods: {
@@ -360,21 +379,47 @@ export default {
       vaccinationService
         .createDoctorAndBuilding(this.$route.params.id, this.firstSetupObj)
         .then((_) => {
-          //TODO: vidi ovo malo bolje i ovo dvoje ispod
+          //TODO: vidi ovo malo bolje i ovo ispod
           this.$router.go(0);
-        });
+        })
+        .catch((error) => this.handleError(error));
     },
     changeDecision() {
-      vaccinationService.changeDecision(this.$route.params.id).then((_) => {
-        this.$router.go(0);
-      });
+      vaccinationService
+        .changeDecision(this.$route.params.id)
+        .then((_) => {
+          this.$router.go(0);
+        })
+        .catch((error) => this.handleError(error));
     },
     addSideEffect() {
       vaccinationService
         .addSideEffect(this.$route.params.id, this.sideEffectObj)
         .then((_) => {
           this.$router.go(0);
-        });
+        })
+        .catch((error) => this.handleError(error));
+    },
+    addVaccine() {
+      vaccinationService
+        .addVaccine(this.$route.params.id, this.newVaccineObj)
+        .then((response) => {
+          this.$router.go(0);
+        })
+        .catch((error) => this.handleError(error));
+    },
+    handleError(error) {
+      const msg = error.response.data.message;
+      if (msg.startsWith("<?xml")) {
+        const errorObj = JSON.parse(xml2json(msg, { compact: true }));
+        console.log(errorObj);
+        this.errorMessage = errorObj.error.message._text;
+      } else {
+        this.errorMessage = error.response.data.message;
+      }
+      console.log(this.errorMessage);
+
+      this.snackbar = true;
     },
   },
   computed: {

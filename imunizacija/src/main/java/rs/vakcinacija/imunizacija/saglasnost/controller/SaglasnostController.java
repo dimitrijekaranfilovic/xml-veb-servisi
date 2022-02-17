@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
+import rs.vakcinacija.imunizacija.saglasnost.dto.VakcinaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.Saglasnost;
@@ -83,6 +84,12 @@ public class SaglasnostController {
     public KontraindikacijaDTO addSideEffect(@PathVariable UUID id, @RequestBody KontraindikacijaDTO kontraindikacijaDTO) throws Exception {
         this.saglasnostService.addSideEffect(id, kontraindikacijaDTO);
         return kontraindikacijaDTO;
+    }
+
+    @PostMapping(value = "/{id}/vakcine")
+    public VakcinaDTO addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO) throws Exception {
+        this.saglasnostService.addVaccine(id, vakcinaDTO);
+        return vakcinaDTO;
     }
 
 }

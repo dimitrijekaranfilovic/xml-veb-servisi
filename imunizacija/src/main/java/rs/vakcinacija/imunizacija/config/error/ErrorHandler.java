@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.xmldb.api.base.XMLDBException;
 import rs.vakcinacija.imunizacija.authentication.exception.UserAlreadyExistsException;
+import rs.vakcinacija.imunizacija.saglasnost.exception.DoseException;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.exception.SchemaValidationException;
 
@@ -50,6 +51,13 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     ErrorObject handleUserAlreadyExistsException(HttpServletRequest request, DocumentNotFoundException e){
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
+    }
+
+    @ExceptionHandler({DoseException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ErrorObject handleNoDoseException(HttpServletRequest request, DoseException e){
         return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
     }
 

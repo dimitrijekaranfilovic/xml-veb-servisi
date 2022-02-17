@@ -25,6 +25,10 @@ class VaccinationService {
   addSideEffect(id: string, payload: any): Promise<any> {
     return this.http.post(`/saglasnost/${id}/kontraindikacije`, payload);
   }
+
+  addVaccine(id: string, payload: any): Promise<any> {
+    return this.http.post(`/saglasnost/${id}/vakcine`, payload);
+  }
 }
 
 export default new VaccinationService(httpClient);

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;
+import rs.vakcinacija.sluzbenici.saglasnost.dto.VakcinaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.sluzbenici.saglasnost.model.Saglasnost;
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
@@ -52,5 +53,12 @@ public class SaglasnostController {
     public KontraindikacijaDTO addSideEffect(@PathVariable UUID id, @RequestBody KontraindikacijaDTO kontraindikacijaDTO) {
         saglasnostClient.addSideEffect(id, kontraindikacijaDTO);
         return kontraindikacijaDTO;
+    }
+
+    @PostMapping(value = "/{id}/vakcine")
+    public VakcinaDTO addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO) throws Exception {
+        saglasnostClient.addVaccine(id, vakcinaDTO);
+        //TODO: kreiraj potvrdu o vakcinaciji
+        return vakcinaDTO;
     }
 }

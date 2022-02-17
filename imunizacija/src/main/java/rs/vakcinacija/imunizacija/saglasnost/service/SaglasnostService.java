@@ -1,13 +1,13 @@
 package rs.vakcinacija.imunizacija.saglasnost.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.jena.dboe.migrate.L;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.LekarDTO;
+import rs.vakcinacija.imunizacija.saglasnost.dto.VakcinaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.ZdravstvenaUstanovaDTO;
+import rs.vakcinacija.imunizacija.saglasnost.exception.DoseException;
 import rs.vakcinacija.imunizacija.saglasnost.model.*;
 import rs.vakcinacija.imunizacija.saglasnost.repository.SaglasnostExistRepository;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
@@ -18,7 +18,6 @@ import rs.vakcinacija.zajednicko.model.RDFInteger;
 import rs.vakcinacija.zajednicko.model.RDFString;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +47,10 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
     public void changeCommissionDecision(UUID id) throws Exception {
         var saglasnost = this.read(id);
+        var vakcineList = saglasnost.getVakcinacija().getVakcine().getVakcine();
+        if(vakcineList == null){
+            throw new DoseException(String.format("Одлука не може бити промењена за сагласност %s јер ниједна доза није додата.", saglasnost.getId()));
+        }
         var odlukaKomisije = saglasnost.getVakcinacija().getOdlukaKomisije().getValue();
         saglasnost.getVakcinacija().setOdlukaKomisije(RDFBoolean.of(!odlukaKomisije));
         this.saglasnostExistRepository.save(saglasnost);
@@ -55,6 +58,10 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
     public void addSideEffect(UUID id, KontraindikacijaDTO dto) throws Exception {
         var saglasnost = this.read(id);
+        var vakcineList = saglasnost.getVakcinacija().getVakcine().getVakcine();
+        if(vakcineList == null){
+            throw new DoseException(String.format("Нуспојава не може бити додата за сагласност %s јер ниједна доза није додата.", saglasnost.getId()));
+        }
         var kontraindikacije = saglasnost.getVakcinacija().getPrivremeneKontraindikacije();
         var listaKontraindikacija = kontraindikacije.getKontraindikacije();
         if (listaKontraindikacija == null)
@@ -65,6 +72,7 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
 
     public SaglasnostZaSprovodjenjeImunizacije createDoctorBuilding(UUID id, LekarDTO lekarDTO, ZdravstvenaUstanovaDTO zdravstvenaUstanovaDTO) throws Exception {
+        //TODO: mozda baci exception ako je vec dodato
         var saglasnost = this.read(id);
         var vakcinacija = saglasnost.getVakcinacija();
         var lekar = vakcinacija.getLekar();
@@ -85,9 +93,36 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         return saglasnost;
     }
 
-    public SaglasnostZaSprovodjenjeImunizacije createFirstHalfOfDocument(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
-        saglasnost.setDatum(new RDFDate(new Date(), "", "", null, null, null, null, null));
+    public void addVaccine(UUID id, VakcinaDTO vakcinaDTO) throws Exception {
+        var saglasnost = this.read(id);
+        var vakcine = saglasnost.getVakcinacija().getVakcine();
+        if (vakcine.getVakcine() == null)
+            vakcine.setVakcine(new ArrayList<>());
 
+        var vakcinaSaDozomOptional = vakcine.getVakcine()
+                .stream()
+                .filter(vakcina -> vakcina.getBrojDoze().getValue().equals(vakcinaDTO.getBrojDoze()))
+                .findFirst();
+        if (vakcinaSaDozomOptional.isPresent())
+            throw new DoseException(String.format("Доза %d је већ дата за сагласност %s.", vakcinaDTO.getBrojDoze(), saglasnost.getId()));
+
+        var vakcina = new Vakcina();
+        vakcina.setEkstremitet(RDFString.of(vakcinaDTO.getEkstremitet()));
+        vakcina.setNuspojava(RDFString.of(vakcinaDTO.getNuspojava()));
+        vakcina.setTip(RDFString.of(vakcinaDTO.getTip()));
+        vakcina.setProizvodjac(RDFString.of(vakcinaDTO.getProizvodjac()));
+        vakcina.setBrojDoze(RDFInteger.of(vakcinaDTO.getBrojDoze()));
+        vakcina.setBrojSerije(RDFString.of(vakcinaDTO.getBrojSerije()));
+        vakcina.setDatumDavanja(RDFDate.of(new Date()));
+        vakcine.getVakcine().add(vakcina);
+        this.saglasnostExistRepository.save(saglasnost);
+        this.insertRDFMetadataForSecondHalf(saglasnost);
+        this.fusekiRepository.save(saglasnost.getId(), saglasnost);
+    }
+
+
+    public SaglasnostZaSprovodjenjeImunizacije createFirstHalfOfDocument(SaglasnostZaSprovodjenjeImunizacije saglasnost) throws Exception {
+        saglasnost.setDatum(RDFDate.of(new Date()));
         saglasnost.setVakcinacija(new Vakcinacija());
         saglasnost.getVakcinacija().setZdravstvenaUstanova(new ZdravstvenaUstanova());
         saglasnost.getVakcinacija().setLekar(new Lekar());
@@ -165,6 +200,27 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
         var zdravstvenaUstanova = vakcinacija.getZdravstvenaUstanova();
         zdravstvenaUstanova.getNaziv().rdf().property("pred:ustanova").datatype(T_STRING);
         zdravstvenaUstanova.getPunkt().rdf().property("pred:punkt").datatype(T_STRING);
+
+        lekar.rdf().vocab(VOCAB).about(lekarURL);
+        lekar.getIme().rdf().property(PROP_IME).datatype(T_STRING);
+        lekar.getPrezime().rdf().property(PROP_PREZIME).datatype(T_STRING);
+
+        vakcinacija.getOdlukaKomisije().rdf().property("pred:trajne_kontraindikacije").datatype(T_BOOLEAN);
+    }
+
+
+    private void insertRDFMetadataForSecondHalf(SaglasnostZaSprovodjenjeImunizacije saglasnostZaSprovodjenjeImunizacije) {
+        var vakcinacija = saglasnostZaSprovodjenjeImunizacije.getVakcinacija();
+        var zdravstvenaUstanova = vakcinacija.getZdravstvenaUstanova();
+        var lekar = vakcinacija.getLekar();
+        zdravstvenaUstanova.getNaziv().rdf().property("pred:ustanova").datatype(T_STRING);
+        zdravstvenaUstanova.getPunkt().rdf().property("pred:punkt").datatype(T_STRING);
+        String lekarURL;
+        if (lekar.getTelefon().getBrojFiksnog() != null) {
+            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojFiksnog().getValue();
+        } else {
+            lekarURL = RDF_LEKAR_BASE + lekar.getTelefon().getBrojMobilnog().getValue();
+        }
 
         lekar.rdf().vocab(VOCAB).about(lekarURL);
         lekar.getIme().rdf().property(PROP_IME).datatype(T_STRING);
