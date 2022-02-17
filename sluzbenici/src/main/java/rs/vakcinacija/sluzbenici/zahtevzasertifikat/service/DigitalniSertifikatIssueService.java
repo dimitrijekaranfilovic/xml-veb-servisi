@@ -6,6 +6,7 @@ import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.*;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.service.DigitalniSertifikatService;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.service.PotvrdaOVakcinacijiService;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.CitizenDoesNotHaveTwoDosesException;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.CitizenHasNoVaccinationCertificateException;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.model.RDFDate;
@@ -41,6 +42,9 @@ public class DigitalniSertifikatIssueService {
         var potvrdaOVakcinaciji = potvrdaOVakcinacijiService
                 .readByCitizenEmail(email)
                 .orElseThrow(() -> new CitizenHasNoVaccinationCertificateException("Грађанин нема ни једну потврду о вакцинацији која је непоходна за идавање Дигиталног сертификата."));
+        if (potvrdaOVakcinaciji.getVakcinacija().getDoze().getDoze().size() != 2) {
+            throw new CitizenDoesNotHaveTwoDosesException("Грађанин мора да прими 2 дозе вакцине да би му се издао Дигитални сертификат.");
+        }
         var vakcinacija = buildVakcinacija(potvrdaOVakcinaciji);
 
         var testovi = buildDefaultTestovi();
@@ -65,14 +69,12 @@ public class DigitalniSertifikatIssueService {
     private Vakcinacija buildVakcinacija(PotvrdaOVakcinaciji potvrdaOVakcinaciji) {
         var nazivVakcine = potvrdaOVakcinaciji.getVakcinacija().getNazivVakcine().getValue();
         var ustanova = potvrdaOVakcinaciji.getVakcinacija().getUstanova().getValue();
-        var dozeVakcina = potvrdaOVakcinaciji.getVakcinacija().getDoze().getDoze().stream().map(doza -> {
-            return new DozaVakcine(RDFInteger.of(doza.getBrojDoze().getValue()),
-                                   RDFDate.of(doza.getDatumDavanja().getValue()),
-                                   RDFString.of(doza.getBrojSerije().getValue()),
-                                   RDFString.of(nazivVakcine),
-                                   RDFString.of(nazivVakcine),
-                                   RDFString.of(ustanova));
-        }).collect(Collectors.toList());
+        var dozeVakcina = potvrdaOVakcinaciji.getVakcinacija().getDoze().getDoze().stream().map(doza -> new DozaVakcine(RDFInteger.of(doza.getBrojDoze().getValue()),
+                               RDFDate.of(doza.getDatumDavanja().getValue()),
+                               RDFString.of(doza.getBrojSerije().getValue()),
+                               RDFString.of(nazivVakcine),
+                               RDFString.of(nazivVakcine),
+                               RDFString.of(ustanova))).collect(Collectors.toList());
         return new Vakcinacija(dozeVakcina);
     }
 
