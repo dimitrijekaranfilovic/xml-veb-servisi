@@ -63,6 +63,11 @@
                     font-size: 30px;
                     }
 
+                    .indented-paragraph{
+                    text-indent:50px;
+                    text-align=justified;
+                    }
+
                 </style>
             </head>
             <body>
@@ -70,11 +75,15 @@
                 <div class="text-center heading">ЗАХТЕВ</div>
                 <div class="text-center subheading">за издавање дигиталног зеленог сертификата</div>
 
-                <p class="indentend-paragraph">У складу са одредбом Републике Србије о издавању дигиталног зеленог сертификата као потврде о извршеној вакцинацији против COVID-19, резултатима тестирања на заразну болест SARS-CoV-2 или опоравку од болести COVID-19, подносим захтев за издавање дигиталног зеленог сертификата.</p>
+                <p class="indented-paragraph">У складу са одредбом Републике Србије о издавању дигиталног зеленог
+                    сертификата као потврде о извршеној вакцинацији против COVID-19, резултатима тестирања на заразну
+                    болест SARS-CoV-2 или опоравку од болести COVID-19, подносим захтев за издавање дигиталног зеленог
+                    сертификата.
+                </p>
                 <br/>
                 <br/>
                 <div class="row">
-                <div class="column-left">Подносилац захтева:</div>
+                    <div class="column-left">Подносилац захтева:</div>
                 </div>
                 <div class="row">
                     <div class="column-left">Име и презиме:</div>
@@ -87,7 +96,7 @@
                 <div class="row">
                     <div class="column-left">Датум рођења:</div>
                     <div class="column-rigth dotted">
-                        <xsl:value-of select="substring(//b:datum_rodjenja, 0, 10)"/>
+                        <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/>
                     </div>
                 </div>
                 <xsl:variable name="x" select="//za:pol"/>
@@ -120,26 +129,29 @@
                 </div>
                 <br/>
                 <div class="row">
-                    <div class="column-left">Разлог за подношење захтева: </div>
+                    <div class="column-left">Разлог за подношење захтева:</div>
                 </div>
                 <div class="row">
                     <div class="column-rigth dotted">
-                        <xsl:value-of select="//b:razlog_za_podnosenje_zahteva" disable-output-escaping="yes" > </xsl:value-of>
+                        <xsl:value-of select="//b:razlog_za_podnosenje_zahteva"
+                                      disable-output-escaping="yes"> </xsl:value-of>
 
                     </div>
                 </div>
-                <div class="text-center">(навести што прецизнији разлог за подношење захтева за издавање дигиталног пасоша)</div>
+                <div class="text-center">(навести што прецизнији разлог за подношење захтева за издавање дигиталног
+                    пасоша)
+                </div>
                 <br/>
 
                 <div class="row">
-                    <div class="column-left">У </div>
+                    <div class="column-left">У</div>
                     <div class="underlined">
-                        <xsl:value-of select="//b:mesto" disable-output-escaping="yes" > </xsl:value-of>
+                        <xsl:value-of select="//b:mesto" disable-output-escaping="yes"> </xsl:value-of>
                     </div>
                 </div>
                 <br/>
                 <div class="row">
-                    <div class="column-left">дана </div>
+                    <div class="column-left">дана</div>
                     <div class="column-left underlined">
                         <xsl:value-of select="substring(//b:datum, 9, 2)"/>.
                         <xsl:value-of select="substring(//b:datum, 6, 2)"/>.

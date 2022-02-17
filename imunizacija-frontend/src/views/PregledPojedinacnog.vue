@@ -2,6 +2,7 @@
   <div>
     <div class="top-level-container" v-html="legacySystemHTML"></div>
     <br />
+    <br />
     <v-flex class="text-center">
       <v-btn class="my-10" dark color="pink" @click.prevent="downloadItem()"
         >Преузми као .xhtml</v-btn
