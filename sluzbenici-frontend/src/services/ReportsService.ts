@@ -14,6 +14,10 @@ class ReportsService {
   getReport(id: string): Promise<any> {
     return this.http.get(`/izvestaj-o-imunizaciji/${id}`);
   }
+
+  getReportAsHtml(id: string): Promise<any> {
+    return this.http.get(`/izvestaj-o-imunizaciji/html/${id}`);
+  }
 }
 
 export default new ReportsService(httpClient);

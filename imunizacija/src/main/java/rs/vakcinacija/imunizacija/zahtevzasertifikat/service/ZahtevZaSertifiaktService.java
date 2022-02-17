@@ -2,6 +2,7 @@ package rs.vakcinacija.imunizacija.zahtevzasertifikat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.Odbijenica;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.imunizacija.zahtevzasertifikat.repository.ZahtevZaSertifikatExistRepository;
@@ -11,6 +12,7 @@ import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFString;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -92,5 +94,15 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
         var prezime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPrezime();
         prezime.setProperty(PROP_PREZIME);
         prezime.setDatatype(T_STRING);
+    }
+
+    public String getHTMLRepresentation(UUID id) throws Exception {
+        ZahtevZaSertifikat zahtevZaSertifikat = read(id);
+        return generateHTML(zahtevZaSertifikat, "src/main/resources/xslt/zahtev_za_sertifikat.xsl");
+    }
+
+    public ByteArrayInputStream getPDFRepresentation(UUID id) throws Exception {
+        ZahtevZaSertifikat zahtevZaSertifikat = read(id);
+        return generatePDF(zahtevZaSertifikat, "src/main/resources/xsl-fo/zahtev_za_sertifikat_fo.xsl");
     }
 }
