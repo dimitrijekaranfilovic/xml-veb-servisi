@@ -119,9 +119,9 @@ export default Vue.extend({
     select: ["Текст:"],
     items: ["Текст:", "Датум издавања:", "Установа:", "Шифра документа:"],
     itemToQuery: {
-      Текст: "query",
+      "Текст": "query",
       "Датум издавања": "issueDate",
-      Установа: "place",
+      "Установа": "place",
       "Шифра документа": "documentId",
     },
   }),

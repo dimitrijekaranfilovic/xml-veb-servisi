@@ -18,7 +18,11 @@ public interface SaglasnostClient {
     @GetMapping(value = "/za-gradjanina", produces = "application/xml")
     KolekcijaSaglasnosti readForCitizen(
             @RequestParam("email") String email,
-            @RequestParam("query") String query
+            @RequestParam("query") String query,
+            @RequestParam("vaccine") String vaccine,
+            @RequestParam("place") String place,
+            @RequestParam("vaccinationPlace") String vaccinationPlace,
+            @RequestParam("issueDate") String issueDate
     );
 
     @GetMapping(value = "/za-sluzbenika", produces = "application/xml")

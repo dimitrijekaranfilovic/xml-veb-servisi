@@ -135,7 +135,7 @@ export default Vue.extend({
       "Број серије друге дозе:",
     ],
     itemToQuery: {
-      Текст: "query",
+      "Текст": "query",
       "Датум издавања": "issueDate",
       "Тип прве дозе": "doseOneType",
       "Тип друге дозе": "doseTwoType",

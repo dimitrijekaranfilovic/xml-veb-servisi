@@ -30,7 +30,8 @@ public class SaglasnostController {
 
     @GetMapping(value = "/za-gradjanina")
     public KolekcijaSaglasnosti readForCitizen(NaprednaPretragaRequest request) {
-        return saglasnostClient.readForCitizen(request.getEmail(), request.getQuery());
+        return saglasnostClient.readForCitizen(request.getEmail(), request.getQuery(), request.getVaccine(),
+                request.getPlace(), request.getVaccinationPlace(), request.getIssueDate());
     }
 
     @GetMapping(value = "/za-sluzbenika")

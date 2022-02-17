@@ -1,10 +1,25 @@
 <template>
   <div>
     <v-form @submit="fetchData">
-      <v-text-field
-        v-model="query"
-        label="Унесите критеријум за претрагу..."
-      ></v-text-field>
+      <v-row justify="center" align="center">
+        <v-col lg="10" md="12" sm="12" xs="12">
+          <v-combobox
+            @input="onChipInput()"
+            v-model="select"
+            :items="items"
+            label="Напредна претрага (крените да куцате филтере...)"
+            :clearable="true"
+            :deletable-chips="true"
+            multiple
+            chips
+          ></v-combobox>
+        </v-col>
+        <v-col lg="2" md="12" sm="12" xs="12">
+          <v-btn block color="primary" @click="fetchData"
+            >Примени филтере</v-btn
+          >
+        </v-col>
+      </v-row>
     </v-form>
     <v-dialog v-model="dialog" max-width="1000px">
       <v-card>
@@ -101,17 +116,44 @@ export default Vue.extend({
       "pred:ZahtevZaSertifikat": "Захтев за сертификат",
       "pred:Interesovanje": "Документ интересовања",
     },
+    select: ["Текст:"],
+    items: ["Текст:", "Датум издавања:", "Установа:", "Пункт:", "Вакцина:"],
+    itemToQuery: {
+      "Текст": "query",
+      "Датум издавања": "issueDate",
+      "Установа": "place",
+      "Пункт": "vaccinationPlace",
+      "Вакцина": "vaccine"
+    },
   }),
   async mounted() {
     await this.fetchData();
   },
   methods: {
     async fetchData() {
-      const response = await citizenDataService.readVaccinationConsents({
-        email: this.email,
-        query: this.query,
-      });
+      const params = this.processQuery();
+      const response = await citizenDataService.readVaccinationConsents(params);
       this.consents = response.data.saglasnosti || [];
+    },
+    onChipInput() {
+      const last = this.select.pop();
+      if (this.items.includes(last)) {
+        this.select.push(last);
+      } else if (this.select.length > 0) {
+        const preLast = this.select.pop();
+        this.select.push(preLast + last);
+      }
+    },
+    processQuery() {
+      const params = {};
+      params["email"] = this.email;
+      this.select.forEach((selection) => {
+        const tokens = selection.split(":");
+        if (tokens.length == 2 && tokens[1].trim() !== "") {
+          params[this.itemToQuery[tokens[0].trim()]] = tokens[1].trim();
+        }
+      });
+      return params;
     },
     showReferences(item) {
       this.selectedItem = item;
