@@ -66,7 +66,7 @@ const routes: Array<RouteConfig> = [
     },
   },
   {
-    path: "/dokument/:id",
+    path: "/dokument/:documentType/:id",
     name: "PregledPojedinacnog",
     component: () => import("../views/PregledPojedinacnog.vue"),
     meta: {

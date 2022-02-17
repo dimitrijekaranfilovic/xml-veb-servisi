@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="top-level-container" v-html="legacySystemHTML"></div>
+    <br />
     <v-flex class="text-center">
       <v-btn class="my-10" dark color="pink" @click.prevent="downloadItem()"
         >Преузми као .xhtml</v-btn
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-import SaglasnostService from "../services/SaglasnostService";
+import BaseService from "@/services/BaseService";
 
 export default {
   data() {
@@ -24,19 +25,26 @@ export default {
   },
   mounted() {
     let that = this;
-    SaglasnostService.getXHTMLRepresentation(this.$route.params.id).then(
-      (response) => {
-        that.legacySystemHTML = response.data;
-        console.log(response);
-      }
-    );
+    let documentType = this.$route.params.documentType;
+    BaseService.getXHTMLRepresentation(
+      this.$route.params.id,
+      documentType
+    ).then((response) => {
+      that.legacySystemHTML = response.data;
+    });
   },
   methods: {
     downloadItem() {
-      SaglasnostService.downloadXHTML(this.$route.params.id);
+      BaseService.downloadXHTML(
+        this.$route.params.id,
+        this.$route.params.documentType
+      );
     },
     downloadPDFItem() {
-      SaglasnostService.downloadPDF(this.$route.params.id);
+      BaseService.downloadPDF(
+        this.$route.params.id,
+        this.$route.params.documentType
+      );
     },
   },
 };

@@ -39,4 +39,9 @@ public class InteresovanjeController {
         return KolekcijaInteresovanja.of(interesovanjeService.getAllForUser(email));
     }
 
+    @GetMapping(value = "/html/{id}")
+    public String generateHtml(@PathVariable UUID id) throws Exception {
+        return interesovanjeService.getHTMLRepresentation(id);
+    }
+
 }

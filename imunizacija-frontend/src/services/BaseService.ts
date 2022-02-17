@@ -28,6 +28,37 @@ export class BaseService {
     return jwt_decode(jwt as string);
   }
 
+  async getXHTMLRepresentation(id: string, documentType: string): Promise<any> {
+    let response = axios.get(
+      this.basePath + documentType + "/html/" + id,
+      this.getXMLConfig()
+    );
+
+    return response;
+  }
+
+  downloadXHTML(id: string, documentType: string): void {
+    axios
+      .get(this.basePath + documentType + "/html/" + id, {
+        responseType: "blob",
+      })
+      .then((response) => {
+        this.initialteDownload(response, documentType, "html");
+      })
+      .catch(console.error);
+  }
+
+  downloadPDF(id: string, documentType: string): void {
+    axios
+      .get(this.basePath + documentType + "/pdf/" + id, {
+        responseType: "blob",
+      })
+      .then((response) => {
+        this.initialteDownload(response, documentType, "pdf");
+      })
+      .catch(console.error);
+  }
+
   initialteDownload(response: any, documentType: string, extension: string) {
     const blob = new Blob([response.data], {
       type: "application/" + extension,

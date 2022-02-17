@@ -82,7 +82,7 @@ export default {
       });
     },
     detaljnijiPrikaz(document) {
-      this.$router.push("dokument/" + document.id);
+      this.$router.push("dokument/saglasnost/" + document.id);
     },
   },
 };

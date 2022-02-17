@@ -19,7 +19,13 @@
         <td>{{ row.item.licneInformacije.davalacKrvi.value }}</td>
         <td>{{ row.item.odabranaLokacijaPrimanjaVakcine.value }}</td>
         <td align="right">
-          <v-btn class="mx-2" dark small color="pink">
+          <v-btn
+            class="mx-2"
+            dark
+            small
+            color="pink"
+            @click="detaljnijiPrikaz(row.item)"
+          >
             Детаљнији преглед
           </v-btn>
         </td>
@@ -70,6 +76,11 @@ export default {
       that.interesovanja = data.data.interesovanja;
       that.$root.$emit("interesovanjeFetched");
     });
+  },
+  methods: {
+    detaljnijiPrikaz(document) {
+      this.$router.push("dokument/interesovanje/" + document.id);
+    },
   },
 };
 </script>

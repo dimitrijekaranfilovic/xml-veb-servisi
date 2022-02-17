@@ -19,37 +19,6 @@ class SaglasnostService extends BaseService {
 
     return response;
   }
-
-  async getXHTMLRepresentation(id: string): Promise<any> {
-    let response = axios.get(
-      this.basePath + "saglasnost/html/" + id,
-      this.getXMLConfig()
-    );
-
-    return response;
-  }
-
-  downloadXHTML(id: string): void {
-    axios
-      .get(this.basePath + "saglasnost/html/" + id, {
-        responseType: "blob",
-      })
-      .then((response) => {
-        this.initialteDownload(response, "saglasnost", "html");
-      })
-      .catch(console.error);
-  }
-
-  downloadPDF(id: string): void {
-    axios
-      .get(this.basePath + "saglasnost/pdf/" + id, {
-        responseType: "blob",
-      })
-      .then((response) => {
-        this.initialteDownload(response, "saglasnost", "pdf");
-      })
-      .catch(console.error);
-  }
 }
 
 export default new SaglasnostService();

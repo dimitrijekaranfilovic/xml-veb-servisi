@@ -8,7 +8,6 @@ import rs.vakcinacija.imunizacija.interesovanje.event.InteresovanjePodnetoEvent;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
-import rs.vakcinacija.zajednicko.email.service.EmailService;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
@@ -48,6 +47,11 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
                         interesovanje.getLicneInformacije().getKontakt().getEmail().getValue(),
                         interesovanje.getId()));
         return retVal;
+    }
+
+    public String getHTMLRepresentation(UUID id) throws Exception {
+        Interesovanje interesovanje = read(id);
+        return generateHTML(interesovanje, "src/main/resources/xslt/interesovanje.xsl");
     }
 
     protected void insertRDFMetadata(Interesovanje interesovanje) {
@@ -125,7 +129,7 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
         sb.append("\n\tПрезиме: ").append(interesovanje.getLicneInformacije().getImePrezime().getPrezime().getValue())
                 .append("\n");
         sb.append("\n\tАдреса електронске поште: ").append(
-                        interesovanje.getLicneInformacije().getKontakt().getEmail().getValue())
+                interesovanje.getLicneInformacije().getKontakt().getEmail().getValue())
                 .append("\n");
         sb.append("\n\tБрој мобилног телефона: ")
                 .append(interesovanje.getLicneInformacije().getKontakt().getBrojMobilnog().getValue())
