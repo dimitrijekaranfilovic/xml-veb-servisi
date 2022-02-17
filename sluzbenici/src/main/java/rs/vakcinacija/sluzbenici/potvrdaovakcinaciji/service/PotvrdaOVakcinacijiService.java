@@ -56,7 +56,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         datumIzdavanja.rdf().property(PROP_DATUM_IZDAVANJA).datatype(T_DATE);
         ustanova.rdf().property("pred:ustanova").datatype(T_STRING);
 
-        var pacijentUrl = RDF_PACIJENT_BASE + licneInformacije.getJmbg().getValue();
+        var pacijentUrl = RDF_PACIJENT_BASE + potvrdaOVakcinaciji.getEmail().getValue();
         ime.rdf().property(PROP_IME).datatype(T_STRING);
         prezime.rdf().property(PROP_PREZIME).datatype(T_STRING);
         jmbg.rdf().property(PROP_JMBG).datatype(T_STRING);

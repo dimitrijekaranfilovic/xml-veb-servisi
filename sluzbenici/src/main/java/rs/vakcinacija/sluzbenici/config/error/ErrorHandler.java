@@ -1,5 +1,6 @@
 package rs.vakcinacija.sluzbenici.config.error;
 
+import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,13 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.xmldb.api.base.XMLDBException;
 import rs.vakcinacija.sluzbenici.config.exception.BusinessException;
 import rs.vakcinacija.sluzbenici.config.exception.ValidationException;
-import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.PunktExistsException;
-import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineDoesntExistException;
-import rs.vakcinacija.sluzbenici.vakcinacionipunkt.exception.VaccineExistsException;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.exception.SchemaValidationException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @ControllerAdvice
@@ -53,5 +52,19 @@ public class ErrorHandler {
     @ResponseBody
     ErrorObject handleValidationException(HttpServletRequest request, BusinessException e) {
         return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
+    }
+
+
+    @ExceptionHandler({FeignException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ErrorObject handleFeignException(HttpServletRequest request, FeignException e){
+        var responseBody = e.responseBody();
+        String msg = "";
+        if (responseBody.isPresent()) {
+            var body = responseBody.get();
+            msg = new String(body.array(), StandardCharsets.UTF_8);
+        }
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), msg);
     }
 }

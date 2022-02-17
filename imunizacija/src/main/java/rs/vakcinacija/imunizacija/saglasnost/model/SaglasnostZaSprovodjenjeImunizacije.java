@@ -22,6 +22,7 @@ public class SaglasnostZaSprovodjenjeImunizacije extends BaseDocument {
     @XmlElement(name = "pacijent", required = true)
     private Pacijent pacijent;
 
+    @XmlElement(name = "vakcinacija", required = true)
     private Vakcinacija vakcinacija;
 
     public SaglasnostZaSprovodjenjeImunizacije() {

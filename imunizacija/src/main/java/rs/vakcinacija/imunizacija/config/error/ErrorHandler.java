@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.xmldb.api.base.XMLDBException;
 import rs.vakcinacija.imunizacija.authentication.exception.UserAlreadyExistsException;
 import rs.vakcinacija.imunizacija.saglasnost.exception.InteresovanjeNotSubmittedException;
+import rs.vakcinacija.imunizacija.saglasnost.exception.DoseException;
 import rs.vakcinacija.zajednicko.exception.DocumentNotFoundException;
 import rs.vakcinacija.zajednicko.exception.SchemaValidationException;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -58,6 +58,13 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     ErrorObject handleInteresovanjeNotSubmittedException(HttpServletRequest request, InteresovanjeNotSubmittedException e){
+        return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
+    }
+
+    @ExceptionHandler({DoseException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ErrorObject handleNoDoseException(HttpServletRequest request, DoseException e){
         return new ErrorObject(HttpStatus.BAD_REQUEST, request.getServletPath(), new Date(), e.getMessage());
     }
 

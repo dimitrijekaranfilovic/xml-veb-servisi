@@ -7,9 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.saglasnost.dto.NaprednaPretragaRequest;
+import rs.vakcinacija.imunizacija.saglasnost.dto.KontraindikacijaDTO;
+import rs.vakcinacija.imunizacija.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.imunizacija.saglasnost.dto.SaglasnostCreateRequest;
+import rs.vakcinacija.imunizacija.saglasnost.dto.VakcinaDTO;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaObrazacaSaglasnosti;
 import rs.vakcinacija.imunizacija.saglasnost.model.KolekcijaSaglasnosti;
+import rs.vakcinacija.imunizacija.saglasnost.model.Saglasnost;
+import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.imunizacija.saglasnost.service.SaglasnostService;
 import rs.vakcinacija.imunizacija.saglasnost.support.SaglasnostCreateRequestToSaglasnost;
 import rs.vakcinacija.imunizacija.saglasnost.support.SaglasnostToSaglasnostCreateRequest;
@@ -46,18 +51,57 @@ public class SaglasnostController {
         return saglasnostToSaglasnostCreateRequest.convert(savedSaglasnost);
     }
 
-    @GetMapping(value = "/{id}")
-    public String readHTML(@PathVariable UUID id) throws Exception {
-        return saglasnostService.getHTMLRepresentation(id);
-    }
-
     @GetMapping(value = "pdf/{id}")
     public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
         return new ResponseEntity<>(new InputStreamResource(saglasnostService.getPDFRepresentation(id)), HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "/html/{id}")
+    public String generateHtml(@PathVariable UUID id) throws Exception {
+        return saglasnostService.getHTMLRepresentation(id);
+    }
+
+    @GetMapping(value = "/{id}")
+    public SaglasnostZaSprovodjenjeImunizacije read(@PathVariable UUID id) throws Exception {
+        return saglasnostService.read(id);
+    }
+
+    @GetMapping(value = "/za-gradjanina/{email}")
+    public KolekcijaSaglasnosti readForCitizen(@PathVariable String email, @RequestParam(defaultValue = "") String query) throws Exception {
+        return KolekcijaSaglasnosti.of(saglasnostService.readForCitizen(email, query));
     }
 
     @GetMapping(value = "all/{email}")
     public KolekcijaObrazacaSaglasnosti getAllForUser(@PathVariable String email) throws Exception {
         return KolekcijaObrazacaSaglasnosti.of(saglasnostService.getAllForUser(email));
     }
+
+    @GetMapping(value = "/za-sluzbenika")
+    public KolekcijaSaglasnosti readFilteredByEmail(@RequestParam(defaultValue = "") String email) throws Exception {
+        return KolekcijaSaglasnosti.of(saglasnostService.readFiltered(email));
+    }
+
+    @PostMapping(value = "/{id}/podaci-o-lekaru-ustanovi")
+    public PodaciOLekaruUstanoviDTO createDoctorBuilding(@RequestBody PodaciOLekaruUstanoviDTO podaciOLekaruUstanoviDTO, @PathVariable UUID id) throws Exception {
+        this.saglasnostService.createDoctorBuilding(id, podaciOLekaruUstanoviDTO.getLekarDTO(), podaciOLekaruUstanoviDTO.getZdravstvenaUstanovaDTO());
+        return podaciOLekaruUstanoviDTO;
+    }
+
+    @GetMapping(value = "/{id}/odluka-komisije")
+    public void changeCommissionDecision(@PathVariable UUID id) throws Exception {
+        this.saglasnostService.changeCommissionDecision(id);
+    }
+
+    @PostMapping(value = "/{id}/kontraindikacije")
+    public KontraindikacijaDTO addSideEffect(@PathVariable UUID id, @RequestBody KontraindikacijaDTO kontraindikacijaDTO) throws Exception {
+        this.saglasnostService.addSideEffect(id, kontraindikacijaDTO);
+        return kontraindikacijaDTO;
+    }
+
+    @PostMapping(value = "/{id}/vakcine")
+    public VakcinaDTO addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO) throws Exception {
+        this.saglasnostService.addVaccine(id, vakcinaDTO);
+        return vakcinaDTO;
+    }
+
 }

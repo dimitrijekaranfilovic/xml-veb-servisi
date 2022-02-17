@@ -4,9 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.repository.DigitalniSertifikatExistRepository;
-import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.DataDoza;
-import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.IzvestajOImunizaciji;
-import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.Stavka;
+import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model.*;
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository.IzvestajOImunizacijiExistRepository;
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository.IzvestajOImunizacijiFusekiRepository;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
@@ -42,6 +40,8 @@ public class IzvestajOImunizacijiService extends DocumentService<IzvestajOImuniz
 
     public IzvestajOImunizaciji generateIzvestaj(Date periodOd, Date periodDo) throws Exception {
         var izvestajOImunizaciji = new IzvestajOImunizaciji(RDFDate.of(periodOd), RDFDate.of(periodDo), RDFDate.of(new Date()));
+        izvestajOImunizaciji.setDateDozeVakcina(new DateDozeVakcina(new ArrayList<>()));
+        izvestajOImunizaciji.setRaspodelaPoProizvodjacima(new RaspodelaPoProizvodjacima(new ArrayList<>()));
 
         int primljenoZahteva = countPrimljeneZahtevZaSertifikat(periodOd, periodDo);
         izvestajOImunizaciji.setPrimljenoZahtevaZaSertifikat(RDFInteger.of(primljenoZahteva));

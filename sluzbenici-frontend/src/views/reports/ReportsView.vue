@@ -195,7 +195,7 @@ export default {
         this.reports.push(izvestaj);
         this.dialog = false;
         this.reportBeingGenerated = false;
-        this.message = "Report successfully generated.";
+        this.message = "Извештај успешно генерисан.";
         this.snackbar = true;
       });
     },
