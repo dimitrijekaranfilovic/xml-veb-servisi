@@ -23,7 +23,7 @@ export class HttpClient {
   getParams(url: string, params: any): Promise<any> {
     return axios.get(this.buildUrl(url), {
       ...this.config.headers,
-      params: params
+      params: params,
     });
   }
 
@@ -37,6 +37,42 @@ export class HttpClient {
 
   delete(url: string): Promise<any> {
     return axios.delete(this.buildUrl(url), this.config);
+  }
+
+  downloadXHTML(id: string, documentType: string): void {
+    axios
+      .get(`${BASE_PATH}/${documentType}/html/${id}`, {
+        responseType: "blob",
+      })
+      .then((response) => {
+        this.initiateDownload(response, documentType, "html");
+      })
+      .catch(console.error);
+  }
+
+  downloadPDF(id: string, documentType: string): void {
+    axios
+      .get(`${BASE_PATH}/${documentType}/pdf/${id}`, {
+        responseType: "blob",
+      })
+      .then((response) => {
+        this.initiateDownload(response, documentType, "pdf");
+      })
+      .catch(console.error);
+  }
+
+  initiateDownload(response: any, documentType: string, extension: string) {
+    const blob = new Blob([response.data], {
+      type: "application/" + extension,
+    });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    if (extension === "html") {
+      extension = "x" + extension;
+    }
+    link.download = documentType + "." + extension;
+    link.click();
+    URL.revokeObjectURL(link.href);
   }
 }
 

@@ -31,6 +31,11 @@ public class IzvestajOImunizacijiController {
        return this.izvestajOImunizacijiService.generateIzvestaj(zahtevZaKreiranjeIzvestajaDTO.getPeriodOd(), zahtevZaKreiranjeIzvestajaDTO.getPeriodDo());
     }
 
+    @GetMapping(value = "/html/{id}")
+    public String generateHtml(@PathVariable UUID id) throws Exception {
+        return this.izvestajOImunizacijiService.generateHTML(this.izvestajOImunizacijiService.read(id), "src/main/resources/xslt/izvestaj_o_imunizaciji.xsl");
+    }
+
     @PostMapping(value = "/potpun")
     @ResponseStatus(HttpStatus.CREATED)
     public IzvestajOImunizaciji createFull(@RequestBody IzvestajOImunizaciji izvestajOImunizaciji) throws Exception {
