@@ -56,7 +56,7 @@ public class SaglasnostController {
         return this.saglasnostService.save(saglasnostZaSprovodjenjeImunizacije);
     }
 
-    @GetMapping(value = "pdf/{id}")
+    @GetMapping(value = "/pdf/{id}")
     public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
         return new ResponseEntity<>(new InputStreamResource(saglasnostService.getPDFRepresentation(id)), HttpStatus.OK);
     }
