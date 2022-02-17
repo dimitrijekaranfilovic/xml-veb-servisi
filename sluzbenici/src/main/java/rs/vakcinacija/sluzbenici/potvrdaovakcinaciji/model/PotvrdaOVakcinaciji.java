@@ -27,7 +27,7 @@ public class PotvrdaOVakcinaciji extends BaseDocument {
     private RDFString qrKod;
 
     @XmlElement(name = "licne_informacije", required = true)
-    private LicniPodaci licneInformacije;
+    private LicneInformacije licneInformacije;
 
     @XmlElement(name = "email", required = true)
     private RDFString email;
@@ -42,7 +42,7 @@ public class PotvrdaOVakcinaciji extends BaseDocument {
     public PotvrdaOVakcinaciji(RDFString sifraPotvrde,
                                RDFDate datumIzdavanja,
                                RDFString qrKod,
-                               LicniPodaci licneInformacije,
+                               LicneInformacije licneInformacije,
                                Vakcinacija vakcinacija) {
         this.sifraPotvrde = sifraPotvrde;
         this.datumIzdavanja = datumIzdavanja;

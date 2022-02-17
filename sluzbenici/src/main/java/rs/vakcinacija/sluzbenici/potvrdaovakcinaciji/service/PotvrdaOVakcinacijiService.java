@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.Doze;
+import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.LicneInformacije;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.Vakcinacija;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiExistRepository;
@@ -143,8 +144,8 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         }
     }
 
-    private LicniPodaci createLicneInformacije(SaglasnostZaSprovodjenjeImunizacije saglasnostZaSprovodjenjeImunizacije) {
-        var licniPodaci = new LicniPodaci();
+    private LicneInformacije createLicneInformacije(SaglasnostZaSprovodjenjeImunizacije saglasnostZaSprovodjenjeImunizacije) {
+        var licniPodaci = new LicneInformacije();
         var licneInformacije = saglasnostZaSprovodjenjeImunizacije.getPacijent().getLicneInformacije();
 
         var srpskiDrzavljanin = licneInformacije.getDrzavljanstvo().getSrpskiDrzavljanin();
@@ -159,6 +160,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
         licniPodaci.setPol(RDFString.of(licneInformacije.getPol().getValue()));
         licniPodaci.setIme(RDFString.of(licneInformacije.getPunoIme().getIme().getValue()));
         licniPodaci.setPrezime(RDFString.of(licneInformacije.getPunoIme().getPrezime().getValue()));
+        licniPodaci.setDatumRodjenja(RDFDate.of(saglasnostZaSprovodjenjeImunizacije.getPacijent().getLicneInformacije().getDatumRodjenja().getValue()));
         return licniPodaci;
     }
 
