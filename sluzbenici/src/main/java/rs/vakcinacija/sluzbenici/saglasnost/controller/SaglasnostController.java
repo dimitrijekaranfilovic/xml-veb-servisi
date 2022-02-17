@@ -3,12 +3,13 @@ package rs.vakcinacija.sluzbenici.saglasnost.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
+import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.service.PotvrdaOVakcinacijiService;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.VakcinaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.NaprednaPretragaRequest;
-import rs.vakcinacija.sluzbenici.saglasnost.model.Saglasnost;
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.sluzbenici.saglasnost.service.SaglasnostClient;
 
@@ -19,10 +20,12 @@ import java.util.UUID;
 @Slf4j
 public class SaglasnostController {
     private final SaglasnostClient saglasnostClient;
+    private final PotvrdaOVakcinacijiService potvrdaOVakcinacijiService;
 
     @Autowired
-    public SaglasnostController(SaglasnostClient saglasnostClient) {
+    public SaglasnostController(SaglasnostClient saglasnostClient, PotvrdaOVakcinacijiService potvrdaOVakcinacijiService) {
         this.saglasnostClient = saglasnostClient;
+        this.potvrdaOVakcinacijiService = potvrdaOVakcinacijiService;
     }
 
     @GetMapping(value = "/za-gradjanina")
@@ -57,9 +60,8 @@ public class SaglasnostController {
     }
 
     @PostMapping(value = "/{id}/vakcine")
-    public VakcinaDTO addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO) throws Exception {
-        saglasnostClient.addVaccine(id, vakcinaDTO);
-        //TODO: kreiraj potvrdu o vakcinaciji
-        return vakcinaDTO;
+    public PotvrdaOVakcinaciji addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO) throws Exception {
+        var saglasnost = saglasnostClient.addVaccine(id, vakcinaDTO);
+        return this.potvrdaOVakcinacijiService.issueConfirmation(saglasnost);
     }
 }

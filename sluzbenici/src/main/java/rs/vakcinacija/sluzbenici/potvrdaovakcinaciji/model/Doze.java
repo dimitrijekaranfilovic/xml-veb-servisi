@@ -7,6 +7,7 @@ import rs.vakcinacija.zajednicko.model.Doza;
 import rs.vakcinacija.zajednicko.model.RDFField;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @XmlRootElement(name = "doze")
@@ -21,6 +22,7 @@ public class Doze extends RDFField {
 
     public Doze(){
         super();
+        this.doze = new ArrayList<>();
     }
 
     public Doze(Collection<Doza> doze) {

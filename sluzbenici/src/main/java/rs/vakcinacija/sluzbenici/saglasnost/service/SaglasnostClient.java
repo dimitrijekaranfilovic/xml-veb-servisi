@@ -37,5 +37,8 @@ public interface SaglasnostClient {
     KontraindikacijaDTO addSideEffect(@PathVariable UUID id, @RequestBody KontraindikacijaDTO kontraindikacijaDTO);
 
     @PostMapping(value = "/{id}/vakcine")
-    VakcinaDTO addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO);
+    SaglasnostZaSprovodjenjeImunizacije addVaccine(@PathVariable UUID id, @RequestBody VakcinaDTO vakcinaDTO);
+
+    @PostMapping("/save")
+    SaglasnostZaSprovodjenjeImunizacije save(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnostZaSprovodjenjeImunizacije);
 }
