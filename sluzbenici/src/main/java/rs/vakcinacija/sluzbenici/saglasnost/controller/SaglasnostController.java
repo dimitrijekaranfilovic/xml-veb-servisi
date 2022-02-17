@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.saglasnost.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.service.PotvrdaOVakcinacijiService;
@@ -32,6 +33,16 @@ public class SaglasnostController {
     public KolekcijaSaglasnosti readForCitizen(NaprednaPretragaRequest request) {
         return saglasnostClient.readForCitizen(request.getEmail(), request.getQuery(), request.getVaccine(),
                 request.getPlace(), request.getVaccinationPlace(), request.getIssueDate());
+    }
+
+    @GetMapping(value = "/html/{id}")
+    public String html(@PathVariable UUID id) {
+        return saglasnostClient.html(id);
+    }
+
+    @GetMapping(value = "/pdf/{id}")
+    public InputStreamResource pdf(@PathVariable UUID id) {
+        return saglasnostClient.pdf(id);
     }
 
     @GetMapping(value = "/za-sluzbenika")

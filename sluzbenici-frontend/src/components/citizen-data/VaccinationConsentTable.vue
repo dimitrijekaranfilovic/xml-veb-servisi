@@ -50,7 +50,7 @@
                 >
                   <td>{{ referenca | deRdf }}</td>
                   <td>{{ getDocumentName(referenca.typeof) }}</td>
-                  <v-btn plain text color="primary">Прегледај документ</v-btn>
+                  <v-btn plain text color="primary" :to="buildRoute(referenca)">Прегледај документ</v-btn>
                 </tr>
               </tbody>
             </template>
@@ -116,6 +116,13 @@ export default Vue.extend({
       "pred:ZahtevZaSertifikat": "Захтев за сертификат",
       "pred:Interesovanje": "Документ интересовања",
     },
+    documentRoute: {
+      "pred:DigitalniSertifikat": "DigitalCertificateDocumentView",
+      "pred:PotvrdaOVakcinaciji": "VaccinationConfirmationDocumentView",
+      "pred:ObrazacSaglasnosti": "VaccinationConsentDocumentView",
+      "pred:ZahtevZaSertifikat": "DigitalCertificateRequestDocumentView",
+      "pred:Interesovanje": "Документ интересовања",
+    },
     select: ["Текст:"],
     items: ["Текст:", "Датум издавања:", "Установа:", "Пункт:", "Вакцина:"],
     itemToQuery: {
@@ -165,6 +172,9 @@ export default Vue.extend({
       }
       console.warn("Got unexpected document type: ", name);
       return "Непознати документ";
+    },
+    buildRoute(reference) {
+      return {name: this.documentRoute[reference.typeof], params: {id: reference.value}};
     },
   },
 });
