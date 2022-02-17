@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.digitalnisertifikat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.dto.NaprednaPretragaRequest;
@@ -39,6 +40,12 @@ public class DigitalniSertifikatController {
     @GetMapping(value = "/html/{id}")
     public String html(@PathVariable UUID id) throws Exception {
         return digitalniSertifikatService.generateHTML(digitalniSertifikatService.read(id), "src/main/resources/xslt/digitalni_sertifikat.xsl");
+    }
+
+    @GetMapping(value = "/pdf/{id}")
+    public InputStreamResource pdf(@PathVariable UUID id) throws Exception {
+        var pdf = digitalniSertifikatService.generatePDF(digitalniSertifikatService.read(id), "src/main/resources/xsl-fo/digitalni_sertifikat_fo.xsl");
+        return new InputStreamResource(pdf);
     }
 
     @GetMapping(value = "/{id}")
