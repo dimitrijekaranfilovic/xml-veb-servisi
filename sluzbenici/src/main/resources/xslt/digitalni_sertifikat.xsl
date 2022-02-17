@@ -59,7 +59,7 @@
               <br />
               Потврда о извршеној имунизацији протиц
               <br />
-              COVID-19 и резултата тестирања
+              COVID-19 и резултатима тестирања
               <br />
               <span style="font-size: 25px;"><b>DIGITAL GREEN CERTIFICATE</b></span>
               <br />
@@ -98,11 +98,11 @@
         <table class="b-b">
           <tr>
             <td class="left"><b>Име и презиме / Name and surname:</b></td>
-            <td width="60%" class="left"><xsl:value-of select="//za:ime" /><span> </span> <xsl:value-of select="//za:prezime" /> </td>
+            <td width="60%" class="left"><xsl:value-of select="//za:ime" /><xsl:text> </xsl:text> <xsl:value-of select="//za:prezime" /> </td>
           </tr>
           <tr>
             <td class="left"><b>Пол / Gender:</b></td>
-            <td width="60%" class="left"><xsl:value-of select="//za:pol" /> / <xsl:value-of select="//za:pol" /></td>
+            <td width="60%" class="left"><xsl:value-of select="//za:pol" /></td>
           </tr>
           <tr>
             <td class="left"><b>Датум рођења / Date of birth:</b></td>
@@ -131,7 +131,7 @@
                   <td><b>Тип / Type:</b></td>
                 </tr>
                 <tr>
-                  <td>Pfizer-BioNTech</td>
+                  <td><xsl:value-of select="//b:doza_vakcine[za:broj_doze=1]/za:tip" /> </td>
                 </tr>
                 <tr>
                   <td>
@@ -139,10 +139,14 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Pfizer-BioNTech, 123456</td>
+                  <td>
+                    <xsl:value-of select="//b:doza_vakcine[za:broj_doze=1]/za:proizvodjac" />
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="//b:doza_vakcine[za:broj_doze=1]/za:broj_serije" />
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>Датум / Date:</b> <xsl:value-of select="substring(//b:datum_izdavanja, 0, 11)"/></td>
+                  <td><b>Датум / Date:</b> <xsl:value-of select="//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja" /></td>
                 </tr>
                 <tr>
                   <td>
@@ -150,20 +154,20 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Novi Sad</td>
+                  <td><xsl:value-of select="//b:doza_vakcine[za:broj_doze=1]/b:zdravstvena_ustanova" /></td>
                 </tr>
               </table>
             </td>
             <td>
               <table class="left">
                 <tr>
-                  <td><b>Доза / Dose:</b> 1/2</td>
+                  <td><b>Доза / Dose:</b> 2/2</td>
                 </tr>
                 <tr>
                   <td><b>Тип / Type:</b></td>
                 </tr>
                 <tr>
-                  <td>Pfizer-BioNTech</td>
+                  <td><xsl:value-of select="//b:doza_vakcine[za:broj_doze=2]/za:tip" /> </td>
                 </tr>
                 <tr>
                   <td>
@@ -171,10 +175,14 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Pfizer-BioNTech, 123456</td>
+                  <td>
+                    <xsl:value-of select="//b:doza_vakcine[za:broj_doze=2]/za:proizvodjac" />
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="//b:doza_vakcine[za:broj_doze=2]/za:broj_serije" />
+                  </td>
                 </tr>
                 <tr>
-                  <td><b>Датум / Date:</b> 2021-05-10</td>
+                  <td><b>Датум / Date:</b> <xsl:value-of select="//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja" /></td>
                 </tr>
                 <tr>
                   <td>
@@ -182,7 +190,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Novi Sad</td>
+                  <td><xsl:value-of select="//b:doza_vakcine[za:broj_doze=1]/b:zdravstvena_ustanova" /></td>
                 </tr>
               </table>
             </td>
