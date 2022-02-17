@@ -2,8 +2,10 @@ package rs.vakcinacija.imunizacija.interesovanje.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
 import rs.vakcinacija.imunizacija.interesovanje.model.KolekcijaInteresovanja;
@@ -42,6 +44,11 @@ public class InteresovanjeController {
     @GetMapping(value = "/html/{id}")
     public String generateHtml(@PathVariable UUID id) throws Exception {
         return interesovanjeService.getHTMLRepresentation(id);
+    }
+
+    @GetMapping(value = "pdf/{id}")
+    public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
+        return new ResponseEntity<>(new InputStreamResource(interesovanjeService.getPDFRepresentation(id)), HttpStatus.OK);
     }
 
 }

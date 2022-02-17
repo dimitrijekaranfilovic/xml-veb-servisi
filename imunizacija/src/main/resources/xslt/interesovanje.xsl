@@ -79,7 +79,7 @@ xmlns:b="https://www.vakcinacija.rs/interesovanje">
                 </xsl:choose>
 		    	Страни држављанин без боравка у РС
 		    </p>
-		    <b>ЈМБГ: 1231231231231</b>
+		    <b>ЈМБГ: <xsl:value-of select="//b:jmbg"/></b>
 		    <hr class="ruler" />
 		    <b>Име: <xsl:value-of select="//za:ime"/></b>
 		    <hr class="ruler" />

@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.config.email.EmailClient;
 import rs.vakcinacija.imunizacija.interesovanje.event.InteresovanjePodnetoEvent;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
+import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -52,6 +54,11 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
     public String getHTMLRepresentation(UUID id) throws Exception {
         Interesovanje interesovanje = read(id);
         return generateHTML(interesovanje, "src/main/resources/xslt/interesovanje.xsl");
+    }
+
+    public ByteArrayInputStream getPDFRepresentation(UUID id) throws Exception {
+        Interesovanje interesovanje = read(id);
+        return generatePDF(interesovanje, "src/main/resources/xsl-fo/interesovanje_fo.xsl");
     }
 
     protected void insertRDFMetadata(Interesovanje interesovanje) {
