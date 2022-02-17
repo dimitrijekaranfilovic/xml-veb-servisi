@@ -18,6 +18,10 @@ class DigitalCertificateRequestsService {
   reject(id: string, reason: any): Promise<any> {
     return this.http.post(`/zahtev-za-sertifikat/${id}/odbij`, reason);
   }
+
+  readHtml(id: string): Promise<any> {
+    return this.http.get(`/zahtev-za-sertifikat/html/${id}`);
+  }
 }
 
 export default new DigitalCertificateRequestsService(httpClient);

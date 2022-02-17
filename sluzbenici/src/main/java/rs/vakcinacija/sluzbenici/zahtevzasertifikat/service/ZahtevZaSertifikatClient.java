@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.zahtevzasertifikat.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,4 +30,10 @@ public interface ZahtevZaSertifikatClient {
 
     @PostMapping(value = "/{id}/odobri", consumes = "application/xml")
     void approve(@PathVariable UUID id, @RequestBody DigitalniSertifikatOdobrenEvent digitalniSertifikatOdobrenEvent);
+
+    @GetMapping(value = "/html/{id}")
+    String html(@PathVariable UUID id);
+
+    @GetMapping(value = "/pdf/{id}")
+    InputStreamResource pdf(@PathVariable UUID id);
 }

@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.zahtevzasertifikat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.sluzbenici.config.email.EmailClient;
 import rs.vakcinacija.sluzbenici.digitalnisertifikat.model.DigitalniSertifikat;
@@ -88,5 +89,13 @@ public class ZahtevZaSertifikatService {
                 razlog +
                 "\n\nСрдачан поздрав,\nВаш портал за имунизацију\n\n";
 
+    }
+
+    public String html(UUID id) {
+        return client.html(id);
+    }
+
+    public InputStreamResource pdf(UUID id) {
+        return client.pdf(id);
     }
 }

@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.saglasnost.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,11 @@ public interface SaglasnostClient {
     @GetMapping(value = "/za-gradjanina", produces = "application/xml")
     KolekcijaSaglasnosti readForCitizen(
             @RequestParam("email") String email,
-            @RequestParam("query") String query
+            @RequestParam("query") String query,
+            @RequestParam("vaccine") String vaccine,
+            @RequestParam("place") String place,
+            @RequestParam("vaccinationPlace") String vaccinationPlace,
+            @RequestParam("issueDate") String issueDate
     );
 
     @GetMapping(value = "/za-sluzbenika", produces = "application/xml")
@@ -41,4 +46,10 @@ public interface SaglasnostClient {
 
     @PostMapping("/save")
     SaglasnostZaSprovodjenjeImunizacije save(@RequestBody SaglasnostZaSprovodjenjeImunizacije saglasnostZaSprovodjenjeImunizacije);
+
+    @GetMapping(value = "/html/{id}")
+    String html(@PathVariable UUID id);
+
+    @GetMapping(value = "/pdf/{id}")
+    InputStreamResource pdf(@PathVariable UUID id);
 }

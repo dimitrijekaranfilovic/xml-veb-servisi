@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.zahtevzasertifikat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.config.exception.ValidationException;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.dto.odbijzahtev.OdbijZahtevZaSertifikatRequest;
@@ -41,5 +42,15 @@ public class ZahtevZaSertifikatController {
             throw new ValidationException("Разлог је обавезно поље приликом одбијања захтева за дигитални сертификат.");
         }
         zahtevZaSertifikatService.reject(id, request.getRazlog());
+    }
+
+    @GetMapping(value = "/html/{id}")
+    public String html(@PathVariable UUID id) {
+        return zahtevZaSertifikatService.html(id);
+    }
+
+    @GetMapping(value = "/pdf/{id}")
+    public InputStreamResource pdf(@PathVariable UUID id) {
+        return zahtevZaSertifikatService.pdf(id);
     }
 }
