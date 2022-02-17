@@ -4,14 +4,9 @@ Predmetni projekat iz predmeta XML i Veb servisi.
 
 ## Pokretanje projekta
 
-Spring servisi se za sada pokreću ručno. U docker-compose.yml fajlu svakog servisa je zakomentarisan deo koji pokreće spring projekat. Ovako je lakše zbog debagovanja, kasnije se samo otkomentariše taj deo i sve će raditi. Projekti su konfigurisani tako da se i baze mogu ručno pokretati. Kredencijali za Fuseki su username=`admin` i password=`password`. Kredencijali za RabbitMQ su username=`guest` i password=`guest`.
+Spring servisi se za sada pokreću ručno. U docker-compose.yml fajlu svakog servisa je zakomentarisan deo koji pokreće spring projekat. Ovako je lakše zbog debagovanja, kasnije se samo otkomentariše taj deo i sve će raditi. Projekti su konfigurisani tako da se i baze mogu ručno pokretati. Kredencijali za Fuseki su username=`admin` i password=`password`.
 
 Ako koristite bash, za pokretanje i zaustavljanje docker container-a možete koristiti manage-docker-containers skriptu.
-
-### Pokretanje RabbitMQ Message Broker-a
-
-- Iz message-broker foldera pokrenuti `docker-compose up` (samo prvi put).
-- Svaki sledeći put pokrenuti `docker start rabbitmq-message-broker`.
 
 ### Pokretanje E-Mail servisa
 
@@ -45,3 +40,8 @@ Ako se koristi ovaj IDE, instalacija se može ažurirati i na sledeći način:
 ![image](https://user-images.githubusercontent.com/53261053/148428756-72a2a7fd-f3e4-4dfd-949e-b3f2c7355f4f.png)
 
 Izabrati sa strane jezičak Maven, u njemu odabrati meni Lifecycle, odabrati install i pokrenuti ga na zeleno dugme Run Maven Build.
+
+## Pokretanje frontend projekata
+
+Frontend projekti se pokreću tako što se pozicionirate u korenski folder frontend projekta i pokrenete komandu `npm run serve`.
+imunizacija-frontend projekat će biti pokrenut na portu 3000, a sluzbenici-frontend na portu 3001.

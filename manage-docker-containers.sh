@@ -36,7 +36,6 @@ if [[ "$option" == "start" ]];then
 
     if [[ "$total" == *"email"* ]]; then
         echo "starting email service...";
-        sudo docker start rabbitmq-message-broker;
         sudo docker start email-service-api;
         echo "";
     fi
@@ -65,7 +64,6 @@ elif [[ "$option" == "stop" ]];then
     if [[ "$total" == *"email"* ]]; then
         echo "stopping email service...";
         sudo docker stop email-service-api;
-        sudo docker stop rabbitmq-message-broker;
         echo "";
     fi
 
