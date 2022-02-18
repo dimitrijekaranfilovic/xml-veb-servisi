@@ -21,4 +21,7 @@ public interface PotvrdaOVakcinacijiClient {
 
     @GetMapping(value = "/html/{id}")
     String html(@PathVariable UUID id) throws Exception;
+
+    @GetMapping(value = "/string-pdf/{id}")
+    byte[] stringPdf(@PathVariable UUID id) throws Exception;
 }

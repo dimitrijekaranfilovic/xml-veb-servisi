@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.vakcinacija.imunizacija.potvrdaovakcinaciji.model.KolekcijaPotvrdaOVakcinaciji;
 import rs.vakcinacija.imunizacija.potvrdaovakcinaciji.service.PotvrdaOVakcinacijiService;
 
+import java.io.ByteArrayInputStream;
 import java.util.UUID;
 
 @RestController
@@ -31,7 +32,8 @@ public class PotvrdaOVakcinacijiController {
 
     @GetMapping(value = "pdf/{id}")
     public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
-        return new ResponseEntity<>(potvrdaOVakcinacijiService.getPDFRepresentation(id), HttpStatus.OK);
+        return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(
+                potvrdaOVakcinacijiService.getPDFRepresentation(id))), HttpStatus.OK);
     }
 
     @GetMapping(value = "html/{id}")

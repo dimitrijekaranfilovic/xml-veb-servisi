@@ -43,4 +43,11 @@ public class PotvrdaOVakcinacijiController {
     public PotvrdaOVakcinaciji read(@PathVariable UUID id) throws Exception {
         return this.potvrdaOVakcinacijiService.read(id);
     }
+
+    @GetMapping(value = "/string-pdf/{id}")
+    public byte[] stringPdf(@PathVariable UUID id) throws Exception {
+        var pdf = potvrdaOVakcinacijiService.generatePDF(potvrdaOVakcinacijiService.read(id),
+                "src/main/resources/xsl-fo/potvrda_o_vakcinaciji_fo.xsl");
+        return pdf.readAllBytes();
+    }
 }

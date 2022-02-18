@@ -20,8 +20,8 @@ public class PotvrdaOVakcinacijiService {
         return potvrdaOVakcinacijiClient.readForCitizen(email, "");
     }
 
-    public InputStreamResource getPDFRepresentation(UUID id) throws Exception {
-        return potvrdaOVakcinacijiClient.pdf(id);
+    public byte[] getPDFRepresentation(UUID id) throws Exception {
+        return potvrdaOVakcinacijiClient.stringPdf(id);
     }
 
     public String getHTMLRepresentation(UUID id) throws Exception {
