@@ -194,7 +194,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
                 .findFirst()
                 .get()
                 .getProizvodjac().getValue();
-        
+
         vakcinacija.setNazivVakcine(RDFString.of(naziv));
 
         return vakcinacija;

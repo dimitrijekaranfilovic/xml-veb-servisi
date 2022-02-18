@@ -9,6 +9,7 @@ import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository.IzvestajOImuniz
 import rs.vakcinacija.sluzbenici.izvestajoimunizaciji.repository.IzvestajOImunizacijiFusekiRepository;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinacijiExistRepository;
+import rs.vakcinacija.sluzbenici.vakcinacionipunkt.service.InteresovanjeClient;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.service.ZahtevZaSertifikatClient;
 import rs.vakcinacija.zajednicko.model.RDFDate;
 import rs.vakcinacija.zajednicko.model.RDFInteger;
@@ -17,13 +18,13 @@ import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j
 public class IzvestajOImunizacijiService extends DocumentService<IzvestajOImunizaciji> {
 
     private final ZahtevZaSertifikatClient zahtevZaSertifikatClient;
+    private final InteresovanjeClient interesovanjeClient;
     private final DigitalniSertifikatExistRepository digitalniSertifikatExistRepository;
     private final PotvrdaOVakcinacijiExistRepository potvrdaOVakcinacijiExistRepository;
 
@@ -31,9 +32,10 @@ public class IzvestajOImunizacijiService extends DocumentService<IzvestajOImuniz
     public IzvestajOImunizacijiService(IzvestajOImunizacijiExistRepository izvestajOImunizacijiExistRepository,
                                        IzvestajOImunizacijiFusekiRepository izvestajOImunizacijiFusekiRepository,
                                        ZahtevZaSertifikatClient zahtevZaSertifikatClient,
-                                       DigitalniSertifikatExistRepository digitalniSertifikatExistRepository, PotvrdaOVakcinacijiExistRepository potvrdaOVakcinacijiExistRepository) {
+                                       InteresovanjeClient interesovanjeClient, DigitalniSertifikatExistRepository digitalniSertifikatExistRepository, PotvrdaOVakcinacijiExistRepository potvrdaOVakcinacijiExistRepository) {
         super(izvestajOImunizacijiExistRepository, izvestajOImunizacijiFusekiRepository);
         this.zahtevZaSertifikatClient = zahtevZaSertifikatClient;
+        this.interesovanjeClient = interesovanjeClient;
         this.digitalniSertifikatExistRepository = digitalniSertifikatExistRepository;
         this.potvrdaOVakcinacijiExistRepository = potvrdaOVakcinacijiExistRepository;
     }
@@ -48,6 +50,18 @@ public class IzvestajOImunizacijiService extends DocumentService<IzvestajOImuniz
 
         int izdatoZahteva = countIzdatoZahteva(periodOd, periodDo);
         izvestajOImunizaciji.setIzdatoZahtevaZaSertifikat(RDFInteger.of(izdatoZahteva));
+
+        int podnetoDokumenataOInteresovanju = 0;
+        var listaInteresovanja = interesovanjeClient.readAll().getInteresovanja();
+
+        if (listaInteresovanja != null){
+            podnetoDokumenataOInteresovanju = listaInteresovanja
+                    .stream()
+                    .filter(item -> dateBetween(periodOd, periodDo, item.getDatum().getValue()))
+                    .collect(Collectors.toList()).size();
+        }
+
+        izvestajOImunizaciji.setPodnetoDokumenataOInteresovanju(RDFInteger.of(podnetoDokumenataOInteresovanju));
 
         var kolekcijaPotvrdaOVakcinaciji = this.potvrdaOVakcinacijiExistRepository.read()
                 .stream()
