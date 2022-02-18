@@ -21,7 +21,7 @@
             class="mx-2"
             dark
             small
-            color="pink"
+            color="primary"
             @click="detaljnijiPrikaz(row.item)"
           >
             Детаљнији преглед

@@ -4,11 +4,15 @@
     <br />
     <br />
     <v-flex class="text-center">
-      <v-btn class="my-10" dark color="pink" @click.prevent="downloadItem()"
+      <v-btn class="my-10" dark color="primary" @click.prevent="downloadItem()"
         >Преузми као .xhtml</v-btn
       >
       <span class="mx-5" />
-      <v-btn class="my-10" dark color="pink" @click.prevent="downloadPDFItem()"
+      <v-btn
+        class="my-10"
+        dark
+        color="primary"
+        @click.prevent="downloadPDFItem()"
         >Преузми као .pdf</v-btn
       >
     </v-flex>

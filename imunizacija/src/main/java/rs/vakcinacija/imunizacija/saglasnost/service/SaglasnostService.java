@@ -21,10 +21,7 @@ import rs.vakcinacija.zajednicko.model.RDFString;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -143,7 +140,8 @@ public class SaglasnostService extends DocumentService<SaglasnostZaSprovodjenjeI
 
         insertRDFMetadataForFirstHalf(saglasnost);
 
-        if(interesovanjeService.getAllForUser(saglasnost.provideEmail()).size() == 0) {
+        var interesovanja = interesovanjeService.getAllForUser(saglasnost.provideEmail());
+        if(interesovanja.size() == 0 || interesovanja.stream().max(Comparator.comparing(i -> i.getDatum().getValue())).get().getDatumTermina() == null) {
             throw new InteresovanjeNotSubmittedException("Морате поднети интересовање.");
         }
 
