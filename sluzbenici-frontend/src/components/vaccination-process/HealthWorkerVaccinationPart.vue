@@ -60,7 +60,12 @@
         <p v-else>Нема одлуке</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="primary" @click="changeDecision()">Промени одлуку</v-btn>
+        <v-btn
+          color="primary"
+          @click="changeDecision()"
+          :loading="loadingDecision"
+          >Промени одлуку</v-btn
+        >
       </v-card-actions>
     </v-row>
     <div id="dialogs">
@@ -140,6 +145,7 @@
               color="primary"
               text
               :disabled="!formValid"
+              :loading="loadingBuilding"
               @click="addDoctorBuilding()"
             >
               Потврди
@@ -178,7 +184,8 @@
                   />
                 </v-col>
                 <v-col cols="12" md="6">
-                  <v-text-field
+                  <v-select
+                    :items="vaccines"
                     label="Произвођач"
                     v-model="newVaccineObj.vakcina.proizvodjac"
                   />
@@ -186,8 +193,9 @@
               </v-row>
               <v-row>
                 <v-col cols="12" md="6">
-                  <v-text-field
+                  <v-select
                     label="Екстремитет"
+                    :items="limbs"
                     v-model="newVaccineObj.vakcina.ekstremitet"
                   />
                 </v-col>
@@ -209,6 +217,7 @@
               color="primary"
               text
               :disabled="!formValid2"
+              :loading="loadingVaccine"
               @click="addVaccine()"
             >
               Потврди
@@ -293,6 +302,7 @@
                   sideEffectObj.kontraindikacija.datum_utvrdjivanja === null
                 "
                 @click="addSideEffect()"
+                :loading="loadingSideEffect"
                 >Додај</v-btn
               >
             </v-card-actions>
@@ -315,6 +325,10 @@
 <script>
 import { xml2json } from "xml-js";
 
+import { limbs } from "@/util/limbs";
+import { places } from "@/util/places";
+import { vaccines } from "@/util/vaccines";
+
 import vaccinationService from "@/services/VaccinationService";
 import GivenVaccinesTable from "@/components/vaccination-process/GivenVaccinesTable.vue";
 import SideEffectsTable from "@/components/vaccination-process/SideEffectsTable.vue";
@@ -328,6 +342,14 @@ export default {
   props: ["vakcinacija"],
   data() {
     return {
+      limbs: [],
+      places: [],
+      vaccines: [],
+      loadingBuilding: false,
+      loadingVaccine: false,
+      loadingVaccine: false,
+      loadingDecision: false,
+      loadingSideEffect: false,
       menuDate1: false,
       errorMessage: "",
       snackbar: false,
@@ -376,34 +398,42 @@ export default {
   },
   methods: {
     addDoctorBuilding() {
+      this.loadingBuilding = true;
       vaccinationService
         .createDoctorAndBuilding(this.$route.params.id, this.firstSetupObj)
         .then((_) => {
           //TODO: vidi ovo malo bolje i ovo ispod
+          this.loadingBuilding = false;
           this.$router.go(0);
         })
         .catch((error) => this.handleError(error));
     },
     changeDecision() {
+      this.loadingDecision = true;
       vaccinationService
         .changeDecision(this.$route.params.id)
         .then((_) => {
+          this.loadingDecision = false;
           this.$router.go(0);
         })
         .catch((error) => this.handleError(error));
     },
     addSideEffect() {
+      this.loadingSideEffect = true;
       vaccinationService
         .addSideEffect(this.$route.params.id, this.sideEffectObj)
         .then((_) => {
+          this.loadingSideEffect = false;
           this.$router.go(0);
         })
         .catch((error) => this.handleError(error));
     },
     addVaccine() {
+      this.loadingVaccine = true;
       vaccinationService
         .addVaccine(this.$route.params.id, this.newVaccineObj)
         .then((response) => {
+          this.loadingVaccine = false;
           this.$router.go(0);
         })
         .catch((error) => this.handleError(error));
@@ -446,6 +476,11 @@ export default {
         this.newVaccineObj.vakcina.broj_serije !== ""
       );
     },
+  },
+  mounted() {
+    this.places = places;
+    this.limbs = limbs;
+    this.vaccines = vaccines;
   },
 };
 </script>

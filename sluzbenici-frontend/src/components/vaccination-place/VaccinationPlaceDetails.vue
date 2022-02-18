@@ -107,6 +107,7 @@
                 text
                 :disabled="updateVaccineObj.nova_vakcina.naziv_vakcine === ''"
                 @click="updateVaccine()"
+                :loading="loadingUpdateVaccine"
               >
                 Потврди
               </v-btn>
@@ -145,6 +146,7 @@
                 text
                 :disabled="newVaccineObj.nova_vakcina.naziv_vakcine === ''"
                 @click="addVaccine()"
+                :loading="loadingAddVaccine"
               >
                 Потврди
               </v-btn>
@@ -251,6 +253,7 @@
                   newAppointmentObj.termin.vreme === null
                 "
                 @click="addAppointment()"
+                :loading="loadingAddAppintment"
               >
                 Потврди
               </v-btn>
@@ -269,6 +272,9 @@ export default {
   props: ["vaccinationPlace"],
   data() {
     return {
+      loadingUpdateVaccine: false,
+      loadingAddAppintment: false,
+      loadingAddVaccine: false,
       timeProps: {
         format: "24hr",
       },
@@ -319,26 +325,32 @@ export default {
       this.updateVaccineDialog = true;
     },
     addAppointment() {
+      this.loadingAddAppintment = true;
       const apppointment = this.newAppointment;
       vaccinationPlaceService
         .addAppointment(this.vaccinationPlace.id, apppointment)
         .then((_) => {
+          this.loadingAddAppintment = false;
           //TODO: vidi ovo malo bolje
           this.$router.go(0);
         });
     },
     addVaccine() {
+      this.loadingAddVaccine = true;
       vaccinationPlaceService
         .addVaccine(this.vaccinationPlace.id, this.newVaccineObj)
         .then((_) => {
           //TODO: vidi ovo malo bolje
+          this.loadingAddVaccine = false;
           this.$router.go(0);
         });
     },
     updateVaccine() {
+      this.loadingUpdateVaccine = true;
       vaccinationPlaceService
         .updateVaccine(this.vaccinationPlace.id, this.updateVaccineObj)
         .then((_) => {
+          this.loadingUpdateVaccine = false;
           this.$router.go(0);
         });
     },
