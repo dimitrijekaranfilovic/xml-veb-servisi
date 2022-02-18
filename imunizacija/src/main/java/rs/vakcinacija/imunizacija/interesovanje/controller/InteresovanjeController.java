@@ -32,6 +32,12 @@ public class InteresovanjeController {
         return interesovanjeService.submitInteresovanjeAndSendEmail(interesovanje);
     }
 
+    @GetMapping
+    public KolekcijaInteresovanja readAll() throws Exception {
+        log.info("EO ME");
+        return KolekcijaInteresovanja.of(this.interesovanjeService.read());
+    }
+
     @GetMapping(value = "/{id}", consumes = MediaType.ALL_VALUE)
     public Interesovanje read(@PathVariable UUID id) throws Exception {
         return interesovanjeService.read(id);
