@@ -10,8 +10,15 @@
                     margin-right: 10%;
                 }
 
+                .right {
+                    text-align: right;
+                }
+
+                .left {
+                    text-align: left;
+                }
+
                 .header {
-                    text-align: center;
                     font-weight: bold;
                     font-size: 30px;
                 }
@@ -19,30 +26,38 @@
                     width: 100%;
                 }
 
-                table, th, td {
+                .table, .table th, .table td {
                     border: 1px solid black;
                     border-collapse: collapse;
                 }
 
-                td {
+                .table td {
                     text-align: center;
                     vertical-align: middle;
+                }
+
+                .center {
+                    text-align: center;
                 }
             </style>
             <body>
                 <div class="container">
-                    <p class="header">
+                    <p class="header center">
                        Извештај о имунизацији
                     </p>
                     <p>
                         Извештај се односи на период од
                         <!--vidi za formatiranje datuma-->
                         <strong>
-                            <xsl:value-of select="substring(//b:period_od, 0, 11)"/>
+                            <xsl:value-of select="substring(//b:period_od, 9, 2)"/>.<xsl:value-of
+                                select="substring(//b:period_od, 6, 2)"/>.<xsl:value-of
+                                select="substring(//b:period_od, 0, 5)"/>.
                         </strong>
                         до
                         <strong>
-                            <xsl:value-of select="substring(//b:period_do, 0, 11)"/>
+                            <xsl:value-of select="substring(//b:period_do, 9, 2)"/>.<xsl:value-of
+                                select="substring(//b:period_do, 6, 2)"/>.<xsl:value-of
+                                select="substring(//b:period_do, 0, 5)"/>.
                         </strong>
                     </p>
 
@@ -116,6 +131,29 @@
                             </xsl:for-each>
                         </ul>
                     </p>
+                    <table border="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td class="left">
+                                    Датум издавања:
+                                    <u>
+                                        <xsl:value-of select="substring(//b:datum_izdavanja, 9, 2)"/>.<xsl:value-of
+                                            select="substring(//b:datum_izdavanja, 6, 2)"/>.<xsl:value-of
+                                            select="substring(//b:datum_izdavanja, 0, 5)"/>.
+                                    </u>
+                                </td>
+
+                                <td class="center">
+                                    _______________________________
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="center">Потпис</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                 </div>
             </body>
         </html>
