@@ -29,14 +29,17 @@ public class JAXBEntityManager<T> {
         this.marshaller = context.createMarshaller();
         this.unmarshaller = context.createUnmarshaller();
         this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-//        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-//        Schema schema = schemaFactory.newSchema(new File(String.format("src/main/resources/schemas/%s", getSchemaName(entityClazz))));
-//        this.unmarshaller.setSchema(schema);
-//        this.marshaller.setSchema(schema);
 
-        var eventHandler = new SchemaValidationEventHandler();
-        this.unmarshaller.setEventHandler(eventHandler);
-        this.marshaller.setEventHandler(eventHandler);
+        var schemaFile = new File(String.format("src/main/resources/schemas/%s", getSchemaName(entityClazz)));
+        if (schemaFile.exists()) {
+            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = schemaFactory.newSchema(schemaFile);
+            this.unmarshaller.setSchema(schema);
+            this.marshaller.setSchema(schema);
+            var eventHandler = new SchemaValidationEventHandler();
+            this.unmarshaller.setEventHandler(eventHandler);
+            this.marshaller.setEventHandler(eventHandler);
+        }
 
         this.entityClazz = entityClazz;
     }

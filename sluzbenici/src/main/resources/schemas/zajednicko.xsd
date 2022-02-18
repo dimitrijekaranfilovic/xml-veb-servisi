@@ -31,29 +31,99 @@
     </xs:simpleType>
     <xs:simpleType final="" name="TPol">
         <xs:restriction base="TOgraniceni_string">
-            <xs:enumeration value="MUSKO"/>
-            <xs:enumeration value="ZENSKO"/>
+            <xs:enumeration value="MUSKI"/>
+            <xs:enumeration value="ZENSKI"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType final="" name="TBroj_pasosa">
         <xs:restriction base="TOgraniceni_string"/>
     </xs:simpleType>
     <xs:simpleType name="TQr_kod">
-        <xs:restriction base="TOgraniceni_string"/>
+        <xs:restriction base="xs:string"/>
     </xs:simpleType>
     <xs:complexType name="TDoza">
         <xs:sequence>
-            <xs:element name="broj_doze" type="xs:positiveInteger"/>
-            <xs:element name="datum_davanja" type="xs:date"/>
-            <xs:element name="broj_serije" type="TOgraniceni_string"/>
+            <xs:element name="broj_doze">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:positiveInteger">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                            <xs:attribute name="vocab" type="xs:string"/>
+                            <xs:attribute name="about" type="xs:string"/>
+                            <xs:attribute name="rel" type="xs:string"/>
+                            <xs:attribute name="href" type="xs:string"/>
+                            <xs:attribute name="typeof" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="datum_davanja">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:date">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                            <xs:attribute name="vocab" type="xs:string"/>
+                            <xs:attribute name="about" type="xs:string"/>
+                            <xs:attribute name="rel" type="xs:string"/>
+                            <xs:attribute name="href" type="xs:string"/>
+                            <xs:attribute name="typeof" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="broj_serije">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="TOgraniceni_string">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                            <xs:attribute name="vocab" type="xs:string"/>
+                            <xs:attribute name="about" type="xs:string"/>
+                            <xs:attribute name="rel" type="xs:string"/>
+                            <xs:attribute name="href" type="xs:string"/>
+                            <xs:attribute name="typeof" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="TDoza_detaljnije" abstract="true">
         <xs:complexContent>
             <xs:extension base="TDoza">
                 <xs:sequence>
-                    <xs:element name="tip" type="TOgraniceni_string"/>
-                    <xs:element name="proizvodjac" type="TOgraniceni_string"/>
+                    <xs:element name="tip">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="TOgraniceni_string">
+                                    <xs:attribute name="property" type="xs:string"/>
+                                    <xs:attribute name="datatype" type="xs:string"/>
+                                    <xs:attribute name="vocab" type="xs:string"/>
+                                    <xs:attribute name="about" type="xs:string"/>
+                                    <xs:attribute name="rel" type="xs:string"/>
+                                    <xs:attribute name="href" type="xs:string"/>
+                                    <xs:attribute name="typeof" type="xs:string"/>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="proizvodjac">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="TOgraniceni_string">
+                                    <xs:attribute name="property" type="xs:string"/>
+                                    <xs:attribute name="datatype" type="xs:string"/>
+                                    <xs:attribute name="vocab" type="xs:string"/>
+                                    <xs:attribute name="about" type="xs:string"/>
+                                    <xs:attribute name="rel" type="xs:string"/>
+                                    <xs:attribute name="href" type="xs:string"/>
+                                    <xs:attribute name="typeof" type="xs:string"/>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -94,7 +164,7 @@
     </xs:complexType>
     <xs:complexType name="TIme_prezime">
         <xs:sequence>
-            <xs:element name="ime">
+            <xs:element name="ime" minOccurs="0">
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="TOgraniceni_string">
@@ -104,7 +174,7 @@
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="prezime">
+            <xs:element name="prezime" minOccurs="0">
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="TOgraniceni_string">
@@ -146,4 +216,26 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+    <xs:element name="id" type="xs:string"/>
+    <xs:element name="reference">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded" minOccurs="0">
+                <xs:element name="referenca">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                                <xs:attribute name="vocab" type="xs:string"/>
+                                <xs:attribute name="about" type="xs:string"/>
+                                <xs:attribute name="rel" type="xs:string"/>
+                                <xs:attribute name="href" type="xs:string"/>
+                                <xs:attribute name="typeof" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

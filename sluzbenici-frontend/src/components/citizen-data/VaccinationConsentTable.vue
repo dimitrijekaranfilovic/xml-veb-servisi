@@ -50,7 +50,9 @@
                 >
                   <td>{{ referenca | deRdf }}</td>
                   <td>{{ getDocumentName(referenca.typeof) }}</td>
-                  <v-btn plain text color="primary" :to="buildRoute(referenca)">Прегледај документ</v-btn>
+                  <v-btn plain text color="primary" :to="buildRoute(referenca)"
+                    >Прегледај документ</v-btn
+                  >
                 </tr>
               </tbody>
             </template>
@@ -77,7 +79,16 @@
             {{ item.pacijent.saglasnost.nazivImunoloskogLeka | deRdf }}
           </td>
           <td>
-            <v-btn plain text color="primary">Прегледај документ</v-btn>
+            <v-btn
+              plain
+              text
+              color="primary"
+              :to="{
+                name: 'VaccinationConsentDocumentView',
+                params: { id: item.id },
+              }"
+              >Прегледај документ</v-btn
+            >
           </td>
           <td>
             <v-btn plain text color="primary" @click="showReferences(item)"
@@ -126,11 +137,11 @@ export default Vue.extend({
     select: ["Текст:"],
     items: ["Текст:", "Датум издавања:", "Установа:", "Пункт:", "Вакцина:"],
     itemToQuery: {
-      "Текст": "query",
+      Текст: "query",
       "Датум издавања": "issueDate",
-      "Установа": "place",
-      "Пункт": "vaccinationPlace",
-      "Вакцина": "vaccine"
+      Установа: "place",
+      Пункт: "vaccinationPlace",
+      Вакцина: "vaccine",
     },
   }),
   async mounted() {
@@ -174,7 +185,10 @@ export default Vue.extend({
       return "Непознати документ";
     },
     buildRoute(reference) {
-      return {name: this.documentRoute[reference.typeof], params: {id: reference.value}};
+      return {
+        name: this.documentRoute[reference.typeof],
+        params: { id: reference.value },
+      };
     },
   },
 });

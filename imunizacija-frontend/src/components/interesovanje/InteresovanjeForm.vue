@@ -172,7 +172,7 @@ export default {
         "Број мобилног мора бити у формату 06Х... без размака и цртица и са 9 до 10 цифара",
     ],
     brojFiksnogRules: [
-      (v) => (!!v && v && v.trim() !== "") || "Број мобилног је обавезан",
+      (v) => (!!v && v && v.trim() !== "") || "Број фиксног је обавезан",
       (v) =>
         (v && /^\d{9,10}$/.test(v)) ||
         "Број фиксног мора бити у формату нпр. 011... без размака и цртица и са 9 до 10 цифара",
@@ -206,6 +206,7 @@ export default {
           _attributes: {
             xmlns: "https://www.vakcinacija.rs/interesovanje",
             "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+            "xmlns:xs": "http://www.w3.org/2001/XMLSchema",
             "xmlns:za": "https://www.vakcinacija.rs/zajednicko",
           },
           datum: currentDate,

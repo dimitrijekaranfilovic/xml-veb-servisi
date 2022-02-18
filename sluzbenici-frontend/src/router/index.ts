@@ -35,6 +35,12 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/reports/ReportDocumentView.vue"),
   },
   {
+    path: "/pregled/saglasnost/:id",
+    name: "VaccinationConsentDocumentView",
+    component: () =>
+      import("../views/vaccination-consent/VaccinationConsentDocumentView.vue"),
+  },
+  {
     path: "/pregled/potvrda-o-vakcinaciji/:id",
     name: "VaccinationConfirmationDocumentView",
     component: () =>
@@ -45,7 +51,10 @@ const routes: Array<RouteConfig> = [
   {
     path: "/pregled/zahtev-za-sertifikat/:id",
     name: "DigitalCertificateRequestDocumentView",
-    component: () => import("../views/digital-certificate/DigitalCertificateRequestDocumentView.vue"),
+    component: () =>
+      import(
+        "../views/digital-certificate/DigitalCertificateRequestDocumentView.vue"
+      ),
   },
   {
     path: "/punktovi",

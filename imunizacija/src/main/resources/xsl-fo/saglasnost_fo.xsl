@@ -544,7 +544,19 @@
                                             <fo:block>ИМ</fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell>
-                                            <fo:block>1) ДР, 2) ЛР</fo:block>
+                                            <xsl:variable name="x" select="b:ekstremitet"/>
+                                            <fo:block>
+                                                <xsl:choose>
+                                                    <xsl:when test="$x = 'LR'">
+                                                        ЛР
+                                                    </xsl:when>
+                                                </xsl:choose>
+                                                <xsl:choose>
+                                                    <xsl:when test="$x = 'DR'">
+                                                        ДР
+                                                    </xsl:when>
+                                                </xsl:choose>
+                                            </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell>
                                             <fo:block>

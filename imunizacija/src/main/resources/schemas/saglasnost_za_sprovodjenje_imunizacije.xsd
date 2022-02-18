@@ -8,6 +8,8 @@
     <xs:element name="saglasnost_za_sprovodjene_preporucene_imunizacije">
         <xs:complexType>
             <xs:sequence>
+                <xs:element ref="za:id"/>
+                <xs:element ref="za:reference"/>
                 <xs:element name="datum">
                     <xs:complexType>
                         <xs:simpleContent>
@@ -19,8 +21,15 @@
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="pacijent" type="TPacijent"/>
-                <xs:element name="vakcinacija" type="TVakcinacija"/>
+                <xs:element name="vakcinacija" type="TVakcinacija" minOccurs="0"/>
             </xs:sequence>
+            <xs:attribute name="property" type="xs:string"/>
+            <xs:attribute name="datatype" type="xs:string"/>
+            <xs:attribute name="vocab" type="xs:string"/>
+            <xs:attribute name="about" type="xs:string"/>
+            <xs:attribute name="rel" type="xs:string"/>
+            <xs:attribute name="href" type="xs:string"/>
+            <xs:attribute name="typeof" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TPacijent">
@@ -55,6 +64,7 @@
                                 </xs:simpleContent>
                             </xs:complexType>
                         </xs:element>
+                        <xs:element name="socijalna_zastita" type="TSocijalnaZastita"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -70,23 +80,23 @@
     </xs:complexType>
     <xs:complexType name="TVakcinacija">
         <xs:sequence>
-            <xs:element name="zdravstvena_ustanova" type="TZdravstvena_ustanova"/>
-            <xs:element name="lekar" type="TLekar"/>
-            <xs:element name="vakcine">
+            <xs:element name="zdravstvena_ustanova" type="TZdravstvena_ustanova" minOccurs="0"/>
+            <xs:element name="lekar" type="TLekar" minOccurs="0"/>
+            <xs:element name="vakcine" minOccurs="0">
                 <xs:complexType>
                     <xs:sequence maxOccurs="unbounded">
-                        <xs:element name="vakcina" type="TVakcina"/>
+                        <xs:element name="vakcina" type="TVakcina" minOccurs="0"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="privremene_kontraindikacije">
+            <xs:element name="privremene_kontraindikacije" minOccurs="0">
                 <xs:complexType>
                     <xs:sequence maxOccurs="unbounded" minOccurs="0">
-                        <xs:element name="kontraindikacija" type="TKontraindikacija"/>
+                        <xs:element name="kontraindikacija" type="TKontraindikacija" minOccurs="0"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="odluka_komisije_za_trajne_kontraindikacije">
+            <xs:element name="odluka_komisije_za_trajne_kontraindikacije" minOccurs="0">
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="xs:boolean">
@@ -191,7 +201,7 @@
     </xs:complexType>
     <xs:complexType name="TZdravstvena_ustanova">
         <xs:sequence>
-            <xs:element name="naziv">
+            <xs:element name="naziv" minOccurs="0">
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="za:TOgraniceni_string">
@@ -201,7 +211,7 @@
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="punkt">
+            <xs:element name="punkt" minOccurs="0">
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="za:TOgraniceni_string">
@@ -217,10 +227,10 @@
         <xs:complexContent>
             <xs:extension base="za:TIme_prezime">
                 <xs:sequence>
-                    <xs:element name="telefon">
+                    <xs:element name="telefon" minOccurs="0">
                         <xs:complexType>
-                            <xs:choice>
-                                <xs:element name="broj_fiksnog">
+                            <xs:sequence>
+                                <xs:element name="broj_fiksnog" minOccurs="0">
                                     <xs:complexType>
                                         <xs:simpleContent>
                                             <xs:extension base="za:TBroj_fiksnog">
@@ -230,7 +240,7 @@
                                         </xs:simpleContent>
                                     </xs:complexType>
                                 </xs:element>
-                                <xs:element name="broj_mobilnog">
+                                <xs:element name="broj_mobilnog" minOccurs="0">
                                     <xs:complexType>
                                         <xs:simpleContent>
                                             <xs:extension base="za:TBroj_mobilnog">
@@ -240,7 +250,7 @@
                                         </xs:simpleContent>
                                     </xs:complexType>
                                 </xs:element>
-                            </xs:choice>
+                            </xs:sequence>
                         </xs:complexType>
                     </xs:element>
                 </xs:sequence>
@@ -253,7 +263,7 @@
         <xs:complexContent>
             <xs:extension base="za:TDoza_detaljnije">
                 <xs:sequence maxOccurs="unbounded" minOccurs="0">
-                    <xs:element name="ekstremitet">
+                    <xs:element name="ekstremitet" minOccurs="0">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
                                 <xs:enumeration value="LR"/>
@@ -261,7 +271,7 @@
                             </xs:restriction>
                         </xs:simpleType>
                     </xs:element>
-                    <xs:element name="nuspojava" type="za:TOgraniceni_string"/>
+                    <xs:element name="nuspojava" type="za:TOgraniceni_string" minOccurs="0"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -270,6 +280,13 @@
         <xs:sequence maxOccurs="unbounded" minOccurs="0">
             <xs:element name="datum_utvrdjivanja" type="xs:date"/>
             <xs:element name="dijagnoza" type="za:TOgraniceni_string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TSocijalnaZastita">
+        <xs:sequence>
+            <xs:element name="korisnik_ustanove_socijalne_zastite" type="xs:boolean"/>
+            <xs:element name="naziv_sedista" type="xs:string"/>
+            <xs:element name="opstina_sedista" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:simpleType name="TRadni_status">

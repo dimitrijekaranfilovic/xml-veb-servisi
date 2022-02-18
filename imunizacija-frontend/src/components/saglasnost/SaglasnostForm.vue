@@ -86,6 +86,7 @@
                 v-model="datumRodjenja"
                 label="Датум рођења"
                 single-line
+                readonly
               >
                 <template v-slot:append-outer>
                   <date-picker v-model="datumRodjenja" />
@@ -343,13 +344,13 @@ export default {
     ],
     fiksni: "",
     fiksniRules: [
-      (v) => !!v || "Фиксни телефон је обавезан",
-      (v) => (v && v.trim() !== "") || "Фиксни телефон је обавезан",
+      (v) => (!!v && v && v.trim() !== "") || "Број фиксног је обавезан",
+      (v) => (v && /^\d{9,10}$/.test(v)) || "Број фиксног мора бити валидан",
     ],
     mobilni: "",
     mobilniRules: [
-      (v) => !!v || "Мобилни телефон је обавезан",
-      (v) => (v && v.trim() !== "") || "Мобилни телефон је обавезан",
+      (v) => (!!v && v && v.trim() !== "") || "Број мобилног је обавезан",
+      (v) => (v && /^06\d{7,8}$/.test(v)) || "Број мобилног мора бити валидан",
     ],
     radniStatus: "",
     radniStatusi: [
@@ -361,13 +362,13 @@ export default {
       { value: "DETE", text: "Дете" },
     ],
     radniStatusRules: [(v) => !!v || "Морате изабрати радни статус"],
-    zanimanjeZaposlenog: "",
+    zanimanjeZaposlenog: "DRUGO",
     zanimanja: [
       { value: "ZDRAVSTVENA ZASTITA", text: "Здравствена заштита" },
       { value: "SOCIJALNA ZASTITA", text: "Социјална заштита" },
       { value: "PROSVETA", text: "Просвета" },
       { value: "MUP", text: "МУП" },
-      { value: "VOJSKA RS", text: "Војска РС" },
+      { value: "VOJSKA", text: "Војска РС" },
       { value: "DRUGO", text: "Друго" },
     ],
     korisnikUstanoveSocZastite: false,
@@ -497,7 +498,7 @@ export default {
     },
     clearZanimanje() {
       if (this.radniStatus !== "ZAPOSLEN") {
-        this.zanimanjeZaposlenog = "";
+        this.zanimanjeZaposlenog = "DRUGO";
       }
     },
     clearVakcina() {

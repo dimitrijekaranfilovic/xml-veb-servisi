@@ -8,6 +8,8 @@
     <xs:element name="zahtev_za_sertifikat">
         <xs:complexType>
             <xs:sequence>
+                <xs:element ref="za:id"/>
+                <xs:element ref="za:reference"/>
                 <xs:element name="mesto">
                     <xs:complexType>
                         <xs:simpleContent>
@@ -30,12 +32,42 @@
                 </xs:element>
                 <xs:element name="podnosilac_zahteva" type="TPodnosilacZahteva"> </xs:element>
                 <xs:element name="razlog_za_podnosenje_zahteva" type="za:TOgraniceni_string"/>
+                <xs:element name="status">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="TStatus">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                                <xs:attribute name="vocab" type="xs:string"/>
+                                <xs:attribute name="about" type="xs:string"/>
+                                <xs:attribute name="rel" type="xs:string"/>
+                                <xs:attribute name="href" type="xs:string"/>
+                                <xs:attribute name="typeof" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TPodnosilacZahteva">
         <xs:sequence>
             <xs:element name="licni_podaci" type="za:TLicni_podaci"/>
+            <xs:element name="datum_rodjenja">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:date">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                            <xs:attribute name="vocab" type="xs:string"/>
+                            <xs:attribute name="about" type="xs:string"/>
+                            <xs:attribute name="rel" type="xs:string"/>
+                            <xs:attribute name="href" type="xs:string"/>
+                            <xs:attribute name="typeof" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
             <xs:element name="broj_pasosa" nillable="false">
                 <xs:complexType>
                     <xs:simpleContent>
@@ -46,8 +78,30 @@
                     </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="email">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="za:TEmail">
+                            <xs:attribute name="property" type="xs:string"/>
+                            <xs:attribute name="datatype" type="xs:string"/>
+                            <xs:attribute name="vocab" type="xs:string"/>
+                            <xs:attribute name="about" type="xs:string"/>
+                            <xs:attribute name="rel" type="xs:string"/>
+                            <xs:attribute name="href" type="xs:string"/>
+                            <xs:attribute name="typeof" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="vocab" type="xs:string"/>
         <xs:attribute name="about" type="xs:string"/>
     </xs:complexType>
+    <xs:simpleType name="TStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="KREIRAN"/>
+            <xs:enumeration value="PRIHVACEN"/>
+            <xs:enumeration value="ODBIJEN"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>

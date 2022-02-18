@@ -371,7 +371,19 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 				            <td><xsl:value-of select="za:broj_doze"/></td>
 				            <td><xsl:value-of select="za:datum_davanja"/></td>
 				            <td>ИМ</td>
-				            <td>1)ДР, 2)ЛР</td>
+							<xsl:variable name="x" select="b:ekstremitet"/>
+				            <td>
+								<xsl:choose>
+									<xsl:when test="$x = 'LR'">
+										ЛР
+									</xsl:when>
+								</xsl:choose>
+								<xsl:choose>
+									<xsl:when test="$x = 'DR'">
+										ДР
+									</xsl:when>
+								</xsl:choose>
+							</td>
 				            <td><xsl:value-of select="za:broj_serije"/></td>
 				            <td><xsl:value-of select="za:tip"/></td>
 				            <td><xsl:value-of select="b:nuspojava"/></td>

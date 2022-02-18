@@ -128,6 +128,7 @@ export default {
         .then(() => {
           that.text = "Успешна регистрација";
           that.snackbar = true;
+          that.$router.push("/");
         })
         .catch((err) => {
           if (err.message.includes("400")) {

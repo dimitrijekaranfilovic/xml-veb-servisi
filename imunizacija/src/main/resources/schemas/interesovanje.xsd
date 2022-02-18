@@ -3,10 +3,13 @@
     targetNamespace="https://www.vakcinacija.rs/interesovanje"
     xmlns="https://www.vakcinacija.rs/interesovanje"
     xmlns:za="https://www.vakcinacija.rs/zajednicko">
-    <xs:import namespace="https://www.vakcinacija.rs/zajednicko" schemaLocation="zajednicko.xsd"/>
+    <xs:import namespace="https://www.vakcinacija.rs/zajednicko" schemaLocation="zajednicko.xsd"
+        id="za"/>
     <xs:element name="interesovanje">
         <xs:complexType>
             <xs:sequence>
+                <xs:element ref="za:id" minOccurs="0"/>
+                <xs:element ref="za:reference" minOccurs="0"/>
                 <xs:element name="datum">
                     <xs:complexType>
                         <xs:simpleContent>
@@ -29,7 +32,15 @@
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="odabrani_proizvodjaci" type="TOdabraniProizvodjaci"> </xs:element>
+                <xs:element maxOccurs="1" minOccurs="0" name="datum_termina" type="xs:date"/>
             </xs:sequence>
+            <xs:attribute name="property" type="xs:string"/>
+            <xs:attribute name="datatype" type="xs:string"/>
+            <xs:attribute name="vocab" type="xs:string"/>
+            <xs:attribute name="about" type="xs:string"/>
+            <xs:attribute name="rel" type="xs:string"/>
+            <xs:attribute name="href" type="xs:string"/>
+            <xs:attribute name="typeof" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TLicneInformacije">

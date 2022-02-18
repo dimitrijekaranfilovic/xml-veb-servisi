@@ -7,6 +7,8 @@
     <xs:element name="potvrda_o_vakcinaciji">
         <xs:complexType>
             <xs:sequence>
+                <xs:element ref="za:id"/>
+                <xs:element ref="za:reference"/>
                 <xs:element name="sifra_potvrde">
                     <xs:complexType>
                         <xs:simpleContent>
@@ -37,9 +39,31 @@
                         </xs:simpleContent>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="licne_informacije" type="za:TLicni_podaci"/>
+                <xs:element name="licne_informacije" type="TLicneInformacije"/>
+                <xs:element name="email">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="za:TEmail">
+                                <xs:attribute name="property" type="xs:string"/>
+                                <xs:attribute name="datatype" type="xs:string"/>
+                                <xs:attribute name="vocab" type="xs:string"/>
+                                <xs:attribute name="about" type="xs:string"/>
+                                <xs:attribute name="rel" type="xs:string"/>
+                                <xs:attribute name="href" type="xs:string"/>
+                                <xs:attribute name="typeof" type="xs:string"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
                 <xs:element name="vakcinacija" type="TVakcinacija"> </xs:element>
             </xs:sequence>
+            <xs:attribute name="property" type="xs:string"/>
+            <xs:attribute name="datatype" type="xs:string"/>
+            <xs:attribute name="vocab" type="xs:string"/>
+            <xs:attribute name="about" type="xs:string"/>
+            <xs:attribute name="rel" type="xs:string"/>
+            <xs:attribute name="href" type="xs:string"/>
+            <xs:attribute name="typeof" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TDoze">
@@ -69,5 +93,14 @@
         <xs:attribute name="rel" type="xs:string"/>
         <xs:attribute name="href" type="xs:string"/>
         <xs:attribute name="typeof" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="TLicneInformacije">
+        <xs:complexContent>
+            <xs:extension base="za:TLicni_podaci">
+                <xs:sequence>
+                    <xs:element name="datum_rodjenja" type="xs:date"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 </xs:schema>

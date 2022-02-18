@@ -8,7 +8,9 @@
     <xs:element name="izvestaj_o_imunizaciji">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="periodOd">
+                <xs:element ref="za:id"/>
+                <xs:element ref="za:reference"/>
+                <xs:element name="period_od">
                     <xs:complexType>
                         <xs:simpleContent>
                             <xs:extension base="xs:date">
@@ -18,7 +20,7 @@
                         </xs:simpleContent>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="periodDo">
+                <xs:element name="period_do">
                     <xs:complexType>
                         <xs:simpleContent>
                             <xs:extension base="xs:date">
@@ -48,6 +50,13 @@
                 <xs:element name="raspodela_po_proizvodjacima" type="TRaspodela_po_proizvodjacima">
                 </xs:element>
             </xs:sequence>
+            <xs:attribute name="property" type="xs:string"/>
+            <xs:attribute name="datatype" type="xs:string"/>
+            <xs:attribute name="vocab" type="xs:string"/>
+            <xs:attribute name="about" type="xs:string"/>
+            <xs:attribute name="rel" type="xs:string"/>
+            <xs:attribute name="href" type="xs:string"/>
+            <xs:attribute name="typeof" type="xs:string"/>
         </xs:complexType>
     </xs:element>
     <xs:complexType name="TDate_doze_vakcina">
