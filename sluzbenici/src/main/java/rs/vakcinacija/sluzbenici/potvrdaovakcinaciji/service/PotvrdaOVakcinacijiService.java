@@ -174,7 +174,7 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
             var brojDoze = vakcina.getBrojDoze().getValue();
             var proizvodjac = vakcina.getProizvodjac().getValue();
 
-            sb.append(brojDoze).append(".").append(proizvodjac).append(" ");
+            sb.append(proizvodjac).append(",");
             var doza = new Doza();
 
             doza.setBrojDoze(RDFInteger.of(brojDoze));
@@ -186,7 +186,8 @@ public class PotvrdaOVakcinacijiService extends DocumentService<PotvrdaOVakcinac
 
         vakcinacija.setDoze(doze);
         vakcinacija.setUstanova(RDFString.of(saglasnostZaSprovodjenjeImunizacije.getVakcinacija().getZdravstvenaUstanova().getNaziv().getValue()));
-        vakcinacija.setNazivVakcine(RDFString.of(sb.toString()));
+        var naziv = sb.substring(0, sb.toString().length() - 1);
+        vakcinacija.setNazivVakcine(RDFString.of(naziv));
 
         return vakcinacija;
     }
