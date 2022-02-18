@@ -8,7 +8,7 @@
             <head>
                 <title>Захтев за сертификат</title>
                 <style>
-                    body{
+                    .global-font-setting{
                     font-size: 22px;
                     }
 
@@ -30,7 +30,7 @@
 
                     }
 
-                    p{
+                    .global-font-setting p{
                     text-align: justify;
                     text-justify: inter-word;
                     }
@@ -82,7 +82,7 @@
 
                 </style>
             </head>
-            <body>
+            <body class="global-font-setting">
 
                 <div class="text-center heading">З А Х Т Е В</div>
                 <div class="text-center subheading">за издавање дигиталног зеленог сертификата</div>

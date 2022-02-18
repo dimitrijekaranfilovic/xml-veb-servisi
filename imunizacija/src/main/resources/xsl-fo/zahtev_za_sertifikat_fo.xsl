@@ -113,7 +113,7 @@
                     <fo:block margin-top="7mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         Разлог за подношење захтева:
                     </fo:block>
-                    <fo:block font-size="13pt">
+                    <fo:block font-size="13pt" font-family="SourceSansPro">
                         <xsl:apply-templates select="//b:razlog_za_podnosenje_zahteva"/>
                     </fo:block>
                     <fo:block margin-top="1mm" font-family="SourceSansPro" font-size="10px" font-weight="normal"
