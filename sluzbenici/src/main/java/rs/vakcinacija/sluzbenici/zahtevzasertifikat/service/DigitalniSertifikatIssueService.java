@@ -42,8 +42,8 @@ public class DigitalniSertifikatIssueService {
         var potvrdaOVakcinaciji = potvrdaOVakcinacijiService
                 .readByCitizenEmail(email)
                 .orElseThrow(() -> new CitizenHasNoVaccinationCertificateException("Грађанин нема ни једну потврду о вакцинацији која је непоходна за идавање Дигиталног сертификата."));
-        if (potvrdaOVakcinaciji.getVakcinacija().getDoze().getDoze().size() != 2) {
-            throw new CitizenDoesNotHaveTwoDosesException("Грађанин мора да прими 2 дозе вакцине да би му се издао Дигитални сертификат.");
+        if (potvrdaOVakcinaciji.getVakcinacija().getDoze().getDoze().size() < 2) {
+            throw new CitizenDoesNotHaveTwoDosesException("Грађанин мора да прими барем 2 дозе вакцине да би му се издао Дигитални сертификат.");
         }
         var vakcinacija = buildVakcinacija(potvrdaOVakcinaciji);
 
