@@ -12,15 +12,21 @@
           <v-row align="center" justify="center">
             <v-col cols="12" md="4">
               <v-subheader>Поднето докумената о интересовању</v-subheader>
-              <span class="number-span">0</span>
+              <span class="number-span">
+                {{ report.podnetoDokumenataOInteresovanju.value }}
+              </span>
             </v-col>
             <v-col cols="12" md="4">
               <v-subheader>Примљено захтева за сертификат</v-subheader>
-              <span class="number-span">0</span>
+              <span class="number-span">
+                {{ report.primljenoZahtevaZaSertifikat.value }}
+              </span>
             </v-col>
             <v-col cols="12" md="4">
               <v-subheader>Издато захтева за сертификат</v-subheader>
-              <span class="number-span">0</span>
+              <span class="number-span">
+                {{ report.izdatoZahtevaZaSertifikat.value }}
+              </span>
             </v-col>
           </v-row>
           <v-divider />
