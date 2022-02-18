@@ -67,7 +67,7 @@ export default {
           doc.datumVremeIzdavanja.value =
             dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
         }
-        that.sertifikati = data.data.digitalniSertifikati;
+        that.sertifikati = data.data.digitalniSertifikati || [];
         that.$root.$emit("digitalniSertifikatiFetched");
       });
     },

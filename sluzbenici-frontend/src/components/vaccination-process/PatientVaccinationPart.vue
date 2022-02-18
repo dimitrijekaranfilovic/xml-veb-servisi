@@ -96,14 +96,14 @@
                     readonly
                     v-bind="attrs"
                     v-on="on"
-                    v-model="pacijent.licneInformacije.datumRodjenja.value"
+                    v-model="dateOfBirth"
                   ></v-text-field>
                 </template>
                 <v-date-picker
                   no-title
                   scrollable
                   readonly
-                  v-model="pacijent.licneInformacije.datumRodjenja.value"
+                  v-model="dateOfBirth"
                 >
                 </v-date-picker>
               </v-menu>
@@ -298,9 +298,12 @@ export default {
         { value: "VOJSKA RS", text: "Војска РС" },
         { value: "DRUGO", text: "Друго" },
       ],
+      dateOfBirth: new Date(),
     };
   },
-  mounted() {},
+  mounted() {
+    this.dateOfBirth = new Date(this.pacijent.licneInformacije.datumRodjenja.value);
+  },
 };
 </script>
 

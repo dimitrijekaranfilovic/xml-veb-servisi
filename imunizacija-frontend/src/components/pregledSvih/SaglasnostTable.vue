@@ -77,7 +77,7 @@ export default {
           doc.datum.value =
             dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
         }
-        that.saglasnosti = data.data.saglasnosti;
+        that.saglasnosti = data.data.saglasnosti || [];
         that.$root.$emit("saglasnostiFetched");
       });
     },
