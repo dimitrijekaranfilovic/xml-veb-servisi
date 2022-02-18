@@ -109,4 +109,10 @@ public class SaglasnostController {
         //return vakcinaDTO;
     }
 
+    @GetMapping(value = "/string-pdf/{id}")
+    public byte[] stringPdf(@PathVariable UUID id) throws Exception {
+        var pdf = saglasnostService.getPDFRepresentation(id);
+        return pdf.readAllBytes();
+    }
+
 }

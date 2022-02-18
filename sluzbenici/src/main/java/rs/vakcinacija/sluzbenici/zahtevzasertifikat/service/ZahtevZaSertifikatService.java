@@ -12,6 +12,7 @@ import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.KolekcijaZahtevaZaSert
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.model.ZahtevZaSertifikat;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.UUID;
 
@@ -97,6 +98,10 @@ public class ZahtevZaSertifikatService {
     }
 
     public InputStreamResource pdf(UUID id) {
-        return client.pdf(id);
+        return new InputStreamResource(
+                new ByteArrayInputStream(
+                        client.pdf(id)
+                )
+        );
     }
 }

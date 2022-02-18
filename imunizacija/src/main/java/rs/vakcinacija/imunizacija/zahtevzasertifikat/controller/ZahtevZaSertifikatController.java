@@ -72,6 +72,12 @@ public class ZahtevZaSertifikatController {
         return new ResponseEntity<>(new InputStreamResource(zahtevZaSertifiaktService.getPDFRepresentation(id)), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/string-pdf/{id}")
+    public byte[] stringPdf(@PathVariable UUID id) throws Exception {
+        var pdf = zahtevZaSertifiaktService.getPDFRepresentation(id);
+        return pdf.readAllBytes();
+    }
+
     @GetMapping(value = "/html/{id}")
     public String generateHtml(@PathVariable UUID id) throws Exception {
         return zahtevZaSertifiaktService.getHTMLRepresentation(id);

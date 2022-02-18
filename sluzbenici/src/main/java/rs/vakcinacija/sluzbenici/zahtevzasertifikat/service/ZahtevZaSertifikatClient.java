@@ -34,6 +34,6 @@ public interface ZahtevZaSertifikatClient {
     @GetMapping(value = "/html/{id}")
     String html(@PathVariable UUID id);
 
-    @GetMapping(value = "/pdf/{id}")
-    InputStreamResource pdf(@PathVariable UUID id);
+    @GetMapping(value = "/string-pdf/{id}")
+    byte[] pdf(@PathVariable UUID id);
 }
