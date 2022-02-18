@@ -16,35 +16,48 @@
 
             <fo:page-sequence master-reference="zahtev-za-sertifikat-page">
                 <fo:flow flow-name="xsl-region-body">
-                    <fo:block font-family="SourceSansPro" font-size="17px" font-weight="bold" text-align="center">
+                    <fo:block font-family="SourceSansPro" font-size="20px" font-weight="bold" text-align="center">
                         ЗАХТЕВ
                     </fo:block>
-                    <fo:block font-family="SourceSansPro" font-size="17px" font-weight="bold" text-align="center">
+                    <fo:block font-family="SourceSansPro" font-size="14px" font-weight="bold" text-align="center">
                         за издавање дигиталног зеленог сертификата
                     </fo:block>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
-                        У складу са одредбом Републике Србије о издавању дигиталног зеленог
-                        сертификата као потврде о извршеној вакцинацији против COVID-19, резултатима тестирања на
+                    <fo:block text-align="justify" start-indent="1.15cm" margin-top="10mm" font-family="SourceSansPro"
+                              font-size="14px" font-weight="normal">
+                        У складу са одредбом Републике Србије о издавању дигиталног зеленог сертификата
+                    </fo:block>
+                    <fo:block text-align="justify" font-family="SourceSansPro" font-size="14px" font-weight="normal">
+                        као потврде о
+                        извршеној вакцинацији против COVID-19, резултатима тестирања на
                         заразну
                         болест SARS-CoV-2 или опоравку од болести COVID-19, подносим захтев за издавање дигиталног
                         зеленог
                         сертификата.
                     </fo:block>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="12px" font-weight="normal">
+
+                    <fo:block margin-top="10mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         Подносилац захтева:
                     </fo:block>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
+                    <fo:block margin-top="7mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         Име и презиме:
                         <xsl:value-of select="//za:ime"/>
                         <xsl:text> </xsl:text>
                         <xsl:value-of select="//za:prezime"/>
                     </fo:block>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
+                    <fo:block margin-top="-4mm" margin-left="33.5mm">
+                        <fo:leader leader-pattern="dots" leader-length="100%" rule-style="solid"
+                                   rule-thickness="1pt"/>
+                    </fo:block>
+                    <fo:block margin-top="1mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         Датум рођења:
                         <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/>
                     </fo:block>
+                    <fo:block margin-top="-4mm" margin-left="33mm">
+                        <fo:leader leader-pattern="dots" leader-length="100%" rule-style="solid"
+                                   rule-thickness="1pt"/>
+                    </fo:block>
                     <xsl:variable name="x" select="//za:pol"/>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
+                    <fo:block margin-top="1mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         Пол:
                         <xsl:choose>
                             <xsl:when test="$x = 'MUSKI'">
@@ -57,8 +70,12 @@
                             </xsl:when>
                         </xsl:choose>
                     </fo:block>
+                    <fo:block margin-top="-4mm" margin-left="10.5mm">
+                        <fo:leader leader-pattern="dots" leader-length="100%" rule-style="solid"
+                                   rule-thickness="1pt"/>
+                    </fo:block>
                     <xsl:variable name="jmbg" select="//za:jmbg"/>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
+                    <fo:block margin-top="1mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         Јединствени матични број грађанина:
                         <xsl:choose>
                             <xsl:when test="$jmbg = ''">
@@ -71,10 +88,13 @@
                             </xsl:when>
                         </xsl:choose>
                     </fo:block>
+                    <fo:block margin-top="-4mm" margin-left="84mm">
+                        <fo:leader leader-pattern="dots" leader-length="100%" rule-style="solid"
+                                   rule-thickness="1pt"/>
+                    </fo:block>
                     <xsl:variable name="broj_pasosa" select="//b:broj_pasosa"/>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
+                    <fo:block margin-top="1mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         Број пасоша:
-                        <xsl:value-of select="//za:broj_mobilnog"/>
                         <xsl:choose>
                             <xsl:when test="$broj_pasosa = ''">
                                 Није унесен број пасоша
@@ -85,20 +105,30 @@
                                 <xsl:value-of select="//b:broj_pasosa"/>
                             </xsl:when>
                         </xsl:choose>
-                        <xsl:value-of select="//b:broj_pasosa"/>
                     </fo:block>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
+                    <fo:block margin-top="-4mm" margin-left="28.5mm">
+                        <fo:leader leader-pattern="dots" leader-length="100%" rule-style="solid"
+                                   rule-thickness="1pt"/>
+                    </fo:block>
+                    <fo:block margin-top="7mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         Разлог за подношење захтева:
                     </fo:block>
-                    <fo:block font-size="15pt">
+                    <fo:block font-size="13pt">
                         <xsl:apply-templates select="//b:razlog_za_podnosenje_zahteva"/>
                     </fo:block>
-                    <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal"
+                    <fo:block margin-top="1mm" font-family="SourceSansPro" font-size="10px" font-weight="normal"
                               text-align="center">
                         (навести што прецизнији разлог за подношење захтева за издавање дигиталног
                         пасоша)
                     </fo:block>
-                    <fo:block margin-top="25mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
+                    <fo:block margin-top="20mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
+                        У
+                        <fo:inline border-bottom="solid" border-bottom-width="0.2mm">
+                            <xsl:value-of select="//b:mesto"/>
+                        </fo:inline>
+                        ,
+                    </fo:block>
+                    <fo:block margin-top="8mm" font-family="SourceSansPro" font-size="14px" font-weight="normal">
                         дана
                         <fo:inline border-bottom="solid" border-bottom-width="0.2mm">
                             <xsl:value-of select="substring(//b:datum, 9, 2)"/>.<xsl:value-of
@@ -112,9 +142,9 @@
                     </fo:block>
                     <fo:block>
                         <fo:float float="end">
-                            <fo:block padding-left="20mm" padding-right="20mm" padding-top="2mm"
+                            <fo:block padding-left="20mm" padding-right="20mm" padding-top="2mm" margin-top="20"
                                       font-family="SourceSansPro"
-                                      font-size="11px" font-weight="normal" border-top="solid" border-top-width="0.2mm">
+                                      font-size="14px" font-weight="normal" border-top="solid" border-top-width="0.2mm">
                                 Потпис
                             </fo:block>
                         </fo:float>
@@ -134,6 +164,10 @@
         <xsl:message>Strong</xsl:message>
         <fo:block font-weight="normal">
             <xsl:apply-templates/>
+            <fo:block margin-top="-4mm" margin-left="0mm">
+                <fo:leader leader-pattern="dots" leader-length="100%" rule-style="solid"
+                           rule-thickness="1pt"/>
+            </fo:block>
         </fo:block>
     </xsl:template>
     <xsl:template match="strong">
