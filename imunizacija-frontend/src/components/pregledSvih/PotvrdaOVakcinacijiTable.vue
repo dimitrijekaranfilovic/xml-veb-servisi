@@ -70,12 +70,14 @@ export default {
     fetchData() {
       let that = this;
       PotvrdaOVakcinacijiService.getAllForUser().then((data) => {
-        for (let doc of data.data.potvrde) {
-          let dateTokens = new Date(doc.datumIzdavanja.value)
-            .toString()
-            .split(" ");
-          doc.datumIzdavanja.value =
-            dateTokens[1] + " " + dateTokens[2] + " " + dateTokens[3];
+        if (data && data.data && data.data.potvrde) {
+          for (let doc of data.data.potvrde) {
+            let dateTokens = new Date(doc.datumIzdavanja.value)
+              .toString()
+              .split(" ");
+            doc.datumIzdavanja.value =
+              dateTokens[1] + " " + dateTokens[2] + " " + dateTokens[3];
+          }
         }
         that.potvrde = data.data.potvrde || [];
         that.$root.$emit("potvrdeOVakcinacijiFetched");
