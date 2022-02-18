@@ -121,11 +121,12 @@
             </v-card-title>
             <v-card-text>
               <v-container fluid>
-                <v-text-field
+                <v-select
                   label="Назив вакцине"
+                  :items="vaccines"
                   required
                   v-model="newVaccineObj.nova_vakcina.naziv_vakcine"
-                ></v-text-field>
+                ></v-select>
                 <v-text-field
                   type="number"
                   label="Стање вакцине"
@@ -267,11 +268,13 @@
 
 <script>
 import vaccinationPlaceService from "@/services/VaccinationPlaceService";
+import { vaccines } from "@/util/vaccines";
 export default {
   name: "VaccinationPlaceDetails",
   props: ["vaccinationPlace"],
   data() {
     return {
+      vaccine: [],
       loadingUpdateVaccine: false,
       loadingAddAppintment: false,
       loadingAddVaccine: false,
@@ -354,6 +357,9 @@ export default {
           this.$router.go(0);
         });
     },
+  },
+  mounted() {
+    this.vaccines = vaccines;
   },
 };
 </script>
