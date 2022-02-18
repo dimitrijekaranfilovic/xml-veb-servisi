@@ -79,7 +79,7 @@
                                 <fo:table-row>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Презиме:</fo:inline>
+                                            <fo:inline font-weight="bold">Презиме: </fo:inline>
                                             <xsl:value-of select="//b:puno_ime/za:prezime"/>
                                         </fo:block>
                                     </fo:table-cell>
@@ -88,7 +88,7 @@
                                     </fo:table-cell>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Име:</fo:inline>
+                                            <fo:inline font-weight="bold">Име: </fo:inline>
                                             <xsl:value-of select="//b:puno_ime/za:ime"/>
                                         </fo:block>
                                     </fo:table-cell>
@@ -97,7 +97,7 @@
                                     </fo:table-cell>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Име родитеља:</fo:inline>
+                                            <fo:inline font-weight="bold">Име родитеља: </fo:inline>
                                             <xsl:value-of select="//b:puno_ime/b:ime_roditelja"/>
                                         </fo:block>
                                     </fo:table-cell>
@@ -120,10 +120,10 @@
                                             <fo:inline font-weight="bold">Pol:</fo:inline>
                                             <xsl:choose>
                                                 <xsl:when test="$x = 'MUSKI'">
-                                                    М
+                                                    ☑ М ☐ Ж
                                                 </xsl:when>
                                                 <xsl:when test="$x = 'ZENSKI'">
-                                                    Ж
+                                                    ☐ М ☑ Ж
                                                 </xsl:when>
                                             </xsl:choose>
                                         </fo:block>
@@ -133,8 +133,10 @@
                                     </fo:table-cell>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Датум рођења:</fo:inline>
-                                            <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/>
+                                            <fo:inline font-weight="bold">Датум рођења: </fo:inline>
+                                            <xsl:value-of select="substring(//b:datum, 9, 2)"/>.<xsl:value-of
+                                                select="substring(//b:datum, 6, 2)"/>.<xsl:value-of
+                                                select="substring(//b:datum, 0, 5)"/>
                                         </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell>
@@ -159,7 +161,7 @@
                                 <fo:table-row>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Адреса(улица и број):</fo:inline>
+                                            <fo:inline font-weight="bold">Адреса(улица и број): </fo:inline>
                                             <xsl:value-of
                                                     select="//b:ulica"/>,
                                             <xsl:value-of select="//b:broj_zgrade"/>
@@ -170,7 +172,7 @@
                                     </fo:table-cell>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Место/Насеље:</fo:inline>
+                                            <fo:inline font-weight="bold">Место/Насеље: </fo:inline>
                                             <xsl:value-of select="//b:mesto"/>
                                         </fo:block>
                                     </fo:table-cell>
@@ -187,7 +189,7 @@
                                 <fo:table-row>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Општина/град:</fo:inline>
+                                            <fo:inline font-weight="bold">Општина/град: </fo:inline>
                                             <xsl:value-of select="//b:opstina"/>
                                         </fo:block>
                                     </fo:table-cell>
@@ -196,7 +198,7 @@
                                     </fo:table-cell>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Тел. фиксни:</fo:inline>
+                                            <fo:inline font-weight="bold">Тел. фиксни: </fo:inline>
                                             <xsl:value-of select="//za:broj_fiksnog"/>
                                         </fo:block>
                                     </fo:table-cell>
@@ -213,7 +215,7 @@
                                 <fo:table-row>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Тел. мобилни:</fo:inline>
+                                            <fo:inline font-weight="bold">Тел. мобилни: </fo:inline>
                                             <xsl:value-of select="//za:broj_mobilnog"/>
                                         </fo:block>
                                     </fo:table-cell>
@@ -222,7 +224,7 @@
                                     </fo:table-cell>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Имејл:</fo:inline>
+                                            <fo:inline font-weight="bold">Имејл: </fo:inline>
                                             <xsl:value-of select="//za:email"/>
                                         </fo:block>
                                     </fo:table-cell>
@@ -232,49 +234,105 @@
                     </fo:block>
                     <fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
                         <xsl:variable name="x" select="//b:radni_status"/>
-                        <fo:inline font-weight="bold">Радни статус:</fo:inline>
+                        <fo:inline font-weight="bold">Радни статус: </fo:inline>
                         <xsl:choose>
                             <xsl:when test="$x = 'ZAPOSLEN'">
-                                <fo:inline>запослен</fo:inline>
+                                <fo:inline> ☑ запослен</fo:inline>
                             </xsl:when>
+                            <xsl:when test="$x != 'ZAPOSLEN'">
+                                <fo:inline> ☐ запослен</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'NEZAPOSLEN'">
-                                <fo:inline>незапослен</fo:inline>
+                                <fo:inline> ☑ незапослен</fo:inline>
                             </xsl:when>
+                            <xsl:when test="$x != 'NEZAPOSLEN'">
+                                <fo:inline> ☐ незапослен</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'PENZIONER'">
-                                <fo:inline>пензионер</fo:inline>
+                                <fo:inline> ☑ пензионер</fo:inline>
                             </xsl:when>
+                            <xsl:when test="$x != 'PENZIONER'">
+                                <fo:inline> ☐ пензионер</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'UCENIK'">
-                                <fo:inline>ученик</fo:inline>
+                                <fo:inline> ☑ ученик</fo:inline>
                             </xsl:when>
+                            <xsl:when test="$x != 'UCENIK'">
+                                <fo:inline> ☐ ученик</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'STUDENT'">
-                                <fo:inline>студент</fo:inline>
+                                <fo:inline> ☑ студент</fo:inline>
                             </xsl:when>
+                            <xsl:when test="$x != 'STUDENT'">
+                                <fo:inline> ☐ студент</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'DETE'">
-                                <fo:inline>дете</fo:inline>
+                                <fo:inline> ☑ дете</fo:inline>
+                            </xsl:when>
+                            <xsl:when test="$x != 'DETE'">
+                                <fo:inline> ☐ дете</fo:inline>
                             </xsl:when>
                         </xsl:choose>
                     </fo:block>
                     <fo:block font-family="SourceSansPro" font-size="11px" font-weight="normal" margin-top="2mm">
                         <xsl:variable name="x" select="//b:zanimanje_zaposlenog"/>
-                        <fo:inline font-weight="bold">Занимање запосленог:</fo:inline>
+                        <fo:inline font-weight="bold">Занимање запосленог: </fo:inline>
                         <xsl:choose>
                             <xsl:when test="$x = 'ZDRAVSTVENA_ZASTITA'">
-                                <fo:inline>здравствена заштита</fo:inline>
+                                <fo:inline> ☑ здравствена заштита</fo:inline>
                             </xsl:when>
+                            <xsl:when test="$x != 'ZDRAVSTVENA_ZASTITA'">
+                                <fo:inline> ☐ здравствена заштита</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'SOCIJALNA_ZASTITA'">
-                                <fo:inline>социјална заштита</fo:inline>
+                                <fo:inline> ☑ социјална заштита</fo:inline>
                             </xsl:when>
-                            <xsl:when test="$x = 'POSVETA'">
-                                <fo:inline>просвета</fo:inline>
+                            <xsl:when test="$x != 'SOCIJALNA_ZASTITA'">
+                                <fo:inline> ☐ социјална заштита</fo:inline>
                             </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="$x = 'PROSVETA'">
+                                <fo:inline> ☑ просвета</fo:inline>
+                            </xsl:when>
+                            <xsl:when test="$x != 'PROSVETA'">
+                                <fo:inline> ☐ просвета</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'MUP'">
-                                <fo:inline>МУП</fo:inline>
+                                <fo:inline> ☑ МУП</fo:inline>
                             </xsl:when>
+                            <xsl:when test="$x != 'MUP'">
+                                <fo:inline> ☐ МУП</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'VOJSKA'">
-                                <fo:inline>Војска РС</fo:inline>
+                                <fo:inline> ☑ Војска РС</fo:inline>
                             </xsl:when>
+                            <xsl:when test="$x != 'VOJSKA'">
+                                <fo:inline> ☐ Војска РС</fo:inline>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
                             <xsl:when test="$x = 'DRUGO'">
-                                <fo:inline>друго</fo:inline>
+                                <fo:inline> ☑ друго</fo:inline>
+                            </xsl:when>
+                            <xsl:when test="$x != 'DRUGO'">
+                                <fo:inline> ☐ друго</fo:inline>
                             </xsl:when>
                         </xsl:choose>
                     </fo:block>
@@ -282,19 +340,23 @@
                         <fo:table>
                             <fo:table-column column-width="55%"/>
                             <fo:table-column column-width="5%"/>
-                            <fo:table-column column-width="50%"/>
+                            <fo:table-column column-width="70%"/>
                             <fo:table-body>
                                 <fo:table-row>
                                     <xsl:variable name="x" select="//b:korisnik_ustanove_socijalne_zastite"/>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Корисник установе соц. заштите:</fo:inline>
+                                            <fo:inline font-weight="bold">Корисник установе соц. заштите: </fo:inline>
                                             <xsl:choose>
                                                 <xsl:when test="$x = 'true'">
-                                                    <fo:inline>ДА</fo:inline>
+                                                    <fo:inline>☑ ДА</fo:inline>
+                                                    <fo:inline><xsl:text> </xsl:text></fo:inline>
+                                                    <fo:inline>☐ НЕ</fo:inline>
                                                 </xsl:when>
                                                 <xsl:when test="$x = 'false'">
-                                                    <fo:inline>НЕ</fo:inline>
+                                                    <fo:inline>☐ ДА</fo:inline>
+                                                    <fo:inline><xsl:text> </xsl:text></fo:inline>
+                                                    <fo:inline>☑ НЕ</fo:inline>
                                                 </xsl:when>
                                             </xsl:choose>
                                         </fo:block>
@@ -304,7 +366,7 @@
                                     </fo:table-cell>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Назив и општина седишта:</fo:inline>
+                                            <fo:inline font-weight="bold">Назив и општина седишта: </fo:inline>
                                             <xsl:value-of select="//b:naziv_sedista"/>
                                             <xsl:value-of select="//b:opstina_sedista"/>
                                         </fo:block>
@@ -321,7 +383,7 @@
                                     <fo:table-cell vertical-align="middle">
                                         <xsl:variable name="x" select="//b:izjava"/>
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Изјављујем да:</fo:inline>
+                                            <fo:inline font-weight="bold">Изјављујем да: </fo:inline>
                                             <xsl:choose>
                                                 <xsl:when test="$x = 'true'">
                                                     <fo:inline font-weight="bold">САГЛАСАН САМ</fo:inline>
@@ -360,7 +422,7 @@
                             <fo:block font-family="SourceSansPro">
                                 <xsl:value-of select="substring(//b:datum, 9, 2)"/>.<xsl:value-of
                                     select="substring(//b:datum, 6, 2)"/>.<xsl:value-of
-                                    select="substring(//b:datum, 0, 4)"/>
+                                    select="substring(//b:datum, 0, 5)"/>
                             </fo:block>
                         </fo:float>
                     </fo:block>

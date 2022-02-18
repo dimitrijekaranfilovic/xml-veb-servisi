@@ -150,7 +150,11 @@ xmlns:b="https://www.vakcinacija.rs/saglasnost">
 				      </input>
 				      <span class="vl"></span>
 				      <b>Датум рођења: </b>
-				      <span class="podvuceno"><xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/></span>
+				      <span class="podvuceno">
+						  <xsl:value-of select="substring(//b:datum, 9, 2)"/>.<xsl:value-of
+							  select="substring(//b:datum, 6, 2)"/>.<xsl:value-of
+							  select="substring(//b:datum, 0, 5)"/>
+					  </span>
 				      <span class="vl"></span>
 				      <b>Место рођења: </b>
 				      <span class="podvuceno"><xsl:value-of select="//b:mesto_rodjenja"/></span>
