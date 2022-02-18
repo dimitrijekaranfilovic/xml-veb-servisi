@@ -157,13 +157,12 @@
     </xsl:template>
 
     <xsl:template match="//b:razlog_za_podnosenje_zahteva">
-        <xsl:message>Description</xsl:message>
         <xsl:apply-templates select="d:htmlparse(., '', true())/node()"/>
     </xsl:template>
 
     <!-- HTML ENTITIES -->
     <xsl:template match="p">
-        <xsl:message>Strong</xsl:message>
+        <xsl:message>Paragraph</xsl:message>
         <fo:block font-weight="normal">
             <xsl:apply-templates/>
             <fo:block margin-top="-4mm" margin-left="0mm">
