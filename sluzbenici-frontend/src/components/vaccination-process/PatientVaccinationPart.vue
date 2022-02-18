@@ -96,14 +96,14 @@
                     readonly
                     v-bind="attrs"
                     v-on="on"
-                    v-model="pacijent.licneInformacije.datumRodjenja.value"
+                    v-model="dateOfBirth"
                   ></v-text-field>
                 </template>
                 <v-date-picker
                   no-title
                   scrollable
                   readonly
-                  v-model="pacijent.licneInformacije.datumRodjenja.value"
+                  v-model="dateOfBirth"
                 >
                 </v-date-picker>
               </v-menu>
@@ -268,7 +268,7 @@
 </template>
 
 <script>
-//TODO: vidi za checkboxove
+import moment from "moment";
 export default {
   name: "PatientVaccinationPart",
   props: ["pacijent"],
@@ -298,9 +298,15 @@ export default {
         { value: "VOJSKA RS", text: "Војска РС" },
         { value: "DRUGO", text: "Друго" },
       ],
+      dateOfBirth: new Date(),
     };
   },
-  mounted() {},
+  watch: {
+    pacijent() {
+      const date = new Date(this.pacijent.licneInformacije.datumRodjenja.value);
+      this.dateOfBirth = moment(date).format("DD.MM.YYYY.");
+    },
+  },
 };
 </script>
 
