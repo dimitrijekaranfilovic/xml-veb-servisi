@@ -2,7 +2,6 @@
   <v-container>
     <v-row align="start">
       <v-col>
-        <!-- <v-btn color="primary"> Dodaj punkt </v-btn> -->
         <v-dialog v-model="dialog" max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" v-bind="attrs" v-on="on">
@@ -15,11 +14,12 @@
             </v-card-title>
             <v-card-text>
               <v-container fluid>
-                <v-text-field
+                <v-select
                   label="Назив пункта"
                   v-model="obj.vakcinacioni_punkt.naziv_punkta"
+                  :items="places"
                   required
-                ></v-text-field>
+                ></v-select>
               </v-container>
             </v-card-text>
             <v-card-actions>
@@ -31,6 +31,7 @@
                 color="primary"
                 text
                 @click="addVaccinationPlace()"
+                :loading="loading"
                 :disabled="obj.vakcinacioni_punkt.naziv_punkta === ''"
               >
                 Потврди
@@ -47,6 +48,8 @@
 <script>
 import VaccinationPlaceTable from "@/components/vaccination-place/VaccinationPlaceTable.vue";
 import vaccinationPlaceService from "@/services/VaccinationPlaceService";
+import { places } from "@/util/places";
+
 export default {
   name: "VaccinationPlaceManagement",
   components: {
@@ -55,6 +58,8 @@ export default {
   data() {
     return {
       dialog: false,
+      loading: false,
+      places: [],
       vaccinationPlaces: [],
       obj: {
         vakcinacioni_punkt: {
@@ -64,18 +69,21 @@ export default {
     };
   },
   mounted() {
+    this.places = places;
     vaccinationPlaceService.getVaccinationPlaces().then((response) => {
       this.vaccinationPlaces = response.data.vakcinacioniPunktovi;
     });
   },
   methods: {
     addVaccinationPlace() {
+      this.loading = true;
       vaccinationPlaceService
         .createVaccinationPlace(this.obj)
         .then((response) => {
           const data = response.data;
           this.obj.vakcinacioni_punkt.naziv_punkta = "";
           this.dialog = false;
+          this.loading = false;
           this.vaccinationPlaces.push({
             nazivPunkta: data.nazivPunkta,
             id: data.id,
