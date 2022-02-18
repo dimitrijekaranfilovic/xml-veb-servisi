@@ -17,7 +17,7 @@
             <fo:page-sequence master-reference="zahtev-za-sertifikat-page">
                 <fo:flow flow-name="xsl-region-body">
                     <fo:block font-family="SourceSansPro" font-size="20px" font-weight="bold" text-align="center">
-                        ЗАХТЕВ
+                        З А Х Т Е В
                     </fo:block>
                     <fo:block font-family="SourceSansPro" font-size="14px" font-weight="bold" text-align="center">
                         за издавање дигиталног зеленог сертификата
@@ -136,10 +136,12 @@
                         </fo:inline>
                         20
                         <fo:inline border-bottom="solid" border-bottom-width="0.2mm">
-                            <xsl:value-of select="substring(//b:datum, 3, 2)"/>
+                            <xsl:value-of select="substring(//b:datum, 3, 2)"/>.
                         </fo:inline>
                         године
                     </fo:block>
+                    <fo:block margin-top="20"/>
+                    <fo:block margin-top="20"/>
                     <fo:block>
                         <fo:float float="end">
                             <fo:block padding-left="20mm" padding-right="20mm" padding-top="2mm" margin-top="20"
