@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="zahtevi"
+    :items="potvrde"
     :items-per-page="5"
     item-key="id"
     class="elevation-1"
@@ -15,9 +15,9 @@
   >
     <template v-slot:item="row">
       <tr>
-        <td>{{ row.item.datum.value }}</td>
-        <td>{{ row.item.mesto.value }}</td>
-        <td>{{ row.item.status.value }}</td>
+        <td>{{ row.item.datumIzdavanja.value }}</td>
+        <td>{{ row.item.vakcinacija.ustanova.value }}</td>
+        <td>{{ row.item.vakcinacija.nazivVakcine.value }}</td>
         <td align="right">
           <v-btn
             class="mx-2"
@@ -43,24 +43,24 @@ export default {
     return {
       headers: [
         {
-          text: "Поднешено дана",
+          text: "Датум издавања",
           align: "start",
-          value: "datum.value",
+          value: "datumIzdavanja.value",
         },
         {
-          text: "Место подношења",
-          value: "mesto.value",
+          text: "Установа",
+          value: "vakcinacija.ustanova.value",
         },
         {
-          text: "Статус",
-          value: "status.value",
+          text: "Назив вакцине",
+          value: "vakcinacija.nazivVakcine.value",
         },
         {
           text: "Акција",
           align: "right",
         },
       ],
-      zahtevi: [],
+      potvrde: [],
     };
   },
   mounted() {
@@ -71,11 +71,13 @@ export default {
       let that = this;
       PotvrdaOVakcinacijiService.getAllForUser().then((data) => {
         for (let doc of data.data.potvrde) {
-          let dateToekns = new Date(doc.datum.value).toString().split(" ");
-          doc.datum.value =
-            dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
+          let dateTokens = new Date(doc.datumIzdavanja.value)
+            .toString()
+            .split(" ");
+          doc.datumIzdavanja.value =
+            dateTokens[1] + " " + dateTokens[2] + " " + dateTokens[3];
         }
-        that.zahtevi = data.data.potvrde;
+        that.potvrde = data.data.potvrde;
         that.$root.$emit("potvrdeOVakcinacijiFetched");
       });
     },
