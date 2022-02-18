@@ -268,7 +268,7 @@
 </template>
 
 <script>
-//TODO: vidi za checkboxove
+import moment from "moment";
 export default {
   name: "PatientVaccinationPart",
   props: ["pacijent"],
@@ -301,8 +301,11 @@ export default {
       dateOfBirth: new Date(),
     };
   },
-  mounted() {
-    this.dateOfBirth = new Date(this.pacijent.licneInformacije.datumRodjenja.value);
+  watch: {
+    pacijent() {
+      const date = new Date(this.pacijent.licneInformacije.datumRodjenja.value);
+      this.dateOfBirth = moment(date).format("DD.MM.YYYY.");
+    },
   },
 };
 </script>
