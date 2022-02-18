@@ -40,6 +40,12 @@
         <font kerning="yes"  embed-url="fonts/SourceSansPro-Bold.ttf">
           <font-triplet name="SourceSansPro" style="normal" weight="bold"/>
         </font>
+        <font kerning="yes"  embed-url="fonts/SourceSansPro-Italic.ttf">
+          <font-triplet name="SourceSansPro" style="italic" weight="normal"/>
+        </font>
+        <font kerning="yes"  embed-url="fonts/SourceSansPro-BoldItalic.ttf">
+          <font-triplet name="SourceSansPro" style="italic" weight="bold"/>
+        </font>
       </fonts>
     </renderer>
   </renderers>

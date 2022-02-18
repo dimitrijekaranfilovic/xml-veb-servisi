@@ -100,9 +100,9 @@ public class ZahtevZaSertifiaktService extends DocumentService<ZahtevZaSertifika
 
     public ByteArrayInputStream getPDFRepresentation(UUID id) throws Exception {
         ZahtevZaSertifikat zahtevZaSertifikat = read(id);
-        var razlog = zahtevZaSertifikat.getRazlogZaPodnosenjeZahteva().getValue();
-        razlog = razlog.replaceAll("<[^>]*>", "");
-        zahtevZaSertifikat.setRazlogZaPodnosenjeZahteva(RDFString.of(razlog));
+//        var razlog = zahtevZaSertifikat.getRazlogZaPodnosenjeZahteva().getValue();
+//        razlog = razlog.replaceAll("<[^>]*>", "");
+//        zahtevZaSertifikat.setRazlogZaPodnosenjeZahteva(RDFString.of(razlog));
         return generatePDF(zahtevZaSertifikat, "src/main/resources/xsl-fo/zahtev_za_sertifikat_fo.xsl");
     }
 }

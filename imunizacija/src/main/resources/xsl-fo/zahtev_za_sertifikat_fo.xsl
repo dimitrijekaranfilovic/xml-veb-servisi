@@ -3,7 +3,9 @@
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 xmlns:za="https://www.vakcinacija.rs/zajednicko"
                 xmlns:b="https://www.vakcinacija.rs/zahtev_za_sertifikat"
-                xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                xmlns:d="data:,dpc"
+>
+    <xsl:import href="https://raw.githubusercontent.com/davidcarlisle/web-xslt/master/htmlparse/htmlparse.xsl"/>
     <xsl:template match="b:zahtev_za_sertifikat">
         <fo:root>
             <fo:layout-master-set>
@@ -88,10 +90,6 @@
                     <fo:block margin-top="5mm" font-family="SourceSansPro" font-size="11px" font-weight="normal">
                         Разлог за подношење захтева:
                     </fo:block>
-                    <!--                    <fo:block linefeed-treatment="preserve" white-space-collapse="false" margin-top="5mm"-->
-                    <!--                              font-family="SourceSansPro" font-size="11px" font-weight="normal">-->
-                    <!--                        <xsl:value-of select="//b:razlog_za_podnosenje_zahteva" disable-output-escaping="yes"/>-->
-                    <!--                    </fo:block>-->
                     <fo:block font-size="15pt">
                         <xsl:apply-templates select="//b:razlog_za_podnosenje_zahteva"/>
                     </fo:block>
@@ -114,7 +112,8 @@
                     </fo:block>
                     <fo:block>
                         <fo:float float="end">
-                            <fo:block padding-left="20mm" padding-right="20mm" padding-top="2mm" font-family="SourceSansPro"
+                            <fo:block padding-left="20mm" padding-right="20mm" padding-top="2mm"
+                                      font-family="SourceSansPro"
                                       font-size="11px" font-weight="normal" border-top="solid" border-top-width="0.2mm">
                                 Потпис
                             </fo:block>
@@ -127,25 +126,37 @@
 
     <xsl:template match="//b:razlog_za_podnosenje_zahteva">
         <xsl:message>Description</xsl:message>
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="d:htmlparse(., '', true())/node()"/>
     </xsl:template>
 
     <!-- HTML ENTITIES -->
-    <xsl:template match="xhtml:p">
+    <xsl:template match="p">
         <xsl:message>Strong</xsl:message>
-        <fo:inline font-weight="normal">
+        <fo:block font-weight="normal">
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+    <xsl:template match="strong">
+        <xsl:message>Strong</xsl:message>
+        <fo:inline font-weight="bold">
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
-    <xsl:template match="b:razlog_za_podnosenje_zahteva">
+    <xsl:template match="em">
         <xsl:message>italic</xsl:message>
         <fo:inline font-style="italic">
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
-    <xsl:template match="b:razlog_za_podnosenje_zahteva">
+    <xsl:template match="u">
         <xsl:message>underline</xsl:message>
         <fo:inline text-decoration="underline">
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>
+    <xsl:template match="s">
+        <xsl:message>underline</xsl:message>
+        <fo:inline text-decoration="line-through">
             <xsl:apply-templates/>
         </fo:inline>
     </xsl:template>
