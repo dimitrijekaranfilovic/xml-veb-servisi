@@ -13,23 +13,23 @@
             </fo:layout-master-set>
             <fo:page-sequence master-reference="izvestaj-o-imunizaciji-page">
                 <fo:block>
-                    <fo:block linefeed-treatment="preserve" font-family="Arial" font-size="20px" font-weight="bold"
+                    <fo:block linefeed-treatment="preserve" font-family="SourceSansPro" font-size="20px" font-weight="bold"
                               padding="1px">
                         Извештај о имунизацији
                     </fo:block>
                 </fo:block>
-                <fo:block font-family="Arial" font-size="11px" margin-top="10mm">
+                <fo:block font-family="SourceSansPro" font-size="11px" margin-top="10mm">
                     Извештај се односи на период од
-                    <fo:block font-family="Arial" font-size="11px" font-weight="bold">
+                    <fo:block font-family="SourceSansPro" font-size="11px" font-weight="bold">
                         <xsl:value-of select="substring(//b:period_od, 0, 11)"/>
                     </fo:block>
                     до
-                    <fo:block font-family="Arial" font-size="11px" font-weight="bold">
+                    <fo:block font-family="SourceSansPro" font-size="11px" font-weight="bold">
                         <xsl:value-of select="substring(//b:period_od, 0, 11)"/>
                     </fo:block>
                 </fo:block>
 
-                <fo:block font-family="Arial" font-size="11px" margin-top="10mm">
+                <fo:block font-family="SourceSansPro" font-size="11px" margin-top="10mm">
                     У напоменутом временском интервалу је:
                     <fo:list-block>
                         <fo:list-item>
@@ -67,14 +67,14 @@
                     </fo:list-block>
                 </fo:block>
 
-                <fo:block font-family="Arial" font-size="11px" margin-top="10mm">
+                <fo:block font-family="SourceSansPro" font-size="11px" margin-top="10mm">
                     Дато је
                     <fo:block font-weight="bold">
                         <xsl:value-of select="sum(//b:data_doza/b:broj_datih_doza)"/>
                     </fo:block>
                     доза вакцине против COVID-19 вируса у
                     следећој количини:
-                    <fo:block font-family="Arial" font-size="11px" font-weight="bold" margin-top="10mm">
+                    <fo:block font-family="SourceSansPro" font-size="11px" font-weight="bold" margin-top="10mm">
                         <fo:table>
                             <fo:table-column column-width="30%"/>
                             <fo:table-column column-width="30%"/>
