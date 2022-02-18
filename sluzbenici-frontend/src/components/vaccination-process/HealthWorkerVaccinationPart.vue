@@ -196,6 +196,8 @@
                   <v-select
                     label="Екстремитет"
                     :items="limbs"
+                    item-text="text"
+                    item-value="value"
                     v-model="newVaccineObj.vakcina.ekstremitet"
                   />
                 </v-col>
