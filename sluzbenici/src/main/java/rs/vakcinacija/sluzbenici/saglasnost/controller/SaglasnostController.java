@@ -14,6 +14,7 @@ import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.sluzbenici.saglasnost.service.SaglasnostClient;
 
+import java.io.ByteArrayInputStream;
 import java.util.UUID;
 
 @RestController
@@ -42,7 +43,11 @@ public class SaglasnostController {
 
     @GetMapping(value = "/pdf/{id}")
     public InputStreamResource pdf(@PathVariable UUID id) {
-        return saglasnostClient.pdf(id);
+        return new InputStreamResource(
+                new ByteArrayInputStream(
+                        saglasnostClient.pdf(id)
+                )
+        );
     }
 
     @GetMapping(value = "/za-sluzbenika")

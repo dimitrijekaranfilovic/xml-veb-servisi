@@ -57,7 +57,7 @@
             <td colspan="2">
               <span style="font-size: 25px;"><b>ДИГИТАЛНИ ЗЕЛЕНИ СЕРТИФИКАТ</b></span>
               <br />
-              Потврда о извршеној имунизацији протиц
+              Потврда о извршеној имунизацији против
               <br />
               COVID-19 и резултатима тестирања
               <br />
@@ -106,7 +106,11 @@
           </tr>
           <tr>
             <td class="left"><b>Датум рођења / Date of birth:</b></td>
-            <td width="60%" class="left"><xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/></td>
+            <td width="60%" class="left">
+              <xsl:value-of select="substring(//b:datum_rodjenja, 9, 2)"/>.<xsl:value-of
+                    select="substring(//b:datum_rodjenja, 6, 2)"/>.<xsl:value-of
+                    select="substring(//b:datum_rodjenja, 0, 5)"/>
+            </td>
           </tr>
           <tr>
             <td class="left"><b>ЈМБГ / Personal No. / EBS:</b></td>
@@ -146,7 +150,11 @@
                   </td>
                 </tr>
                 <tr>
-                  <td><b>Датум / Date:</b> <xsl:value-of select="//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja" /></td>
+                  <td><b>Датум / Date: </b>
+                    <xsl:value-of select="substring(//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja, 9, 2)"/>.<xsl:value-of
+                            select="substring(//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja, 6, 2)"/>.<xsl:value-of
+                            select="substring(//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja, 0, 5)"/>
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -182,7 +190,11 @@
                   </td>
                 </tr>
                 <tr>
-                  <td><b>Датум / Date:</b> <xsl:value-of select="//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja" /></td>
+                  <td><b>Датум / Date: </b>
+                    <xsl:value-of select="substring(//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja, 9, 2)"/>.<xsl:value-of
+                            select="substring(//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja, 6, 2)"/>.<xsl:value-of
+                            select="substring(//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja, 0, 5)"/>
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -330,7 +342,10 @@
                     РЕПУБЛИКА СРБИЈА<br /> Влада Републике Србија<br />
                     Канцеларија за информационе технологије и електронску управу<br />
                     Немањина 11, Београд<br />
-                    Датум: <xsl:value-of select="substring(//b:datum_izdavanja, 0, 11)"/>
+                    Датум:
+                    <xsl:value-of select="substring(//b:datum_vreme_izdavanja, 9, 2)"/>.<xsl:value-of
+                          select="substring(//b:datum_vreme_izdavanja, 6, 2)"/>.<xsl:value-of
+                          select="substring(//b:datum_vreme_izdavanja, 0, 5)"/>
                   </td>
                 </tr>
               </table>

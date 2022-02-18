@@ -142,7 +142,7 @@
                         </fo:table>
                     </fo:block>
 
-                    <fo:block font-family="SourceSansPro" font-size="12px" text-align="center">
+                    <fo:block font-family="SourceSansPro" font-weight="bold" font-size="12px" text-align="center">
                         Вакцинација / Vaccination
                     </fo:block>
 
@@ -156,12 +156,14 @@
                                                 <fo:table-body>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Доза / Dose: 1/2</fo:block>
+                                                            <fo:block font-family="SourceSansPro">
+                                                                <fo:inline font-weight="bold">Доза / Dose:</fo:inline> 1/2
+                                                            </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Тип / Type:</fo:block>
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">Тип / Type:</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
@@ -173,7 +175,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Произвођач и серија / Manufacturer and batch number:</fo:block>
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">Произвођач и серија / Manufacturer and batch number:</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
@@ -187,12 +189,16 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Датум / Date: <xsl:value-of select="//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja" /></fo:block>
+                                                            <fo:block font-family="SourceSansPro"><fo:inline font-weight="bold">Датум / Date: </fo:inline>
+                                                                <xsl:value-of select="substring(//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja, 9, 2)"/>.<xsl:value-of
+                                                                        select="substring(//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja, 6, 2)"/>.<xsl:value-of
+                                                                        select="substring(//b:doza_vakcine[za:broj_doze=1]/za:datum_davanja, 0, 5)"/>
+                                                            </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Здравствена установа / Health care institution:</fo:block>
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">Здравствена установа / Health care institution:</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
@@ -212,12 +218,12 @@
                                                 <fo:table-body>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Доза / Dose: 2/2</fo:block>
+                                                            <fo:block font-family="SourceSansPro"><fo:inline font-weight="bold">Доза / Dose:</fo:inline> 2/2</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Тип / Type:</fo:block>
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">Тип / Type:</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
@@ -229,7 +235,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Произвођач и серија / Manufacturer and batch number:</fo:block>
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">Произвођач и серија / Manufacturer and batch number:</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
@@ -243,12 +249,16 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Датум / Date: <xsl:value-of select="//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja" /></fo:block>
+                                                            <fo:block font-family="SourceSansPro"><fo:inline font-weight="bold">Датум / Date: </fo:inline>
+                                                                <xsl:value-of select="substring(//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja, 9, 2)"/>.<xsl:value-of
+                                                                        select="substring(//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja, 6, 2)"/>.<xsl:value-of
+                                                                        select="substring(//b:doza_vakcine[za:broj_doze=2]/za:datum_davanja, 0, 5)"/>
+                                                            </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">Здравствена установа / Health care institution:</fo:block>
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">Здравствена установа / Health care institution:</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
@@ -277,21 +287,21 @@
                                                 <fo:table-body>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block text-align="center">
+                                                            <fo:block text-align="center" font-weight="bold">
                                                                 SARS-CoV-2 RT
                                                             </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row border-bottom="1px solid black">
                                                         <fo:table-cell>
-                                                            <fo:block text-align="center">
+                                                            <fo:block text-align="center" font-weight="bold">
                                                                 Real-time PCR
                                                             </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Врста узорка / Sample type:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -305,7 +315,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Произвођач теста / Test manufacturer:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -319,7 +329,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Датум и време узорковања / Date and time of sampling:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -333,7 +343,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Датум и време издавања резултата / Date and time of result:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -347,7 +357,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row border-top="1px solid black" background-color="lightgray">
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Резултат / Result:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -361,7 +371,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row background-color="lightgray">
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Лабораторија / Laboratory:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -383,21 +393,21 @@
                                                 <fo:table-body>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block text-align="center">
+                                                            <fo:block text-align="center" font-weight="bold">
                                                                 SARS-CoV-2 Ag-RDT
                                                             </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row border-bottom="1px solid black">
                                                         <fo:table-cell>
-                                                            <fo:block text-align="center">
+                                                            <fo:block text-align="center" font-weight="bold">
                                                                 (Antigen Rapid Detection test)
                                                             </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Врста узорка / Sample type:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -411,7 +421,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Произвођач теста / Test manufacturer:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -425,7 +435,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Датум и време узорковања / Date and time of sampling:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -439,7 +449,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Датум и време издавања резултата / Date and time of result:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -453,7 +463,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row border-top="1px solid black" background-color="lightgray">
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Резултат / Result:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -467,7 +477,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row background-color="lightgray">
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Лабораторија / Laboratory:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -489,21 +499,21 @@
                                                 <fo:table-body>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block text-align="center">
+                                                            <fo:block text-align="center" font-weight="bold">
                                                                 SARS-CoV-2 RBD S-Protein
                                                             </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row border-bottom="1px solid black">
                                                         <fo:table-cell>
-                                                            <fo:block text-align="center">
+                                                            <fo:block text-align="center" font-weight="bold">
                                                                 Immunoglobulin G (IgG) test
                                                             </fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Врста узорка / Sample type:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -517,7 +527,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Произвођач теста / Test manufacturer:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -531,7 +541,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Датум и време узорковања / Date and time of sampling:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -545,7 +555,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row>
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Датум и време издавања резултата / Date and time of result:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -559,7 +569,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row border-top="1px solid black" background-color="lightgray">
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Резултат / Result:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -573,7 +583,7 @@
                                                     </fo:table-row>
                                                     <fo:table-row background-color="lightgray">
                                                         <fo:table-cell>
-                                                            <fo:block font-family="SourceSansPro">
+                                                            <fo:block font-family="SourceSansPro" font-weight="bold">
                                                                 Лабораторија / Laboratory:
                                                             </fo:block>
                                                         </fo:table-cell>
@@ -594,7 +604,7 @@
                         </fo:table>
                     </fo:block>
 
-                    <fo:block font-family="SourceSansPro" text-align="right" font-size="10px">
+                    <fo:block font-family="SourceSansPro" text-align="right" font-size="10px" font-weight="bold">
                         Дигитални потпис / Digitally signed by:
                     </fo:block>
 
@@ -613,10 +623,10 @@
                                     </fo:table-cell>
                                     <fo:table-cell>
                                         <fo:block linefeed-treatment="preserve" text-align="left" font-size="10px" font-family="SourceSansPro" padding="1px">
-                                            Сертификат издаје:
+                                            <fo:inline font-weight="bold">Сертификат издаје:</fo:inline>
                                             Институт за Јавно здравље Србије
                                             "Др Милан Јовановић Батут"
-                                            Certificate issued by:
+                                            <fo:inline font-weight="bold">Certificate issued by:</fo:inline>
                                             Institute of Public Health of Serbia
                                             "Dr Milan Jovanovic Batut"
                                         </fo:block>
@@ -633,7 +643,7 @@
                                             Канцеларија за информационе
                                             технологије и електронску управу
                                             Немањина 11, БЕОГРАД
-                                            Датум: <xsl:value-of select="substring(//b:datum_vreme_izdavanja, 0, 11)"/>
+                                            Датум: <xsl:value-of select="substring(//b:datum_vreme_izdavanja, 9, 2)"/>.<xsl:value-of select="substring(//b:datum_vreme_izdavanja, 6, 2)"/>.<xsl:value-of select="substring(//b:datum_vreme_izdavanja, 0, 5)"/>
                                         </fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>
