@@ -153,13 +153,20 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
 
                     var termini = punkt.getTermini().getTermini();
                     if (!termini.isEmpty()) {
-                        var dodeljeniTermin = termini.stream().findFirst();
-                        dodeljeniTermin.ifPresent(termini::remove);
-                        dostupnaVakcina.setStanjeVakcine(dostupnaVakcina.getStanjeVakcine() - 1);
-                        dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto, dostupnaVakcina.getNazivVakcine()));
-                        this.existRepository.save(punkt);
-                        this.setZahtevTerminDate(interesovanjeId, dodeljeniTermin.orElseThrow());
-                        return true;
+                        var dodeljeniTermin = termini.stream().filter(p -> {
+                            var today = new Date();
+                            long diffInMillies = p.getTime() - today.getTime();
+                            return diffInMillies > 0 && diffInMillies < 604800000;
+
+                        }).findFirst();
+                        if (dodeljeniTermin.isPresent()) {
+                            dodeljeniTermin.ifPresent(termini::remove);
+                            dostupnaVakcina.setStanjeVakcine(dostupnaVakcina.getStanjeVakcine() - 1);
+                            dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto, dostupnaVakcina.getNazivVakcine()));
+                            this.existRepository.save(punkt);
+                            this.setZahtevTerminDate(interesovanjeId, dodeljeniTermin.orElseThrow());
+                            return true;
+                        }
                     }
                 }
             }
