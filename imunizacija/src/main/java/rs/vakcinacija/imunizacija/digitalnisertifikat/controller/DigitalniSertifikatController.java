@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.vakcinacija.imunizacija.digitalnisertifikat.model.KolekcijaDigitalnihSertifikata;
 import rs.vakcinacija.imunizacija.digitalnisertifikat.service.DigitalniSertifikatService;
 
+import java.io.ByteArrayInputStream;
 import java.util.UUID;
 
 
@@ -32,7 +33,10 @@ public class DigitalniSertifikatController {
 
     @GetMapping(value = "pdf/{id}")
     public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
-        return new ResponseEntity<>(digitalniSertifikatService.getPDFRepresentation(id), HttpStatus.OK);
+        return new ResponseEntity<>(new InputStreamResource(
+                new ByteArrayInputStream(
+                        digitalniSertifikatService.getPDFRepresentation(id))),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "html/{id}")

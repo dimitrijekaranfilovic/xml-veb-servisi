@@ -48,6 +48,12 @@ public class DigitalniSertifikatController {
         return new InputStreamResource(pdf);
     }
 
+    @GetMapping(value = "/string-pdf/{id}")
+    public byte[] stringPdf(@PathVariable UUID id) throws Exception {
+        var pdf = digitalniSertifikatService.generatePDF(digitalniSertifikatService.read(id), "src/main/resources/xsl-fo/digitalni_sertifikat_fo.xsl");
+        return pdf.readAllBytes();
+    }
+
     @GetMapping(value = "/{id}")
     public DigitalniSertifikat read(@PathVariable UUID id) throws Exception {
         return digitalniSertifikatService.read(id);

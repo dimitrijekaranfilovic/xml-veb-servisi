@@ -1,7 +1,6 @@
 package rs.vakcinacija.imunizacija.digitalnisertifikat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.digitalnisertifikat.model.KolekcijaDigitalnihSertifikata;
 
@@ -21,8 +20,8 @@ public class DigitalniSertifikatService {
         return digitalniSertifikatClient.read(email, null);
     }
 
-    public InputStreamResource getPDFRepresentation(UUID id) throws Exception {
-        return this.digitalniSertifikatClient.pdf(id);
+    public byte[] getPDFRepresentation(UUID id) throws Exception {
+        return this.digitalniSertifikatClient.stringPdf(id);
     }
 
     public String getHTMLRepresentation(UUID id) throws Exception {
