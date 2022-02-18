@@ -133,8 +133,10 @@
                                     </fo:table-cell>
                                     <fo:table-cell vertical-align="middle">
                                         <fo:block>
-                                            <fo:inline font-weight="bold">Датум рођења:</fo:inline>
-                                            <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/>
+                                            <fo:inline font-weight="bold">Датум рођења: </fo:inline>
+                                            <xsl:value-of select="substring(//b:datum, 9, 2)"/>.<xsl:value-of
+                                                select="substring(//b:datum, 6, 2)"/>.<xsl:value-of
+                                                select="substring(//b:datum, 0, 5)"/>
                                         </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell>
