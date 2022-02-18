@@ -233,13 +233,18 @@
               ></v-checkbox>
             </v-col>
             <v-col>
-              <v-text-field
-                class="ml-5"
+              <v-select
                 v-model="vakcina"
+                :items="vakcine"
                 :rules="[checkVakcina]"
+                item-text="text"
+                item-value="value"
                 label="Назив имунолошког лека"
+                data-vv-name="vakcine"
+                required
+                @change="clearZanimanje"
                 :disabled="!izjava"
-              ></v-text-field>
+              ></v-select>
             </v-col>
           </v-row>
 
@@ -370,6 +375,14 @@ export default {
     opstinaSedista: "",
     izjava: false,
     vakcina: "",
+    vakcine: [
+      "Pfizer-BioNTech",
+      "Sputnik V (Gamaleya истраживачки центар)",
+      "Sinopharm",
+      "AstraZeneca",
+      "Moderna",
+      "Било која",
+    ],
   }),
   mounted() {
     let jwt = localStorage.getItem("jwt");
