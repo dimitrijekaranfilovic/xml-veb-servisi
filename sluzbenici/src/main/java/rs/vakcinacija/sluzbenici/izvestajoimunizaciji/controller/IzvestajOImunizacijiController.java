@@ -2,6 +2,7 @@ package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class IzvestajOImunizacijiController {
         this.izvestajOImunizacijiService = izvestajOImunizacijiService;
     }
 
+    @GetMapping(value = "/pdf/{id}")
+    public InputStreamResource pdf(@PathVariable UUID id) throws Exception {
+        var pdf = this.izvestajOImunizacijiService.generatePDF(this.izvestajOImunizacijiService.read(id), "src/main/resources/xsl-fo/izvestaj_o_imunizaciji_fo.xsl");
+        return new InputStreamResource(pdf);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

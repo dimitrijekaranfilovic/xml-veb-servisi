@@ -1,6 +1,7 @@
 package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.dto.NaprednaPretragaRequest;
@@ -32,6 +33,12 @@ public class PotvrdaOVakcinacijiController {
     @GetMapping(value = "/html/{id}")
     public String generateHtml(@PathVariable UUID id) throws Exception {
         return this.potvrdaOVakcinacijiService.generateHTML(this.read(id), "src/main/resources/xslt/potvrda_o_vakcinaciji.xsl");
+    }
+
+    @GetMapping(value = "/pdf/{id}")
+    public InputStreamResource pdf(@PathVariable UUID id) throws Exception {
+        var pdf = this.potvrdaOVakcinacijiService.generatePDF(this.potvrdaOVakcinacijiService.read(id), "src/main/resources/xsl-fo/potvrda_o_vakcinaciji_fo.xsl");
+        return new InputStreamResource(pdf);
     }
 
     @GetMapping(value = "/za-gradjanina")

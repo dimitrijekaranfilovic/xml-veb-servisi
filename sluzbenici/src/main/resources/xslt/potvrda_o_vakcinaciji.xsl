@@ -47,6 +47,17 @@
                     margin-left: 4px;
                 }
 
+                .footer {
+                    position: relative;
+                    min-height: 150px;
+                }
+
+                .footer-content {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                }
+
             </style>
             <body>
                 <div class="container">
@@ -94,7 +105,9 @@
                         <p class="data-cyrillic">
                             Датум рођења:
                             <span>
-                                <xsl:value-of select="substring(//b:datum_rodjenja, 0, 11)"/>
+                                <xsl:value-of select="substring(//b:datum_rodjenja, 9, 2)"/>.<xsl:value-of
+                                    select="substring(//b:datum_rodjenja, 6, 2)"/>.<xsl:value-of
+                                    select="substring(//b:datum_rodjenja, 0, 5)"/>.
                             </span>
                         </p>
                         <p class="data-other">Datum rođenja / Date Of Birth</p>
@@ -131,7 +144,9 @@
                             <p class="data-cyrillic">
                                 Датум давања и број серије <xsl:value-of select="za:broj_doze"/>. дозе:
                                 <span>
-                                    <xsl:value-of select="substring(za:datum_davanja, 0, 11)"/>,
+                                    <xsl:value-of select="substring(za:datum_davanja, 9, 2)"/>.<xsl:value-of
+                                        select="substring(za:datum_davanja, 6, 2)"/>.<xsl:value-of
+                                        select="substring(za:datum_davanja, 0, 5)"/>,
                                     <xsl:value-of select="za:broj_serije"/>
                                 </span>
                             </p>
@@ -169,7 +184,9 @@
                         <p class="data-cyrillic">
                             Датум издавања потврде:
                             <span>
-                                <xsl:value-of select="substring(//b:datum_izdavanja, 0, 11)"/>
+                                <xsl:value-of select="substring(//b:datum_izdavanja, 9, 2)"/>.<xsl:value-of
+                                    select="substring(//b:datum_izdavanja, 6, 2)"/>.<xsl:value-of
+                                    select="substring(//b:datum_izdavanja, 0, 5)"/>.
                             </span>
                         </p>
                         <p class="data-other">
@@ -194,12 +211,14 @@
                         </xsl:attribute>
                     </img>
 
-                    <div>
-                        <p class="data-cyrillic">Ова потврда важи без потписа и печата</p>
-                        <p class="data-other">
-                            Ova potvrda važi bez potpisa i pečata / Тhis certificate is valid
-                            without signatures and seals
-                        </p>
+                    <div class="footer">
+                        <div class="footer-content">
+                            <p class="data-cyrillic">Ова потврда важи без потписа и печата</p>
+                            <p class="data-other">
+                                Ova potvrda važi bez potpisa i pečata / Тhis certificate is valid
+                                without signatures and seals
+                            </p>
+                        </div>
                     </div>
                 </div>
             </body>
