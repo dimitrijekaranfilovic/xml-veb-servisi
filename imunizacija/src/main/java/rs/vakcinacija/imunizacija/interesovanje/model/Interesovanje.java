@@ -29,14 +29,18 @@ public class Interesovanje extends BaseDocument {
     @XmlElement(name = "odabrani_proizvodjaci", required = true)
     private OdabraniProizvodjaci odabraniProizvodjaci;
 
+    @XmlElement(name = "datum_termina", required = false)
+    private RDFDate datumTermina;
+
     public Interesovanje() {
     }
 
-    public Interesovanje(RDFDate datum, LicneInformacije licneInformacije,
-                         RDFString odabranaLokacijaPrimanjaVakcine, OdabraniProizvodjaci odabraniProizvodjaci) {
+    public Interesovanje(RDFDate datum, LicneInformacije licneInformacije, RDFString odabranaLokacijaPrimanjaVakcine,
+                         OdabraniProizvodjaci odabraniProizvodjaci, RDFDate datumTermina) {
         this.datum = datum;
         this.licneInformacije = licneInformacije;
         this.odabranaLokacijaPrimanjaVakcine = odabranaLokacijaPrimanjaVakcine;
         this.odabraniProizvodjaci = odabraniProizvodjaci;
+        this.datumTermina = datumTermina;
     }
 }

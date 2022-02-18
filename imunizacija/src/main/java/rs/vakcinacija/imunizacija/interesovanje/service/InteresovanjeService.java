@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import rs.vakcinacija.imunizacija.config.email.EmailClient;
 import rs.vakcinacija.imunizacija.interesovanje.event.InteresovanjePodnetoEvent;
 import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
-import rs.vakcinacija.imunizacija.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.zajednicko.data.repository.ExistRepository;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
 import rs.vakcinacija.zajednicko.metadata.repository.FusekiRepository;
@@ -136,7 +135,7 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
         sb.append("\n\tПрезиме: ").append(interesovanje.getLicneInformacije().getImePrezime().getPrezime().getValue())
                 .append("\n");
         sb.append("\n\tАдреса електронске поште: ").append(
-                interesovanje.getLicneInformacije().getKontakt().getEmail().getValue())
+                        interesovanje.getLicneInformacije().getKontakt().getEmail().getValue())
                 .append("\n");
         sb.append("\n\tБрој мобилног телефона: ")
                 .append(interesovanje.getLicneInformacije().getKontakt().getBrojMobilnog().getValue())
@@ -158,5 +157,11 @@ public class InteresovanjeService extends DocumentService<Interesovanje> {
         sb.append("Ваш портал за имунизацију\n");
 
         emailService.sendEmail(new SendEmailRequest(to, subject, sb.toString()));
+    }
+
+    public void setDatumTermina(UUID id, Date datumTermina) throws Exception {
+        Interesovanje interesovanje = read(id);
+        interesovanje.setDatumTermina(RDFDate.of(datumTermina));
+        this.existRepository.save(interesovanje);
     }
 }

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model.PotvrdaOVakcinaciji;
 import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.service.PotvrdaOVakcinacijiService;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.KontraindikacijaDTO;
+import rs.vakcinacija.sluzbenici.saglasnost.dto.NaprednaPretragaRequest;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.VakcinaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.model.KolekcijaSaglasnosti;
-import rs.vakcinacija.sluzbenici.saglasnost.dto.NaprednaPretragaRequest;
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.sluzbenici.saglasnost.service.SaglasnostClient;
 

@@ -2,8 +2,6 @@ package rs.vakcinacija.sluzbenici.izvestajoimunizaciji.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.KolekcijaVakcinacionihPunktova;
-import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.VakcinacioniPunkt;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -11,6 +11,7 @@ import rs.vakcinacija.imunizacija.interesovanje.model.Interesovanje;
 import rs.vakcinacija.imunizacija.interesovanje.model.KolekcijaInteresovanja;
 import rs.vakcinacija.imunizacija.interesovanje.service.InteresovanjeService;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
@@ -49,6 +50,11 @@ public class InteresovanjeController {
     @GetMapping(value = "pdf/{id}")
     public ResponseEntity<InputStreamResource> readPDF(@PathVariable UUID id) throws Exception {
         return new ResponseEntity<>(new InputStreamResource(interesovanjeService.getPDFRepresentation(id)), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/datum-termina/{id}")
+    public void setDatumTermina(@PathVariable UUID id, @RequestBody long datumTermina) throws Exception {
+        this.interesovanjeService.setDatumTermina(id, new Date(datumTermina));
     }
 
 }

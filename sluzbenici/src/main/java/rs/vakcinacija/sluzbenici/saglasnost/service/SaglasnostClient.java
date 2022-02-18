@@ -2,8 +2,6 @@ package rs.vakcinacija.sluzbenici.saglasnost.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.KontraindikacijaDTO;
 import rs.vakcinacija.sluzbenici.saglasnost.dto.PodaciOLekaruUstanoviDTO;

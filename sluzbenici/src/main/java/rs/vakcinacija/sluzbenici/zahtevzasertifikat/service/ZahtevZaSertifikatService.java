@@ -56,7 +56,7 @@ public class ZahtevZaSertifikatService {
     public void reject(UUID id, String reason) {
         var request = readForResponse(id);
         emailService.sendEmail(
-                new SendEmailRequest(request.provideEmail(), "Одбијање захтева за издавање Дигиталног сертификата",  buildRejectMessage(request, reason))
+                new SendEmailRequest(request.provideEmail(), "Одбијање захтева за издавање Дигиталног сертификата", buildRejectMessage(request, reason))
         );
         // Maybe notify imunizacija service to update some metadata on the original document?
         client.reject(

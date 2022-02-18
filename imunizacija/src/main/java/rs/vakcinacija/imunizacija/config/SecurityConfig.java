@@ -1,7 +1,6 @@
 package rs.vakcinacija.imunizacija.config;
 
 
-import org.apache.tools.ant.taskdefs.condition.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -59,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .antMatchers(HttpMethod.POST, "/saglasnost").permitAll()
                 .antMatchers("/saglasnost/za-gradjanina/**").permitAll()
                 .antMatchers("/saglasnost/za-sluzbenika/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/saglasnost/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/saglasnost/{id}").permitAll()
                 .antMatchers(HttpMethod.POST, "/saglasnost/{id}/podaci-o-lekaru-ustanovi").permitAll()
                 .antMatchers(HttpMethod.GET, "/saglasnost/{id}/odluka-komisije").permitAll()
                 .antMatchers(HttpMethod.POST, "/saglasnost/{id}/kontraindikacije").permitAll()
@@ -69,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .antMatchers(HttpMethod.GET, "/zahtev-za-sertifikat").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .antMatchers(HttpMethod.POST, "/interesovanje/datum-termina/{id}").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtTokenFilter,

@@ -7,7 +7,6 @@ import rs.vakcinacija.zajednicko.model.RDFField;
 import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.*;
-import java.util.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "test")

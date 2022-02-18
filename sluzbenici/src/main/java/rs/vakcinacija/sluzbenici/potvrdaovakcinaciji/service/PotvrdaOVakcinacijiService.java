@@ -14,7 +14,10 @@ import rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.repository.PotvrdaOVakcinac
 import rs.vakcinacija.sluzbenici.saglasnost.model.SaglasnostZaSprovodjenjeImunizacije;
 import rs.vakcinacija.sluzbenici.saglasnost.service.SaglasnostClient;
 import rs.vakcinacija.sluzbenici.zahtevzasertifikat.exception.CitizenHasNoVaccinationCertificateException;
-import rs.vakcinacija.zajednicko.model.*;
+import rs.vakcinacija.zajednicko.model.Doza;
+import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.model.RDFInteger;
+import rs.vakcinacija.zajednicko.model.RDFString;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 import rs.vakcinacija.zajednicko.service.QRCodeService;
 

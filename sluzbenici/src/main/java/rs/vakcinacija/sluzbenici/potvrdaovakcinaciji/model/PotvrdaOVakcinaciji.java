@@ -3,7 +3,9 @@ package rs.vakcinacija.sluzbenici.potvrdaovakcinaciji.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.vakcinacija.zajednicko.model.*;
+import rs.vakcinacija.zajednicko.model.BaseDocument;
+import rs.vakcinacija.zajednicko.model.RDFDate;
+import rs.vakcinacija.zajednicko.model.RDFString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

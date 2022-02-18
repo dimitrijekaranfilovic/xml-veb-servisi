@@ -14,8 +14,8 @@ import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.VakcinacioniPunkt;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.model.ZainteresovaniPacijent;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.repository.VakcinacioniPunktExistRepository;
 import rs.vakcinacija.sluzbenici.vakcinacionipunkt.repository.VakcinacioniPunktFusekiRepository;
+import rs.vakcinacija.sluzbenici.zahtevzasertifikat.service.ZahtevZaSertifikatService;
 import rs.vakcinacija.zajednicko.email.model.SendEmailRequest;
-import rs.vakcinacija.zajednicko.email.service.EmailService;
 import rs.vakcinacija.zajednicko.service.DocumentService;
 
 import java.util.Collection;
@@ -29,10 +29,16 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
 
     private final EmailClient emailService;
 
+    private final InteresovanjeClient client;
+
+    private final ZahtevZaSertifikatService zahtevZaSertifikatService;
+
     @Autowired
-    public VakcinacioniPunktService(VakcinacioniPunktExistRepository vakcinacioniPunktExistRepository, VakcinacioniPunktFusekiRepository vakcinacioniPunktFusekiRepository, EmailClient emailService) {
+    public VakcinacioniPunktService(VakcinacioniPunktExistRepository vakcinacioniPunktExistRepository, VakcinacioniPunktFusekiRepository vakcinacioniPunktFusekiRepository, EmailClient emailService, InteresovanjeClient client, ZahtevZaSertifikatService zahtevZaSertifikatService) {
         super(vakcinacioniPunktExistRepository, vakcinacioniPunktFusekiRepository);
         this.emailService = emailService;
+        this.client = client;
+        this.zahtevZaSertifikatService = zahtevZaSertifikatService;
     }
 
 
@@ -96,8 +102,16 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
 
     public void processArrivingInteresovanje(String mesto, Collection<String> odabraneVakcine, String email,
                                              UUID interesovanjeId) throws Exception {
-        var punkt = this.existRepository.read(p -> p.getNazivPunkta().equals(mesto))
-                .stream().findFirst().orElseThrow();
+        var punktOptional = this.existRepository.read(p -> p.getNazivPunkta().equals(mesto))
+                .stream().findFirst();
+        VakcinacioniPunkt punkt;
+        if (punktOptional.isEmpty()) {
+            var created = new VakcinacioniPunkt();
+            created.setNazivPunkta(mesto);
+            punkt = this.create(created);
+        } else {
+            punkt = punktOptional.get();
+        }
 
         if (!assignAppointment(punkt, odabraneVakcine, email, interesovanjeId)) {
             punkt.getZainteresovaniPacijenti().getZainteresovaniPacijenti()
@@ -144,8 +158,7 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
                         dostupnaVakcina.setStanjeVakcine(dostupnaVakcina.getStanjeVakcine() - 1);
                         dodeljeniTermin.ifPresent(p -> sendInteresovanjeRecievedMessage(email, p, mesto, dostupnaVakcina.getNazivVakcine()));
                         this.existRepository.save(punkt);
-                        // TODO: Send event that contains InteresovanjeID and date of appointment so it can be added
-                        //  to the Interesovanje document in Imunizacija project
+                        this.setZahtevTerminDate(interesovanjeId, dodeljeniTermin.orElseThrow());
                         return true;
                     }
                 }
@@ -174,5 +187,9 @@ public class VakcinacioniPunktService extends DocumentService<VakcinacioniPunkt>
         sb.append("Ваш портал за имунизацију\n");
 
         emailService.sendEmail(new SendEmailRequest(to, subject, sb.toString()));
+    }
+
+    public void setZahtevTerminDate(UUID id, Date datumTermina) throws Exception {
+        this.client.setDatumTermina(id, datumTermina.getTime());
     }
 }
