@@ -123,14 +123,15 @@ export default Vue.extend({
     documentName: {
       "pred:DigitalniSertifikat": "Дигитални сертификат",
       "pred:PotvrdaOVakcinaciji": "Потврда о вакцинацији",
-      "pred:ObrazacSaglasnosti": "Образац сагласности",
+      "pred:SaglasnostZaSprovodjenjeImunizacije": "Образац сагласности",
       "pred:ZahtevZaSertifikat": "Захтев за сертификат",
       "pred:Interesovanje": "Документ интересовања",
     },
     documentRoute: {
       "pred:DigitalniSertifikat": "DigitalCertificateDocumentView",
       "pred:PotvrdaOVakcinaciji": "VaccinationConfirmationDocumentView",
-      "pred:ObrazacSaglasnosti": "VaccinationConsentDocumentView",
+      "pred:SaglasnostZaSprovodjenjeImunizacije":
+        "VaccinationConsentDocumentView",
       "pred:ZahtevZaSertifikat": "DigitalCertificateRequestDocumentView",
       "pred:Interesovanje": "Документ интересовања",
     },
