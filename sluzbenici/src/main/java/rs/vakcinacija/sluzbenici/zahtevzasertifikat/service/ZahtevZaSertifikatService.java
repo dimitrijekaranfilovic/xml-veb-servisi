@@ -78,6 +78,7 @@ public class ZahtevZaSertifikatService {
         var prezime = zahtevZaSertifikat.getPodnosilacZahteva().getLicniPodaci().getPrezime().getValue();
         return String.format("Поштовани %s %s,\n\n", ime, prezime) +
                 String.format("Одобрен Вам је Дигитални сертификат на основу захтева %s.\n\n", digitalniSertifikat.getId()) +
+                String.format("Дигитални сертификат можете погледати и преузети кликом на <a href='http://localhost:3001/#/pregled/digitalni-sertifikat/%s' >линк</a>.\n\n", digitalniSertifikat.getId()) +
                 "Срдачан поздрав,\nВаш портал за имунизацију\n\n";
     }
 
