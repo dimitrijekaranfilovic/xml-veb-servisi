@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="zahtevi"
+    :items="sertifikati"
     :items-per-page="5"
     item-key="id"
     class="elevation-1"
@@ -15,9 +15,7 @@
   >
     <template v-slot:item="row">
       <tr>
-        <td>{{ row.item.datum.value }}</td>
-        <td>{{ row.item.mesto.value }}</td>
-        <td>{{ row.item.status.value }}</td>
+        <td>{{ row.item.datumVremeIzdavanja.value }}</td>
         <td align="right">
           <v-btn
             class="mx-2"
@@ -43,24 +41,16 @@ export default {
     return {
       headers: [
         {
-          text: "Поднешено дана",
+          text: "Датум издавања",
           align: "start",
-          value: "datum.value",
-        },
-        {
-          text: "Место подношења",
-          value: "mesto.value",
-        },
-        {
-          text: "Статус",
-          value: "status.value",
+          value: "datumVremeIzdavanja.value",
         },
         {
           text: "Акција",
           align: "right",
         },
       ],
-      zahtevi: [],
+      sertifikati: [],
     };
   },
   mounted() {
@@ -71,11 +61,13 @@ export default {
       let that = this;
       DigitalniSertifikatService.getAllForUser().then((data) => {
         for (let doc of data.data.digitalniSertifikati) {
-          let dateToekns = new Date(doc.datum.value).toString().split(" ");
-          doc.datum.value =
+          let dateToekns = new Date(doc.datumVremeIzdavanja.value)
+            .toString()
+            .split(" ");
+          doc.datumVremeIzdavanja.value =
             dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
         }
-        that.zahtevi = data.data.digitalniSertifikati;
+        that.sertifikati = data.data.digitalniSertifikati;
         that.$root.$emit("digitalniSertifikatiFetched");
       });
     },

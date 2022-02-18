@@ -15,6 +15,6 @@ public class DigitalniSertifikatService {
     }
 
     public KolekcijaDigitalnihSertifikata readForClient(String email) {
-        return digitalniSertifikatClient.read(email, "");
+        return digitalniSertifikatClient.read(email, null);
     }
 }
