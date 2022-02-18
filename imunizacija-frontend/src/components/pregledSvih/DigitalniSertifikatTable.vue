@@ -60,12 +60,14 @@ export default {
     fetchData() {
       let that = this;
       DigitalniSertifikatService.getAllForUser().then((data) => {
-        for (let doc of data.data.digitalniSertifikati) {
-          let dateToekns = new Date(doc.datumVremeIzdavanja.value)
-            .toString()
-            .split(" ");
-          doc.datumVremeIzdavanja.value =
-            dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
+        if (data && data.data && data.data.digitalniSertifikati) {
+          for (let doc of data.data.digitalniSertifikati) {
+            let dateToekns = new Date(doc.datumVremeIzdavanja.value)
+              .toString()
+              .split(" ");
+            doc.datumVremeIzdavanja.value =
+              dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
+          }
         }
         that.sertifikati = data.data.digitalniSertifikati || [];
         that.$root.$emit("digitalniSertifikatiFetched");
