@@ -77,7 +77,7 @@ export default {
           doc.datumIzdavanja.value =
             dateTokens[1] + " " + dateTokens[2] + " " + dateTokens[3];
         }
-        that.potvrde = data.data.potvrde;
+        that.potvrde = data.data.potvrde || [];
         that.$root.$emit("potvrdeOVakcinacijiFetched");
       });
     },

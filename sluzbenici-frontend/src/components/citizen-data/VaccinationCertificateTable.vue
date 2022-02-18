@@ -50,7 +50,9 @@
                 >
                   <td>{{ referenca | deRdf }}</td>
                   <td>{{ getDocumentName(referenca.typeof) }}</td>
-                  <v-btn plain text color="primary" :to="buildRoute(referenca)">Прегледај документ</v-btn>
+                  <v-btn plain text color="primary" :to="buildRoute(referenca)"
+                    >Прегледај документ</v-btn
+                  >
                 </tr>
               </tbody>
             </template>
@@ -77,7 +79,16 @@
             {{ item.vakcinacija.ustanova | deRdf }}
           </td>
           <td>
-            <v-btn plain text color="primary" :to="{name: 'VaccinationConfirmationDocumentView', params: {id: item.id}}">Прегледај документ</v-btn>
+            <v-btn
+              plain
+              text
+              color="primary"
+              :to="{
+                name: 'VaccinationConfirmationDocumentView',
+                params: { id: item.id },
+              }"
+              >Прегледај документ</v-btn
+            >
           </td>
           <td>
             <v-btn plain text color="primary" @click="showReferences(item)">
@@ -112,23 +123,24 @@ export default Vue.extend({
     documentName: {
       "pred:DigitalniSertifikat": "Дигитални сертификат",
       "pred:PotvrdaOVakcinaciji": "Потврда о вакцинацији",
-      "pred:ObrazacSaglasnosti": "Образац сагласности",
+      "pred:SaglasnostZaSprovodjenjeImunizacije": "Образац сагласности",
       "pred:ZahtevZaSertifikat": "Захтев за сертификат",
       "pred:Interesovanje": "Документ интересовања",
     },
     documentRoute: {
       "pred:DigitalniSertifikat": "DigitalCertificateDocumentView",
       "pred:PotvrdaOVakcinaciji": "VaccinationConfirmationDocumentView",
-      "pred:ObrazacSaglasnosti": "VaccinationConsentDocumentView",
+      "pred:SaglasnostZaSprovodjenjeImunizacije":
+        "VaccinationConsentDocumentView",
       "pred:ZahtevZaSertifikat": "DigitalCertificateRequestDocumentView",
       "pred:Interesovanje": "Документ интересовања",
     },
     select: ["Текст:"],
     items: ["Текст:", "Датум издавања:", "Установа:", "Шифра документа:"],
     itemToQuery: {
-      "Текст": "query",
+      Текст: "query",
       "Датум издавања": "issueDate",
-      "Установа": "place",
+      Установа: "place",
       "Шифра документа": "documentId",
     },
   }),
@@ -175,7 +187,10 @@ export default Vue.extend({
       return "Непознати документ";
     },
     buildRoute(reference) {
-      return {name: this.documentRoute[reference.typeof], params: {id: reference.value}};
+      return {
+        name: this.documentRoute[reference.typeof],
+        params: { id: reference.value },
+      };
     },
   },
 });

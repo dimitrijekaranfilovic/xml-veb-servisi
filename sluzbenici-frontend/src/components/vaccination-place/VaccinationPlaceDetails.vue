@@ -274,7 +274,7 @@ export default {
   props: ["vaccinationPlace"],
   data() {
     return {
-      vaccine: [],
+      vaccines: [],
       loadingUpdateVaccine: false,
       loadingAddAppintment: false,
       loadingAddVaccine: false,

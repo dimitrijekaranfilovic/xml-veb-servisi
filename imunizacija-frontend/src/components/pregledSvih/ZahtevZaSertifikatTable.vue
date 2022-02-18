@@ -75,7 +75,7 @@ export default {
           doc.datum.value =
             dateToekns[1] + " " + dateToekns[2] + " " + dateToekns[3];
         }
-        that.zahtevi = data.data.zahteviZaSertifikat;
+        that.zahtevi = data.data.zahteviZaSertifikat || [];
         that.$root.$emit("zahteviFetched");
       });
     },

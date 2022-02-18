@@ -130,7 +130,7 @@
     </xs:complexType>
     <xs:complexType name="TStrani_drzavljanin">
         <xs:sequence>
-            <xs:element name="naziv_drzave">
+            <xs:element name="naziv_drzavljanstva">
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="za:TOgraniceni_string">

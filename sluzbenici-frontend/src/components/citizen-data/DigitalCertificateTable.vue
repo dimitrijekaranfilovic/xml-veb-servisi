@@ -119,14 +119,15 @@ export default Vue.extend({
     documentName: {
       "pred:DigitalniSertifikat": "Дигитални сертификат",
       "pred:PotvrdaOVakcinaciji": "Потврда о вакцинацији",
-      "pred:ObrazacSaglasnosti": "Образац сагласности",
+      "pred:SaglasnostZaSprovodjenjeImunizacije": "Образац сагласности",
       "pred:ZahtevZaSertifikat": "Захтев за сертификат",
       "pred:Interesovanje": "Документ интересовања",
     },
     documentRoute: {
       "pred:DigitalniSertifikat": "DigitalCertificateDocumentView",
       "pred:PotvrdaOVakcinaciji": "VaccinationConfirmationDocumentView",
-      "pred:ObrazacSaglasnosti": "VaccinationConsentDocumentView",
+      "pred:SaglasnostZaSprovodjenjeImunizacije":
+        "VaccinationConsentDocumentView",
       "pred:ZahtevZaSertifikat": "DigitalCertificateRequestDocumentView",
       "pred:Interesovanje": "Документ интересовања",
     },
@@ -144,7 +145,7 @@ export default Vue.extend({
       "Број серије друге дозе:",
     ],
     itemToQuery: {
-      "Текст": "query",
+      Текст: "query",
       "Датум издавања": "issueDate",
       "Тип прве дозе": "doseOneType",
       "Тип друге дозе": "doseTwoType",
@@ -197,7 +198,10 @@ export default Vue.extend({
       return "Непознати документ";
     },
     buildRoute(reference) {
-      return {name: this.documentRoute[reference.typeof], params: {id: reference.value}};
+      return {
+        name: this.documentRoute[reference.typeof],
+        params: { id: reference.value },
+      };
     },
   },
 });
